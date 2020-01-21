@@ -6,16 +6,24 @@ $last-p-padd: 1.5em;
 $nav-padd: 1em;
 
 body {
-  color: $normal-text-color;
-  font-family: arial;
-  font-size: 14px;
+  background-color: #fefefe;
   padding: 15px;
   margin: auto;
   max-width: 600px;
 }
-h1 {
+#wrapper {
+  color: $normal-text-color;
+  font-family: arial;
+  font-size: 14px;
+}
+h1, h2, h3, h4, h5, h6 {
   font-family: helvetica, arial, sans-serif;
+}
+h1 {
   font-size: 1.5em;
+}
+h2 {
+  font-size: 1.3em;
 }
 a {
   text-decoration: none;
@@ -49,9 +57,24 @@ p {
   padding: .5em 0;
   line-height: 1.4em;
 }
-p.line-under {
+.line-under {
   padding-bottom: $last-p-padd;
   border-bottom: 1px solid #aaa;
+}
+.article {
+  font-family: -apple-system, Helvetica, arial, sans-serif;
+}
+
+.post-date {
+  font-family: -apple-system, Helvetica, arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+p.post-excerpt {
+  margin-top: 0;
+  padding-top: 10px;
 }
 
 @media screen and (max-width: 600px){
@@ -62,3 +85,4 @@ p.line-under {
     margin: 0 7px;
   }
 }
+
