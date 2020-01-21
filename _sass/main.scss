@@ -77,6 +77,11 @@ p.post-excerpt {
   padding-top: 10px;
 }
 
+label {
+  font-style: italic;
+  font-size: .8em;
+}
+
 @media screen and (max-width: 600px){
   body {
     width: 90%;
