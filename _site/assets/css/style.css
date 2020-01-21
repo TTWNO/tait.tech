@@ -1,4 +1,4 @@
-body { color: #111; font-family: arial; font-size: 14px; padding: 15px; margin: auto; width: 600px; }
+body { color: #111; font-family: arial; font-size: 14px; padding: 15px; margin: auto; max-width: 600px; }
 
 h1 { font-family: helvetica, arial, sans-serif; font-size: 1.5em; }
 
@@ -20,7 +20,7 @@ p { padding: .5em 0; line-height: 1.4em; }
 
 p.line-under { padding-bottom: 1.5em; border-bottom: 1px solid #aaa; }
 
-@media screen and (max-width: 600px) { body { width: 100%; }
+@media screen and (max-width: 600px) { body { width: 95%; }
   #info { margin: 0 7px; } }
 
 /*# sourceMappingURL=style.css.map */
