@@ -2,10 +2,13 @@ $normal-text-color: #111;
 $nav-link-color: #333;
 $nav-link-hover-color: black;
 $link-color: #444;
+$last-p-padd: 1.5em;
+$nav-padd: 1em;
 
 body {
   color: $normal-text-color;
   font-family: arial;
+  font-size: 14px;
   padding: 15px;
   margin: auto;
   width: 600px;
@@ -20,17 +23,20 @@ a {
 }
 
 nav {
-  padding: 0px;
+  padding: $nav-padd 0px;
   margin: 0px;
 }
 nav > a:first-of-type {
   padding-left: 0;
 }
 nav > a {
-  padding: 10px;
+  padding: 1em;
   color: $nav-link-color;
   font-weight: bold;
   font-family: helvetica, arial, sans-serif;
+}
+nav > a.on-page {
+  color: #888;
 }
 nav > a:hover {
   text-decoration: underline; 
@@ -40,9 +46,10 @@ nav > a:hover {
   width: 100%;
 }
 p {
+  padding: .5em 0;
   line-height: 1.4em;
 }
 p.line-under {
-  padding-bottom: 15px;
-  border-bottom: 2px solid #888;
+  padding-bottom: $last-p-padd;
+  border-bottom: 1px solid #aaa;
 }

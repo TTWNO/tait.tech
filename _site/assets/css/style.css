@@ -1,21 +1,23 @@
-body { color: #111; font-family: arial; padding: 15px; margin: auto; width: 600px; }
+body { color: #111; font-family: arial; font-size: 14px; padding: 15px; margin: auto; width: 600px; }
 
 h1 { font-family: helvetica, arial, sans-serif; font-size: 1.5em; }
 
 a { text-decoration: none; color: #444; }
 
-nav { padding: 0px; margin: 0px; }
+nav { padding: 1em 0px; margin: 0px; }
 
 nav > a:first-of-type { padding-left: 0; }
 
-nav > a { padding: 10px; color: #333; font-weight: bold; font-family: helvetica, arial, sans-serif; }
+nav > a { padding: 1em; color: #333; font-weight: bold; font-family: helvetica, arial, sans-serif; }
+
+nav > a.on-page { color: #888; }
 
 nav > a:hover { text-decoration: underline; }
 
 #main-img { width: 100%; }
 
-p { line-height: 1.4em; }
+p { padding: .5em 0; line-height: 1.4em; }
 
-p.line-under { padding-bottom: 15px; border-bottom: 2px solid #888; }
+p.line-under { padding-bottom: 1.5em; border-bottom: 1px solid #aaa; }
 
 /*# sourceMappingURL=style.css.map */
