@@ -1,0 +1,6 @@
+- name: Home
+  link: /
+- name: Blog
+  link: /blog.html
+- name: Code
+  link: https://github.com/TTWNO/

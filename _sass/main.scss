@@ -1,0 +1,48 @@
+$normal-text-color: #111;
+$nav-link-color: #333;
+$nav-link-hover-color: black;
+$link-color: #444;
+
+body {
+  color: $normal-text-color;
+  font-family: arial;
+  padding: 15px;
+  margin: auto;
+  width: 600px;
+}
+h1 {
+  font-family: helvetica, arial, sans-serif;
+  font-size: 1.5em;
+}
+a {
+  text-decoration: none;
+  color: $link-color;
+}
+
+nav {
+  padding: 0px;
+  margin: 0px;
+}
+nav > a:first-of-type {
+  padding-left: 0;
+}
+nav > a {
+  padding: 10px;
+  color: $nav-link-color;
+  font-weight: bold;
+  font-family: helvetica, arial, sans-serif;
+}
+nav > a:hover {
+  text-decoration: underline; 
+}
+
+#main-img {
+  width: 100%;
+}
+p {
+  line-height: 1.4em;
+}
+p.line-under {
+  padding-bottom: 15px;
+  border-bottom: 2px solid #888;
+}
