@@ -20,4 +20,7 @@ p { padding: .5em 0; line-height: 1.4em; }
 
 p.line-under { padding-bottom: 1.5em; border-bottom: 1px solid #aaa; }
 
+@media screen and (max-width: 600px) { body { width: 100%; }
+  #text { margin: 0 7px; } }
+
 /*# sourceMappingURL=style.css.map */

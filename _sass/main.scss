@@ -53,3 +53,12 @@ p.line-under {
   padding-bottom: $last-p-padd;
   border-bottom: 1px solid #aaa;
 }
+
+@media screen and (max-width: 600px) {
+  body {
+    width: 100%;
+  }
+  #text{
+    margin: 0 7px;
+  }
+}
