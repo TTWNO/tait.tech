@@ -1,8 +1,8 @@
-body { background-color: #fefefe; padding: 15px; margin: auto; max-width: 600px; }
+body { background-color: #fefefe; padding: 15px; margin: auto; max-width: 600px; font-family: -apple-system, helvetica, arial, sans-serif; }
 
-#wrapper { color: #111; font-family: arial; font-size: 14px; }
+#wrapper { color: #111; font-size: 14px; }
 
-h1, h2, h3, h4, h5, h6 { font-family: helvetica, arial, sans-serif; }
+#main-name { color: rgba(0, 0, 0, 0.8); }
 
 h1 { font-size: 1.5em; }
 
@@ -14,11 +14,13 @@ nav { padding: 1em 0px; margin: 0px; }
 
 nav > a:first-of-type { margin-left: 0; }
 
-nav > a { margin: 1em; color: #333; font-weight: bold; font-family: helvetica, arial, sans-serif; }
+nav > a { margin: 1em; color: #333; font-weight: bold; }
 
 nav > a.on-page { color: #888; }
 
 nav > a:hover { text-decoration: underline; }
+
+li { margin: .5em; }
 
 #main-img { width: 100%; }
 
@@ -26,9 +28,7 @@ p { padding: .5em 0; line-height: 1.4em; }
 
 .line-under { padding-bottom: 1.5em; border-bottom: 1px solid #aaa; }
 
-.article { font-family: -apple-system, Helvetica, arial, sans-serif; }
-
-.post-date { font-family: -apple-system, Helvetica, arial, sans-serif; text-transform: uppercase; font-weight: bold; color: rgba(0, 0, 0, 0.5); }
+.post-date { text-transform: uppercase; font-weight: bold; color: rgba(0, 0, 0, 0.5); }
 
 p.post-excerpt { margin-top: 0; padding-top: 10px; }
 
@@ -43,6 +43,7 @@ table.post-list, table.post-list tr, table.post-list td { width: 100%; border: n
 img { display: block; width: 55%; margin-left: auto; margin-right: auto; }
 
 @media screen and (max-width: 600px) { body { width: 90%; }
-  #info { margin: 0 7px; } }
+  #info { margin: 0 7px; }
+  nav { width: 90%; } }
 
 /*# sourceMappingURL=style.css.map */
