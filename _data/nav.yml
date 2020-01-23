@@ -2,5 +2,7 @@
   link: /
 - name: Blog
   link: /blog.html
+- name: Podcast
+  link: /podcast.html 
 - name: Code
   link: https://github.com/TTWNO/

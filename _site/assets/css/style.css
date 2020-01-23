@@ -12,9 +12,9 @@ a { text-decoration: none; color: #444; }
 
 nav { padding: 1em 0px; margin: 0px; }
 
-nav > a:first-of-type { padding-left: 0; }
+nav > a:first-of-type { margin-left: 0; }
 
-nav > a { padding: 1em; color: #333; font-weight: bold; font-family: helvetica, arial, sans-serif; }
+nav > a { margin: 1em; color: #333; font-weight: bold; font-family: helvetica, arial, sans-serif; }
 
 nav > a.on-page { color: #888; }
 
@@ -33,6 +33,14 @@ p { padding: .5em 0; line-height: 1.4em; }
 p.post-excerpt { margin-top: 0; padding-top: 10px; }
 
 label { font-style: italic; font-size: .8em; }
+
+table, table tr, table td, table th { border: 1px solid rgba(0, 0, 0, 0.5); border-collapse: collapse; padding: 5px; font-weight: normal; }
+
+table { width: 75%; margin: auto; }
+
+table.post-list, table.post-list tr, table.post-list td { width: 100%; border: none; padding-left: 0; }
+
+img { display: block; width: 55%; margin-left: auto; margin-right: auto; }
 
 @media screen and (max-width: 600px) { body { width: 90%; }
   #info { margin: 0 7px; } }
