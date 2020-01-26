@@ -68,11 +68,22 @@ p {
 }
 .article {
 }
-
+.article a {
+  text-decoration: underline;
+}
+.article a:hover {
+  color: rgba(0, 0, 0, 0.5);
+}
 .post-date {
   text-transform: uppercase;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.5);
+}
+
+.post-desc {
+  color: rgba(0, 0, 0, .7);
+  padding: 10px;
+  font-weight: lighter;
 }
 
 p.post-excerpt {
@@ -94,6 +105,9 @@ table th{
   padding: 5px;
   font-weight: normal;
 }
+table tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
 table {
   width: 75%;
   margin: auto;
@@ -106,12 +120,19 @@ table.post-list td {
   border: none;
   padding-left: 0;
 }
-
+table.post-list td {
+  padding-left: 10px;
+  padding-right: 10px;
+}
 img {
   display: block;
   width: 55%;
   margin-left: auto;
   margin-right: auto;
+}
+
+blockquote {
+  font-style: italic;
 }
 
 @media screen and (max-width: 600px){

@@ -28,7 +28,13 @@ p { padding: .5em 0; line-height: 1.4em; }
 
 .line-under { padding-bottom: 1.5em; border-bottom: 1px solid #aaa; }
 
+.article a { text-decoration: underline; }
+
+.article a:hover { color: rgba(0, 0, 0, 0.5); }
+
 .post-date { text-transform: uppercase; font-weight: bold; color: rgba(0, 0, 0, 0.5); }
+
+.post-desc { color: rgba(0, 0, 0, 0.7); padding: 10px; font-weight: lighter; }
 
 p.post-excerpt { margin-top: 0; padding-top: 10px; }
 
@@ -36,11 +42,17 @@ label { font-style: italic; font-size: .8em; }
 
 table, table tr, table td, table th { border: 1px solid rgba(0, 0, 0, 0.5); border-collapse: collapse; padding: 5px; font-weight: normal; }
 
+table tr:nth-child(even) { background-color: rgba(0, 0, 0, 0.05); }
+
 table { width: 75%; margin: auto; }
 
 table.post-list, table.post-list tr, table.post-list td { width: 100%; border: none; padding-left: 0; }
 
+table.post-list td { padding-left: 10px; padding-right: 10px; }
+
 img { display: block; width: 55%; margin-left: auto; margin-right: auto; }
+
+blockquote { font-style: italic; }
 
 @media screen and (max-width: 600px) { body { width: 90%; }
   #info { margin: 0 7px; }
