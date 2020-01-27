@@ -4,6 +4,7 @@ $nav-link-hover-color: black;
 $link-color: #444;
 $last-p-padd: 1.5em;
 $nav-padd: 1em;
+$line-under: 1px solid #aaa; 
 
 body {
   background-color: #fefefe;
@@ -66,7 +67,7 @@ p {
 }
 .line-under {
   padding-bottom: $last-p-padd;
-  border-bottom: 1px solid #aaa;
+  border-bottom: $line-under;
 }
 .article {
 }
@@ -145,7 +146,13 @@ blockquote {
     margin: 0 7px;
   }
   nav {
-    width: 90%;
+    width: 100%;
+    border-bottom: $line-under;
+  }
+  nav > a {
+    display: block;
+    padding-left: 0;
+    margin-left: 0;
   }
 }
 
