@@ -1,4 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-26T21:01:58+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Padding And Margin</title><link href="http://localhost:4000/2020/01/22/padding-and-margin.html" rel="alternate" type="text/html" title="Padding And Margin" /><published>2020-01-22T00:00:00+00:00</published><updated>2020-01-22T00:00:00+00:00</updated><id>http://localhost:4000/2020/01/22/padding-and-margin</id><content type="html" xml:base="http://localhost:4000/2020/01/22/padding-and-margin.html">&lt;p&gt;Many people have expressed confusion over how padding and margins work in HTML/CSS. I have been one of those people. In this short article I will explain what the differences are between the two, and how it may affect the functionality of your site.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-27T03:05:22+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">RSA Part 1: Why?</title><link href="http://localhost:4000/2020/01/26/rsa1.html" rel="alternate" type="text/html" title="RSA Part 1: Why?" /><published>2020-01-26T00:00:00+00:00</published><updated>2020-01-26T00:00:00+00:00</updated><id>http://localhost:4000/2020/01/26/rsa1</id><content type="html" xml:base="http://localhost:4000/2020/01/26/rsa1.html">&lt;p&gt;What is the most embarassing thing you have typed into Google search? What is the most personal secret you told a friend in confidence? What is your bank password? What is your business’s secret to stay ahead of the competition?&lt;/p&gt;
+
+&lt;p&gt;Now at first these questions may seem not completely related. There is a point though: You likely sent all of this information over the internet.&lt;/p&gt;
+
+&lt;p&gt;When you send that messege to your friend or business partner, why is it that any person can’t just listen to the signals coming from your phone or laptop and know what you sent to your friend or colleague? The answer: encryption.&lt;/p&gt;
+
+&lt;p&gt;First, some background about internet privacy. You can’t have a conversation about internet encryption and privacy without discussing the man himself:&lt;/p&gt;
+
+&lt;h3 id=&quot;snowden&quot;&gt;Snowden&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Edward_Snowden&quot; target=&quot;_blank&quot;&gt;Edward Joseph Snowden&lt;/a&gt; is an ex-NSA, ex-CIA employee who felt the &lt;a href=&quot;https://en.wikipedia.org/wiki/Fourth_Amendment_to_the_United_States_Constitution&quot; target=&quot;_blank&quot;&gt;United State’s 4th Ammendment&lt;/a&gt; was being violated by their programs of msas survailence.
+Snowden was raised a staunch establishmentarian conservative; his girlfriend Lisndey however, slowly started changing his mind. Snowden became very influenced by the ideology of &lt;a href=&quot;https://en.wikipedia.org/wiki/Populism&quot; target=&quot;_blank&quot;&gt;populism&lt;/a&gt;.
+His populist thinking is shown very clearly when he explains his reasoning for his disclosure of humongous troves of NSA documents.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“My sole motive is to inform the public as to that which is done in their name and that which is done against them.”
+—&lt;a href=&quot;https://www.theguardian.com/world/video/2013/jun/09/nsa-whistleblower-edward-snowden-interview-video&quot; target=&quot;_blank&quot;&gt;Edward Snowden&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Snowden’s first set of leaks went public in &lt;a href=&quot;https://www.theguardian.com/world/2013/sep/05/nsa-gchq-encryption-codes-security&quot; target=&quot;_blank&quot;&gt;The Gaurdian&lt;/a&gt;, &lt;a href=&quot;https://www.nytimes.com/2013/06/10/us/former-cia-worker-says-he-leaked-surveillance-data.html&quot; target=&quot;_blank&quot;&gt;The New York Times&lt;/a&gt;, and &lt;a href=&quot;https://www.propublica.org/article/the-nsas-secret-campaign-to-crack-undermine-internet-encryption&quot; target=&quot;_blank&quot;&gt;ProPublica&lt;/a&gt; in late 2013;
+people started to realize that their governments and internet service providers (ISPs) &lt;strong&gt;are&lt;/strong&gt; listening. People understood there might be more sinister motives than “national security” at play.&lt;/p&gt;
+
+&lt;p&gt;Personally, I have seen a lot of non-tech-savy individuals using security-conscious software when I am helping them fix a problem.
+In fact, there was one time I saw a collage student from rural Alberta who had a VPN running on her phone. This impressed me!&lt;/p&gt;
+
+&lt;h3 id=&quot;encryption-on-the-web&quot;&gt;Encryption on The Web&lt;/h3&gt;
+
+&lt;p&gt;The type of encryption used on the web is called: HyperText Transfer Protocol–Secure (HTTPS).
+This kind of encryption stops two things from happening: A) it stops the information you are sending and recieving online from being seen by easvesdroppers and criminals, and B) stops those same third-parties from tampering with the data.&lt;/p&gt;
+
+&lt;p&gt;Without HTTPS it is possible for sombody to listen in and change the data being sent between you and a server.&lt;/p&gt;
+
+&lt;p&gt;Only in recent years has HTTPS become near-universal across the web. It is used even on the simplest sites these days: this one included. After 2013, people became weary of government, criminal, and ISP interference with their web traffic.
+This can be backed up by statistics:
+The level of encrypted web traffic around the time of the Snowden leaks was around 30 percent. It was mostly used by banks, email providers, government, and journalists.
+At the turn of the 2020s however, this has risen to nearly 90 percent among U.S. users of Firefox.
+Japan lags slightly behind with 80 percent encrypted traffic.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/encrypted-web-traffic.png&quot; alt=&quot;Use of encrypted web traffic incresing over time.&quot; /&gt;
+  &lt;figcaption&gt;
+    More at: &lt;a href=&quot;https://letsencrypt.org/stats/&quot; target=&quot;_blank&quot;&gt;Let's Encrypt&lt;/a&gt;
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;This is just the data we know of. You can disable the &lt;a href=&quot;https://en.wikipedia.org/wiki/Telemetry#Software&quot; target=&quot;_blank&quot;&gt;telemetry&lt;/a&gt; settings in Firefox, and it is very likely that hardcore privacy advocates would disable this data collection, so perhaps the amount of encrypted web traffic is slightly higher.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-about-rsa&quot;&gt;What about RSA?&lt;/h3&gt;
+
+&lt;p&gt;RSA is an encryption method named after the initials of the inventors’ sir names: Ron &lt;strong&gt;R&lt;/strong&gt;ivest, Adi &lt;strong&gt;S&lt;/strong&gt;hamir, and Leonard &lt;strong&gt;A&lt;/strong&gt;dleman. It uses the mathematical “factoring problem” to secure communication. The details of this specific type of encryption will be discussed in part 2 of this series on RSA.&lt;/p&gt;</content><author><name>tait</name></author><summary type="html">What is the most embarassing thing you have typed into Google search? What is the most personal secret you told a friend in confidence? What is your bank password? What is your business’s secret to stay ahead of the competition?</summary></entry><entry><title type="html">Padding And Margin</title><link href="http://localhost:4000/2020/01/22/padding-and-margin.html" rel="alternate" type="text/html" title="Padding And Margin" /><published>2020-01-22T00:00:00+00:00</published><updated>2020-01-22T00:00:00+00:00</updated><id>http://localhost:4000/2020/01/22/padding-and-margin</id><content type="html" xml:base="http://localhost:4000/2020/01/22/padding-and-margin.html">&lt;p&gt;Many people have expressed confusion over how padding and margins work in HTML/CSS. I have been one of those people. In this short article I will explain what the differences are between the two, and how it may affect the functionality of your site.&lt;/p&gt;
 
 &lt;p&gt;Here is an image from the World Wide Web Consortium (W3C) who sets the standards for the web.&lt;/p&gt;
 
