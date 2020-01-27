@@ -33,6 +33,8 @@ a {
 }
 
 nav {
+  overflow: auto;
+  white-space: nowrap;
   padding: $nav-padd 0px;
   margin: 0px;
 }

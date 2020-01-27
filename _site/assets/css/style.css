@@ -10,7 +10,7 @@ h2 { font-size: 1.3em; }
 
 a { text-decoration: none; color: #444; }
 
-nav { padding: 1em 0px; margin: 0px; }
+nav { overflow: auto; white-space: nowrap; padding: 1em 0px; margin: 0px; }
 
 nav > a:first-of-type { margin-left: 0; }
 
