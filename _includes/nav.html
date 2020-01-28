@@ -1,5 +1,9 @@
 <nav>
-  {% for item in site.data.nav %}
-    <a href="{{ item.link }}" {% if item.link == page.url %} class="on-page"{% endif %} {% if item.new_tab == true %} target="_blank" rel="noopener noreferrer" {% endif %}>{{ item.name }}</a>
-  {% endfor %}
+  <input type="checkbox" id="menu">
+  <label for="menu">&#9776;</label>
+  <div class="menu-content">
+    {% for item in site.data.nav %}
+      <a href="{{ item.link }}" {% if item.link == page.url %} class="on-page"{% endif %} {% if item.new_tab == true %} target="_blank" rel="noopener noreferrer" {% endif %}>{{ item.name }}</a>
+    {% endfor %}
+  </div>
 </nav>
