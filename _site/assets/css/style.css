@@ -65,7 +65,7 @@ blockquote { font-style: italic; }
 
 .contact-info { width: 90%; margin: auto; word-wrap: break-word; }
 
-.contact-info p { margin: 0; padding: 0; }
+.contact-info p { margin: 7px; padding: 0; }
 
 .mono { font-family: monospace; }
 
