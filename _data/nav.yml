@@ -7,5 +7,5 @@
 - name: Code
   new_tab: true 
   link: https://github.com/TTWNO/
-- name: Podcast
-  link: /podcast.html
+- name: Links
+  link: /links/

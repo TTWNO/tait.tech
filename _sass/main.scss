@@ -28,6 +28,9 @@ h1 {
 h2 {
   font-size: 1.3em;
 }
+h4 {
+  font-weight: normal;
+}
 a {
   text-decoration: none;
   color: $link-color;
@@ -138,7 +141,7 @@ blockquote {
   #menu,
   label[for="menu"]{
     display: inline-block;
-    font-size: 22px;
+    font-size: 20px;
   }
   body {
     width: 90%;
@@ -164,6 +167,19 @@ blockquote {
   input:checked ~ .menu-content {
     max-height: 100%;
     border-bottom: $line-under;
+    color: red;
   }
 }
 
+.contact-info {
+  width: 80%;
+  word-wrap: break-word;
+}
+.contact-info p {
+  margin: 0;
+  padding: 0;
+}
+
+.mono {
+  font-family: monospace;
+}
