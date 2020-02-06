@@ -63,7 +63,7 @@ blockquote { font-style: italic; }
   input#menu { display: none; }
   input:checked ~ .menu-content { max-height: 100%; border-bottom: 1px solid #aaa; color: red; } }
 
-.contact-info { width: 80%; word-wrap: break-word; }
+.contact-info { width: 90%; margin: auto; word-wrap: break-word; }
 
 .contact-info p { margin: 0; padding: 0; }
 
