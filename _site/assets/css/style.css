@@ -8,8 +8,6 @@ h1 { font-size: 1.5em; }
 
 h2 { font-size: 1.3em; }
 
-h4 { font-weight: normal; }
-
 a { text-decoration: none; color: #444; }
 
 label { font-size: .8em; }
@@ -68,5 +66,7 @@ blockquote { font-style: italic; }
 .contact-info p { margin: 7px; padding: 0; }
 
 .mono { font-family: monospace; }
+
+.bold { font-weight: bold; }
 
 /*# sourceMappingURL=style.css.map */

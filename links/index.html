@@ -5,7 +5,7 @@ layout: default
   <h2>{{ types.heading }}</h2>
   <section class="contact-info">
     {% for info in types.values %}
-      <p>{{ info.name }} -
+      <p><span class="bold">{{ info.name }}</span> -
       <a href="{{ info.value }}" class="mono">
         {% if info.label != "INHERIT" %}
           {{ info.label }}
