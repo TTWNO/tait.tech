@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-23T21:50:34+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How Does Encryption Work, in Theory?</title><link href="http://localhost:4000/2020/02/19/rsa2.html" rel="alternate" type="text/html" title="How Does Encryption Work, in Theory?" /><published>2020-02-19T00:00:00+00:00</published><updated>2020-02-19T00:00:00+00:00</updated><id>http://localhost:4000/2020/02/19/rsa2</id><content type="html" xml:base="http://localhost:4000/2020/02/19/rsa2.html">&lt;p&gt;There are many kinds of encryption used in our everyday communication. Online and offline, over the internet and in person. In this article, I will explain the basics of how encryption should work in theory. I explain in &lt;a href=&quot;/2020/01/26/rsa1.html&quot;&gt;this article&lt;/a&gt; why encryption is important, and why &lt;em&gt;you&lt;/em&gt; should care about it.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-23T22:06:17+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How Does Encryption Work, in Theory?</title><link href="http://localhost:4000/2020/02/19/rsa2.html" rel="alternate" type="text/html" title="How Does Encryption Work, in Theory?" /><published>2020-02-19T00:00:00+00:00</published><updated>2020-02-19T00:00:00+00:00</updated><id>http://localhost:4000/2020/02/19/rsa2</id><content type="html" xml:base="http://localhost:4000/2020/02/19/rsa2.html">&lt;p&gt;There are many kinds of encryption used in our everyday communication. Online and offline, over the internet and in person. In this article, I will explain the basics of how encryption should work in theory. I explain in &lt;a href=&quot;/2020/01/26/rsa1.html&quot;&gt;this article&lt;/a&gt; why encryption is important, and why &lt;em&gt;you&lt;/em&gt; should care about it.&lt;/p&gt;
 
 &lt;p&gt;We will start by looking at in-person, offline encryption.&lt;/p&gt;
 
@@ -52,7 +52,7 @@ Hopefully I have convinced you that you use &lt;del&gt;deceit&lt;/del&gt; crypto
 &lt;h2 id=&quot;grade-school-encryption&quot;&gt;Grade-School Encryption&lt;/h2&gt;
 &lt;p&gt;Back when I was in middle school I used to pass notes like these:&lt;/p&gt;
 
-&lt;p&gt;PIC&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/ceasar1.jpg&quot; alt=&quot;A messege I would have sent in middle school. ROT5: Xfwfm hx hzyj&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This is a messege encrypted using the Caesar cipher. This encryption technique was used by Julius Caesar during the reign of the Roman Empire to “encrypt messeges of military significance.”&lt;a class=&quot;citation-link&quot; href=&quot;https://en.wikipedia.org/wiki/Caesar_chipher/&quot;&gt;[1]&lt;/a&gt;
 This is one of the oldest and simplest methods of encryption known to us today.&lt;/p&gt;
@@ -90,7 +90,7 @@ Let’s use the Caesar cipher to fix this problem.&lt;/p&gt;
 
 &lt;p&gt;Let us assume that Alice and Bob already have a shared key, 7 for example. To encrypt this messege, we should shift our letters seven letters forward in the alphabet—just like the example above.&lt;/p&gt;
 
-&lt;p&gt;PIC2&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/ceasar2.jpg&quot; alt=&quot;A longer Ceasar cipher encrypted messege: ROT2: Wpeng Vgf ku dqqogt ogog&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now Alice’s messege reads “P svcl fvb, Ivi! Wslhzl lha olhsaoply!”&lt;/p&gt;
 
