@@ -20,34 +20,6 @@
   - name: Podcast
     value: /podcast/
     label: Out Of Sight
-- heading: Security Links
-  values:
-  - name: ToxID
-    value: tox:26EF54FC97D51C086BBD8D2A9FCF31E6BBAC06042862D566C450160B4F1BEC5C9B76E0B7FB01
-    label: 26EF54FC97D51C086BBD8D2A9FCF31E6BBAC06042862D566C450160B4F1BEC5C9B76E0B7FB01
-  - name: Public Key
-    value: https://tait.tech/public-key.asc
-    label: INHERIT
-- heading: Other Links
-  values:
-  - name: Arch Linux Wiki
-    value: https://wiki.archlinux.org/
-    label: INHERIT
-  - name: Suckless
-    value: https://suckless.org
-    label: INHERIT
-  - name: cat -v (considered harmful) [Unencrypted]
-    value: http://cat-v.org/
-    label: INHERIT
-  - name: Edward Snowden
-    value: https://www.biography.com/activist/edward-snowden
-    label: INHERIT
-  - name: Gentoo Wiki
-    value: https://wiki.gentoo.org/wiki/Main_Page
-    label: INHERIT
-  - name: Luke Smith
-    value: https://lukesmith.xyz
-    label: INHERIT
 - heading: Secure Service Links
   values:
     - name: Signal
@@ -59,3 +31,36 @@
     - name: Protonmail
       value: https://protonmail.com
       label: INHERIT
+- heading: Linux Links
+  values:
+  - name: Arch Linux Wiki
+    value: https://wiki.archlinux.org/
+    label: INHERIT
+  - name: Gentoo Wiki
+    value: https://wiki.gentoo.org/wiki/Main_Page
+    label: INHERIT
+  - name: Luke Smith
+    value: https://lukesmith.xyz
+    label: INHERIT
+  - name: Brian Lunduke
+    value: https://lunduke.com
+    label: INHERIT
+- heading: Interesting Links
+  values:
+  - name: Suckless
+    value: https://suckless.org
+    label: INHERIT
+  - name: cat -v (considered harmful) [Unencrypted]
+    value: http://cat-v.org/
+    label: INHERIT
+  - name: Edward Snowden
+    value: https://www.biography.com/activist/edward-snowden
+    label: INHERIT
+- heading: Best Websites in Existence
+  values:
+  - name: Gregory Gundersen
+    value: https://gregorygundersen.com
+    label: INHERIT
+  - name: The Best Website
+    value: https://thebestmotherfucking.website
+    label: INHERIT

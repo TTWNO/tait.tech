@@ -1,4 +1,131 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-06T02:49:03+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">RSA Part 1: Why?</title><link href="http://localhost:4000/2020/01/26/rsa1.html" rel="alternate" type="text/html" title="RSA Part 1: Why?" /><published>2020-01-26T00:00:00+00:00</published><updated>2020-01-26T00:00:00+00:00</updated><id>http://localhost:4000/2020/01/26/rsa1</id><content type="html" xml:base="http://localhost:4000/2020/01/26/rsa1.html">&lt;p&gt;What is the most embarassing thing you have typed into Google search? What is the most personal secret you told a friend in confidence? What is your bank password? What is your business’s secret to stay ahead of the competition?&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-23T21:50:34+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How Does Encryption Work, in Theory?</title><link href="http://localhost:4000/2020/02/19/rsa2.html" rel="alternate" type="text/html" title="How Does Encryption Work, in Theory?" /><published>2020-02-19T00:00:00+00:00</published><updated>2020-02-19T00:00:00+00:00</updated><id>http://localhost:4000/2020/02/19/rsa2</id><content type="html" xml:base="http://localhost:4000/2020/02/19/rsa2.html">&lt;p&gt;There are many kinds of encryption used in our everyday communication. Online and offline, over the internet and in person. In this article, I will explain the basics of how encryption should work in theory. I explain in &lt;a href=&quot;/2020/01/26/rsa1.html&quot;&gt;this article&lt;/a&gt; why encryption is important, and why &lt;em&gt;you&lt;/em&gt; should care about it.&lt;/p&gt;
+
+&lt;p&gt;We will start by looking at in-person, offline encryption.&lt;/p&gt;
+
+&lt;h2 id=&quot;cryptography-we-do-everyday&quot;&gt;Cryptography We Do Everyday&lt;/h2&gt;
+&lt;p&gt;We encrypt things all the time without even thinking about it. 
+If you spend a significant amount of time with the same group of friends, your will tend of develop common codes that may not make sense to others outside the group.
+For example: for years, my family called sombody falling from a sitting position “doing a Don”. There is a story of course—We knew a guy named Don who fell from his plastic beach chair in a rather hilarious way; “doing a Don” was born.&lt;/p&gt;
+
+&lt;p&gt;These kind of minor dialects in speech are cryptographic in their own way. The truth is though, that we use cryptography much more than that!&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“Is cryptography any different than talking?
+We say something other than what we mean, and then expect everyone is able to decipher the true meaning behind the words.
+Only, I never do…” — Adapted from a scene in &lt;a href=&quot;https://www.benedictcumberbatch.co.uk/wordpress/wp-content/uploads/ScreenplayTIG.pdf&quot;&gt;The Imitation Game (p. 39-40)&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;How many times have you hinted, flirted, and innuendoed to try to say “I find you very physically attractive”?
+Have you told your friend that always stinks to wear more deoderent?
+Have you ever had someone say the words “I’m fine” when you know &lt;em&gt;for certain&lt;/em&gt; that they are indeed not okay?&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Words Said&lt;/th&gt;
+      &lt;th&gt;Meaning&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;What can you do?&lt;/td&gt;
+      &lt;td&gt;I don’t want to talk about this anymore.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;I don’t want to overstay my welcome.&lt;/td&gt;
+      &lt;td&gt;I want to go home now.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;I don’t like them and don’t know why.&lt;/td&gt;
+      &lt;td&gt;They threaten my ego.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Creepy&lt;/td&gt;
+      &lt;td&gt;Unattractive and friendly&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;All of these scenarios are perfect examples of &lt;del&gt;lies&lt;/del&gt; encryption! If we have the key to these codes, we can start to understand what people really mean.
+Hopefully I have convinced you that you use &lt;del&gt;deceit&lt;/del&gt; cryptography on a regular basis in your life, so let us consider what a basic encryption method might be:&lt;/p&gt;
+
+&lt;h2 id=&quot;grade-school-encryption&quot;&gt;Grade-School Encryption&lt;/h2&gt;
+&lt;p&gt;Back when I was in middle school I used to pass notes like these:&lt;/p&gt;
+
+&lt;p&gt;PIC&lt;/p&gt;
+
+&lt;p&gt;This is a messege encrypted using the Caesar cipher. This encryption technique was used by Julius Caesar during the reign of the Roman Empire to “encrypt messeges of military significance.”&lt;a class=&quot;citation-link&quot; href=&quot;https://en.wikipedia.org/wiki/Caesar_chipher/&quot;&gt;[1]&lt;/a&gt;
+This is one of the oldest and simplest methods of encryption known to us today.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/ceasar13.png&quot; alt=&quot;A diagram of a Ceasar Shift algorithm. A &amp;lt;-&amp;gt; N, B &amp;lt;-&amp;gt; O, et cetera.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can try this out yourself by moving some letters forward in the alphabet.
+An ‘A’ turns into a ‘B’, ‘B’ into ‘C’, ‘C’ into ‘D’, et cetera.
+In this case, “Hello!” would become “Ifmmp!”
+That is just using a shift of one. You can use a shift of seven, for example, and then you would shift letters like so:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A -&amp;gt; +7 -&amp;gt; H&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Q -&amp;gt; +7 -&amp;gt; X&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;T -&amp;gt; +7 -&amp;gt; A&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We should wrap-around to the beginning of the alphabet if there are no letters left.&lt;/p&gt;
+
+&lt;h2 id=&quot;example-of-a-caesar-cipher&quot;&gt;Example of a Caesar Cipher&lt;/h2&gt;
+&lt;p&gt;Let’s setup a little story to illustrate the problems of encryption. We will have three characters:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Alice, a little girl with feelings for Bob&lt;/li&gt;
+  &lt;li&gt;Bob, a young boy with an addiction to pancakes&lt;/li&gt;
+  &lt;li&gt;Eve, a wee jealous girl scout who sits between Bob and Alice&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Alice really likes Bob and wants to tell Bob her feelings, so she writes “I love you, Bob! Please eat healthier!” on a sticky note.
+She passes it to Eve, so Eve can pass it to Alice’s love interest.
+However, in an unfortunate turn of events Eve reads the note herself, and decides not to give it to Bob.&lt;/p&gt;
+
+&lt;p&gt;Oh the horror! Alice is without young love! How could she remedy this so that Bob can read her messege, but evil Eve can not?
+Let’s use the Caesar cipher to fix this problem.&lt;/p&gt;
+
+&lt;p&gt;Let us assume that Alice and Bob already have a shared key, 7 for example. To encrypt this messege, we should shift our letters seven letters forward in the alphabet—just like the example above.&lt;/p&gt;
+
+&lt;p&gt;PIC2&lt;/p&gt;
+
+&lt;p&gt;Now Alice’s messege reads “P svcl fvb, Ivi! Wslhzl lha olhsaoply!”&lt;/p&gt;
+
+&lt;p&gt;Now, when Alice sends her Romeo a little note, all he has to do is decrypt the text by shifting the letters down by 7.
+&lt;a href=&quot;https://www.xarg.org/tools/caesar-cipher/&quot;&gt;Here is a site&lt;/a&gt; which can do longer pieces of text for you instead of doing it manually.&lt;/p&gt;
+
+&lt;h2 id=&quot;problems&quot;&gt;Problems&lt;/h2&gt;
+
+&lt;p&gt;Before the two love-birds start smooching on the branch of a big pine tree in the schoolyard, perhaps we should consider some problems with the Ceasar cipher.&lt;/p&gt;
+
+&lt;h4 id=&quot;it-is-very-easy-to-break&quot;&gt;It is Very Easy to Break&lt;/h4&gt;
+
+&lt;p&gt;Even Eve with her measly grade 4 math skills could easily start going through this messege with pen and paper and figure out any combination in a couple hours at maximum.
+Imagine how easy this is for a computer?
+This could be broken in a few microseconds even on an older processor like the Intel Core 2 Duo.&lt;/p&gt;
+
+&lt;h4 id=&quot;no-secure-way-of-sharing-keys&quot;&gt;No Secure Way of Sharing Keys&lt;/h4&gt;
+
+&lt;p&gt;We assumed in our previous example that Bob and Alice already have a shared key (seven) to encrypt and decrypt all of their messeges.
+If Bob and Alice did not have a previous friendship and time to share secrets of this sort, there is no way to share their key with eachother without Eve also knowing.
+This would defeat the entire purpose of obscuring the messege in the first place.&lt;/p&gt;
+
+&lt;h4 id=&quot;universal-vulnerability-of-messeges&quot;&gt;Universal Vulnerability of Messeges&lt;/h4&gt;
+
+&lt;p&gt;Every messege sent between the two parties uses the same code to encrypt and decrypt. If someone finds out the code once, all previous communications are comprimised.&lt;/p&gt;
+
+&lt;h2 id=&quot;better-encryption-methods&quot;&gt;Better Encryption Methods&lt;/h2&gt;
+
+&lt;p&gt;To combat the issues with easily breakable, shared-key cryptography, we can turn to the beautiful beast that is &lt;a href=&quot;https://en.wikipedia.org/wiki/Public-key_cryptography&quot;&gt;Asymetric Cryptography&lt;/a&gt;.
+I will discuss this more in another article, but for the technically inclined:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/RSA_(cryptosystem)&quot;&gt;RSA&lt;/a&gt;/&lt;a href=&quot;https://en.wikipedia.org/wiki/Elliptic-curve_cryptography&quot;&gt;EC&lt;/a&gt; provides &lt;em&gt;very&lt;/em&gt; large cryptographic keys. It would be impossible for a human to encrypt or decrypt a messege manually.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=GSIDS_lvRv4&quot;&gt;Asymetric cryptography&lt;/a&gt; provides four keys, instead of just one; stopping evesdroppers from listening in on your secret conversations—even if you do not have the change to exchange keys in advance.&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>tait</name></author><summary type="html">There are many kinds of encryption used in our everyday communication. Online and offline, over the internet and in person. In this article, I will explain the basics of how encryption should work in theory. I explain in this article why encryption is important, and why you should care about it.</summary></entry><entry><title type="html">Is Encryption Worth It?</title><link href="http://localhost:4000/2020/01/26/rsa1.html" rel="alternate" type="text/html" title="Is Encryption Worth It?" /><published>2020-01-26T00:00:00+00:00</published><updated>2020-01-26T00:00:00+00:00</updated><id>http://localhost:4000/2020/01/26/rsa1</id><content type="html" xml:base="http://localhost:4000/2020/01/26/rsa1.html">&lt;p&gt;What is the most embarassing thing you have typed into Google search? What is the most personal secret you told a friend in confidence? What is your bank password? What is your business’s secret to stay ahead of the competition?&lt;/p&gt;
 
 &lt;p&gt;Now at first these questions may seem not completely related. There is a point though: You likely sent all of this information over the internet.&lt;/p&gt;
 
@@ -47,7 +174,7 @@ Japan lags slightly behind with 80 percent encrypted traffic.&lt;/p&gt;
 
 &lt;h3 id=&quot;what-about-rsa&quot;&gt;What about RSA?&lt;/h3&gt;
 
-&lt;p&gt;RSA is an encryption method named after the initials of the inventors’ sir names: Ron &lt;strong&gt;R&lt;/strong&gt;ivest, Adi &lt;strong&gt;S&lt;/strong&gt;hamir, and Leonard &lt;strong&gt;A&lt;/strong&gt;dleman. It uses the mathematical “factoring problem” to secure communication. The details of this specific type of encryption will be discussed in part 2 of this series on RSA.&lt;/p&gt;</content><author><name>tait</name></author><summary type="html">What is the most embarassing thing you have typed into Google search? What is the most personal secret you told a friend in confidence? What is your bank password? What is your business’s secret to stay ahead of the competition?</summary></entry><entry><title type="html">Padding And Margin</title><link href="http://localhost:4000/2020/01/22/padding-and-margin.html" rel="alternate" type="text/html" title="Padding And Margin" /><published>2020-01-22T00:00:00+00:00</published><updated>2020-01-22T00:00:00+00:00</updated><id>http://localhost:4000/2020/01/22/padding-and-margin</id><content type="html" xml:base="http://localhost:4000/2020/01/22/padding-and-margin.html">&lt;p&gt;Many people have expressed confusion over how padding and margins work in HTML/CSS. I have been one of those people. In this short article I will explain what the differences are between the two, and how it may affect the functionality of your site.&lt;/p&gt;
+&lt;p&gt;RSA is an encryption method named after the initials of the inventors’ sir names: Ron &lt;strong&gt;R&lt;/strong&gt;ivest, Adi &lt;strong&gt;S&lt;/strong&gt;hamir, and Leonard &lt;strong&gt;A&lt;/strong&gt;dleman. It uses the mathematical “factoring problem” to secure communication. The details of this specific type of encryption will be discussed in an article soon to come.&lt;/p&gt;</content><author><name>tait</name></author><summary type="html">What is the most embarassing thing you have typed into Google search? What is the most personal secret you told a friend in confidence? What is your bank password? What is your business’s secret to stay ahead of the competition?</summary></entry><entry><title type="html">Padding And Margin</title><link href="http://localhost:4000/2020/01/22/padding-and-margin.html" rel="alternate" type="text/html" title="Padding And Margin" /><published>2020-01-22T00:00:00+00:00</published><updated>2020-01-22T00:00:00+00:00</updated><id>http://localhost:4000/2020/01/22/padding-and-margin</id><content type="html" xml:base="http://localhost:4000/2020/01/22/padding-and-margin.html">&lt;p&gt;Many people have expressed confusion over how padding and margins work in HTML/CSS. I have been one of those people. In this short article I will explain what the differences are between the two, and how it may affect the functionality of your site.&lt;/p&gt;
 
 &lt;p&gt;Here is an image from the World Wide Web Consortium (W3C) who sets the standards for the web.&lt;/p&gt;
 

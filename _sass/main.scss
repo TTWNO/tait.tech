@@ -1,7 +1,9 @@
-$normal-text-color: #111;
+$normal-text-color: #444444;
 $nav-link-color: #333;
 $nav-link-hover-color: black;
-$link-color: #444;
+$link-color: #47a;
+$visited-link-color: #941452;
+
 $last-p-padd: 1.5em;
 $nav-padd: 1em;
 $line-under: 1px solid #aaa; 
@@ -23,7 +25,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
 }
 h1 {
-  font-size: 1.5em;
+  font-size: 2.5em;
 }
 h2 {
   font-size: 1.3em;
@@ -31,9 +33,21 @@ h2 {
 h4 {
 }
 a {
-  text-decoration: none;
+  text-decoration: underline;
   color: $link-color;
+}  
+a:visited {
+  color: $visited-link-color;
 }
+a.nav-link,
+a.post-title-link {
+  color: $nav-link-color;
+  text-decoration: none;
+}
+a.citation-link {
+  text-decoration: none;
+}
+
 label {
   font-size: .8em;
 }
@@ -71,17 +85,12 @@ li {
   width: 100%;
 }
 p {
-  padding: .5em 0;
-  line-height: 1.4em;
+  line-height: 1.5;
+  padding: .1em 0;
 }
 .line-under {
   padding-bottom: $last-p-padd;
   border-bottom: $line-under;
-}
-.article {
-}
-.article a {
-  text-decoration: underline;
 }
 .article a:hover {
   color: rgba(0, 0, 0, 0.5);
@@ -112,6 +121,9 @@ table th{
   border-collapse: collapse;
   padding: 5px;
   font-weight: normal;
+}
+table th {
+  font-weight: bold;
 }
 table {
   width: 75%;
@@ -186,4 +198,9 @@ blockquote {
 
 .bold {
   font-weight: bold;
+}
+
+sup {
+  margin: 0;
+  padding: 0;
 }

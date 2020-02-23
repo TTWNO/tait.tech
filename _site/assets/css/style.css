@@ -1,14 +1,20 @@
 body { background-color: #fefefe; padding: 15px; margin: auto; max-width: 600px; font-family: -apple-system, helvetica, arial, sans-serif; }
 
-#wrapper { color: #111; font-size: 14px; }
+#wrapper { color: #444444; font-size: 14px; }
 
 #main-name { color: rgba(0, 0, 0, 0.8); }
 
-h1 { font-size: 1.5em; }
+h1 { font-size: 2.5em; }
 
 h2 { font-size: 1.3em; }
 
-a { text-decoration: none; color: #444; }
+a { text-decoration: underline; color: #47a; }
+
+a:visited { color: #941452; }
+
+a.nav-link, a.post-title-link { color: #333; text-decoration: none; }
+
+a.citation-link { text-decoration: none; }
 
 label { font-size: .8em; }
 
@@ -28,11 +34,9 @@ li { margin: .5em; }
 
 #main-img { width: 100%; }
 
-p { padding: .5em 0; line-height: 1.4em; }
+p { line-height: 1.5; padding: .1em 0; }
 
 .line-under { padding-bottom: 1.5em; border-bottom: 1px solid #aaa; }
-
-.article a { text-decoration: underline; }
 
 .article a:hover { color: rgba(0, 0, 0, 0.5); }
 
@@ -43,6 +47,8 @@ p { padding: .5em 0; line-height: 1.4em; }
 p.post-excerpt { margin-top: 0; padding-top: 10px; }
 
 table, table tr, table td, table th { border: 1px solid rgba(0, 0, 0, 0.5); border-collapse: collapse; padding: 5px; font-weight: normal; }
+
+table th { font-weight: bold; }
 
 table { width: 75%; margin: auto; }
 
@@ -68,5 +74,7 @@ blockquote { font-style: italic; }
 .mono { font-family: monospace; }
 
 .bold { font-weight: bold; }
+
+sup { margin: 0; padding: 0; }
 
 /*# sourceMappingURL=style.css.map */
