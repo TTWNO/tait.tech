@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-23T22:06:17+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How Does Encryption Work, in Theory?</title><link href="http://localhost:4000/2020/02/19/rsa2.html" rel="alternate" type="text/html" title="How Does Encryption Work, in Theory?" /><published>2020-02-19T00:00:00+00:00</published><updated>2020-02-19T00:00:00+00:00</updated><id>http://localhost:4000/2020/02/19/rsa2</id><content type="html" xml:base="http://localhost:4000/2020/02/19/rsa2.html">&lt;p&gt;There are many kinds of encryption used in our everyday communication. Online and offline, over the internet and in person. In this article, I will explain the basics of how encryption should work in theory. I explain in &lt;a href=&quot;/2020/01/26/rsa1.html&quot;&gt;this article&lt;/a&gt; why encryption is important, and why &lt;em&gt;you&lt;/em&gt; should care about it.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-24T01:30:54+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How Does Encryption Work, in Theory?</title><link href="http://localhost:4000/2020/02/19/rsa2.html" rel="alternate" type="text/html" title="How Does Encryption Work, in Theory?" /><published>2020-02-19T00:00:00+00:00</published><updated>2020-02-19T00:00:00+00:00</updated><id>http://localhost:4000/2020/02/19/rsa2</id><content type="html" xml:base="http://localhost:4000/2020/02/19/rsa2.html">&lt;p&gt;There are many kinds of encryption used in our everyday communication. Online and offline, over the internet and in person. In this article, I will explain the basics of how encryption should work in theory. I explain in &lt;a href=&quot;/2020/01/26/rsa1.html&quot;&gt;this article&lt;/a&gt; why encryption is important, and why &lt;em&gt;you&lt;/em&gt; should care about it.&lt;/p&gt;
 
 &lt;p&gt;We will start by looking at in-person, offline encryption.&lt;/p&gt;
 
 &lt;h2 id=&quot;cryptography-we-do-everyday&quot;&gt;Cryptography We Do Everyday&lt;/h2&gt;
 &lt;p&gt;We encrypt things all the time without even thinking about it. 
-If you spend a significant amount of time with the same group of friends, your will tend of develop common codes that may not make sense to others outside the group.
+If you spend a significant amount of time with the same group of friends, you will tend to develop common codes that may not make sense to others outside the group.
 For example: for years, my family called sombody falling from a sitting position “doing a Don”. There is a story of course—We knew a guy named Don who fell from his plastic beach chair in a rather hilarious way; “doing a Don” was born.&lt;/p&gt;
 
-&lt;p&gt;These kind of minor dialects in speech are cryptographic in their own way. The truth is though, that we use cryptography much more than that!&lt;/p&gt;
+&lt;p&gt;These types of minor dialects in speech are cryptographic in their own way. The truth is though, that we use cryptography much more than that!&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;“Is cryptography any different than talking?
@@ -16,7 +16,7 @@ Only, I never do…” — Adapted from a scene in &lt;a href=&quot;https://www.
 &lt;/blockquote&gt;
 
 &lt;p&gt;How many times have you hinted, flirted, and innuendoed to try to say “I find you very physically attractive”?
-Have you told your friend that always stinks to wear more deoderent?
+Have you told your friend that always stinks to wear more deodorant?
 Have you ever had someone say the words “I’m fine” when you know &lt;em&gt;for certain&lt;/em&gt; that they are indeed not okay?&lt;/p&gt;
 
 &lt;table&gt;
@@ -52,12 +52,21 @@ Hopefully I have convinced you that you use &lt;del&gt;deceit&lt;/del&gt; crypto
 &lt;h2 id=&quot;grade-school-encryption&quot;&gt;Grade-School Encryption&lt;/h2&gt;
 &lt;p&gt;Back when I was in middle school I used to pass notes like these:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/ceasar1.jpg&quot; alt=&quot;A messege I would have sent in middle school. ROT5: Xfwfm hx hzyj&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This is a messege encrypted using the Caesar cipher. This encryption technique was used by Julius Caesar during the reign of the Roman Empire to “encrypt messeges of military significance.”&lt;a class=&quot;citation-link&quot; href=&quot;https://en.wikipedia.org/wiki/Caesar_chipher/&quot;&gt;[1]&lt;/a&gt;
+&lt;figure&gt;
+  &lt;img alt=&quot;A message I would have sent in middle school. ROT5: Xfwfm hx hzy&quot; src=&quot;/assets/img/ceasar1.jpg&quot; /&gt;
+  &lt;figcaption&gt;
+    The kind of message I would have sent in middle school. A ROT5 Ceasar cipher.
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;This is a message encrypted using the Caesar cipher. This encryption technique was used by Julius Caesar during the reign of the Roman Empire to “encrypt messages of military significance.”&lt;a class=&quot;citation-link&quot; href=&quot;https://en.wikipedia.org/wiki/Caesar_chipher/&quot;&gt;[1]&lt;/a&gt;
 This is one of the oldest and simplest methods of encryption known to us today.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/ceasar13.png&quot; alt=&quot;A diagram of a Ceasar Shift algorithm. A &amp;lt;-&amp;gt; N, B &amp;lt;-&amp;gt; O, et cetera.&quot; /&gt;&lt;/p&gt;
+&lt;figure&gt;
+  &lt;img alt=&quot;A diagram of a Ceasar Shift algorithm. A &amp;lt;-&amp;gt; N, B &amp;lt;-&amp;gt; O, et cetera.&quot; src=&quot;/assets/img/ceasar13.png&quot; /&gt;
+  &lt;figcaption&gt;
+    A diagram of a ROT13 Ceasar shift algorithm. A &amp;lt;-&amp;gt; N, B &amp;lt;-&amp;gt; O, et cetera.
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
 
 &lt;p&gt;You can try this out yourself by moving some letters forward in the alphabet.
 An ‘A’ turns into a ‘B’, ‘B’ into ‘C’, ‘C’ into ‘D’, et cetera.
@@ -70,14 +79,14 @@ That is just using a shift of one. You can use a shift of seven, for example, an
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;T -&amp;gt; +7 -&amp;gt; A&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;We should wrap-around to the beginning of the alphabet if there are no letters left.&lt;/p&gt;
+&lt;p&gt;When you reach the end of the alphabet, wrap around to the beginning to find the encrypted letter.&lt;/p&gt;
 
 &lt;h2 id=&quot;example-of-a-caesar-cipher&quot;&gt;Example of a Caesar Cipher&lt;/h2&gt;
 &lt;p&gt;Let’s setup a little story to illustrate the problems of encryption. We will have three characters:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Alice, a little girl with feelings for Bob&lt;/li&gt;
-  &lt;li&gt;Bob, a young boy with an addiction to pancakes&lt;/li&gt;
+  &lt;li&gt;Alice, young lady with feelings for Bob&lt;/li&gt;
+  &lt;li&gt;Bob, a young lad with an addiction to pancakes&lt;/li&gt;
   &lt;li&gt;Eve, a wee jealous girl scout who sits between Bob and Alice&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -85,14 +94,19 @@ That is just using a shift of one. You can use a shift of seven, for example, an
 She passes it to Eve, so Eve can pass it to Alice’s love interest.
 However, in an unfortunate turn of events Eve reads the note herself, and decides not to give it to Bob.&lt;/p&gt;
 
-&lt;p&gt;Oh the horror! Alice is without young love! How could she remedy this so that Bob can read her messege, but evil Eve can not?
+&lt;p&gt;Oh the horror! Alice is without young love! How could she remedy this so that Bob can read her message, but evil Eve can not?
 Let’s use the Caesar cipher to fix this problem.&lt;/p&gt;
 
-&lt;p&gt;Let us assume that Alice and Bob already have a shared key, 7 for example. To encrypt this messege, we should shift our letters seven letters forward in the alphabet—just like the example above.&lt;/p&gt;
+&lt;p&gt;Let us assume that Alice and Bob already have a shared key, 7 for example. To encrypt this message, she should shift her letters seven letters forward in the alphabet—just like the example above.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/ceasar2.jpg&quot; alt=&quot;A longer Ceasar cipher encrypted messege: ROT2: Wpeng Vgf ku dqqogt ogog&quot; /&gt;&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt=&quot;A longer Ceasar cipher encrypted message: ROT2: Wpeng Vgf ku dqqogt ogog]&quot; src=&quot;/assets/img/ceasar2.jpg&quot; /&gt;
+  &lt;figcaption&gt;
+    A longer Ceasar cipher encrypted message using ROT2.
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
 
-&lt;p&gt;Now Alice’s messege reads “P svcl fvb, Ivi! Wslhzl lha olhsaoply!”&lt;/p&gt;
+&lt;p&gt;Now Alice’s message reads “P svcl fvb, Ivi! Wslhzl lha olhsaoply!”&lt;/p&gt;
 
 &lt;p&gt;Now, when Alice sends her Romeo a little note, all he has to do is decrypt the text by shifting the letters down by 7.
 &lt;a href=&quot;https://www.xarg.org/tools/caesar-cipher/&quot;&gt;Here is a site&lt;/a&gt; which can do longer pieces of text for you instead of doing it manually.&lt;/p&gt;
@@ -103,19 +117,19 @@ Let’s use the Caesar cipher to fix this problem.&lt;/p&gt;
 
 &lt;h4 id=&quot;it-is-very-easy-to-break&quot;&gt;It is Very Easy to Break&lt;/h4&gt;
 
-&lt;p&gt;Even Eve with her measly grade 4 math skills could easily start going through this messege with pen and paper and figure out any combination in a couple hours at maximum.
+&lt;p&gt;Even Eve with her measly grade 4 math skills could easily start going through this message with pen and paper and figure out any combination in a couple hours at maximum.
 Imagine how easy this is for a computer?
 This could be broken in a few microseconds even on an older processor like the Intel Core 2 Duo.&lt;/p&gt;
 
 &lt;h4 id=&quot;no-secure-way-of-sharing-keys&quot;&gt;No Secure Way of Sharing Keys&lt;/h4&gt;
 
-&lt;p&gt;We assumed in our previous example that Bob and Alice already have a shared key (seven) to encrypt and decrypt all of their messeges.
+&lt;p&gt;We assumed in our previous example that Bob and Alice already have a shared key (seven) to encrypt and decrypt all of their messages.
 If Bob and Alice did not have a previous friendship and time to share secrets of this sort, there is no way to share their key with eachother without Eve also knowing.
-This would defeat the entire purpose of obscuring the messege in the first place.&lt;/p&gt;
+This would defeat the entire purpose of obscuring the message in the first place.&lt;/p&gt;
 
-&lt;h4 id=&quot;universal-vulnerability-of-messeges&quot;&gt;Universal Vulnerability of Messeges&lt;/h4&gt;
+&lt;h4 id=&quot;universal-vulnerability-of-messages&quot;&gt;Universal Vulnerability of Messages&lt;/h4&gt;
 
-&lt;p&gt;Every messege sent between the two parties uses the same code to encrypt and decrypt. If someone finds out the code once, all previous communications are comprimised.&lt;/p&gt;
+&lt;p&gt;Every message sent between the two parties uses the same code to encrypt and decrypt. If someone finds out the code once, all previous communications are comprimised.&lt;/p&gt;
 
 &lt;h2 id=&quot;better-encryption-methods&quot;&gt;Better Encryption Methods&lt;/h2&gt;
 
@@ -123,8 +137,8 @@ This would defeat the entire purpose of obscuring the messege in the first place
 I will discuss this more in another article, but for the technically inclined:&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/RSA_(cryptosystem)&quot;&gt;RSA&lt;/a&gt;/&lt;a href=&quot;https://en.wikipedia.org/wiki/Elliptic-curve_cryptography&quot;&gt;EC&lt;/a&gt; provides &lt;em&gt;very&lt;/em&gt; large cryptographic keys. It would be impossible for a human to encrypt or decrypt a messege manually.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=GSIDS_lvRv4&quot;&gt;Asymetric cryptography&lt;/a&gt; provides four keys, instead of just one; stopping evesdroppers from listening in on your secret conversations—even if you do not have the change to exchange keys in advance.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/RSA_(cryptosystem)&quot;&gt;RSA&lt;/a&gt;/&lt;a href=&quot;https://en.wikipedia.org/wiki/Elliptic-curve_cryptography&quot;&gt;EC&lt;/a&gt; provides &lt;em&gt;very&lt;/em&gt; large cryptographic keys. It would be impossible for a human to encrypt or decrypt a message manually.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=GSIDS_lvRv4&quot;&gt;Asymetric cryptography&lt;/a&gt; provides four keys, instead of just one; stopping evesdroppers from listening in on your secret conversations—even if you do not have the chance to exchange keys in advance.&lt;/li&gt;
 &lt;/ol&gt;</content><author><name>tait</name></author><summary type="html">There are many kinds of encryption used in our everyday communication. Online and offline, over the internet and in person. In this article, I will explain the basics of how encryption should work in theory. I explain in this article why encryption is important, and why you should care about it.</summary></entry><entry><title type="html">Is Encryption Worth It?</title><link href="http://localhost:4000/2020/01/26/rsa1.html" rel="alternate" type="text/html" title="Is Encryption Worth It?" /><published>2020-01-26T00:00:00+00:00</published><updated>2020-01-26T00:00:00+00:00</updated><id>http://localhost:4000/2020/01/26/rsa1</id><content type="html" xml:base="http://localhost:4000/2020/01/26/rsa1.html">&lt;p&gt;What is the most embarassing thing you have typed into Google search? What is the most personal secret you told a friend in confidence? What is your bank password? What is your business’s secret to stay ahead of the competition?&lt;/p&gt;
 
 &lt;p&gt;Now at first these questions may seem not completely related. There is a point though: You likely sent all of this information over the internet.&lt;/p&gt;
