@@ -15,11 +15,11 @@
   - name: WhatsApp &amp; Signal
     label: +1 (403) 771-4754
     value: tel:14037714754
-- heading: Project Links
+- heading: Code
   values:
-  - name: Podcast
-    value: /podcast/
-    label: Out Of Sight
+    - name: My Github (main)
+      value: https://github.com/TTWNO
+      label: INHERIT
 - heading: Secure Service Links
   values:
     - name: Signal
