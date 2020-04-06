@@ -209,3 +209,21 @@ figcaption {
   font-size: .8em;
   text-decoration: italic;
 }
+
+footer {
+  border-top: $line-under; 
+  margin-bottom: 100px;
+}
+
+.terminal {
+  line-height: 1em;
+  overflow: scroll;
+  padding: 10px; 
+  color: #00FF41;
+  margin: 0px;
+  background-color: #151515;
+}
+
+.small-image {
+  width: 100%;
+}

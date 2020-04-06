@@ -1,4 +1,484 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-03-10T22:25:54+00:00</updated><id>/feed.xml</id><entry><title type="html">How Does Encryption Work, in Theory?</title><link href="/2020/02/19/rsa2.html" rel="alternate" type="text/html" title="How Does Encryption Work, in Theory?" /><published>2020-02-19T00:00:00+00:00</published><updated>2020-02-19T00:00:00+00:00</updated><id>/2020/02/19/rsa2</id><content type="html" xml:base="/2020/02/19/rsa2.html">&lt;p&gt;There are many kinds of encryption used in our everyday communication. Online and offline, over the internet and in person. In this article, I will explain the basics of how encryption should work in theory. I explain in &lt;a href=&quot;/2020/01/26/rsa1.html&quot;&gt;this article&lt;/a&gt; why encryption is important, and why &lt;em&gt;you&lt;/em&gt; should care about it.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-06T03:53:39+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How To Encrypt Your Own Documents Using gpg</title><link href="http://localhost:4000/2020/04/06/rsa4.html" rel="alternate" type="text/html" title="How To Encrypt Your Own Documents Using gpg" /><published>2020-04-06T00:00:00+00:00</published><updated>2020-04-06T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/06/rsa4</id><content type="html" xml:base="http://localhost:4000/2020/04/06/rsa4.html">&lt;p&gt;If you have ever wanted to garuntee the utmost security of your emails and documents, then this is the guide for you!
+It should be noted that in some circles the tools used are more common than in others.
+These are the everyday tools of many privacy advocates and computer nerds.&lt;/p&gt;
+
+&lt;p&gt;If you have never used Linux however, then the method of doing this will be rather unfamiliar.
+This tutorial will be done on an &lt;a href=&quot;https://archlinux.org/&quot;&gt;Arch Linux&lt;/a&gt; machine,
+but it should be the same on Ubuntu, Fedora, CentOS, Debian,
+OpenBSD, FreeBSD, MacOSX, etc.
+The only operating system that does not include these tools by default (or easily accessible) is Windows.&lt;/p&gt;
+
+&lt;p&gt;This tutorial makes heavy use of the terminal.
+You have been warned.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Let us…begin!&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;glossary&quot;&gt;Glossary&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Binary-to-text_encoding#ASCII_armor&quot;&gt;&lt;strong&gt;ASCII armour&lt;/strong&gt;&lt;/a&gt; — A way to encode &lt;strong&gt;OpenPGP&lt;/strong&gt; documents so they are readable by humans. These files end in .asc&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;(Open)PGP&lt;/strong&gt; — An open standard for encoding pulbic keys and encrypted documents.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;GPG&lt;/strong&gt; — GNUPrivacyGaurd is an implementation of &lt;strong&gt;OpenPGP&lt;/strong&gt;. It is installed by default on most Linux distrobutions.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;step-0-setup&quot;&gt;Step 0: Setup&lt;/h2&gt;
+
+&lt;p&gt;We will be using the utility &lt;code class=&quot;highlighter-rouge&quot;&gt;gpg&lt;/code&gt; for this tutorial.&lt;/p&gt;
+
+&lt;p&gt;The other thing to note: The character ‘$’ (dollar sign) is usually not typed when shown in a command.
+It simply indicates that you do not need administrative privilages to run these commands.&lt;/p&gt;
+
+&lt;p&gt;Test to see if you get this output in your terminal.&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+$ gpg --version
+
+gpg (GnuPG) 2.2.20
+libgcrypt 1.8.5
+Copyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later &amp;lt;https://gnu.org/licenses/gpl.html&amp;gt;
+
+...
+&lt;/pre&gt;
+
+&lt;p&gt;If this is not successful look into how to install these tools on your system.&lt;/p&gt;
+
+&lt;h2 id=&quot;step-1-getcreate-a-public-key&quot;&gt;Step 1: Get/Create A Public Key!&lt;/h2&gt;
+
+&lt;h3 id=&quot;get-somebody-elses&quot;&gt;Get Somebody Else’s&lt;/h3&gt;
+&lt;p&gt;Step one is having somebody to send your encrypted message to. Maybe this is a friend, a journalist, or a whistleblower.&lt;/p&gt;
+
+&lt;p&gt;To encrypt a document with somebody’s public key, you need to first obtain it.
+My public key is available &lt;a href=&quot;/public-key.asc&quot;&gt;at this link&lt;/a&gt;, and you can use it to send me encrypted stuff.&lt;/p&gt;
+
+&lt;p&gt;If you are on a linux terminal, you can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;wget&lt;/code&gt; command to download it.&lt;/p&gt;
+
+&lt;p&gt;wget:&lt;/p&gt;
+&lt;pre class=&quot;terminal&quot;&gt;
+$ wget https://tait.tech/public-key.asc
+&lt;/pre&gt;
+
+&lt;p&gt;Curl:&lt;/p&gt;
+&lt;pre class=&quot;terminal&quot;&gt;
+$ curl https://tait.tech/public-key.asc -o public-key.asc
+&lt;/pre&gt;
+
+&lt;h3 id=&quot;make-your-own-optional&quot;&gt;Make Your Own (optional)&lt;/h3&gt;
+
+&lt;p&gt;The following section is quite long,
+so if you don’t want to create your own keypair,
+then feel free to skip to &lt;a href=&quot;#step-2-import-public-key&quot;&gt;Step #2&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you want to encrypt your own documents,
+or you want others to be able to send you encrypted messages,
+then you can create your own public/private key pair.
+You can use these to encrypt your documents,
+and you can send our public key to others so that they can securely communicate with yourself.&lt;/p&gt;
+
+&lt;p&gt;Run the following command in your terminal, and follow the steps I outline to get you started.&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+$ gpg --full-gen-key
+&lt;/pre&gt;
+
+&lt;p&gt;This will produce the following dialog:&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+gpg (GnuPG) 2.2.20; Copyright (C) 2020 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Please select what kind of key you want:
+  (1) RSA and RSA (default)
+  (2) DSA and Elgamal
+  (3) DSA (sign only)
+  (4) RSA (sign only)
+  (14) Existing key from card
+Your selection? 
+&lt;/pre&gt;
+
+&lt;p&gt;Select the option &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;. You want two keys, both RSA.&lt;/p&gt;
+
+&lt;p&gt;Next we will select the key size:&lt;/p&gt;
+&lt;pre class=&quot;terminal&quot;&gt;
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (2048) 
+&lt;/pre&gt;
+
+&lt;p&gt;Type the number 2048.&lt;/p&gt;
+
+&lt;p&gt;Next it will ask you how long you want the key to be valid.&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+Requested keysize is 2048 bits
+Please specify how long the key should be valid.
+          0 = key does not expire
+       &amp;lt;n&amp;gt;  = key expires in n days
+       &amp;lt;n&amp;gt;w = key expires in n weeks
+       &amp;lt;n&amp;gt;m = key expires in n months
+       &amp;lt;n&amp;gt;y = key expires in n years
+Key is valid for? (0)
+&lt;/pre&gt;
+
+&lt;p&gt;Type the number 1. This will enable you time to test it,
+but it will make the key expire within 24 hours so that if you accidentally
+share your private key, or delete your VM and no longer have access to it, you will be fine.&lt;/p&gt;
+
+&lt;p&gt;It will ask your if you are sure about the expiry date.&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+Key expires at Tue Apr  7 02:24:23 2020 UTC
+Is this correct? (y/N) 
+&lt;/pre&gt;
+
+&lt;p&gt;Type &lt;code class=&quot;highlighter-rouge&quot;&gt;y&lt;/code&gt; to confirm your choice.&lt;/p&gt;
+
+&lt;p&gt;Now &lt;code class=&quot;highlighter-rouge&quot;&gt;gpg&lt;/code&gt; is going to ask you to create a user id to indetify this key.
+Use some test data for now.
+User input is in bold, feel free to follow along or to put your own test data in.&lt;/p&gt;
+
+&lt;p&gt;Once you are more comfortable with the tools,
+then you can create a public/private keypair that you will keep for some time.&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+GnuPG needs to construct a user ID to identify your key.
+
+Real name: &lt;b&gt;Mr. Tester&lt;/b&gt;
+Email address: &lt;b&gt;test@test.org&lt;/b&gt;
+Comment: &lt;b&gt;for testing only&lt;/b&gt;
+You selected this USER-ID:
+    &quot;Mr. Tester (for testing only) &amp;lt;test@test.org&amp;gt;&quot;
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? &lt;b&gt;O&lt;/b&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;It will then ask you for a password.
+If you are simply using this for test purposes,
+then you can feel free to set it to something like “test”.
+When create a long-term use pulbic key make sure to make the password &lt;em&gt;very&lt;/em&gt; secure.&lt;/p&gt;
+
+&lt;p&gt;During the process of creating your key, &lt;code class=&quot;highlighter-rouge&quot;&gt;gpg&lt;/code&gt; may warn you with this message:&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+&lt;/pre&gt;
+
+&lt;p&gt;If this happens, feel free to smash your keyboard (lightly),
+watch a YouTube video on the machine,
+browse the web with &lt;a href=&quot;http://w3m.sourceforge.net/&quot;&gt;w3m&lt;/a&gt;,
+etc. until the key is generated.&lt;/p&gt;
+
+&lt;p&gt;You will know it is done when you see this message (or something similar):&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+gpg: key EACCC490291EA7CE marked as ultimately trusted
+gpg: revocation certificate stored as '/home/tait/.config/gnupg/openpgp-revocs.d/FFA7D7525C6546983F1152D8EACCC490291EA7CE.rev'
+public and secret key created and signed.
+
+pub   rsa2048 2020-04-06 [SC] [expires: 2020-04-07]
+      FFA7D7525C6546983F1152D8EACCC490291EA7CE
+      uid                      Mr. Tester (for testing only) &amp;lt;test@test.org&amp;gt;
+      sub   rsa2048 2020-04-06 [E] [expires: 2020-04-07]
+&lt;/pre&gt;
+
+&lt;p&gt;Tada! You have your own public/private keypair!&lt;/p&gt;
+
+&lt;p&gt;Sharing a keypair that will expire soon is not a good idea,
+however, if you are ready, then you can use this command to generate a public key file to share with others.&lt;/p&gt;
+
+&lt;p&gt;Feel free to substitute “Mr. Tester” for any other identifying part of your key.
+Remember that to use the email, you must enclose it in &amp;lt; and &amp;gt;.&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+$ gpg --export --armour &quot;Mr. Tester&quot; &amp;gt; public-key.asc
+&lt;/pre&gt;
+
+&lt;p&gt;To use the email as the identifier:&lt;/p&gt;
+&lt;pre class=&quot;terminal&quot;&gt;
+$ gpg --export --armour &quot;&amp;lt;test@test.org&amp;gt;&quot; &amp;gt; public-key.asc
+&lt;/pre&gt;
+
+&lt;h2 id=&quot;step-2-import-public-key&quot;&gt;Step 2: Import Public Key&lt;/h2&gt;
+
+&lt;p&gt;This list of keys that &lt;code class=&quot;highlighter-rouge&quot;&gt;gpg&lt;/code&gt; keeps on tap so to speak, is called our “keyring”.
+Your will need to import a new public key to encrypt files with &lt;code class=&quot;highlighter-rouge&quot;&gt;gpg&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you already created your own public key, then this step is not necessary unless you want to also encrypt something for me :)&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/keyring.jpg&quot; alt=&quot;A keyring holding eight allen keys.&quot; /&gt;
+  &lt;figcaption&gt;
+    A keyring holding eight allen keys.
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;To import a public key to use for encrypting files, use the &lt;code class=&quot;highlighter-rouge&quot;&gt;--import&lt;/code&gt; option of &lt;code class=&quot;highlighter-rouge&quot;&gt;gpg&lt;/code&gt;. Like so:&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+$ gpg --import public-key.asc
+gpg: key 64FB4E386953BEAD: public key &quot;Tait Hoyem &amp;lt;tait.hoyem@protonmail.com&amp;gt;&quot; imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+&lt;/pre&gt;
+
+&lt;p&gt;Now that we have imported a public key, we can make a message to send!&lt;/p&gt;
+
+&lt;h2 id=&quot;step-3-have-a-message-to-encrypt&quot;&gt;Step 3: Have A Message To Encrypt&lt;/h2&gt;
+
+&lt;p&gt;You can make a new file which holds some important, secret data.
+Feel free to use a graphical editor if you have one, if not, &lt;code class=&quot;highlighter-rouge&quot;&gt;nano&lt;/code&gt; works alright too.&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+  Rules Of A Good Life:
+
+  1. Wash your hands!
+  2. Work hard!
+  3. Be firm.
+  5. Have good friends!
+&lt;/pre&gt;
+
+&lt;p&gt;Save this file as something like &lt;code class=&quot;highlighter-rouge&quot;&gt;test-pgp.txt&lt;/code&gt;, and we’ll use that name later.&lt;/p&gt;
+
+&lt;h2 id=&quot;step-4-encrypt-a-message&quot;&gt;Step 4: Encrypt A Message&lt;/h2&gt;
+
+&lt;p&gt;Now that we have a message to send and person to send to,
+all we have to do is encrypt this message and it’ll be on its merry way!
+To do so, we must specify two new options to &lt;code class=&quot;highlighter-rouge&quot;&gt;gpg&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The first is &lt;code class=&quot;highlighter-rouge&quot;&gt;--recipient&lt;/code&gt;.
+This tells &lt;code class=&quot;highlighter-rouge&quot;&gt;gpg&lt;/code&gt; to encrypt using a certin public key that we have in our keyring.
+You can use the person’s name, email address, or the key’s uid.&lt;/p&gt;
+
+&lt;p&gt;The second is &lt;code class=&quot;highlighter-rouge&quot;&gt;--encrypt&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;You will also specify the &lt;code class=&quot;highlighter-rouge&quot;&gt;--armour&lt;/code&gt; option to use ASCII armoured files. Put this option after &lt;code class=&quot;highlighter-rouge&quot;&gt;--encrypt&lt;/code&gt;, and put the file name after &lt;code class=&quot;highlighter-rouge&quot;&gt;--armour&lt;/code&gt;. See below.&lt;/p&gt;
+
+&lt;p&gt;You can either use your own public key name to encrypt a document (allowng only you to decrypt it),
+or you can use my public key that we imported earlier (allowing only me to decrypt it).
+Either way works fine.&lt;/p&gt;
+
+&lt;p&gt;This is the big one!&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+$ gpg --recipient &quot;Tait Hoyem&quot; --encrypt --armour test-gpg.txt
+&lt;/pre&gt;
+
+&lt;p&gt;“But there is no output!” you might say!
+Yes, that is because our new (encrypted) file has already been saved.
+Let’s look at it with cat.&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+$ cat test-gpg.txt.asc
+-----BEGIN PGP MESSAGE-----
+
+hQIMA2mJuYb8vkIlAQ/9FDmXJgW2vI7p9sznKvHhQk7uTZvoWC3hCeqHoO3BSElP
+XR1BNAkJ+bykB30M+9u+XDyRtTwazjvNPmYfQnIh0Q+BQZigDWbEd1R47jbzm7Tu
+0eZKKapgEidfecULtaECX1sR3qPt1m9oZjyUR1rzNd8tezZlCu2pjdNZrkta2Bdm
+Hh1xDS43Bw7PMQqraJsHwqr0M1GLDbMzPes2ZU5y4jEmXZ0PZdJ7kgjR8dvhLBfi
+MU+4kYnnemQEztXBOjKidhyOntKiLjenvD00tVHrOuQoWuWCHGiqR24qSwVjeb9G
+079gqH1VWi3fk2cwFA9f3TLvJqUwatyE0Hcba0U1d2Voz/C9JEQjT6FHuaCqQL6b
+p7B7m2DwpywFGJpAn6ksrEYqHaLVWiEGmdMmHYuHxMw8+cqoSwbYymCZTwMBAuJe
+Pr1VO9uNo+Vj5r8IX7ACcSsrjf0XkVzfX6ySsPbyOlGXnwzWSOM3Dk2Z9MqDORbj
+0/7vJTnDctPuc91Rlp3YnJlZKWMcNfPMKMtvpljd2XuVwub+C4vGWXa9XLbRXmJo
+cnEFT6SB11AKjytE2Urt62CCrYjJPBneabxbCztnBs+vQSx7Fj0LK6v4Euik/Xm/
+9aKmZZW8306c9Zwgpp9glWjLMCDNxJRGdKRjZsnkt9hOEYsP1irTegystK6u4eHS
+mwHX931ENOJsnPfQZCZ9b41Q9doZQ/N/WHstQO8MtA3HIN1sW3wYkGzOLKj4gJfm
+bqR/TzQmXyLT1xZa+/yTscaV0P4OlI4vcii/k4DgeSeQVWp9o9DbZFxSCsdYVvPu
+jaDMzZnIKoax1GFz/coUAHFQub2rLzaQ5DDbvrkX++UrAjuUtRcSFH0TKhahZmCF
+nv117moLfK22Mst/
+=bw8T
+-----END PGP MESSAGE-----
+&lt;/pre&gt;
+
+&lt;h2 id=&quot;step-5-decryption-optional&quot;&gt;Step 5: Decryption (optional)&lt;/h2&gt;
+
+&lt;p&gt;If you created your own public/private keypair in step 1,
+and you encryped using &lt;code class=&quot;highlighter-rouge&quot;&gt;--recipient &quot;Your Test Name&quot;&lt;/code&gt;,
+then you can decrypt your document as well!&lt;/p&gt;
+
+&lt;p&gt;You will need to specify &lt;code class=&quot;highlighter-rouge&quot;&gt;--decrypt&lt;/code&gt;, and that’s all folks!&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+$ gpg --decrypt test-gpg.txt.asc
+&lt;/pre&gt;
+
+&lt;p&gt;A password dialog will then come up asking for your previously created password.
+As long as you remember your password from before and enter it correctly: voila!&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+gpg: encrypted with 4096-bit RSA key, ID 6989B986FCBE4225, created 2020-01-02
+      &quot;Tait Hoyem &amp;lt;tait.hoyem@protonmail.com&amp;gt;&quot;
+Rules Of A Good Life:
+
+1. Wash your hands!
+2. Work hard!
+3. Be firm.
+5. Have good friends!
+&lt;/pre&gt;
+
+&lt;h2 id=&quot;step-6-finale&quot;&gt;Step 6: Finale!&lt;/h2&gt;
+
+&lt;p&gt;Ladies and gentleman, you have done it!
+You have encrypted our very own document.
+(And maybe even decrypted it yourself too :)&lt;/p&gt;
+
+&lt;p&gt;If you encrypted using my public key,
+feel free to send it to &lt;a href=&quot;mailto:tait@tait.tech&quot;&gt;my email&lt;/a&gt;.
+I am happy to verify if it worked.&lt;/p&gt;
+
+&lt;p&gt;For more information on this subject, check out &lt;a href=&quot;https://www.gnupg.org/gph/en/manual/c14.html&quot;&gt;gnugp.org’s guide&lt;/a&gt; on using GPG.
+They are the ones that make these tools available,
+and the &lt;a href=&quot;https://www.gnu.org/&quot;&gt;GNU Project&lt;/a&gt; has been instrumental in creating the open-source world as it exists today.
+Give ‘em some love, eh!&lt;/p&gt;
+
+&lt;p&gt;Thank you so much for sticking through this whole thing!
+Let me know if there is anything that doesn’t make sense.
+I am happy to improve this guide as time goes on if that is necessary.&lt;/p&gt;
+
+&lt;p&gt;Happy hacking :)&lt;/p&gt;</content><author><name>tait</name></author><summary type="html">If you have ever wanted to garuntee the utmost security of your emails and documents, then this is the guide for you! It should be noted that in some circles the tools used are more common than in others. These are the everyday tools of many privacy advocates and computer nerds.</summary></entry><entry><title type="html">How Asymetric Encryption Works</title><link href="http://localhost:4000/2020/04/02/rsa3.html" rel="alternate" type="text/html" title="How Asymetric Encryption Works" /><published>2020-04-02T00:00:00+00:00</published><updated>2020-04-02T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/02/rsa3</id><content type="html" xml:base="http://localhost:4000/2020/04/02/rsa3.html">&lt;p&gt;In a few previous articles I have explained &lt;a href=&quot;/2020/01/26/rsa1.html&quot;&gt;why encryption may be important to you&lt;/a&gt; and &lt;a href=&quot;/2020/02/19/rsa2.html&quot;&gt;how the theory behind encryption works&lt;/a&gt;. I did not yet explain the system of asymetric cryptography, however. That is what this article is for.&lt;/p&gt;
+
+&lt;p&gt;Previously, we talked about how &lt;em&gt;symetric&lt;/em&gt; encryption works. This is by having a shared key that both parties use to simultaniously encrypt, and decrypt the data. (See Ceasar Cipher for example).&lt;/p&gt;
+
+&lt;h2 id=&quot;public-key-or-asymetric-encryption&quot;&gt;Public-key, or Asymetric Encryption&lt;/h2&gt;
+
+&lt;p&gt;Asymetric encryption is based on the idea of having multiple keys instead of only one shared key.
+For example: instead of encrypting with one key, and decrypting with that same key (like our ROT ciphers we talked about previously), we can use one key to &lt;em&gt;encrypt&lt;/em&gt; the information, and a different key to &lt;em&gt;decrypt&lt;/em&gt; the information.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/alice-to-bob.png&quot; alt=&quot;Alice sending her message to Bob using Bob's public key. Bob decrypts the message with his private key.&quot; /&gt;
+  &lt;figcaption&gt;
+    Alice sending her message to Bob using Bob's public key. Bob decrypts the message with his private key.  
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;In the picture above, see how Alice uses Bob’s public key to encrypt some data,
+then sends it to Bob for him to decrypt with his private key?
+That is the essense of public-key encryption.&lt;/p&gt;
+
+&lt;p&gt;The great thing about public-key encryption is that your public key is &lt;em&gt;public&lt;/em&gt;! There is no need to be afraid of sending this everywhere!
+You can attach it at the end of all your emails, the end of your forum posts, &lt;a href=&quot;/public-key.asc&quot;&gt;a link to it on your low-power webserver&lt;/a&gt; (wink).
+There are even things called &lt;a href=&quot;http://keys.gnupg.net/&quot;&gt;keyservers&lt;/a&gt; that will save your public key on them for retrival in case somebody wants to verify your public key.&lt;/p&gt;
+
+&lt;p&gt;Anything encrypted with your public key can only be decrypted with your private key.
+Provided you never, &lt;em&gt;NEVER&lt;/em&gt; share your private key with anyone ever, we can assume that all messages sent to you encrypted with your public key will never be read by anyone else.&lt;/p&gt;
+
+&lt;p&gt;Asymetric encryption, however, often contains four keys instead of two. Why is this?&lt;/p&gt;
+
+&lt;h4 id=&quot;verification-of-author&quot;&gt;Verification of Author&lt;/h4&gt;
+
+&lt;p&gt;One interesting thing about keys pairs is that not only can the private key decrypt anything the public key encrypts,
+but the public key can decrypt anything the private key encrypts.&lt;/p&gt;
+
+&lt;p&gt;Now why would one want to encrypt a message that can be decrypted by anyone?&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/alice-sign-to-bob.png&quot; alt=&quot;Alice sending a message to bob which is 'signed' with her private key. This allows Bob to know only Alice could have sent it!&quot; /&gt;
+  &lt;figcaption&gt;
+   Alice sending a message to bob which is 'signed' with her private key. This allows Bob to know only Alice could have sent it! 
+  &lt;br /&gt;
+  &lt;br /&gt;
+  Note: Although the picture shows otherwise, the text is not sent in the plain. It is encrypted with Alice's private key.
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;This is how you can verify that the person who says they wrote the message really did indeed write the message!
+If their private key was never shared with anyone else, then the message must have come from them!&lt;/p&gt;
+
+&lt;p&gt;For maximum security, these methods are often layered.
+First, signing with the sender’s private key,
+ensuring only they could have sent it—
+then encrypted with the recipient’s pulbic key,
+making sure only the reciever can read it.&lt;/p&gt;
+
+&lt;p&gt;Note that both sides must first have eachother’s public keys to do this.
+This is easy if they communicate often, but when first contacting somebody,
+people will generally send their encrypted message along with the their own pulbic key attached in a seperate file.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-this-means&quot;&gt;What This Means&lt;/h3&gt;
+
+&lt;p&gt;Notice neither Alice nor Bob had to share any comprimsing information over the network?
+This is why public-key encryption is so powerful!&lt;/p&gt;
+
+&lt;p&gt;Alice and Bob can both safely send their public keys in the open.
+They can even send them over the insecure HTTP, or FTP protocols.&lt;/p&gt;
+
+&lt;p&gt;Whilst not sending any encryption-breaking messages,
+Alice and Bob now have a way to communicate securely.
+If you trust nothing and no one, this is your perfered method of security.&lt;/p&gt;
+
+&lt;p&gt;Check out this &lt;a href=&quot;https://www.youtube.com/watch?v=GSIDS_lvRv4&quot;&gt;Computerphile video&lt;/a&gt; if you want the simplified explaination.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-algorithms&quot;&gt;The Algorithms&lt;/h3&gt;
+
+&lt;p&gt;The two biggest “implementations” of public-key cryptography vary only in the mathamatical equations used to generate the numbers,
+and how the numbers are &lt;a href=&quot;https://en.wikipedia.org/wiki/Trapdoor_function&quot;&gt;“trapdoored”&lt;/a&gt; to decrypt if you have the correct key.&lt;/p&gt;
+
+&lt;p&gt;I will discuss the differences in approach here.
+If you want to skip to the next article where I show you how to encrypt your own documents using RSA, see &lt;a href=&quot;/2020/04/06/rsa4.html&quot;&gt;this link&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;rsa&quot;&gt;RSA&lt;/h3&gt;
+
+&lt;p&gt;The mathamatic center of the RSA system was developed over the course of a year or so.
+Three men were involved. Ron Rivest, Adi Shamir, and Leonard Aldeman.
+They worked as a kind of “team”: Each idea by Rivest and Shamir were critisized by the mathamatician on their team: Mr. Aldeman.&lt;/p&gt;
+
+&lt;p&gt;One night, after consuming
+&lt;a href=&quot;https://www.math.uchicago.edu/~may/VIGRE/VIGRE2007/REUPapers/FINALAPP/Calderbank.pdf&quot;&gt;“liberal quantities of Manischewitz wine”&lt;/a&gt;
+Rivest had trouble sleeping.
+After taking long gazes into the abyss of his math textbook, he came up with an idea which would change cryptography forever.
+By the next morning, an academic mathamatical paper was nearly finished.
+He named it after himself and the two others that had been helping him along this whole time. &lt;em&gt;Rivest, Shamir, Aldeman&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Key sizes of RSA range from 1024-bit to 4096-bit.
+1024-bit keys are considered somewhat insecure.
+However,
+it should be noted that every bit doubles the complexity of the key,
+so 2048 is &lt;a href=&quot;https://www.wolframalpha.com/input/?i=2%5E1024&quot;&gt;2^1024&lt;/a&gt; times more complex than 1024.&lt;/p&gt;
+
+&lt;h3 id=&quot;eliptic-curve-ec&quot;&gt;Eliptic-Curve (EC)&lt;/h3&gt;
+
+&lt;p&gt;Eliptic-Curve (EC) is a family of algorithms that use the &lt;a href=&quot;https://en.wikipedia.org/wiki/Elliptic_curve&quot;&gt;Eliptic curve&lt;/a&gt; mathamatical structure to generate the numbers for the keys.
+EC can effectivly provide the security of an RSA key &lt;a href=&quot;https://www.youtube.com/watch?v=NF1pwjL9-DE&quot;&gt;one order of magnitude larger&lt;/a&gt; than an RSA key.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/ec.png&quot; alt=&quot;A picture of an eliptic curve.&quot; class=&quot;small-image&quot; /&gt;
+  &lt;figcaption&gt;
+    An eliptic curve structure.
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;It’s fast; it’s secure! Perfect right?&lt;/p&gt;
+
+&lt;p&gt;Of course not!&lt;/p&gt;
+
+&lt;p&gt;One problem is that due to the smaller key size,
+it can more easily be broken by brute-force.
+This is why EC is mostly used for temporary communication (like HTTPS), not permenant communication (like having an encrypted email conversation with a journalist).&lt;/p&gt;
+
+&lt;p&gt;The other problem is that a certain EC algrorithm called P-256 is suspected to be introduced with malice to National Institute of Standards and Technology (NIST)
+&lt;a href=&quot;https://www.schneier.com/essays/archives/2007/11/did_nsa_put_a_secret.html&quot;&gt;by the NSA&lt;/a&gt;.
+Supposedly, the NSA is able to crack anything encrypted with this algorithm.
+I will let the experts argure about that.&lt;/p&gt;
+
+&lt;p&gt;Other well-known EC algorithms that are more-or-less trusted as secure do exist though.
+The premeire one being Curve25519.
+The reference implementation of &lt;a href=&quot;https://cr.yp.to/ecdh.html&quot;&gt;this algrorithm&lt;/a&gt; is also &lt;a href=&quot;https://fairuse.stanford.edu/overview/public-domain/welcome/&quot;&gt;public-domain&lt;/a&gt;,
+so it is easy for devlopers to work into their own applications without worrying about copywrite.&lt;/p&gt;
+
+&lt;h2 id=&quot;conslusion&quot;&gt;Conslusion&lt;/h2&gt;
+
+&lt;p&gt;In this article we went over some basic points:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Public-key encryption enables secure communication over insecure networks.&lt;/li&gt;
+  &lt;li&gt;RSA is considered the standard for extra-seure communication.&lt;/li&gt;
+  &lt;li&gt;EC is a newer, faster, more transient encryption method.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;To learn how to use RSA keys to encrypt your own communications, check out &lt;a href=&quot;/2020/04/06/rsa4.html&quot;&gt;this other aritcle I wrote&lt;/a&gt;.&lt;/p&gt;</content><author><name>tait</name></author><summary type="html">In a few previous articles I have explained why encryption may be important to you and how the theory behind encryption works. I did not yet explain the system of asymetric cryptography, however. That is what this article is for.</summary></entry><entry><title type="html">How Does Encryption Work, in Theory?</title><link href="http://localhost:4000/2020/02/19/rsa2.html" rel="alternate" type="text/html" title="How Does Encryption Work, in Theory?" /><published>2020-02-19T00:00:00+00:00</published><updated>2020-02-19T00:00:00+00:00</updated><id>http://localhost:4000/2020/02/19/rsa2</id><content type="html" xml:base="http://localhost:4000/2020/02/19/rsa2.html">&lt;p&gt;There are many kinds of encryption used in our everyday communication. Online and offline, over the internet and in person. In this article, I will explain the basics of how encryption should work in theory. I explain in &lt;a href=&quot;/2020/01/26/rsa1.html&quot;&gt;this article&lt;/a&gt; why encryption is important, and why &lt;em&gt;you&lt;/em&gt; should care about it.&lt;/p&gt;
 
 &lt;p&gt;We will start by looking at in-person, offline encryption.&lt;/p&gt;
 
@@ -139,7 +619,7 @@ I will discuss this more in another article, but for the technically inclined:&l
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/RSA_(cryptosystem)&quot;&gt;RSA&lt;/a&gt;/&lt;a href=&quot;https://en.wikipedia.org/wiki/Elliptic-curve_cryptography&quot;&gt;EC&lt;/a&gt; provides &lt;em&gt;very&lt;/em&gt; large cryptographic keys. It would be impossible for a human to encrypt or decrypt a message manually.&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=GSIDS_lvRv4&quot;&gt;Asymetric cryptography&lt;/a&gt; provides four keys, instead of just one; stopping evesdroppers from listening in on your secret conversations—even if you do not have the chance to exchange keys in advance.&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>tait</name></author><summary type="html">There are many kinds of encryption used in our everyday communication. Online and offline, over the internet and in person. In this article, I will explain the basics of how encryption should work in theory. I explain in this article why encryption is important, and why you should care about it.</summary></entry><entry><title type="html">Is Encryption Worth It?</title><link href="/2020/01/26/rsa1.html" rel="alternate" type="text/html" title="Is Encryption Worth It?" /><published>2020-01-26T00:00:00+00:00</published><updated>2020-01-26T00:00:00+00:00</updated><id>/2020/01/26/rsa1</id><content type="html" xml:base="/2020/01/26/rsa1.html">&lt;p&gt;What is the most embarassing thing you have typed into Google search? What is the most personal secret you told a friend in confidence? What is your bank password? What is your business’s secret to stay ahead of the competition?&lt;/p&gt;
+&lt;/ol&gt;</content><author><name>tait</name></author><summary type="html">There are many kinds of encryption used in our everyday communication. Online and offline, over the internet and in person. In this article, I will explain the basics of how encryption should work in theory. I explain in this article why encryption is important, and why you should care about it.</summary></entry><entry><title type="html">Is Encryption Worth It?</title><link href="http://localhost:4000/2020/01/26/rsa1.html" rel="alternate" type="text/html" title="Is Encryption Worth It?" /><published>2020-01-26T00:00:00+00:00</published><updated>2020-01-26T00:00:00+00:00</updated><id>http://localhost:4000/2020/01/26/rsa1</id><content type="html" xml:base="http://localhost:4000/2020/01/26/rsa1.html">&lt;p&gt;What is the most embarassing thing you have typed into Google search? What is the most personal secret you told a friend in confidence? What is your bank password? What is your business’s secret to stay ahead of the competition?&lt;/p&gt;
 
 &lt;p&gt;Now at first these questions may seem not completely related. There is a point though: You likely sent all of this information over the internet.&lt;/p&gt;
 
@@ -188,7 +668,7 @@ Japan lags slightly behind with 80 percent encrypted traffic.&lt;/p&gt;
 
 &lt;h3 id=&quot;what-about-rsa&quot;&gt;What about RSA?&lt;/h3&gt;
 
-&lt;p&gt;RSA is an encryption method named after the initials of the inventors’ sir names: Ron &lt;strong&gt;R&lt;/strong&gt;ivest, Adi &lt;strong&gt;S&lt;/strong&gt;hamir, and Leonard &lt;strong&gt;A&lt;/strong&gt;dleman. It uses the mathematical “factoring problem” to secure communication. The details of this specific type of encryption will be discussed in an article soon to come.&lt;/p&gt;</content><author><name>tait</name></author><summary type="html">What is the most embarassing thing you have typed into Google search? What is the most personal secret you told a friend in confidence? What is your bank password? What is your business’s secret to stay ahead of the competition?</summary></entry><entry><title type="html">Padding And Margin</title><link href="/2020/01/22/padding-and-margin.html" rel="alternate" type="text/html" title="Padding And Margin" /><published>2020-01-22T00:00:00+00:00</published><updated>2020-01-22T00:00:00+00:00</updated><id>/2020/01/22/padding-and-margin</id><content type="html" xml:base="/2020/01/22/padding-and-margin.html">&lt;p&gt;Many people have expressed confusion over how padding and margins work in HTML/CSS. I have been one of those people. In this short article I will explain what the differences are between the two, and how it may affect the functionality of your site.&lt;/p&gt;
+&lt;p&gt;RSA is an encryption method named after the initials of the inventors’ sir names: Ron &lt;strong&gt;R&lt;/strong&gt;ivest, Adi &lt;strong&gt;S&lt;/strong&gt;hamir, and Leonard &lt;strong&gt;A&lt;/strong&gt;dleman. It uses the mathematical “factoring problem” to secure communication. The details of this specific type of encryption will be discussed in an article soon to come.&lt;/p&gt;</content><author><name>tait</name></author><summary type="html">What is the most embarassing thing you have typed into Google search? What is the most personal secret you told a friend in confidence? What is your bank password? What is your business’s secret to stay ahead of the competition?</summary></entry><entry><title type="html">Padding And Margin</title><link href="http://localhost:4000/2020/01/22/padding-and-margin.html" rel="alternate" type="text/html" title="Padding And Margin" /><published>2020-01-22T00:00:00+00:00</published><updated>2020-01-22T00:00:00+00:00</updated><id>http://localhost:4000/2020/01/22/padding-and-margin</id><content type="html" xml:base="http://localhost:4000/2020/01/22/padding-and-margin.html">&lt;p&gt;Many people have expressed confusion over how padding and margins work in HTML/CSS. I have been one of those people. In this short article I will explain what the differences are between the two, and how it may affect the functionality of your site.&lt;/p&gt;
 
 &lt;p&gt;Here is an image from the World Wide Web Consortium (W3C) who sets the standards for the web.&lt;/p&gt;
 
