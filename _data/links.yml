@@ -39,7 +39,7 @@
   - name: Arch Linux Wiki
     value: https://wiki.archlinux.org/
     label: INHERIT
-  - name: Talking Arch (for visually impaired users)
+  - name: Talking Arch
     value: https://talkingarch.info/
     label: INHERIT
   - name: Luke Smith
