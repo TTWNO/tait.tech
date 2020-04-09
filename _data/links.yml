@@ -39,8 +39,8 @@
   - name: Arch Linux Wiki
     value: https://wiki.archlinux.org/
     label: INHERIT
-  - name: Gentoo Wiki
-    value: https://wiki.gentoo.org/wiki/Main_Page
+  - name: Talking Arch (for visually impaired users)
+    value: https://talkingarch.info/
     label: INHERIT
   - name: Luke Smith
     value: https://lukesmith.xyz
