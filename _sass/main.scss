@@ -8,6 +8,8 @@ $last-p-padd: 1.5em;
 $nav-padd: 1em;
 $line-under: 1px solid #aaa; 
 
+$nav-font-and-pic: 1em;
+
 body {
   background-color: #fefefe;
   padding: 15px;
@@ -65,7 +67,7 @@ nav a:first-of-type {
   margin-left: 0;
 }
 nav a {
-  margin: 1em;
+  margin: $nav-font-and-pic;
   color: $nav-link-color;
   font-weight: bold;
   font-style: none;
@@ -75,6 +77,15 @@ nav a.on-page {
 }
 nav a:hover {
   text-decoration: underline; 
+}
+nav img {
+  margin: auto;
+  height: $nav-font-and-pic;
+  width: $nav-font-and-pic;
+  display: inline-block;
+  position: relative;
+  top: 50%;
+  bottom: 50%;
 }
 
 li {
