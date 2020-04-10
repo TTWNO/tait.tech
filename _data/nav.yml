@@ -7,6 +7,7 @@
 - name: Code
   new_tab: true 
   link: https://github.com/TTWNO/
+  image: /assets/img/github.png
 - name: Links
   link: /links/
 - name: Ideas

@@ -3,7 +3,12 @@
   <label for="menu">&#9776;</label>
   <div class="menu-content">
     {% for item in site.data.nav %}
-      <a href="{{ item.link }}" class="nav-link" {% if item.link == page.url %} class="on-page"{% endif %} {% if item.new_tab == true %} target="_blank" rel="noopener noreferrer" {% endif %}>{{ item.name }}</a>
+      <a href="{{ item.link }}" class="nav-link" {% if item.link == page.url %} class="on-page"{% endif %} {% if item.new_tab == true %} target="_blank" rel="noopener noreferrer" {% endif %}>
+        {% if item.image %}
+          <img src="{{ item.image }}" alt="{{ item.name }}">
+        {% else %}
+          {{ item.name }}
+        {% endif %}</a>
     {% endfor %}
   </div>
 </nav>
