@@ -2,9 +2,9 @@
 layout: default
 ---
 
-# Ideas
+## Ideas
 
-## 1. Accessibility Ideas
+### 1. Accessibility Ideas
 
 #### 1.1 BSD Accessibility
 
@@ -43,7 +43,7 @@ Would need to:
 With the Linux Speakup project already written, would this mean I
 could just plug a RPi up to a braille display and be on my merry way?
 
-## 2. *NIX Ideas
+### 2. *NIX Ideas
 
 #### 2.1 Fan/Sensor Driver for My Old Toshiba
 
@@ -88,7 +88,7 @@ should be looking in, and chosing a random file.
 
 Very useful for VPN clients. I have no idea if this has currency anywhere else.
 
-## 3. Language Ideas
+### 3. Language Ideas
 
 #### 3.1 Add Zhuyin Support for [epub-with-pinyin](https://github.com/TTWNO/epub-with-pinyin)
 
@@ -115,7 +115,7 @@ thus stopping their pronunciation to appear above them (Pinyin/Zhuyin).
 Given my interest in similar things, possibly apply to work for them,
 or encourage them to BSD some of their libraries. 
 
-## 4. Other Crazy Ideas
+### 4. Other Crazy Ideas
 
 #### 4.1 Podcast: Not Sure What About
 
