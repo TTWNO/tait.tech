@@ -1,13 +1,14 @@
 ---
 layout: default
 ---
-<h1 id="main-name">Tait Hoyem</h1>
+
+## Tait Hoyem
 
 <div id="img-wrapper">
   <img id="main-img" src="/assets/img/banff.jpg" alt="A photot I took of the valley Banff, Alberta sits in">
   <label for="main-img">Alberta, Canada</label>
 </div>
-## About
+### About
 
 I am a student at the <a href="https://sait.ca/">Southern Alberta Insitute of Technology (SAIT)</a>.
 
@@ -17,7 +18,7 @@ Some of my projects reflect this.
 
 I have all of my code projects hosted on [my Github](https://github.com/TTWNO).
 
-## Projects
+### Projects
 
 **[epub-with-pinyin](https://github.com/TTWNO/epub-with-pinyin)** ---
 I wrote a program to add Pinyin above Chinese characters in .epub files to assist myself and others learning Mandarin Chinese.
@@ -37,12 +38,12 @@ A one-night write of a tool to automatically calculate network subnet masks base
 
 I also ocassionally put content on my [lbry channel](https://lbry.tv/@tait:7), and the [blog I host on this site](/blog/).
 
-### Ideas
+#### Ideas
 
 Sometimes I have ideas that I haven't done anything with yet.
 Those are [here](/ideas/).
 
-## Contact
+### Contact
 
 You can reach me via email at [tait@tait.tech](mailto:tait@tait.tech)
 
