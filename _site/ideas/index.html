@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>Ideas | tait.tech</title>
   <link rel="stylesheet" href="/assets/css/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -103,7 +103,7 @@ I want to contribute to where I know my level of coding is not helpful.</p>
 <p>or</p>
 
 <pre class="terminal">
-systemctl enable openvpn-client@mullvad_ca
+# systemctl enable openvpn-client@mullvad_ca
 </pre>
 
 <p>These commands are nice, but why is there not a <code class="highlighter-rouge">openvpn-client@random</code> so that I can randomize out of the possible files?</p>
@@ -111,7 +111,7 @@ systemctl enable openvpn-client@mullvad_ca
 <p>I am sure there would be a way to have a systemd service envoked like so:</p>
 
 <pre class="terminal">
-systemctl enable random@[wg-quick|openvpn-client]
+# systemctl enable random@[wg-quick|openvpn-client]
 </pre>
 
 <p>This would enable a randomization service for that interface, relinking
