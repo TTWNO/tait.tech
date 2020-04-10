@@ -70,8 +70,9 @@ nav a {
   font-weight: bold;
   font-style: none;
 }
-nav a.on-page {
-  color: #888;
+/* TODO: Does not work */
+.on-page {
+  color: #000;
 }
 nav a:hover {
   text-decoration: underline; 
