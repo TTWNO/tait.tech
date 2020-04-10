@@ -4,10 +4,10 @@
   link: /blog/
 #- name: Podcast
 #  link: /podcast.html 
-- name: Code
-  new_tab: true 
-  link: https://github.com/TTWNO/
 - name: Links
   link: /links/
 - name: Ideas
   link: /ideas/
+- name: Code
+  new_tab: true 
+  link: https://github.com/TTWNO/
