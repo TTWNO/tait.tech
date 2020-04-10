@@ -3,9 +3,10 @@ layout: default
 ---
 <h1 id="main-name">Tait Hoyem</h1>
 
-<img id="main-img" src="/assets/img/banff.jpg" alt="A photot I took of the valley Banff, Alberta sits in">
-<label for="main-img">Alberta, Canada</label>
-
+<div id="img-wrapper">
+  <img id="main-img" src="/assets/img/banff.jpg" alt="A photot I took of the valley Banff, Alberta sits in">
+  <label for="main-img">Alberta, Canada</label>
+</div>
 ## About
 
 I am a student at the <a href="https://sait.ca/">Southern Alberta Insitute of Technology (SAIT)</a>.
