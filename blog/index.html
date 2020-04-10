@@ -6,7 +6,7 @@ title: Blog
   {% for post in site.posts %}
     <tr>
       <td>
-        <h2 class="post-title"><a class="post-title-link" href="{{ post.url }}">{{ post.title }}</a></h2>
+        <h3 class="post-title"><a class="post-title-link" href="{{ post.url }}">{{ post.title }}</a></h2>
         <span class="post-date">{{ post.date | date: "%d %B %Y" }}</span>
         <div class="post-excerpt">{{ post.excerpt }}</div>
       </td>
