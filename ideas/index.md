@@ -70,17 +70,23 @@ I want to contribute to where I know my level of coding is not helpful.
 
 Systemd can start a VPN on startup with the following command:
 
-`systemctl enable wg-quick@mullvad-ca1`
+<pre class="terminal">
+# systemctl enable wg-quick@mullvad-ca1
+</pre>
 
 or 
 
-`systemctl enable openvpn-client@mullvad_ca`
+<pre class="terminal">
+systemctl enable openvpn-client@mullvad_ca
+</pre>
 
 These commands are nice, but why is there not a `openvpn-client@random` so that I can randomize out of the possible files?
 
 I am sure there would be a way to have a systemd service envoked like so:
 
-`systemctl enable random@[wg-quick|openvpn-client]`
+<pre class="terminal">
+systemctl enable random@[wg-quick|openvpn-client]
+</pre>
 
 This would enable a randomization service for that interface, relinking
 the boot-time process by looking in the directory the VPN interface
