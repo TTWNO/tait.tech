@@ -26,9 +26,9 @@
   </div>
 </nav>
 
-    <h1 id="ideas">Ideas</h1>
+    <h2 id="ideas">Ideas</h2>
 
-<h2 id="1-accessibility-ideas">1. Accessibility Ideas</h2>
+<h3 id="1-accessibility-ideas">1. Accessibility Ideas</h3>
 
 <h4 id="11-bsd-accessibility">1.1 BSD Accessibility</h4>
 
@@ -69,7 +69,7 @@ system would also integrate well with idea 1.2</p>
 <p>With the Linux Speakup project already written, would this mean I
 could just plug a RPi up to a braille display and be on my merry way?</p>
 
-<h2 id="2-nix-ideas">2. *NIX Ideas</h2>
+<h3 id="2-nix-ideas">2. *NIX Ideas</h3>
 
 <h4 id="21-fansensor-driver-for-my-old-toshiba">2.1 Fan/Sensor Driver for My Old Toshiba</h4>
 
@@ -96,17 +96,23 @@ I want to contribute to where I know my level of coding is not helpful.</p>
 
 <p>Systemd can start a VPN on startup with the following command:</p>
 
-<p><code class="highlighter-rouge">systemctl enable wg-quick@mullvad-ca1</code></p>
+<pre class="terminal">
+# systemctl enable wg-quick@mullvad-ca1
+</pre>
 
 <p>or</p>
 
-<p><code class="highlighter-rouge">systemctl enable openvpn-client@mullvad_ca</code></p>
+<pre class="terminal">
+systemctl enable openvpn-client@mullvad_ca
+</pre>
 
 <p>These commands are nice, but why is there not a <code class="highlighter-rouge">openvpn-client@random</code> so that I can randomize out of the possible files?</p>
 
 <p>I am sure there would be a way to have a systemd service envoked like so:</p>
 
-<p><code class="highlighter-rouge">systemctl enable random@[wg-quick|openvpn-client]</code></p>
+<pre class="terminal">
+systemctl enable random@[wg-quick|openvpn-client]
+</pre>
 
 <p>This would enable a randomization service for that interface, relinking
 the boot-time process by looking in the directory the VPN interface
@@ -114,7 +120,7 @@ should be looking in, and chosing a random file.</p>
 
 <p>Very useful for VPN clients. I have no idea if this has currency anywhere else.</p>
 
-<h2 id="3-language-ideas">3. Language Ideas</h2>
+<h3 id="3-language-ideas">3. Language Ideas</h3>
 
 <h4 id="31-add-zhuyin-support-for-epub-with-pinyin">3.1 Add Zhuyin Support for <a href="https://github.com/TTWNO/epub-with-pinyin">epub-with-pinyin</a></h4>
 
@@ -141,7 +147,7 @@ thus stopping their pronunciation to appear above them (Pinyin/Zhuyin).</p>
 <p>Given my interest in similar things, possibly apply to work for them,
 or encourage them to BSD some of their libraries.</p>
 
-<h2 id="4-other-crazy-ideas">4. Other Crazy Ideas</h2>
+<h3 id="4-other-crazy-ideas">4. Other Crazy Ideas</h3>
 
 <h4 id="41-podcast-not-sure-what-about">4.1 Podcast: Not Sure What About</h4>
 
