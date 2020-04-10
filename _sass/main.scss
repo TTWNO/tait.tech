@@ -25,12 +25,19 @@ body {
 h1, h2, h3, h4, h5, h6 {
 }
 h1 {
-  font-size: 2.5em;
+  font-size: 46px;
 }
 h2 {
-  font-size: 1.3em;
+  font-size: 36px;
+}
+h3 {
+  font-size: 26px;
 }
 h4 {
+  font-size: 22px;
+}
+h5 {
+  font-size: 17px;
 }
 a {
   text-decoration: underline;
@@ -48,8 +55,16 @@ a.citation-link {
   text-decoration: none;
 }
 
+#img-wrapper img {
+  margin-bottom: 10px;
+}
+
+#img-wrapper label {
+  margin-left: 10px;
+}
+
 label {
-  font-size: .8em;
+  font-size: 12px;
 }
 
 #menu,
@@ -83,9 +98,10 @@ li {
 }
 
 #main-img {
-  width: 85%;
+  width: 100%;
 }
 p {
+  font-size: 15px;
   line-height: 1.5;
   padding: .1em 0;
 }
