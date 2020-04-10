@@ -30,6 +30,8 @@ nav a.on-page { color: #888; }
 
 nav a:hover { text-decoration: underline; }
 
+nav img { vertical-align: bottom; height: 1.2em; width: 1.2em; display: inline-block; }
+
 li { margin: .5em; }
 
 #main-img { width: 100%; }
