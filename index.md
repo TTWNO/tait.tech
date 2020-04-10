@@ -36,6 +36,11 @@ A one-night write of a tool to automatically calculate network subnet masks base
 
 I also ocassionally put content on my [lbry channel](https://lbry.tv/@tait:7), and the [blog I host on this site](/blog/).
 
+### Ideas
+
+Sometimes I have ideas that I haven't done anything with yet.
+Those are [here](/ideas/).
+
 ## Contact
 
 You can reach me via email at [tait@tait.tech](mailto:tait@tait.tech)
