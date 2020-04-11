@@ -17,3 +17,5 @@ title: "Links"
     {% endfor %}
   </section>
 {% endfor %}
+
+All my big projects are on my [homepage](/).
