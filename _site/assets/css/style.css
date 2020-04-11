@@ -1,18 +1,20 @@
 body { background-color: #fefefe; padding: 15px; font-family: -apple-system, helvetica, arial, sans-serif; }
 
-#wrapper { max-width: 700px; margin: auto; color: #444444; font-size: 14px; }
+#wrapper { max-width: 800px; margin: auto; color: #444444; font-size: 14px; }
 
 #main-name { color: rgba(0, 0, 0, 0.8); }
 
-h1 { font-size: 46px; }
+li { line-height: 1.5em; }
 
-h2 { font-size: 30px; }
+h1 { font-size: 2.5em; }
 
-h3 { font-size: 24px; }
+h2 { font-size: 2.0em; }
 
-h4 { font-size: 22px; }
+h3 { font-size: 1.6em; }
 
-h5 { font-size: 17px; }
+h4 { font-size: 1.3em; }
+
+h5 { font-size: 1.1em; }
 
 a { text-decoration: underline; color: #47a; }
 
@@ -51,12 +53,6 @@ p { font-size: 15px; line-height: 1.5; padding: .1em 0; }
 
 .article a:hover { color: rgba(0, 0, 0, 0.5); }
 
-.post-date { text-transform: uppercase; font-weight: bold; color: rgba(0, 0, 0, 0.5); }
-
-.post-desc { color: rgba(0, 0, 0, 0.7); padding: 10px; font-weight: lighter; }
-
-p.post-excerpt { margin-top: 0; padding-top: 10px; }
-
 table, table tr, table td, table th { border: 1px solid rgba(0, 0, 0, 0.5); border-collapse: collapse; padding: 5px; font-weight: normal; }
 
 table th { font-weight: bold; }
@@ -69,9 +65,7 @@ img { display: block; width: 55%; margin-left: auto; margin-right: auto; }
 
 blockquote { font-style: italic; }
 
-@media screen and (max-width: 600px) { h1 { font-size: 40px; }
-  h2 { font-size: 32px; }
-  #menu, label[for="menu"] { display: inline-block; font-size: 20px; }
+@media screen and (max-width: 600px) { #menu, label[for="menu"] { display: inline-block; font-size: 20px; }
   body { width: 90%; }
   #info { margin: 0 7px; }
   .menu-content { max-height: 0; overflow: hidden; }
@@ -92,10 +86,16 @@ sup { margin: 0; padding: 0; }
 
 figcaption { margin-top: 10px; font-size: .8em; text-decoration: italic; }
 
-footer { border-top: 1px solid #aaa; margin-bottom: 100px; }
+footer { border-top: 1px solid #aaa; padding-top: 16px; margin-bottom: 100px; }
 
 .terminal { line-height: 1em; overflow: scroll; padding: 10px; color: #00FF41; margin: 0px; background-color: #151515; }
 
 .small-image { width: 100%; }
+
+.post-date { font-size: 17px; text-transform: uppercase; font-weight: bold; color: rgba(0, 0, 0, 0.5); }
+
+.post-desc { color: rgba(0, 0, 0, 0.7); padding: 10px; font-weight: lighter; }
+
+p.post-excerpt { margin-top: 0; padding-top: 10px; }
 
 /*# sourceMappingURL=style.css.map */
