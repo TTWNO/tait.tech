@@ -1,20 +1,17 @@
 - heading: Contact Links
   values:
   - name: Main Site
-    value: /
+    value: https://tait.tech/
     label: tait.tech
+  - name: Backup/Mirror Site
+    value: https://beta.tait.tech/
+    label: beta.tait.tech
   - name: Professional Email
     value: mailto:tait@tait.tech
     label: tait@tait.tech
-  - name: School Email
-    value: mailto:tait.hoyem@edu.sait.ca
-    label: tait.hoyem@edu.sait.ca
   - name: Personal Email
     value: mailto:tait.hoyem@protonmail.com
     label: tait.hoyem@protonmail.com
-  - name: WhatsApp &amp; Signal
-    label: +1 (403) 771-4754
-    value: tel:14037714754
   - name: Public Key
     label: public-key.asc
     value: /public-key.asc
@@ -41,6 +38,9 @@
     label: INHERIT
   - name: Talking Arch
     value: https://talkingarch.info/
+    label: INHERIT
+  - name: Speakup Project [Unencrypted]
+    value: http://linux-speakup.org/
     label: INHERIT
   - name: Luke Smith
     value: https://lukesmith.xyz
