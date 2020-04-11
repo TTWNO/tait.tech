@@ -50,4 +50,3 @@ You can reach me via email at [tait@tait.tech](mailto:tait@tait.tech)
 
 If you use PGP, [this is my public key](/public-key.asc)
 
-{% include footer.html %}
