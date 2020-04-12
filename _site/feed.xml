@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-12T14:25:48+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">NAS Part 1: Theorize</title><link href="http://localhost:4000/2020/04/12/nas1.html" rel="alternate" type="text/html" title="NAS Part 1: Theorize" /><published>2020-04-12T00:00:00+00:00</published><updated>2020-04-12T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/12/nas1</id><content type="html" xml:base="http://localhost:4000/2020/04/12/nas1.html">&lt;p&gt;New Project, phase one:
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-12T14:29:51+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">NAS Part 1: Theorize</title><link href="http://localhost:4000/2020/04/12/nas1.html" rel="alternate" type="text/html" title="NAS Part 1: Theorize" /><published>2020-04-12T00:00:00+00:00</published><updated>2020-04-12T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/12/nas1</id><content type="html" xml:base="http://localhost:4000/2020/04/12/nas1.html">&lt;p&gt;New Project, phase one:
 Theorize.&lt;/p&gt;
 
 &lt;p&gt;I want to build a NAS server to store a bunch of data on. Current problem is lack of a computer to accept multiple SATA connections.&lt;/p&gt;
 
 &lt;h3 id=&quot;problem-1-sata-connectors&quot;&gt;Problem 1: SATA connectors&lt;/h3&gt;
 
-&lt;p&gt;This can be solved by and HBE card. Although they tend to be quite expensive (250+).
+&lt;p&gt;This can be solved by an HBE card. Although they tend to be quite expensive (250+).
 One decent model that isn’t that much is the &lt;a href=&quot;https://www.amazon.ca/SAS9211-8I-8PORT-Int-Sata-Pcie/dp/B002RL8I7M/ref=sr_1_2?keywords=9211-8i&amp;amp;qid=1586699707&amp;amp;sr=8-2&quot;&gt;LSI 9211-8I&lt;/a&gt;.
 This is ideal for future expansion.&lt;/p&gt;
 
