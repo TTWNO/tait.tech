@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-12T14:29:51+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">NAS Part 1: Theorize</title><link href="http://localhost:4000/2020/04/12/nas1.html" rel="alternate" type="text/html" title="NAS Part 1: Theorize" /><published>2020-04-12T00:00:00+00:00</published><updated>2020-04-12T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/12/nas1</id><content type="html" xml:base="http://localhost:4000/2020/04/12/nas1.html">&lt;p&gt;New Project, phase one:
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-12T14:34:41+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">NAS Part 1: Theorize</title><link href="http://localhost:4000/2020/04/12/nas1.html" rel="alternate" type="text/html" title="NAS Part 1: Theorize" /><published>2020-04-12T00:00:00+00:00</published><updated>2020-04-12T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/12/nas1</id><content type="html" xml:base="http://localhost:4000/2020/04/12/nas1.html">&lt;p&gt;New Project, phase one:
 Theorize.&lt;/p&gt;
 
 &lt;p&gt;I want to build a NAS server to store a bunch of data on. Current problem is lack of a computer to accept multiple SATA connections.&lt;/p&gt;
@@ -43,7 +43,10 @@ this system can withstand the failure of &lt;em&gt;two&lt;/em&gt; drives.&lt;/p&
 
 &lt;p&gt;None of these have PCIe expansion slots with a case that can handle the new drives.&lt;/p&gt;
 
-&lt;p&gt;So my search for a cheaper tower/case to work with to use the PCIe slots in continues.&lt;/p&gt;
+&lt;p&gt;I think it’s reasonable to say that for hard-drives and low-end tower PCs,
+I will likely have luck on a place like &lt;a href=&quot;https://kijiji.ca&quot;&gt;Kijiji&lt;/a&gt; (Canadian Craigslist).&lt;/p&gt;
+
+&lt;p&gt;The search continues :)&lt;/p&gt;
 
 &lt;p&gt;I’m in for a fun ride…. and a few monnies.&lt;/p&gt;</content><author><name></name></author><summary type="html">New Project, phase one: Theorize.</summary></entry><entry><title type="html">How To Encrypt Your Own Documents Using gpg</title><link href="http://localhost:4000/2020/04/06/rsa4.html" rel="alternate" type="text/html" title="How To Encrypt Your Own Documents Using gpg" /><published>2020-04-06T00:00:00+00:00</published><updated>2020-04-06T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/06/rsa4</id><content type="html" xml:base="http://localhost:4000/2020/04/06/rsa4.html">&lt;p&gt;If you have ever wanted to garuntee the utmost security of your emails and documents, then this is the guide for you!
 It should be noted that in some circles the tools used are more common than in others.
