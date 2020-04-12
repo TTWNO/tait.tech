@@ -1,4 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-11T18:42:47+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How To Encrypt Your Own Documents Using gpg</title><link href="http://localhost:4000/2020/04/06/rsa4.html" rel="alternate" type="text/html" title="How To Encrypt Your Own Documents Using gpg" /><published>2020-04-06T00:00:00+00:00</published><updated>2020-04-06T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/06/rsa4</id><content type="html" xml:base="http://localhost:4000/2020/04/06/rsa4.html">&lt;p&gt;If you have ever wanted to garuntee the utmost security of your emails and documents, then this is the guide for you!
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-12T14:25:48+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">NAS Part 1: Theorize</title><link href="http://localhost:4000/2020/04/12/nas1.html" rel="alternate" type="text/html" title="NAS Part 1: Theorize" /><published>2020-04-12T00:00:00+00:00</published><updated>2020-04-12T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/12/nas1</id><content type="html" xml:base="http://localhost:4000/2020/04/12/nas1.html">&lt;p&gt;New Project, phase one:
+Theorize.&lt;/p&gt;
+
+&lt;p&gt;I want to build a NAS server to store a bunch of data on. Current problem is lack of a computer to accept multiple SATA connections.&lt;/p&gt;
+
+&lt;h3 id=&quot;problem-1-sata-connectors&quot;&gt;Problem 1: SATA connectors&lt;/h3&gt;
+
+&lt;p&gt;This can be solved by and HBE card. Although they tend to be quite expensive (250+).
+One decent model that isn’t that much is the &lt;a href=&quot;https://www.amazon.ca/SAS9211-8I-8PORT-Int-Sata-Pcie/dp/B002RL8I7M/ref=sr_1_2?keywords=9211-8i&amp;amp;qid=1586699707&amp;amp;sr=8-2&quot;&gt;LSI 9211-8I&lt;/a&gt;.
+This is ideal for future expansion.&lt;/p&gt;
+
+&lt;p&gt;A cheaper option is a PCIe multi-SATA connector &lt;a href=&quot;https://www.amazon.ca/Rivo-Controller-Expansion-Profile-Non-Raid/dp/B0836MKFCR?ref_=ast_slp_dp&quot;&gt;like this&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Either work, but one is cheaper and the other is more expandable.
+The 9211-8I uses two SAS ports, which can be expanded indefinetely. SAS supports splitting.
+SATA can be connected in a 4:1 ratio to SAS connectors with some &lt;a href=&quot;https://www.amazon.com/Cable-Matters-Internal-SFF-8087-Breakout/dp/B012BPLYJC&quot;&gt;cheap cables&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;problem-2-drives&quot;&gt;Problem 2: Drives&lt;/h3&gt;
+&lt;p&gt;I do not have enough drives to make this work right now.
+For the setup I want it would require 5 or 6 drives.
+I will get 4-5 drives worth of space as one drive worth of space is dedicated to “parity”, making you able to:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Verify data integrity. If anything goes wrong with a write, it will be fixed automatically.&lt;/li&gt;
+  &lt;li&gt;If &lt;em&gt;one&lt;/em&gt; drive dies, the system can stay online with no problem. Two drives and I’m eff-you-see-kay-ed-dee.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;My other option is to use two drives worth of space for partiy.
+This would only have me 3-4 drives of space, but
+this system can withstand the failure of &lt;em&gt;two&lt;/em&gt; drives.&lt;/p&gt;
+
+&lt;h3 id=&quot;problem-3-computer-system&quot;&gt;Problem 3: Computer System&lt;/h3&gt;
+
+&lt;p&gt;I currently have 5 computers.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Celery Stick. An old grey HP laptop with a Braille stickered keyboard. &lt;em&gt;Does not work right now; bad thermal paste job.&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;A Dell laptop lent to me by my school during my studies.&lt;/li&gt;
+  &lt;li&gt;Houston. A 21-inch 2011 iMac for which the screen does not work under Linux (excep with the &lt;code class=&quot;highlighter-rouge&quot;&gt;nomodeset&lt;/code&gt; kernel option enabled).&lt;/li&gt;
+  &lt;li&gt;An Old Toshiba laptop (circa 2010) that I got for $50 to test with OpenBSD (works….sometimes).&lt;/li&gt;
+  &lt;li&gt;Main Rig. My main laptop is an ASUS-705 TUF gaming laptop.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;None of these have PCIe expansion slots with a case that can handle the new drives.&lt;/p&gt;
+
+&lt;p&gt;So my search for a cheaper tower/case to work with to use the PCIe slots in continues.&lt;/p&gt;
+
+&lt;p&gt;I’m in for a fun ride…. and a few monnies.&lt;/p&gt;</content><author><name></name></author><summary type="html">New Project, phase one: Theorize.</summary></entry><entry><title type="html">How To Encrypt Your Own Documents Using gpg</title><link href="http://localhost:4000/2020/04/06/rsa4.html" rel="alternate" type="text/html" title="How To Encrypt Your Own Documents Using gpg" /><published>2020-04-06T00:00:00+00:00</published><updated>2020-04-06T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/06/rsa4</id><content type="html" xml:base="http://localhost:4000/2020/04/06/rsa4.html">&lt;p&gt;If you have ever wanted to garuntee the utmost security of your emails and documents, then this is the guide for you!
 It should be noted that in some circles the tools used are more common than in others.
 These are the everyday tools of many privacy advocates and computer nerds.&lt;/p&gt;
 
