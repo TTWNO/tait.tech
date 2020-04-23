@@ -52,6 +52,8 @@ Or, frankly, even a scaled down image with binary closeness algorithm.
 Either way, take the best matching picture and use that as the basis to describe the picture.
 Unsure how I would go about describing unlimited amount of new memes, but that is to be seen.
 
+Best idea is to get in contact with the guys who make [this meme generator](https://imgflip.com/memegenerator) as most memes there are at least partially described.
+
 ### 2. *NIX Ideas
 
 #### 2.1 Fan/Sensor Driver for My Old Toshiba
