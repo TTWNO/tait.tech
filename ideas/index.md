@@ -44,6 +44,14 @@ Would need to:
 With the Linux Speakup project already written, would this mean I
 could just plug a RPi up to a braille display and be on my merry way?
 
+#### 1.4 Accessible Meme Description
+
+Using a image matching algorithm (no idea which one or how).
+Or, frankly, even a scaled down image with binary closeness algorithm.
+
+Either way, take the best matching picture and use that as the basis to describe the picture.
+Unsure how I would go about describing unlimited amount of new memes, but that is to be seen.
+
 ### 2. *NIX Ideas
 
 #### 2.1 Fan/Sensor Driver for My Old Toshiba
