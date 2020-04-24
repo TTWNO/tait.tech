@@ -1,4 +1,138 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-22T02:38:30+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">rfi: A Simple Linux utility to get a random file from a directory</title><link href="http://localhost:4000/2020/04/21/rfi.html" rel="alternate" type="text/html" title="rfi: A Simple Linux utility to get a random file from a directory" /><published>2020-04-21T00:00:00+00:00</published><updated>2020-04-21T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/21/rfi</id><content type="html" xml:base="http://localhost:4000/2020/04/21/rfi.html">&lt;p&gt;I made a &lt;a href=&quot;https://lbry.tv/@tait:7/rfi:5&quot;&gt;little video&lt;/a&gt; about this script I wrote:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-24T18:09:21+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">The “Quiz Your Friends” Cross-Site Scripting Vulnerability</title><link href="http://localhost:4000/2020/04/22/quiz-your-friends.html" rel="alternate" type="text/html" title="The &quot;Quiz Your Friends&quot; Cross-Site Scripting Vulnerability" /><published>2020-04-22T00:00:00+00:00</published><updated>2020-04-22T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/22/quiz-your-friends</id><content type="html" xml:base="http://localhost:4000/2020/04/22/quiz-your-friends.html">&lt;p&gt;This was fun to write! I found a cross-site scripting (XSS) attack
+in a well-known quiz hosting website.
+I disclosed the vulnerability to them years ago, so I thought
+now might be a good time to write about it.&lt;/p&gt;
+
+&lt;p&gt;In this first section I will explain what XSS is.&lt;/p&gt;
+
+&lt;p&gt;In the &lt;a href=&quot;#executing-an-exploit&quot;&gt;second section&lt;/a&gt; I will show you how I found this exploit and how to reproduce it yourself.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-cross-site-scripting-xss&quot;&gt;What is cross-site scripting (XSS)&lt;/h2&gt;
+
+&lt;p&gt;Cross-site scripting, XSS for short,
+is a technique to execute arbitrary Javascript code on a user visitng a website
+by linking to Javascript code stored on another website.&lt;/p&gt;
+
+&lt;p&gt;So for example:&lt;/p&gt;
+
+&lt;p&gt;I have a file on my website called &lt;a href=&quot;/assets/js/hacked.js&quot;&gt;hacked.js&lt;/a&gt;.
+If I was able to run this javascript file on anybody visiting a certain website &lt;em&gt;that is not mine&lt;/em&gt;, this would be called cross-site scripting.&lt;/p&gt;
+
+&lt;p&gt;Click the above &lt;code class=&quot;highlighter-rouge&quot;&gt;hacked.js&lt;/code&gt; link to view the code I use to “hack” this website.
+It’s safe, I promise ;)&lt;/p&gt;
+
+&lt;p&gt;Now, how can we get this code to execute when a user visits this site?&lt;/p&gt;
+
+&lt;h3 id=&quot;how-do-these-happen&quot;&gt;How Do These Happen?&lt;/h3&gt;
+
+&lt;p&gt;Most of the time, these attacks are done using poorly sanatized &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;input&amp;gt;&lt;/code&gt; elements.
+Sanitization is when an input box of some type does not &lt;a href=&quot;&quot;&gt;escape&lt;/a&gt; html characters like &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Sanitization is when a program (usually on the server side),
+will remove characters like &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt; and replace them with &lt;a href=&quot;&quot;&gt;escape characters&lt;/a&gt;
+which internally would be something like &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;lt;&lt;/code&gt;,
+but your browser would interpret that as “show me the character ‘less than sign’”.&lt;/p&gt;
+
+&lt;h3 id=&quot;a-thought-experiment&quot;&gt;A Thought Experiment&lt;/h3&gt;
+
+&lt;p&gt;The question is:&lt;/p&gt;
+
+&lt;p&gt;If we suppose that a website is built with sequenses like these: &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;body&amp;gt;&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;p&amp;gt;&lt;/code&gt; (for paragraph), &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;link&amp;gt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;b&amp;gt;&lt;/code&gt; for bold, then why can you also &lt;em&gt;see&lt;/em&gt; the left and right angle bracket characters?
+Why doesn’t everything after me typing &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;b&amp;gt;&lt;/code&gt; turn bold?&lt;/p&gt;
+
+&lt;p&gt;The answer is:&lt;/p&gt;
+
+&lt;p&gt;There are special characters to type a visible left (&amp;lt;)
+and right angle bracket (&amp;gt;) in a website.
+If I type with the left and right bracket on my keyboard,
+things will indeed &lt;b&gt;show up bold&lt;/b&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is the code for the sentence I wrote above:&lt;/p&gt;
+&lt;pre class=&quot;terminal&quot;&gt;
+There are special characters to type a visible left (&amp;amp;lt;)
+and right angle bracket (&amp;amp;gt;) in a website.
+If I type with the left and right bracket on my keyboard,
+things will indeed &amp;lt;b&amp;gt;show up bold&amp;lt;/b&amp;gt;.
+&lt;/pre&gt;
+
+&lt;p&gt;Notice how all visible left angle brackets used an &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;lt;&lt;/code&gt; to show them?&lt;/p&gt;
+
+&lt;p&gt;This is the core of an XSS exploit.&lt;/p&gt;
+
+&lt;p&gt;If when a site takes in input it does not convert all &amp;lt;s and &amp;gt;s to &amp;amp;lt; and &amp;amp;gt;,
+then when this data is returned to the user the browser will interpret the user input being displayed &lt;em&gt;as HTML code&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-i-found-this-exploit&quot;&gt;How I Found This Exploit&lt;/h2&gt;
+
+&lt;p&gt;While filling in one of my friend’s surveys I thought it would be
+funny for them to know it is me without anyone else knowing.
+We were young and had &lt;code class=&quot;highlighter-rouge&quot;&gt;Inspect Element&lt;/code&gt;ed a few things together,
+so it was a safe bet that an HTML joke would let them know.&lt;/p&gt;
+
+&lt;p&gt;So I typed in my name like so:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;BOLD_STEVE.JPG&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Now in theory this should have shown in in the leaderboard as: “&amp;lt;b&amp;gt;Bold Steve&amp;lt;/b&amp;gt;”
+However, to my horror and excitement, I saw this in the leaderboard:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;BOLD_STEVE_LEADERBOARD.JPG&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The text “Bold Steve” showed up &lt;strong&gt;in bold&lt;/strong&gt; on the leaderboard.
+This told me all I needed to know. To add a &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&lt;/code&gt; tag was next.&lt;/p&gt;
+
+&lt;h4 id=&quot;hacking&quot;&gt;Hacking:&lt;/h4&gt;
+
+&lt;p&gt;So I went on my merry way thinking about ways to use malicious javascript.
+Then, I thought that might be mean, so I decided to warn users instead.
+I filled in the name with a script tag and a call to &lt;code class=&quot;highlighter-rouge&quot;&gt;alert()&lt;/code&gt; to warn the user about this site.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;JAVASCRIPT_NAME.JPG&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;I ran out of room before I could finish it. Hmmm.
+What if I do “Inspect Element” and manually override the max-length attribute?&lt;/p&gt;
+
+&lt;p&gt;The unfortunate truth is: this worked as well!&lt;/p&gt;
+
+&lt;p&gt;Not only could I manually set the max-length by changing it in the HTML,
+but there were no client-side OR server-side checks to make sure the name I was sending was less than or equal to 20 characters.&lt;/p&gt;
+
+&lt;p&gt;If Javascript checked it, it would have stopped me (although maybe not a professional).
+If the server checked it, it could have stopped almost anyone.&lt;/p&gt;
+
+&lt;h5 id=&quot;server-side-validation&quot;&gt;Server-Side Validation&lt;/h5&gt;
+
+&lt;p&gt;As a side note, here is a great reason why you should do most of your validation on the server side.
+As a user, I can edit any of the HTML, CSS, or Javascript your server serves to me.&lt;/p&gt;
+
+&lt;p&gt;Imagine trying to fit in a script tag doing anything useful with 20 characters?&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script src=&quot;http:&quot;&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;There’s your 20 characters! No more! Good luck trying to do anything useful with this!&lt;/p&gt;
+
+&lt;p&gt;The Quiz My Friends server has &lt;em&gt;no such checks in place&lt;/em&gt;.
+Therefore, I can send an almost arbitrary load to them.
+Being able to send something potentially very large (more than a few megabytes) is a vulnerability of its own.
+Imagine being able to send entire executable progrmas as your “name” in one of these quizes?&lt;/p&gt;
+
+&lt;h2 id=&quot;executing-an-exploit&quot;&gt;Executing An Exploit&lt;/h2&gt;
+
+&lt;p&gt;Suppose we’re on a vulnerable site like &lt;a href=&quot;https://www.quizyourfriends.com/&quot;&gt;Quiz Your Friends&lt;/a&gt;
+and you decide you want to hack your friend’s quiz!
+How can this be done?&lt;/p&gt;
+
+&lt;h4 id=&quot;creating-a-quiz&quot;&gt;Creating A Quiz&lt;/h4&gt;
+
+&lt;p&gt;Here is my quiz below:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CREATING_QUIZ.IMG&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;setting-a-name-with-an-html-tag&quot;&gt;Setting A Name With an HTML Tag&lt;/h4&gt;
+
+&lt;p&gt;Just like the image above, about how I found out about this vulnerability: go ahead and use an HTML tag in your name to test this out.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;BOLD_ITALIC_STEVE.JPG&lt;/code&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">This was fun to write! I found a cross-site scripting (XSS) attack in a well-known quiz hosting website. I disclosed the vulnerability to them years ago, so I thought now might be a good time to write about it.</summary></entry><entry><title type="html">rfi: A Simple Linux utility to get a random file from a directory</title><link href="http://localhost:4000/2020/04/21/rfi.html" rel="alternate" type="text/html" title="rfi: A Simple Linux utility to get a random file from a directory" /><published>2020-04-21T00:00:00+00:00</published><updated>2020-04-21T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/21/rfi</id><content type="html" xml:base="http://localhost:4000/2020/04/21/rfi.html">&lt;p&gt;I made a &lt;a href=&quot;https://lbry.tv/@tait:7/rfi:5&quot;&gt;little video&lt;/a&gt; about this script I wrote:&lt;/p&gt;
 
 &lt;pre class=&quot;terminal&quot;&gt;
 $ rfi
