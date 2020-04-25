@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-25T12:49:41+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">What is XSS?</title><link href="http://localhost:4000/2020/04/25/xss.html" rel="alternate" type="text/html" title="What is XSS?" /><published>2020-04-25T00:00:00+00:00</published><updated>2020-04-25T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/25/xss</id><content type="html" xml:base="http://localhost:4000/2020/04/25/xss.html">&lt;p&gt;I found a cross-site scripting (XSS) attack
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-25T13:05:38+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">What is XSS?</title><link href="http://localhost:4000/2020/04/25/xss.html" rel="alternate" type="text/html" title="What is XSS?" /><published>2020-04-25T00:00:00+00:00</published><updated>2020-04-25T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/25/xss</id><content type="html" xml:base="http://localhost:4000/2020/04/25/xss.html">&lt;p&gt;I found a cross-site scripting (XSS) attack
 in a well-known quiz hosting website.
 I disclosed the vulnerability to them years ago, so I thought
 now might be a good time to write about it.&lt;/p&gt;
@@ -66,7 +66,8 @@ Internally this would be something like &lt;code class=&quot;highlighter-rouge&q
 but they would show up to a user as &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;When inputs are not properly sanitized &lt;em&gt;and&lt;/em&gt; the input is shown to the user in another part of the website,
-then a malicous user can type in HTML that will run whenever anybody tries to look at what they typed.&lt;/p&gt;
+then a malicous user can type in HTML that will run whenever anybody tries to look at what they typed.
+For example: a name for a quiz website (input) and the leaderboard for said quiz (display).&lt;/p&gt;
 
 &lt;p&gt;HTML, by itself is not very dangerous.
 The worst thing you could do is probably put a link on your name,
