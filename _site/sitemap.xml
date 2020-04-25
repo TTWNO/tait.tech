@@ -29,8 +29,11 @@
 <lastmod>2020-04-21T00:00:00+00:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/2020/04/22/quiz-your-friends.html</loc>
-<lastmod>2020-04-22T00:00:00+00:00</lastmod>
+<loc>http://localhost:4000/2020/04/25/xss.html</loc>
+<lastmod>2020-04-25T00:00:00+00:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/2020-04-27-quiz-your-friends-xss.html</loc>
 </url>
 <url>
 <loc>http://localhost:4000/blog/</loc>

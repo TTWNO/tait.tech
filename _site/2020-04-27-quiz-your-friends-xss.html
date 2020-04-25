@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>The "Quiz Your Friends" Cross-Site Scripting Vulnerability | tait.tech</title>
+  <title>The "Quiz Your Friends" XSS Exploit | tait.tech</title>
   <link rel="stylesheet" href="/assets/css/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -26,73 +26,11 @@
   </div>
 </nav>
 
-    <h1>The "Quiz Your Friends" Cross-Site Scripting Vulnerability</h1>
-<h4 class="post-date line-under">Wednesday, April 22 2020</h4>
+    <h1>The "Quiz Your Friends" XSS Exploit</h1>
+<h4 class="post-date line-under"></h4>
 
 <div class="article">
-  <p>This was fun to write! I found a cross-site scripting (XSS) attack
-in a well-known quiz hosting website.
-I disclosed the vulnerability to them years ago, so I thought
-now might be a good time to write about it.</p>
-
-<p>In this first section I will explain what XSS is.</p>
-
-<p>In the <a href="#executing-an-exploit">second section</a> I will show you how I found this exploit and how to reproduce it yourself.</p>
-
-<h2 id="what-is-cross-site-scripting-xss">What is cross-site scripting (XSS)</h2>
-
-<p>Cross-site scripting, XSS for short,
-is a technique to execute arbitrary Javascript code on a user visitng a website
-by linking to Javascript code stored on another website.</p>
-
-<p>So for example:</p>
-
-<p>I have a file on my website called <a href="/assets/js/hacked.js">hacked.js</a>.
-If I was able to run this javascript file on anybody visiting a certain website <em>that is not mine</em>, this would be called cross-site scripting.</p>
-
-<p>Click the above <code class="highlighter-rouge">hacked.js</code> link to view the code I use to “hack” this website.
-It’s safe, I promise ;)</p>
-
-<p>Now, how can we get this code to execute when a user visits this site?</p>
-
-<h3 id="how-do-these-happen">How Do These Happen?</h3>
-
-<p>Most of the time, these attacks are done using poorly sanatized <code class="highlighter-rouge">&lt;input&gt;</code> elements.
-Sanitization is when an input box of some type does not <a href="">escape</a> html characters like <code class="highlighter-rouge">&lt;</code> or <code class="highlighter-rouge">&gt;</code>.</p>
-
-<p>Sanitization is when a program (usually on the server side),
-will remove characters like <code class="highlighter-rouge">&lt;</code> and replace them with <a href="">escape characters</a>
-which internally would be something like <code class="highlighter-rouge">&amp;lt;</code>,
-but your browser would interpret that as “show me the character ‘less than sign’”.</p>
-
-<h3 id="a-thought-experiment">A Thought Experiment</h3>
-
-<p>The question is:</p>
-
-<p>If we suppose that a website is built with sequenses like these: <code class="highlighter-rouge">&lt;body&gt;</code>, <code class="highlighter-rouge">&lt;p&gt;</code> (for paragraph), <code class="highlighter-rouge">&lt;link&gt;</code> and <code class="highlighter-rouge">&lt;b&gt;</code> for bold, then why can you also <em>see</em> the left and right angle bracket characters?
-Why doesn’t everything after me typing <code class="highlighter-rouge">&lt;b&gt;</code> turn bold?</p>
-
-<p>The answer is:</p>
-
-<p>There are special characters to type a visible left (&lt;)
-and right angle bracket (&gt;) in a website.
-If I type with the left and right bracket on my keyboard,
-things will indeed <b>show up bold</b>.</p>
-
-<p>This is the code for the sentence I wrote above:</p>
-<pre class="terminal">
-There are special characters to type a visible left (&amp;lt;)
-and right angle bracket (&amp;gt;) in a website.
-If I type with the left and right bracket on my keyboard,
-things will indeed &lt;b&gt;show up bold&lt;/b&gt;.
-</pre>
-
-<p>Notice how all visible left angle brackets used an <code class="highlighter-rouge">&amp;lt;</code> to show them?</p>
-
-<p>This is the core of an XSS exploit.</p>
-
-<p>If when a site takes in input it does not convert all &lt;s and &gt;s to &amp;lt; and &amp;gt;,
-then when this data is returned to the user the browser will interpret the user input being displayed <em>as HTML code</em>.</p>
+  <h2 id="todo-write-intro">TODO write intro</h2>
 
 <h2 id="how-i-found-this-exploit">How I Found This Exploit</h2>
 
@@ -170,7 +108,7 @@ How can this be done?</p>
 </div>
 
     <footer>
-  This page is mirrored on <a href="https://beta.tait.tech/2020/04/22/quiz-your-friends.html">beta.tait.tech</a>.
+  This page is mirrored on <a href="https://beta.tait.tech/2020-04-27-quiz-your-friends-xss.html">beta.tait.tech</a>.
 </footer>
 
   </div>
