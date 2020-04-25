@@ -146,3 +146,17 @@ or encourage them to BSD some of their libraries.
 I've always wanted to interview people.
 Seems liks fun.
 
+#### 4.2 D&D Minimalistic Game Player
+
+I would have to look into the legal implications of this;
+whoever owns D&D has been rather hostile to third-party developers making things to promote their game.
+I don't get the whole thing, but that'd be the first thing I'd check.
+
+In theory it would need to implement the following:
+1. Player character storage w/ stats
+2. DM mode w/ map
+3. Automatic rolling and stat challenges at request of DM.
+4. A database of standard enemies, races, classes, weapons.
+5. Two player modes: in person, online.
+In person would disable automatic rolling and stat challenges, leaving the user with essentially a character sheet.
+
