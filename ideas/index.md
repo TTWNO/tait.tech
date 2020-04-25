@@ -54,6 +54,13 @@ Unsure how I would go about describing unlimited amount of new memes, but that i
 
 Best idea is to get in contact with the guys who make [this meme generator](https://imgflip.com/memegenerator) as most memes there are at least partially described.
 
+#### 1.5 Talking Anarchy
+
+I would like to make a Linux distro which combines the easy of installation of [Anarchy Linux](https://www.anarchylinux.org/)
+with the speech tools available from [Talking Arch](https://talkingarch.info/).
+
+This should require relatively little effort, as Talking Arch has a tool to build your own ISOs with additional packages (IIRC).
+
 ### 2. *NIX Ideas
 
 #### 2.1 Fan/Sensor Driver for My Old Toshiba
