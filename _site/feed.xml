@@ -1,4 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-25T20:34:30+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">What is XSS?</title><link href="http://localhost:4000/2020/04/25/xss.html" rel="alternate" type="text/html" title="What is XSS?" /><published>2020-04-25T00:00:00+00:00</published><updated>2020-04-25T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/25/xss</id><content type="html" xml:base="http://localhost:4000/2020/04/25/xss.html">&lt;p&gt;I found a cross-site scripting (XSS) attack
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-05-01T16:50:20+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How to use NGINX as a reverse-proxy server for a Node.js application using socket.io</title><link href="http://localhost:4000/2020/05/01/nginx-socket-io-projects.html" rel="alternate" type="text/html" title="How to use NGINX as a reverse-proxy server for a Node.js application using socket.io" /><published>2020-05-01T00:00:00+00:00</published><updated>2020-05-01T00:00:00+00:00</updated><id>http://localhost:4000/2020/05/01/nginx-socket-io-projects</id><content type="html" xml:base="http://localhost:4000/2020/05/01/nginx-socket-io-projects.html">&lt;p&gt;Despite the long name of the article, I have a feeling this may apply to more people than I might think.
+If you have a Node.js application which needs socket.io connections that you want to pass throgh nginx’s &lt;code class=&quot;highlighter-rouge&quot;&gt;reverse_proxy&lt;/code&gt; directive then this is the article for you!&lt;/p&gt;
+
+&lt;p&gt;You &lt;em&gt;must&lt;/em&gt; seperate the socket.io sockets and the static resources.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The socket connections can be routed through the default &lt;code class=&quot;highlighter-rouge&quot;&gt;$host/socket.io&lt;/code&gt; if you want to ease modifications to the source code.&lt;/li&gt;
+  &lt;li&gt;The connections to your main npm Node.js application can be routed through the relevant directory.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here is the relevant part of my &lt;code class=&quot;highlighter-rouge&quot;&gt;projects.tait.tech.conf&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+location /socket.io {
+  proxy_pass http://localhost:8080/socket.io/;
+  proxy_set_header Upgrade $http_upgrade;
+  proxy_set_header Connection &quot;upgrade&quot;;
+  proxy_http_version 1.1;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header Host $host;
+}
+
+location /ttrpg {
+  proxy_pass http://localhost:8080/;
+  proxy_set_header Host $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+}
+&lt;/pre&gt;
+
+&lt;h3 id=&quot;explaination&quot;&gt;Explaination:&lt;/h3&gt;
+
+&lt;p&gt;For this application,
+I needed the &lt;code class=&quot;highlighter-rouge&quot;&gt;/ttrpg&lt;/code&gt; directory to connect to my main Node.js instance. This was going to be the root of a ttrpg project.
+It was to have static files served form my Node.js application.&lt;/p&gt;
+
+&lt;p&gt;I also needed &lt;code class=&quot;highlighter-rouge&quot;&gt;/socket.io&lt;/code&gt; to conenct to my running &lt;code class=&quot;highlighter-rouge&quot;&gt;npm&lt;/code&gt; instance.
+When I tried to route all the traffic through the &lt;code class=&quot;highlighter-rouge&quot;&gt;/trrpg&lt;/code&gt; location directive
+I had no luck whatsoever;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;$host/ttrpg/socket.io/*&lt;/code&gt; calls &lt;em&gt;always&lt;/em&gt; failed with a 404.&lt;/p&gt;
+
+&lt;p&gt;Having two seperate blocks forwarding in different ways seems to fix this.
+I am not knowledgable enough to understand how.&lt;/p&gt;
+
+&lt;p&gt;For now, the project is alive!!!&lt;/p&gt;
+
+&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">Despite the long name of the article, I have a feeling this may apply to more people than I might think. If you have a Node.js application which needs socket.io connections that you want to pass throgh nginx’s reverse_proxy directive then this is the article for you!</summary></entry><entry><title type="html">What is XSS?</title><link href="http://localhost:4000/2020/04/25/xss.html" rel="alternate" type="text/html" title="What is XSS?" /><published>2020-04-25T00:00:00+00:00</published><updated>2020-04-25T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/25/xss</id><content type="html" xml:base="http://localhost:4000/2020/04/25/xss.html">&lt;p&gt;I found a cross-site scripting (XSS) attack
 in a well-known quiz hosting website.
 I disclosed the vulnerability to them years ago, so I thought
 now might be a good time to write about it.&lt;/p&gt;
