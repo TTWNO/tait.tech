@@ -78,6 +78,16 @@ I am not knowledgable enough to understand how.</p>
 
 <p>Happy hacking!</p>
 
+<p><em>P.S. I forgot to mention I also symbolically linked the <code class="highlighter-rouge">socket.io.js</code> file (that node is supposed to serve automatically) to the static client dir.
+For some reson the node instance would not serve this file without that.</em></p>
+
+<pre class="terminal">
+$ pwd
+/home/user/ttrpg.co/client
+$ ln -s ../server/node_modules/socket.io-client/dist/socket.io.js .
+</pre>
+
+<p><em>Happy hacking 2.0!</em></p>
 
 </div>
 
