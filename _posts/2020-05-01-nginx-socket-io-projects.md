@@ -48,4 +48,13 @@ For now, the project is alive!!!
 
 Happy hacking!
 
+*P.S. I forgot to mention I also symbolically linked the `socket.io.js` file (that node is supposed to serve automatically) to the static client dir.
+For some reson the node instance would not serve this file without that.*
 
+<pre class="terminal">
+$ pwd
+/home/user/ttrpg.co/client
+$ ln -s ../server/node_modules/socket.io-client/dist/socket.io.js .
+</pre>
+
+*Happy hacking 2.0!*
