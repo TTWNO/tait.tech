@@ -2,7 +2,7 @@
 title: "Cover Letter | Bloombase"
 layout: simple
 ---
-<pre>
+<pre class="line-under">
 To: Bloombase
 
 128 W Hastings St #350
