@@ -21,11 +21,18 @@ These are all things that I do personally to protect myself.
 
 It would be more motivating than ever to be responsible for the protection of somebody else's data.
 
-What I have to offer is in my resume.
+Security is built right into my goals for my programming career. I have two goals:
 
-I hope that I will be considered.
+1. Create ease of use for strong crytography, security and privacy tools.
+2. Accessibility of software to the visually impaired.
+
+These goals are intertwined in: "If you make something good, make it for everyone."
+
+What I have to offer skill-wise is in my resume.
+
+Thank you for your time; I hope I will be considered.
 
 #### Location
 
-I would like to mention that although I currently live in Calgary, I would be willing to move to Vancouver for this position without compensation for the move.
+I would also like to mention that although I currently live in Calgary, I would be willing to move to Vancouver for this position without compensation for the move.
 
