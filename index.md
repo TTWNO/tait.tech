@@ -14,7 +14,7 @@ title: "Home"
 I am a student at the <a href="https://sait.ca/">Southern Alberta Insitute of Technology (SAIT)</a>.
 
 My fascination lies primarily with operating system internals and systems-level tools.
-My goal is to bring the everyday computing environment of Linux/BSD nerds to visually impaired users.
+My goal is to bring the everyday computing environment of Linux/BSD nerds to visually impaired users, and to ensure the saftey, privacy and security of the internet.
 Some of my projects reflect this.
 
 I have all of my code projects hosted on [my Github](https://github.com/TTWNO).
