@@ -1,5 +1,7 @@
 - name: Home
   link: /
+- name: Tutoring
+  link: /tutoring/
 - name: Blog
   link: /blog/
 #- name: Podcast
