@@ -1,4 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-05-22T21:00:38+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">New Game: Clue (coming soon)</title><link href="http://localhost:4000/2020/05/19/clue-announcement.html" rel="alternate" type="text/html" title="New Game: Clue (coming soon)" /><published>2020-05-19T00:00:00+00:00</published><updated>2020-05-19T00:00:00+00:00</updated><id>http://localhost:4000/2020/05/19/clue-announcement</id><content type="html" xml:base="http://localhost:4000/2020/05/19/clue-announcement.html">&lt;p&gt;Ooo! Exciting!
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-06-10T17:25:14+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Site Update</title><link href="http://localhost:4000/2020/06/04/site-update.html" rel="alternate" type="text/html" title="Site Update" /><published>2020-06-04T00:00:00+00:00</published><updated>2020-06-04T00:00:00+00:00</updated><id>http://localhost:4000/2020/06/04/site-update</id><content type="html" xml:base="http://localhost:4000/2020/06/04/site-update.html">&lt;p&gt;I updated the site with some easier to identify information about me and my projects :)&lt;/p&gt;
+
+&lt;p&gt;Also, Clue has been delayed due to my partner in crime on the project wokring too many hours.&lt;/p&gt;
+
+&lt;p&gt;I also posted a new project called &lt;em&gt;&lt;a href=&quot;https://github.com/TTWNO/caesar-cipher&quot;&gt;Caesar Cipher&lt;/a&gt;&lt;/em&gt; in C. It will be an intermediate example of how to use build systems like &lt;code class=&quot;highlighter-rouge&quot;&gt;make&lt;/code&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">I updated the site with some easier to identify information about me and my projects :)</summary></entry><entry><title type="html">New Game: Clue (coming soon)</title><link href="http://localhost:4000/2020/05/19/clue-announcement.html" rel="alternate" type="text/html" title="New Game: Clue (coming soon)" /><published>2020-05-19T00:00:00+00:00</published><updated>2020-05-19T00:00:00+00:00</updated><id>http://localhost:4000/2020/05/19/clue-announcement</id><content type="html" xml:base="http://localhost:4000/2020/05/19/clue-announcement.html">&lt;p&gt;Ooo! Exciting!
 Today I want to announce a new project I’ll be working on which should be live within the month of May:
 Clue.&lt;/p&gt;
 
@@ -898,47 +902,4 @@ Japan lags slightly behind with 80 percent encrypted traffic.&lt;/p&gt;
 
 &lt;h3 id=&quot;what-about-rsa&quot;&gt;What about RSA?&lt;/h3&gt;
 
-&lt;p&gt;RSA is an encryption method named after the initials of the inventors’ sir names: Ron &lt;strong&gt;R&lt;/strong&gt;ivest, Adi &lt;strong&gt;S&lt;/strong&gt;hamir, and Leonard &lt;strong&gt;A&lt;/strong&gt;dleman. It uses the mathematical “factoring problem” to secure communication. The details of this specific type of encryption will be discussed in an article soon to come.&lt;/p&gt;</content><author><name>tait</name></author><summary type="html">What is the most embarassing thing you have typed into Google search? What is the most personal secret you told a friend in confidence? What is your bank password? What is your business’s secret to stay ahead of the competition?</summary></entry><entry><title type="html">Padding And Margin</title><link href="http://localhost:4000/2020/01/22/padding-and-margin.html" rel="alternate" type="text/html" title="Padding And Margin" /><published>2020-01-22T00:00:00+00:00</published><updated>2020-01-22T00:00:00+00:00</updated><id>http://localhost:4000/2020/01/22/padding-and-margin</id><content type="html" xml:base="http://localhost:4000/2020/01/22/padding-and-margin.html">&lt;p&gt;Many people have expressed confusion over how padding and margins work in HTML/CSS. I have been one of those people. In this short article I will explain what the differences are between the two, and how it may affect the functionality of your site.&lt;/p&gt;
-
-&lt;p&gt;Here is an image from the World Wide Web Consortium (W3C) who sets the standards for the web.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/img/w3c-padding-margin.png&quot; alt=&quot;The W3C standard for padding, margin, borders and width. Width encompases the inner element + padding; the border then encompases it. The margin is the space beyond the border and in between other elements.&quot; title=&quot;W3C border, padding, margin standard.&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now although this image shows all the different types of spacing as equal, the majority of the time these will mostly be padding (inner) and margin (outer). Padding is the inner space between the element and its border; margin is the outer space between two different elements.&lt;/p&gt;
-
-&lt;p&gt;Within the margin the user is unable to press any links or execute any javascript code. It is &lt;em&gt;empty&lt;/em&gt; space. If each &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;link&amp;gt;&lt;/code&gt; on your navigation bar has 10 pixels of margin, then there would be 20 pixels in between each &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;link&amp;gt;&lt;/code&gt; that would &lt;em&gt;not&lt;/em&gt; be clickable by the user.&lt;/p&gt;
-
-&lt;p&gt;If you have &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;link&amp;gt;&lt;/code&gt;s on your navigation bar with &lt;em&gt;padding&lt;/em&gt; set to 20 pixels, however, then there will be 20 pixels on each side of the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;link&amp;gt;&lt;/code&gt; text where the user &lt;em&gt;is&lt;/em&gt; able to click.&lt;/p&gt;
-
-&lt;p&gt;If that part is confusing, try thinking about it in terms of whether &lt;code class=&quot;highlighter-rouge&quot;&gt;background-color&lt;/code&gt; would apply.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Attribute&lt;/th&gt;
-      &lt;th&gt;&lt;strong&gt;Padding&lt;/strong&gt;&lt;/th&gt;
-      &lt;th&gt;&lt;strong&gt;Margin&lt;/strong&gt;&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Spacing&lt;/td&gt;
-      &lt;td&gt;within element&lt;/td&gt;
-      &lt;td&gt;between elements&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;background-color&lt;/code&gt; applies&lt;/td&gt;
-      &lt;td&gt;Yes&lt;/td&gt;
-      &lt;td&gt;No&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;In summary:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Padding&lt;/strong&gt;: the space within a tag which is still part of the same tag. &lt;code class=&quot;highlighter-rouge&quot;&gt;background-color&lt;/code&gt; applies.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Margin&lt;/strong&gt;: the space in between two seperate tags. &lt;code class=&quot;highlighter-rouge&quot;&gt;background-color&lt;/code&gt; does not apply; it is empty space.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Border&lt;/strong&gt;: the space in between the two; it surrounds the padding, but is not the margin. It looks nice somtimes, but it has no non-visual function. &lt;code class=&quot;highlighter-rouge&quot;&gt;background-color&lt;/code&gt; does not apply.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I hope this covers the basics of margin and padding! Happy coding!&lt;/p&gt;</content><author><name>tait</name></author><summary type="html">Many people have expressed confusion over how padding and margins work in HTML/CSS. I have been one of those people. In this short article I will explain what the differences are between the two, and how it may affect the functionality of your site.</summary></entry></feed>
+&lt;p&gt;RSA is an encryption method named after the initials of the inventors’ sir names: Ron &lt;strong&gt;R&lt;/strong&gt;ivest, Adi &lt;strong&gt;S&lt;/strong&gt;hamir, and Leonard &lt;strong&gt;A&lt;/strong&gt;dleman. It uses the mathematical “factoring problem” to secure communication. The details of this specific type of encryption will be discussed in an article soon to come.&lt;/p&gt;</content><author><name>tait</name></author><summary type="html">What is the most embarassing thing you have typed into Google search? What is the most personal secret you told a friend in confidence? What is your bank password? What is your business’s secret to stay ahead of the competition?</summary></entry></feed>
