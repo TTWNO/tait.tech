@@ -4,6 +4,14 @@ layout: default
 
 ## Tutoring
 
+I believe in solving problems.
+Learn how to solve your own unique computer-related problems by learning how they work underneath all the fancy buttons you see.
+
+My favourite resources are the following:
+
+* [thenewboston (Youtube)](https://www.youtube.com/user/thenewboston)
+* [cppreference.com](https://cppreference.com) (also has C references)
+
 ### Rates
 
 For a programming language I am comfortable with already, C$25/hour.
