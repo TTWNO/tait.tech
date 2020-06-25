@@ -16,8 +16,8 @@ I would love your support in accomplishing these goals!
 
 ## Goals
 
-My current educational path involves finishing a diploma program then transfering to
-a Bachelor's of Technology program in cybersecurity and digital forensics at BCIT.
+My current educational path involves finishing a diploma program,
+then transfering to a Bachelor's of Technology program in cybersecurity and digital forensics at BCIT.
 
 Cybersecurity was not an overnight choice.
 It became interesting to me over time as I saw ordinary people give up their privacy because they wanted their phone to tell them the weather---or some such other minor life enhancement.
@@ -25,10 +25,10 @@ It became interesting to me over time as I saw ordinary people give up their pri
 Of course, it is a exaggeration to say that this is the reason people give up privacy,
 but consider the extreme case:
 You have your phone location on at all times;
-you have a Alexa listening to everything you say at home;
-you text others using a company or service that is *openly* collecting all your message contents.
+you own an Alexa which listens to everything you say at home;
+you text and call others using a service that *openly* collects the contents of your messages.
 
-Would you want every text you have ever sent to be on the front page of the newspaper?
+Would you want every single text you have sent to appear on the front page of the newspaper?
 What about every thing you have said in the privacy of your own home?
 Do you want just anyone to know where you were today?
 
