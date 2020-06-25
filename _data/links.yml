@@ -1,4 +1,4 @@
-- heading: Contact Links
+- heading: Find Me Other Places
   values:
   - name: Main Site
     value: https://tait.tech/
@@ -6,20 +6,15 @@
   - name: Backup/Mirror Site
     value: https://beta.tait.tech/
     label: beta.tait.tech
-  - name: Professional Email
+  - name: Email
     value: mailto:tait@tait.tech
     label: tait@tait.tech
-  - name: Personal Email
-    value: mailto:tait.hoyem@protonmail.com
-    label: tait.hoyem@protonmail.com
   - name: Public Key
     label: public-key.asc
     value: /public-key.asc
-- heading: Code
-  values:
-    - name: My Github (main)
-      value: https://github.com/TTWNO
-      label: INHERIT
+  - name: Github
+    label: github.com/TTWNO
+    value: https://github.com/TTWNO
 - heading: Secure Service Links
   values:
     - name: Signal
