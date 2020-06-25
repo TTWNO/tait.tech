@@ -16,7 +16,7 @@ Contact me at [tutoring@tait.tech](mailto:tutoring@tait.tech) for more info.
 ***C$25*** for a programming language I am comfortable with already.
 * C, C++, Java, Python, HTML/CSS/JS.
 
-***C$30 + 1 week prep. time*** for a programming language I am not very comfortable with already.
+***C$20 + 1 week prep. time*** for a programming language I am not very comfortable with already.
 * Rust, Go, Node.js.
 
 ***C$35*** for Linux system administration.
