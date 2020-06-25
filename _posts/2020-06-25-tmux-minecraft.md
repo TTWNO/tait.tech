@@ -7,7 +7,7 @@ So recently I had problem.
 I run a Minecraft server on a big Linux computer I have running in my room.
 Now, as a system administrator it is very helpful to be able to run some simple commands without needing to login with my key, password, TFA, etc.
 It is, frankly, a lot of work.
-Especially when I really just want to be playing games, but something seems to be wrong.
+Especially when I really just want to be playing games but I just need to check something quickly.
 
 So for simple things like finding out of the network, CPU, memory or disk usage is my bottleneck, I wrote this really nifty script to connect the world of Minecraft and the Linux shell.
 
@@ -19,7 +19,7 @@ If you want some of the implementation details, stick around.
 
 So to solve this interesting problem, I decided to use `tmux`.
 `tmux` is a **t**terminal **mu**ltiple**x**er.
-This allows you to run a terminal session, the leave it while it  still runs in the background.
+This allows you to run a terminal session, then detach fromc it while it  still runs in the background.
 
 This is very valuable when running command line applications that need to have an active console connection, like a Minecraft server.
 
@@ -61,23 +61,20 @@ Negative numbers start from the bottom, so *in theory* I can do the following: `
 No. It just doesn't work. Negative numbers do *not* work with the `tmux capture-pane` subcommand.
 
 So I did some simple UNIX piping, like so, to get just the last thing in the chat.
-`-p` prints the result to the terminal/stdout.
-`steve` is the name of the tmux session I'm trying to pull form.
 
 <pre class="terminal">
 $ tmux capture-pane -p -t steve | tail -n1
 [SERVER] [ExtraDebuggingInfoHere]: &lt;TaterTheTot&gt; MY_MESSAGE
 </pre>
+TaterTheTot is my Minecraft username :)
+
+`-p` prints the result to the terminal/stdout.
+
+`steve` is the name of the tmux session I'm trying to pull form.
 
 So that's done! Beauty!
 
-So now I have a line which will look something like this:
-
-`[SERVER] [ExtraDebugInfoHere]: <TaterTheTot> MY_MESSAGE`
-
-TaterTheTot is my Minecraft username :)
-
-So, how can we get only the message I wrote, and my username?
+Now that we have that, how can we extract the username and the message from the latest line?
 
 ### `grep`
 
