@@ -36,7 +36,7 @@
 I run a Minecraft server on a big Linux computer I have running in my room.
 Now, as a system administrator it is very helpful to be able to run some simple commands without needing to login with my key, password, TFA, etc.
 It is, frankly, a lot of work.
-Especially when I really just want to be playing games, but something seems to be wrong.</p>
+Especially when I really just want to be playing games but I just need to check something quickly.</p>
 
 <p>So for simple things like finding out of the network, CPU, memory or disk usage is my bottleneck, I wrote this really nifty script to connect the world of Minecraft and the Linux shell.</p>
 
@@ -48,7 +48,7 @@ Especially when I really just want to be playing games, but something seems to b
 
 <p>So to solve this interesting problem, I decided to use <code class="highlighter-rouge">tmux</code>.
 <code class="highlighter-rouge">tmux</code> is a <strong>t</strong>terminal <strong>mu</strong>ltiple<strong>x</strong>er.
-This allows you to run a terminal session, the leave it while it  still runs in the background.</p>
+This allows you to run a terminal session, then detach fromc it while it  still runs in the background.</p>
 
 <p>This is very valuable when running command line applications that need to have an active console connection, like a Minecraft server.</p>
 
@@ -88,24 +88,21 @@ Negative numbers start from the bottom, so <em>in theory</em> I can do the follo
 
 <p>No. It just doesn’t work. Negative numbers do <em>not</em> work with the <code class="highlighter-rouge">tmux capture-pane</code> subcommand.</p>
 
-<p>So I did some simple UNIX piping, like so, to get just the last thing in the chat.
-<code class="highlighter-rouge">-p</code> prints the result to the terminal/stdout.
-<code class="highlighter-rouge">steve</code> is the name of the tmux session I’m trying to pull form.</p>
+<p>So I did some simple UNIX piping, like so, to get just the last thing in the chat.</p>
 
 <pre class="terminal">
 $ tmux capture-pane -p -t steve | tail -n1
 [SERVER] [ExtraDebuggingInfoHere]: &lt;TaterTheTot&gt; MY_MESSAGE
 </pre>
+<p>TaterTheTot is my Minecraft username :)</p>
+
+<p><code class="highlighter-rouge">-p</code> prints the result to the terminal/stdout.</p>
+
+<p><code class="highlighter-rouge">steve</code> is the name of the tmux session I’m trying to pull form.</p>
 
 <p>So that’s done! Beauty!</p>
 
-<p>So now I have a line which will look something like this:</p>
-
-<p><code class="highlighter-rouge">[SERVER] [ExtraDebugInfoHere]: &lt;TaterTheTot&gt; MY_MESSAGE</code></p>
-
-<p>TaterTheTot is my Minecraft username :)</p>
-
-<p>So, how can we get only the message I wrote, and my username?</p>
+<p>Now that we have that, how can we extract the username and the message from the latest line?</p>
 
 <h3 id="grep"><code class="highlighter-rouge">grep</code></h3>
 
