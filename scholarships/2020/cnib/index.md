@@ -20,7 +20,7 @@ My current educational path involves finishing a diploma program then transferin
 a Bachelor's of Technology program in cybersecurity and digital forensics at BCIT.
 
 Cybersecurity was not an overnight choice.
-It became interesting to me over time as I saw ordinary people give up their privacy because they wanted their phone to tell them the weather---or some such other minor life enhancment.
+It became interesting to me over time as I saw ordinary people give up their privacy because they wanted their phone to tell them the weather---or some such other minor life enhancement.
 
 Of course, it is a exaggeration to say that this is the reason people give up privacy,
 but consider the extreme case:
@@ -43,8 +43,8 @@ This is my goal:
 Allow normal people, non-techies and techies alike, to just be able to send a text message without the world watching over their shoulder.
 
 The second goal I have is to make this technology accessible to everyone.
-Secuirty-focused apps need to be fast so they will run on less expensive phones.
-They need to be simple so that screenreaders can process them correctly.
+Security-focused apps need to be fast so they will run on less expensive phones.
+They need to be simple so that screen readers can process them correctly.
 
 These are not hard things to do.
 In fact, I would argue that designing software this way: independent of third parties, simple, able to run on cheap devices---is actually easier than designing it the way large companies seem to design software.
