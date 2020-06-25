@@ -8,8 +8,6 @@
 #  link: /podcast.html 
 - name: Links
   link: /links/
-- name: Ideas
-  link: /ideas/
 - name: Code
   new_tab: true 
   link: https://github.com/TTWNO/
