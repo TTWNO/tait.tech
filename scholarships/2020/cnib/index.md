@@ -4,7 +4,7 @@ title: "CNIB Scholarship Essay 2020"
 ---
 # CNIB Scholarship Essay
 
-### Abstract
+### Intro
 *Question:*
 How will this scholarship change what it is to be blind for you as you pursue your post-secondary education?
 
