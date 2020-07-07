@@ -6,12 +6,12 @@ title: "Home"
 ## Tait Hoyem
 
 <div id="img-wrapper">
-  <img id="main-img" src="/assets/img/banff.jpg" alt="A photot I took of the valley Banff, Alberta sits in">
+  <img id="main-img" src="/assets/img/banff.jpg" alt="A photo I took of the valley Banff, Alberta sits in">
   <label for="main-img">Alberta, Canada</label>
 </div>
 ### About
 
-I am a student at the <a href="https://sait.ca/">Southern Alberta Insitute of Technology (SAIT)</a>.
+I am a student at the <a href="https://sait.ca/">Southern Alberta Institute of Technology (SAIT)</a>.
 
 I have two goals in my software development career.
 
@@ -41,7 +41,7 @@ and camera to produce text files from scanned books.
 **[subnetting](https://github.com/TTWNO/subnetting)** ---
 A one-night write of a tool to automatically calculate network subnet masks based on required hosts and base IP.
 
-I also ocassionally put content on my [lbry channel](https://lbry.tv/@tait:7), and the [blog I host on this site](/blog/).
+I also occasionally put content on my [lbry channel](https://lbry.tv/@tait:7), and the [blog I host on this site](/blog/).
 
 ### Contact
 
