@@ -1,4 +1,97 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-12T19:14:02+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Independence</title><link href="http://localhost:4000/2020/07/12/independence.html" rel="alternate" type="text/html" title="Independence" /><published>2020-07-12T00:00:00+00:00</published><updated>2020-07-12T00:00:00+00:00</updated><id>http://localhost:4000/2020/07/12/independence</id><content type="html" xml:base="http://localhost:4000/2020/07/12/independence.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-19T02:27:18+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Installing MultiCraft on Gentoo Linux</title><link href="http://localhost:4000/2020/07/19/multicraft-php-gentoo.html" rel="alternate" type="text/html" title="Installing MultiCraft on Gentoo Linux" /><published>2020-07-19T00:00:00+00:00</published><updated>2020-07-19T00:00:00+00:00</updated><id>http://localhost:4000/2020/07/19/multicraft-php-gentoo</id><content type="html" xml:base="http://localhost:4000/2020/07/19/multicraft-php-gentoo.html">&lt;p&gt;In a very odd combination of requirements,
+I needed to install &lt;a href=&quot;https://multicraft.org&quot;&gt;MultiCraft&lt;/a&gt; on a Gentoo Linux system.
+The PHP &lt;code class=&quot;highlighter-rouge&quot;&gt;USE&lt;/code&gt; flags are important so you don’t have to recompile it three times like I did.&lt;/p&gt;
+
+&lt;p&gt;Here are some useful tips I came across:&lt;/p&gt;
+
+&lt;h3 id=&quot;php-use-flags&quot;&gt;PHP &lt;code class=&quot;highlighter-rouge&quot;&gt;USE&lt;/code&gt; flags&lt;/h3&gt;
+
+&lt;p&gt;In &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/portage/package.use/php&lt;/code&gt; I placed the following line:&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+dev-lang/php cgi mysql mysqli fpm pdo gd truetype
+&lt;/pre&gt;
+
+&lt;p&gt;This should give you enough for a mysql backended MultiCraft installation.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;cgi&lt;/code&gt; option may not be required as &lt;code class=&quot;highlighter-rouge&quot;&gt;fpm&lt;/code&gt; stands for &lt;em&gt;FastCGI Process Managment&lt;/em&gt;.
+I don’t know for sure though.&lt;/p&gt;
+
+&lt;h3 id=&quot;paper&quot;&gt;Paper&lt;/h3&gt;
+
+&lt;p&gt;This will grab the latest version of the Paper jar file using &lt;a href=&quot;https://yivesmirror.com&quot;&gt;YivesMirror&lt;/a&gt;.
+I’m not sure how reputable it is,
+but my buddy who works with this stuff more often than me seemed to recognize it.&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+## See the default craftbukkit.jar.conf for a detailed documentation of the
+## format of this file.
+[config]
+name = Paper 1.16.1 Latest
+source = https://yivesmirror.com/files/paper/Paper-1.16.1-latest.jar
+category = Mods
+
+[encoding]
+#encode = system
+#decode = system
+#fileEncoding = latin-1
+
+[start]
+command = &quot;{JAVA}&quot; -Xmx{MAX_MEMORY}M -Xms{START_MEMORY}M -XX:MaxPermSize=128M -Djline.terminal=jline.UnsupportedTerminal -jar &quot;{JAR}&quot; nogui
+&lt;/pre&gt;
+
+&lt;h3 id=&quot;other-tips&quot;&gt;Other Tips&lt;/h3&gt;
+
+&lt;p&gt;Do not use the option to setup a separate user for each server.
+This completely stalled any work getting done with a ton of ‘permission denied’ errors.&lt;/p&gt;
+
+&lt;h4 id=&quot;security&quot;&gt;Security&lt;/h4&gt;
+
+&lt;p&gt;If the panel is in the root directory of your NGINX web server,
+use the following in your server block to deny access to the &lt;code class=&quot;highlighter-rouge&quot;&gt;/protected&lt;/code&gt; directory.&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+location /protected {
+  deny all;
+  return 404;
+}
+&lt;/pre&gt;
+
+&lt;h5 id=&quot;mysql&quot;&gt;MySQL&lt;/h5&gt;
+
+&lt;p&gt;It is always good practice to separate privileges.
+The MultiCraft daemon should have one SQL login,
+with one database allocated to it.
+The MultiCraft panel should have a separate SQL login,
+with a separate database allocated to it.&lt;/p&gt;
+
+&lt;p&gt;You can do this with the following commands in your MySQL prompt:&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+sql&amp;gt; CREATE DATABASE multicraft_daemon_database;
+Query OK, 0 rows affected (0.01 sec)
+
+sql&amp;gt; CREATE DATABASE multicraft_panel_database;
+Query OK, 0 rows affected (0.01 sec)
+
+sql&amp;gt; CREATE USER 'muilticraft_daemon'@'localhost' IDENTIFIED BY 'strong password here';
+Query OK, 0 rows affected (0.01 sec)
+
+sql&amp;gt; CREATE USER 'multicraft_panel'@'localhost' IDENTIFIED BY 'different strong password here';
+Query OK, 0 rows affected (0.01 sec)
+
+sql&amp;gt; GRANT ALL PRIVILEGES ON multicraft_daemon_database . * TO 'multicraft_daemon'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+sql&amp;gt; GRANT ALL PRIVILEGES ON multicraft_panel_database . * TO 'mutlicraft_panel'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+&lt;/pre&gt;
+
+&lt;p&gt;During setup, make sure the proper credentials are used for each step.
+Database 1 is the panel database.
+Database 2 is the daemon database.&lt;/p&gt;
+
+&lt;p&gt;Happy hacking :)&lt;/p&gt;</content><author><name></name></author><summary type="html">In a very odd combination of requirements, I needed to install MultiCraft on a Gentoo Linux system. The PHP USE flags are important so you don’t have to recompile it three times like I did.</summary></entry><entry><title type="html">Independence</title><link href="http://localhost:4000/2020/07/12/independence.html" rel="alternate" type="text/html" title="Independence" /><published>2020-07-12T00:00:00+00:00</published><updated>2020-07-12T00:00:00+00:00</updated><id>http://localhost:4000/2020/07/12/independence</id><content type="html" xml:base="http://localhost:4000/2020/07/12/independence.html">&lt;blockquote&gt;
   &lt;p&gt;“When given a choice between independence and dependence, always choose independence; you will never regret that choice!”—Luke Smith&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -740,144 +833,4 @@ Give ‘em some love, eh!&lt;/p&gt;
 Let me know if there is anything that doesn’t make sense.
 I am happy to improve this guide as time goes on if that is necessary.&lt;/p&gt;
 
-&lt;p&gt;Happy hacking :)&lt;/p&gt;</content><author><name>tait</name></author><summary type="html">If you have ever wanted to garuntee the utmost security of your emails and documents, then this is the guide for you! It should be noted that in some circles the tools used are more common than in others. These are the everyday tools of many privacy advocates and computer nerds.</summary></entry><entry><title type="html">How Asymetric Encryption Works</title><link href="http://localhost:4000/2020/04/02/rsa3.html" rel="alternate" type="text/html" title="How Asymetric Encryption Works" /><published>2020-04-02T00:00:00+00:00</published><updated>2020-04-02T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/02/rsa3</id><content type="html" xml:base="http://localhost:4000/2020/04/02/rsa3.html">&lt;p&gt;In a few previous articles I have explained &lt;a href=&quot;/2020/01/26/rsa1.html&quot;&gt;why encryption may be important to you&lt;/a&gt; and &lt;a href=&quot;/2020/02/19/rsa2.html&quot;&gt;how the theory behind encryption works&lt;/a&gt;. I did not yet explain the system of asymetric cryptography, however. That is what this article is for.&lt;/p&gt;
-
-&lt;p&gt;Previously, we talked about how &lt;em&gt;symetric&lt;/em&gt; encryption works. This is by having a shared key that both parties use to simultaniously encrypt, and decrypt the data. (See Ceasar Cipher for example).&lt;/p&gt;
-
-&lt;h2 id=&quot;public-key-or-asymetric-encryption&quot;&gt;Public-key, or Asymetric Encryption&lt;/h2&gt;
-
-&lt;p&gt;Asymetric encryption is based on the idea of having multiple keys instead of only one shared key.
-For example: instead of encrypting with one key, and decrypting with that same key (like our ROT ciphers we talked about previously), we can use one key to &lt;em&gt;encrypt&lt;/em&gt; the information, and a different key to &lt;em&gt;decrypt&lt;/em&gt; the information.&lt;/p&gt;
-
-&lt;figure&gt;
-  &lt;img src=&quot;/assets/img/alice-to-bob.png&quot; alt=&quot;Alice sending her message to Bob using Bob's public key. Bob decrypts the message with his private key.&quot; /&gt;
-  &lt;figcaption&gt;
-    Alice sending her message to Bob using Bob's public key. Bob decrypts the message with his private key.  
-  &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;In the picture above, see how Alice uses Bob’s public key to encrypt some data,
-then sends it to Bob for him to decrypt with his private key?
-That is the essense of public-key encryption.&lt;/p&gt;
-
-&lt;p&gt;The great thing about public-key encryption is that your public key is &lt;em&gt;public&lt;/em&gt;! There is no need to be afraid of sending this everywhere!
-You can attach it at the end of all your emails, the end of your forum posts, &lt;a href=&quot;/public-key.asc&quot;&gt;a link to it on your low-power webserver&lt;/a&gt; (wink).
-There are even things called &lt;a href=&quot;http://keys.gnupg.net/&quot;&gt;keyservers&lt;/a&gt; that will save your public key on them for retrival in case somebody wants to verify your public key.&lt;/p&gt;
-
-&lt;p&gt;Anything encrypted with your public key can only be decrypted with your private key.
-Provided you never, &lt;em&gt;NEVER&lt;/em&gt; share your private key with anyone ever, we can assume that all messages sent to you encrypted with your public key will never be read by anyone else.&lt;/p&gt;
-
-&lt;p&gt;Asymetric encryption, however, often contains four keys instead of two. Why is this?&lt;/p&gt;
-
-&lt;h4 id=&quot;verification-of-author&quot;&gt;Verification of Author&lt;/h4&gt;
-
-&lt;p&gt;One interesting thing about keys pairs is that not only can the private key decrypt anything the public key encrypts,
-but the public key can decrypt anything the private key encrypts.&lt;/p&gt;
-
-&lt;p&gt;Now why would one want to encrypt a message that can be decrypted by anyone?&lt;/p&gt;
-
-&lt;figure&gt;
-  &lt;img src=&quot;/assets/img/alice-sign-to-bob.png&quot; alt=&quot;Alice sending a message to bob which is 'signed' with her private key. This allows Bob to know only Alice could have sent it!&quot; /&gt;
-  &lt;figcaption&gt;
-   Alice sending a message to bob which is 'signed' with her private key. This allows Bob to know only Alice could have sent it! 
-  &lt;br /&gt;
-  &lt;br /&gt;
-  Note: Although the picture shows otherwise, the text is not sent in the plain. It is encrypted with Alice's private key.
-  &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;This is how you can verify that the person who says they wrote the message really did indeed write the message!
-If their private key was never shared with anyone else, then the message must have come from them!&lt;/p&gt;
-
-&lt;p&gt;For maximum security, these methods are often layered.
-First, signing with the sender’s private key,
-ensuring only they could have sent it—
-then encrypted with the recipient’s pulbic key,
-making sure only the reciever can read it.&lt;/p&gt;
-
-&lt;p&gt;Note that both sides must first have eachother’s public keys to do this.
-This is easy if they communicate often, but when first contacting somebody,
-people will generally send their encrypted message along with the their own pulbic key attached in a seperate file.&lt;/p&gt;
-
-&lt;h3 id=&quot;what-this-means&quot;&gt;What This Means&lt;/h3&gt;
-
-&lt;p&gt;Notice neither Alice nor Bob had to share any comprimsing information over the network?
-This is why public-key encryption is so powerful!&lt;/p&gt;
-
-&lt;p&gt;Alice and Bob can both safely send their public keys in the open.
-They can even send them over the insecure HTTP, or FTP protocols.&lt;/p&gt;
-
-&lt;p&gt;Whilst not sending any encryption-breaking messages,
-Alice and Bob now have a way to communicate securely.
-If you trust nothing and no one, this is your perfered method of security.&lt;/p&gt;
-
-&lt;p&gt;Check out this &lt;a href=&quot;https://www.youtube.com/watch?v=GSIDS_lvRv4&quot;&gt;Computerphile video&lt;/a&gt; if you want the simplified explaination.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-algorithms&quot;&gt;The Algorithms&lt;/h3&gt;
-
-&lt;p&gt;The two biggest “implementations” of public-key cryptography vary only in the mathamatical equations used to generate the numbers,
-and how the numbers are &lt;a href=&quot;https://en.wikipedia.org/wiki/Trapdoor_function&quot;&gt;“trapdoored”&lt;/a&gt; to decrypt if you have the correct key.&lt;/p&gt;
-
-&lt;p&gt;I will discuss the differences in approach here.
-If you want to skip to the next article where I show you how to encrypt your own documents using RSA, see &lt;a href=&quot;/2020/04/06/rsa4.html&quot;&gt;this link&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;rsa&quot;&gt;RSA&lt;/h3&gt;
-
-&lt;p&gt;The mathamatic center of the RSA system was developed over the course of a year or so.
-Three men were involved. Ron Rivest, Adi Shamir, and Leonard Aldeman.
-They worked as a kind of “team”: Each idea by Rivest and Shamir were critisized by the mathamatician on their team: Mr. Aldeman.&lt;/p&gt;
-
-&lt;p&gt;One night, after consuming
-&lt;a href=&quot;https://www.math.uchicago.edu/~may/VIGRE/VIGRE2007/REUPapers/FINALAPP/Calderbank.pdf&quot;&gt;“liberal quantities of Manischewitz wine”&lt;/a&gt;
-Rivest had trouble sleeping.
-After taking long gazes into the abyss of his math textbook, he came up with an idea which would change cryptography forever.
-By the next morning, an academic mathamatical paper was nearly finished.
-He named it after himself and the two others that had been helping him along this whole time. &lt;em&gt;Rivest, Shamir, Aldeman&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;Key sizes of RSA range from 1024-bit to 4096-bit.
-1024-bit keys are considered somewhat insecure.
-However,
-it should be noted that every bit doubles the complexity of the key,
-so 2048 is &lt;a href=&quot;https://www.wolframalpha.com/input/?i=2%5E1024&quot;&gt;2^1024&lt;/a&gt; times more complex than 1024.&lt;/p&gt;
-
-&lt;h3 id=&quot;eliptic-curve-ec&quot;&gt;Eliptic-Curve (EC)&lt;/h3&gt;
-
-&lt;p&gt;Eliptic-Curve (EC) is a family of algorithms that use the &lt;a href=&quot;https://en.wikipedia.org/wiki/Elliptic_curve&quot;&gt;Eliptic curve&lt;/a&gt; mathamatical structure to generate the numbers for the keys.
-EC can effectivly provide the security of an RSA key &lt;a href=&quot;https://www.youtube.com/watch?v=NF1pwjL9-DE&quot;&gt;one order of magnitude larger&lt;/a&gt; than an RSA key.&lt;/p&gt;
-
-&lt;figure&gt;
-  &lt;img src=&quot;/assets/img/ec.png&quot; alt=&quot;A picture of an eliptic curve.&quot; class=&quot;small-image&quot; /&gt;
-  &lt;figcaption&gt;
-    An eliptic curve structure.
-  &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;It’s fast; it’s secure! Perfect right?&lt;/p&gt;
-
-&lt;p&gt;Of course not!&lt;/p&gt;
-
-&lt;p&gt;One problem is that due to the smaller key size,
-it can more easily be broken by brute-force.
-This is why EC is mostly used for temporary communication (like HTTPS), not permenant communication (like having an encrypted email conversation with a journalist).&lt;/p&gt;
-
-&lt;p&gt;The other problem is that a certain EC algrorithm called P-256 is suspected to be introduced with malice to National Institute of Standards and Technology (NIST)
-&lt;a href=&quot;https://www.schneier.com/essays/archives/2007/11/did_nsa_put_a_secret.html&quot;&gt;by the NSA&lt;/a&gt;.
-Supposedly, the NSA is able to crack anything encrypted with this algorithm.
-I will let the experts argure about that.&lt;/p&gt;
-
-&lt;p&gt;Other well-known EC algorithms that are more-or-less trusted as secure do exist though.
-The premeire one being Curve25519.
-The reference implementation of &lt;a href=&quot;https://cr.yp.to/ecdh.html&quot;&gt;this algrorithm&lt;/a&gt; is also &lt;a href=&quot;https://fairuse.stanford.edu/overview/public-domain/welcome/&quot;&gt;public-domain&lt;/a&gt;,
-so it is easy for devlopers to work into their own applications without worrying about copywrite.&lt;/p&gt;
-
-&lt;h2 id=&quot;conslusion&quot;&gt;Conslusion&lt;/h2&gt;
-
-&lt;p&gt;In this article we went over some basic points:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Public-key encryption enables secure communication over insecure networks.&lt;/li&gt;
-  &lt;li&gt;RSA is considered the standard for extra-seure communication.&lt;/li&gt;
-  &lt;li&gt;EC is a newer, faster, more transient encryption method.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;To learn how to use RSA keys to encrypt your own communications, check out &lt;a href=&quot;/2020/04/06/rsa4.html&quot;&gt;this other aritcle I wrote&lt;/a&gt;.&lt;/p&gt;</content><author><name>tait</name></author><summary type="html">In a few previous articles I have explained why encryption may be important to you and how the theory behind encryption works. I did not yet explain the system of asymetric cryptography, however. That is what this article is for.</summary></entry></feed>
+&lt;p&gt;Happy hacking :)&lt;/p&gt;</content><author><name>tait</name></author><summary type="html">If you have ever wanted to garuntee the utmost security of your emails and documents, then this is the guide for you! It should be noted that in some circles the tools used are more common than in others. These are the everyday tools of many privacy advocates and computer nerds.</summary></entry></feed>
