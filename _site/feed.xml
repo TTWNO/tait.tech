@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-30T02:01:56+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Know How Your Representative Votes In Parliament</title><link href="http://localhost:4000/2020/07/30/canadian-parliament.html" rel="alternate" type="text/html" title="Know How Your Representative Votes In Parliament" /><published>2020-07-30T00:00:00+00:00</published><updated>2020-07-30T00:00:00+00:00</updated><id>http://localhost:4000/2020/07/30/canadian-parliament</id><content type="html" xml:base="http://localhost:4000/2020/07/30/canadian-parliament.html">&lt;p&gt;As an advocate for openness, I had an idea to make a project out of the government of Canada’s &lt;a href=&quot;https://open.canada.ca/en/open-data&quot;&gt;Open Data&lt;/a&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-30T02:05:19+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Know How Your Representative Votes In Parliament</title><link href="http://localhost:4000/2020/07/30/canadian-parliament.html" rel="alternate" type="text/html" title="Know How Your Representative Votes In Parliament" /><published>2020-07-30T00:00:00+00:00</published><updated>2020-07-30T00:00:00+00:00</updated><id>http://localhost:4000/2020/07/30/canadian-parliament</id><content type="html" xml:base="http://localhost:4000/2020/07/30/canadian-parliament.html">&lt;p&gt;As an advocate for openness, I had an idea to make a project out of the government of Canada’s &lt;a href=&quot;https://open.canada.ca/en/open-data&quot;&gt;Open Data&lt;/a&gt;
 initiative to take a look at how my local MP voted on various pieces of legislation.
 It turns out though that this was not necessary due to how easy it was to find this information on the government’s own website.
 In this article, I will explain how you can do the same.&lt;/p&gt;
@@ -19,12 +19,12 @@ For example, this is a link to
 &lt;a href=&quot;https://www.ourcommons.ca/Members/en/pierre-poilievre(25524)/votes&quot;&gt;Pierre Poilievre’s voting record&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;To find your MP’s voting record, do step one, then:
-After the &lt;code class=&quot;highlighter-rouge&quot;&gt;Overview&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;Seat in The House&lt;/code&gt; sections,
-there are three tabs, &lt;code class=&quot;highlighter-rouge&quot;&gt;Roles&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Work&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;Contact&lt;/code&gt;.
+After the &lt;strong&gt;Overview&lt;/strong&gt;, and &lt;strong&gt;Seat in The House&lt;/strong&gt; sections,
+there are three tabs, &lt;strong&gt;Roles&lt;/strong&gt;, &lt;strong&gt;Work&lt;/strong&gt;, and &lt;strong&gt;Contact&lt;/strong&gt;.
 Click on work.
-At the bottom of that tab is a link which says &lt;code class=&quot;highlighter-rouge&quot;&gt;Chamber Votes&lt;/code&gt;.
+At the bottom of that tab is a link which says &lt;strong&gt;Chamber Votes&lt;/strong&gt;.
 This will open a small window with some recent votes by this politician.
-If you want to see all their votes, there is a button at the bottom named &lt;code class=&quot;highlighter-rouge&quot;&gt;All Votes by This Member&lt;/code&gt;.&lt;/p&gt;
+If you want to see all their votes, there is a button at the bottom named &lt;strong&gt;All Votes by This Member&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;Tada! You can now keep your local MP accountable for anything you do or do not support.&lt;/p&gt;
 
@@ -32,7 +32,7 @@ If you want to see all their votes, there is a button at the bottom named &lt;co
 
 &lt;p&gt;If you want to get into the nitty gritty,
 once you open a specific bill, you can actually find out the status of said bill,
-or read the actual text by clicking the &lt;code class=&quot;highlighter-rouge&quot;&gt;View this Bill on LEGISinfo&lt;/code&gt; button.&lt;/p&gt;
+or read the actual text by clicking the &lt;strong&gt;View this Bill on LEGISinfo&lt;/strong&gt; button.&lt;/p&gt;
 
 &lt;p&gt;Both the status of the bill, and a link to a PDF document containing the bilingual text of the bill are visible in the main body of the page.&lt;/p&gt;
 
