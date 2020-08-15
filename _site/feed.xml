@@ -1,4 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-30T02:05:19+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Know How Your Representative Votes In Parliament</title><link href="http://localhost:4000/2020/07/30/canadian-parliament.html" rel="alternate" type="text/html" title="Know How Your Representative Votes In Parliament" /><published>2020-07-30T00:00:00+00:00</published><updated>2020-07-30T00:00:00+00:00</updated><id>http://localhost:4000/2020/07/30/canadian-parliament</id><content type="html" xml:base="http://localhost:4000/2020/07/30/canadian-parliament.html">&lt;p&gt;As an advocate for openness, I had an idea to make a project out of the government of Canada’s &lt;a href=&quot;https://open.canada.ca/en/open-data&quot;&gt;Open Data&lt;/a&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-15T15:30:37+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">BSD Journey, Part 1</title><link href="http://localhost:4000/2020/08/15/openbsd1.html" rel="alternate" type="text/html" title="BSD Journey, Part 1" /><published>2020-08-15T00:00:00+00:00</published><updated>2020-08-15T00:00:00+00:00</updated><id>http://localhost:4000/2020/08/15/openbsd1</id><content type="html" xml:base="http://localhost:4000/2020/08/15/openbsd1.html">&lt;p&gt;As Linux becomes controlled by corporate sponsors and becomes more full of proprietary blobs, drivers, and even closed-source software like Steam,
+One may wonder if there are other options out there.
+For me, somebody that is intensely interested in security, there is one option: OpenBSD.&lt;/p&gt;
+
+&lt;p&gt;Now, my interest in OpenBSD has been going on for a long time.
+I started poking around for Linux alternatives way back a few years ago when Linus Torvalds decided to leave after he got in trouble for some
+&lt;a href=&quot;https://arstechnica.com/information-technology/2013/07/linus-torvalds-defends-his-right-to-shame-linux-kernel-developers/&quot;&gt;unprofessional behaviour&lt;/a&gt;.
+That said, Linus did come back to Linux development,
+but I knew that his abrasive style is what brought good code to the Linux kernel.
+I also knew that his ability to be critical would be hurt by the new
+&lt;a href=&quot;https://itsfoss.com/linux-code-of-conduct/&quot;&gt;code of conduct&lt;/a&gt;.
+It would become a tool for the SJW types to hammer of Linus for being a “white male, et al.”;
+It would become a tool for the easily offended to use to get their dumb code into Linux;
+It would become a tool for the corporatization, the HR-ification of Linux.
+Frankly, this does not interest me.&lt;/p&gt;
+
+&lt;p&gt;Now I’m sure that OpenBSD has its own internal policies that I disagree with.
+That said, Theo De Raadt is still at least known for calling Firefox an “amorphous peace of garbage” due to its lack of privilege separation.
+He also went to university in my hometown, so that’s pretty cool!
+I can support a local madman who thinks he can make a better operating system than all those corporations.
+Maybe he was right, maybe not. What I know is I am excited to find out!&lt;/p&gt;
+
+&lt;p&gt;Wish my luck on my OpenBSD journey. I will post updates here along the way.&lt;/p&gt;
+
+&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">As Linux becomes controlled by corporate sponsors and becomes more full of proprietary blobs, drivers, and even closed-source software like Steam, One may wonder if there are other options out there. For me, somebody that is intensely interested in security, there is one option: OpenBSD.</summary></entry><entry><title type="html">Know How Your Representative Votes In Parliament</title><link href="http://localhost:4000/2020/07/30/canadian-parliament.html" rel="alternate" type="text/html" title="Know How Your Representative Votes In Parliament" /><published>2020-07-30T00:00:00+00:00</published><updated>2020-07-30T00:00:00+00:00</updated><id>http://localhost:4000/2020/07/30/canadian-parliament</id><content type="html" xml:base="http://localhost:4000/2020/07/30/canadian-parliament.html">&lt;p&gt;As an advocate for openness, I had an idea to make a project out of the government of Canada’s &lt;a href=&quot;https://open.canada.ca/en/open-data&quot;&gt;Open Data&lt;/a&gt;
 initiative to take a look at how my local MP voted on various pieces of legislation.
 It turns out though that this was not necessary due to how easy it was to find this information on the government’s own website.
 In this article, I will explain how you can do the same.&lt;/p&gt;
@@ -486,54 +510,4 @@ it gets a random file from the specified directory if you give it one like so:&l
 
 &lt;p&gt;Which is very useful if you want to start a random VPN configuration :)&lt;/p&gt;
 
-&lt;p&gt;The code, comments, etc. are on the &lt;a href=&quot;https://github.com/TTWNO/scripts&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">I made a little video about this script I wrote:</summary></entry><entry><title type="html">NAS Part 1: Theorize</title><link href="http://localhost:4000/2020/04/12/nas1.html" rel="alternate" type="text/html" title="NAS Part 1: Theorize" /><published>2020-04-12T00:00:00+00:00</published><updated>2020-04-12T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/12/nas1</id><content type="html" xml:base="http://localhost:4000/2020/04/12/nas1.html">&lt;p&gt;New Project, phase one:
-Theorize.&lt;/p&gt;
-
-&lt;p&gt;I want to build a NAS server to store a bunch of data on. Current problem is lack of a computer to accept multiple SATA connections.&lt;/p&gt;
-
-&lt;h3 id=&quot;problem-1-sata-connectors&quot;&gt;Problem 1: SATA connectors&lt;/h3&gt;
-
-&lt;p&gt;This can be solved by an HBE card. Although they tend to be quite expensive (250+).
-One decent model that isn’t that much is the &lt;a href=&quot;https://www.amazon.ca/SAS9211-8I-8PORT-Int-Sata-Pcie/dp/B002RL8I7M/ref=sr_1_2?keywords=9211-8i&amp;amp;qid=1586699707&amp;amp;sr=8-2&quot;&gt;LSI 9211-8I&lt;/a&gt;.
-This is ideal for future expansion.&lt;/p&gt;
-
-&lt;p&gt;A cheaper option is a PCIe multi-SATA connector &lt;a href=&quot;https://www.amazon.ca/Rivo-Controller-Expansion-Profile-Non-Raid/dp/B0836MKFCR?ref_=ast_slp_dp&quot;&gt;like this&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Either work, but one is cheaper and the other is more expandable.
-The 9211-8I uses two SAS ports, which can be expanded indefinetely. SAS supports splitting.
-SATA can be connected in a 4:1 ratio to SAS connectors with some &lt;a href=&quot;https://www.amazon.com/Cable-Matters-Internal-SFF-8087-Breakout/dp/B012BPLYJC&quot;&gt;cheap cables&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;problem-2-drives&quot;&gt;Problem 2: Drives&lt;/h3&gt;
-&lt;p&gt;I do not have enough drives to make this work right now.
-For the setup I want it would require 5 or 6 drives.
-I will get 4-5 drives worth of space as one drive worth of space is dedicated to “parity”, making you able to:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Verify data integrity. If anything goes wrong with a write, it will be fixed automatically.&lt;/li&gt;
-  &lt;li&gt;If &lt;em&gt;one&lt;/em&gt; drive dies, the system can stay online with no problem. Two drives and I’m eff-you-see-kay-ed-dee.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;My other option is to use two drives worth of space for partiy.
-This would only have me 3-4 drives of space, but
-this system can withstand the failure of &lt;em&gt;two&lt;/em&gt; drives.&lt;/p&gt;
-
-&lt;h3 id=&quot;problem-3-computer-system&quot;&gt;Problem 3: Computer System&lt;/h3&gt;
-
-&lt;p&gt;I currently have 5 computers.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Celery Stick. An old grey HP laptop with a Braille stickered keyboard. &lt;em&gt;Does not work right now; bad thermal paste job.&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;A Dell laptop lent to me by my school during my studies.&lt;/li&gt;
-  &lt;li&gt;Houston. A 21-inch 2011 iMac for which the screen does not work under Linux (excep with the &lt;code class=&quot;highlighter-rouge&quot;&gt;nomodeset&lt;/code&gt; kernel option enabled).&lt;/li&gt;
-  &lt;li&gt;An Old Toshiba laptop (circa 2010) that I got for $50 to test with OpenBSD (works….sometimes).&lt;/li&gt;
-  &lt;li&gt;Main Rig. My main laptop is an ASUS-705 TUF gaming laptop.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;None of these have PCIe expansion slots with a case that can handle the new drives.&lt;/p&gt;
-
-&lt;p&gt;I think it’s reasonable to say that for hard-drives and low-end tower PCs,
-I will likely have luck on a place like &lt;a href=&quot;https://kijiji.ca&quot;&gt;Kijiji&lt;/a&gt; (Canadian Craigslist).&lt;/p&gt;
-
-&lt;p&gt;The search continues :)&lt;/p&gt;
-
-&lt;p&gt;I’m in for a fun ride…. and a few monnies.&lt;/p&gt;</content><author><name></name></author><summary type="html">New Project, phase one: Theorize.</summary></entry></feed>
+&lt;p&gt;The code, comments, etc. are on the &lt;a href=&quot;https://github.com/TTWNO/scripts&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">I made a little video about this script I wrote:</summary></entry></feed>
