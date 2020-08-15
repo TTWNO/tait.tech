@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-15T15:30:37+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">BSD Journey, Part 1</title><link href="http://localhost:4000/2020/08/15/openbsd1.html" rel="alternate" type="text/html" title="BSD Journey, Part 1" /><published>2020-08-15T00:00:00+00:00</published><updated>2020-08-15T00:00:00+00:00</updated><id>http://localhost:4000/2020/08/15/openbsd1</id><content type="html" xml:base="http://localhost:4000/2020/08/15/openbsd1.html">&lt;p&gt;As Linux becomes controlled by corporate sponsors and becomes more full of proprietary blobs, drivers, and even closed-source software like Steam,
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-15T15:38:07+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">BSD Journey, Part 1</title><link href="http://localhost:4000/2020/08/15/openbsd1.html" rel="alternate" type="text/html" title="BSD Journey, Part 1" /><published>2020-08-15T00:00:00+00:00</published><updated>2020-08-15T00:00:00+00:00</updated><id>http://localhost:4000/2020/08/15/openbsd1</id><content type="html" xml:base="http://localhost:4000/2020/08/15/openbsd1.html">&lt;p&gt;As Linux becomes controlled by corporate sponsors and becomes more full of proprietary blobs, drivers, and even closed-source software like Steam,
 One may wonder if there are other options out there.
 For me, somebody that is intensely interested in security, there is one option: OpenBSD.&lt;/p&gt;
 
@@ -16,7 +16,16 @@ Frankly, this does not interest me.&lt;/p&gt;
 
 &lt;p&gt;Now I’m sure that OpenBSD has its own internal policies that I disagree with.
 That said, Theo De Raadt is still at least known for calling Firefox an “amorphous peace of garbage” due to its lack of privilege separation.
-He also went to university in my hometown, so that’s pretty cool!
+And, in their &lt;a href=&quot;https://openbsd.org/goals.html&quot;&gt;project goals&lt;/a&gt; page, they specifically mention:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Be as politics-free as possible; solutions should be decided on the basis of technical merit.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Now that’s something I can get behind!
+Bet you that’s not in the Linux COC?&lt;/p&gt;
+
+&lt;p&gt;He also went to university in my hometown, so that’s pretty cool!
 I can support a local madman who thinks he can make a better operating system than all those corporations.
 Maybe he was right, maybe not. What I know is I am excited to find out!&lt;/p&gt;
 
