@@ -90,6 +90,8 @@ footer { border-top: 1px solid #aaa; padding-top: 16px; margin-bottom: 100px; }
 
 .terminal { line-height: 1em; overflow: scroll; padding: 10px; color: #00FF41; margin: 0px; background-color: #151515; }
 
+.file { overflow: scroll; padding: 10px; margin: 0px; line-height: 1.2em; background-color: #dfdfdf; color: #000; }
+
 .small-image { width: 100%; }
 
 .post-date { font-size: 17px; text-transform: uppercase; font-weight: bold; color: rgba(0, 0, 0, 0.5); }

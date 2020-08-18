@@ -1,4 +1,124 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-15T15:40:55+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">BSD Journey, Part 1</title><link href="http://localhost:4000/2020/08/15/openbsd1.html" rel="alternate" type="text/html" title="BSD Journey, Part 1" /><published>2020-08-15T00:00:00+00:00</published><updated>2020-08-15T00:00:00+00:00</updated><id>http://localhost:4000/2020/08/15/openbsd1</id><content type="html" xml:base="http://localhost:4000/2020/08/15/openbsd1.html">&lt;p&gt;As Linux becomes controlled by corporate sponsors and becomes more full of proprietary blobs, drivers, and even closed-source software like Steam,
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-18T23:00:11+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How to Solve The Django Deployment Puzzle</title><link href="http://localhost:4000/2020/08/16/django-deployment.html" rel="alternate" type="text/html" title="How to Solve The Django Deployment Puzzle" /><published>2020-08-16T00:00:00+00:00</published><updated>2020-08-16T00:00:00+00:00</updated><id>http://localhost:4000/2020/08/16/django-deployment</id><content type="html" xml:base="http://localhost:4000/2020/08/16/django-deployment.html">&lt;p&gt;A few days ago I had a Django project I wanted to put on a real server.
+This project is still in its infancy, but I thought it would be nice to put it on my resume and show my friends.
+Little did I know the headache coming my way.
+Here are some tips to help you not make the same mistakes as me.&lt;/p&gt;
+
+&lt;h3 id=&quot;asgi-servers&quot;&gt;ASGI Servers&lt;/h3&gt;
+
+&lt;p&gt;Because my project used the ASGI (Asynchronous webServer Gateway Interface),
+I needed to find a good production ASGI server to handle all the incoming requests.
+The best thing I found was &lt;a href=&quot;http://www.uvicorn.org/&quot;&gt;uvicorn&lt;/a&gt;.
+It focuses on speed, which is a priority, especially when using the ASGI protocol.&lt;/p&gt;
+
+&lt;p&gt;To run uvicorn on the command line for testing purposes, use something like the following:&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+$ uvicorn --reload myapp.asgi:application
+&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;--reload&lt;/code&gt; option says to reload the server if any of the files get updated.
+This is not recommended in production.
+Sadly, I thought this meant I would need to do a hard shutdown of the server process every time I wanted to update.
+This turned out to not be the case.&lt;/p&gt;
+
+&lt;h3 id=&quot;workload-managers&quot;&gt;Workload Managers&lt;/h3&gt;
+
+&lt;p&gt;There is another equine-named program called &lt;a href=&quot;https://gunicorn.org/&quot;&gt;gunicorn&lt;/a&gt;
+which can hold a number of processes under its control.
+An interesting feature of &lt;code class=&quot;highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; is that it will gracefully switch from an old to a new deployment,
+replacing the subprocesses one-by-one and eventually having only the new deployment active on all subprocesses.
+The greatest part? Zero down time.
+The server keeps any old processes open if there is communication with them,
+then shift and new connections to the new deployment.
+This was a very cool feature I wanted to take advantage of.&lt;/p&gt;
+
+&lt;p&gt;“Now hold on!” you might protest.
+“gunicorn is a WSGI server!” … oh you got me there!
+Yes, that’s right, &lt;code class=&quot;highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; is paired with &lt;code class=&quot;highlighter-rouge&quot;&gt;uvicorn&lt;/code&gt; to serve my files.&lt;/p&gt;
+
+&lt;h3 id=&quot;systemd&quot;&gt;systemd&lt;/h3&gt;
+
+&lt;p&gt;Love it or hate it, the majority of Linux distributions use the &lt;code class=&quot;highlighter-rouge&quot;&gt;systemd&lt;/code&gt; init system.
+I decided it would be very convenient to have a .service file for my Django application to run automatically at boot.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Systemd&lt;/code&gt; allows me to do this with a file like the following one I stored in &lt;code class=&quot;highlighter-rouge&quot;&gt;/lib/systemd/system/lamegames.service&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre class=&quot;file&quot;&gt;
+[Unit]
+Description=Gunicorn/Uvicorn (lamegames.io)
+
+[Service]
+WorkingDirectory=/home/lame/lamegames.io
+Type=simple
+RemainAfterExit=yes
+ExecStart=/home/lame/lamegames.io/env/bin/gunicorn lamegames.asgi:application -w 2 -k uvicorn.workers.UvicornWorker
+ExecStop=/bin/kill -HUP $MAINPID
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+&lt;/pre&gt;
+
+&lt;h3 id=&quot;nginx&quot;&gt;nginx&lt;/h3&gt;
+
+&lt;p&gt;NGINX (pronounced engine-X) is a performance web server designed for speed and simplicity.
+For the front facing side of the site, I do need a production web server like nginx.
+Gunicorn simply doesn’t need all the features that nginx provides, but I do.
+To configure my nginx installation, I used the following few directives to:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Redirect most traffic towards the gunicorn server.&lt;/li&gt;
+  &lt;li&gt;Redirect statically served files (CSS, JS, images) to the directory specified in the STATIC_ROOT variable of my &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt; file.&lt;/li&gt;
+  &lt;li&gt;Use TLS to enable https://&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Serving the static files from nginx as opposed to the &lt;code class=&quot;highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; server is necessary.
+Gunicorn and other production A/WSGI web server will not set the proper MIME type over TLS.
+This will cause your browser to not load the Javascript/CSS.&lt;/p&gt;
+
+&lt;p&gt;This is the important part of my nginx config.&lt;/p&gt;
+
+&lt;pre class=&quot;file&quot;&gt;
+server {
+    location / {
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        # these two lines ensure that WebSocket, and HTTP2 connection are forwarded correctly
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection &quot;Upgrade&quot;;
+        proxy_redirect off;
+        proxy_buffering off;
+        # this forwards all traffic to the local server on port 8000
+        proxy_pass http://localhost:8000;
+    }
+
+    # This forwards all static requests to Django's STATIC_ROOT set in settings.py; it is generated using the collectstatic command.
+    location /static {
+        autoindex on;
+        alias /home/lame/lamegames.io/static_generated;
+    }
+}
+&lt;/pre&gt;
+
+&lt;h3 id=&quot;setup&quot;&gt;Setup&lt;/h3&gt;
+
+&lt;p&gt;After all that, I was able to do the following:&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+# systemctl enable lamegames
+&lt;/pre&gt;
+
+&lt;p&gt;This enabled my &lt;code class=&quot;highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; server to run once the server started.
+NGINX is that way be default.&lt;/p&gt;
+
+&lt;p&gt;And tada! You now have a working Django project on a production server!&lt;/p&gt;
+
+&lt;h4 id=&quot;notes&quot;&gt;Notes&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;If using ws:// websockets, change them to wss:// for secure web sockets.&lt;/li&gt;
+  &lt;li&gt;Make sure to use channels.routing.get_default_application() instead of django.get_asgi_application() if your’re wanting to use channels/redis WebSockets.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">A few days ago I had a Django project I wanted to put on a real server. This project is still in its infancy, but I thought it would be nice to put it on my resume and show my friends. Little did I know the headache coming my way. Here are some tips to help you not make the same mistakes as me.</summary></entry><entry><title type="html">BSD Journey, Part 1</title><link href="http://localhost:4000/2020/08/15/openbsd1.html" rel="alternate" type="text/html" title="BSD Journey, Part 1" /><published>2020-08-15T00:00:00+00:00</published><updated>2020-08-15T00:00:00+00:00</updated><id>http://localhost:4000/2020/08/15/openbsd1</id><content type="html" xml:base="http://localhost:4000/2020/08/15/openbsd1.html">&lt;p&gt;As Linux becomes controlled by corporate sponsors and becomes more full of proprietary blobs, drivers, and even closed-source software like Steam,
 One may wonder if there are other options out there.
 For me, somebody that is intensely interested in security, there is one option: OpenBSD.&lt;/p&gt;
 
@@ -503,20 +623,4 @@ Although this may annoy your victim it is not dangerous security wise.&lt;/p&gt;
 &lt;p&gt;Those last two will ask for permission from the user (if their browser isn’t insanely insecure).&lt;/p&gt;
 
 &lt;p&gt;In my next article I’ll talk about a website I found which is vulnerable to this attack.
-And, show you how you can run your own XSS attack.&lt;/p&gt;</content><author><name></name></author><summary type="html">I found a cross-site scripting (XSS) attack in a well-known quiz hosting website. I disclosed the vulnerability to them years ago, so I thought now might be a good time to write about it.</summary></entry><entry><title type="html">rfi: A Simple Linux utility to get a random file from a directory</title><link href="http://localhost:4000/2020/04/21/rfi.html" rel="alternate" type="text/html" title="rfi: A Simple Linux utility to get a random file from a directory" /><published>2020-04-21T00:00:00+00:00</published><updated>2020-04-21T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/21/rfi</id><content type="html" xml:base="http://localhost:4000/2020/04/21/rfi.html">&lt;p&gt;I made a &lt;a href=&quot;https://lbry.tv/@tait:7/rfi:5&quot;&gt;little video&lt;/a&gt; about this script I wrote:&lt;/p&gt;
-
-&lt;pre class=&quot;terminal&quot;&gt;
-$ rfi
-&lt;/pre&gt;
-
-&lt;p&gt;This program gets a random file from your current directory
-if you do not specify one;
-it gets a random file from the specified directory if you give it one like so:&lt;/p&gt;
-
-&lt;pre class=&quot;terminal&quot;&gt;
-# rfi /etc/wireguard
-&lt;/pre&gt;
-
-&lt;p&gt;Which is very useful if you want to start a random VPN configuration :)&lt;/p&gt;
-
-&lt;p&gt;The code, comments, etc. are on the &lt;a href=&quot;https://github.com/TTWNO/scripts&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">I made a little video about this script I wrote:</summary></entry></feed>
+And, show you how you can run your own XSS attack.&lt;/p&gt;</content><author><name></name></author><summary type="html">I found a cross-site scripting (XSS) attack in a well-known quiz hosting website. I disclosed the vulnerability to them years ago, so I thought now might be a good time to write about it.</summary></entry></feed>

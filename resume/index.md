@@ -19,6 +19,13 @@ title: "Resume"
   {{ education.description }}
 {% endfor %}
 
+### Professional Development
+{% for education in site.data.proffedu %}
+  **{{ education.institution }}**---{{ education.level }} / *{{ education.name }}* ({{ education.years }})
+
+  {{ education.description }}
+{% endfor %}
+
 ### Projects
 {% for project in site.data.projects %}
   **[{{ project.name }}]({{ project.link }})**
