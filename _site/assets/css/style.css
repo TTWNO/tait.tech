@@ -32,7 +32,7 @@ label { font-size: 12px; }
 
 #menu, label[for="menu"] { display: none; }
 
-nav { padding: 1em 0px; margin: 0px; }
+nav { text-align: center; padding: 1em 0px; margin: 0px; }
 
 nav a:first-of-type { margin-left: 0; }
 
@@ -65,12 +65,12 @@ img { display: block; width: 55%; margin-left: auto; margin-right: auto; }
 
 blockquote { font-style: italic; }
 
-@media screen and (max-width: 600px) { #menu, label[for="menu"] { display: inline-block; font-size: 20px; }
+@media screen and (max-width: 600px) { #menu, label[for="menu"] { text-align: left; display: inline-block; font-size: 20px; }
   body { width: 90%; }
   #info { margin: 0 7px; }
   .menu-content { max-height: 0; overflow: hidden; }
-  nav { width: 100%; }
-  nav a { display: block; padding-left: 0; margin-left: 0; }
+  nav { text-align: left; width: 100%; }
+  nav a { display: block; text-align: left; padding-left: 0; margin-left: 0; }
   input#menu { display: none; }
   input:checked ~ .menu-content { max-height: 100%; border-bottom: 1px solid #aaa; color: red; } }
 
