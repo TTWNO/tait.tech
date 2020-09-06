@@ -20,9 +20,6 @@
     - name: Signal
       value: https://signal.org
       label: INHERIT
-    - name: Tox
-      value: https://tox.chat
-      label: INHERIT
     - name: Protonmail
       value: https://protonmail.com
       label: INHERIT
@@ -38,27 +35,35 @@
     value: http://linux-speakup.org/
     label: INHERIT
   - name: Luke Smith
-    value: https://lukesmith.xyz
+    value: https://lukesmith.xyz/
     label: INHERIT
   - name: Brian Lunduke
-    value: https://lunduke.com
+    value: https://lunduke.com/
     label: INHERIT
 - heading: Interesting Links
   values:
   - name: Suckless
-    value: https://suckless.org
+    value: https://suckless.org/
     label: INHERIT
   - name: cat -v (considered harmful) [Unencrypted]
     value: http://cat-v.org/
     label: INHERIT
   - name: Edward Snowden
-    value: https://www.biography.com/activist/edward-snowden
+    value: https://www.biography.com/activist/edward-snowden/
     label: INHERIT
 - heading: Best Websites in Existence
   values:
   - name: Gregory Gundersen
-    value: https://gregorygundersen.com
+    value: https://gregorygundersen.com/
     label: INHERIT
   - name: The Best Website
-    value: https://thebestmotherfucking.website
+    value: https://thebestmotherfucking.website/
     label: INHERIT
+- heading: Friends' Websites
+  values:
+    - name: Justin Pilon
+      value: https://justinpilon.ca/
+      label: INHERIT
+    - name: Melody Shih
+      value: https://melly.tech/
+      label: INHERIT
