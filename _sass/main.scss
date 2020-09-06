@@ -76,6 +76,7 @@ label[for="menu"]{
 }
 
 nav {
+  text-align: center;
   padding: $nav-padd 0px;
   margin: 0px;
 }
@@ -154,6 +155,7 @@ blockquote {
 @media screen and (max-width: 600px){
   #menu,
   label[for="menu"]{
+    text-align: left;
     display: inline-block;
     font-size: 20px;
   }
@@ -168,10 +170,12 @@ blockquote {
     overflow: hidden;
   }
   nav {
+    text-align: left;
     width: 100%;
   }
   nav a {
     display: block;
+    text-align: left;
     padding-left: 0;
     margin-left: 0;
   }
@@ -259,5 +263,4 @@ p.post-excerpt {
   margin-top: 0;
   padding-top: 10px;
 }
-
 
