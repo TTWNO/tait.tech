@@ -34,9 +34,9 @@ I wrote a command-line chess game in C++. It is compileable on almost any system
 **[tait.tech](https://github.com/TTWNO/tait.tech)** ---
 All the code for my website is open source.
 
-**[Napolean](https://github.com/TTWNO/Napolean)** ---
-A work-in-progress suite of tools to be used in conjunction with a Raspberry Pi 
-and camera to produce text files from scanned books.
+**[lamegames.tait.tech](https://lamegames.tait.tech)** ---
+A little games website I made for some demonstrations of Django functionality.
+Very, very lame. Would not recommend.
 
 **[subnetting](https://github.com/TTWNO/subnetting)** ---
 A one-night write of a tool to automatically calculate network subnet masks based on required hosts and base IP.
