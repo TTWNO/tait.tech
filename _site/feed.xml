@@ -1,4 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-08T05:11:07+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How to Solve The Django Deployment Puzzle</title><link href="http://localhost:4000/2020/08/18/django-deployment.html" rel="alternate" type="text/html" title="How to Solve The Django Deployment Puzzle" /><published>2020-08-18T00:00:00+00:00</published><updated>2020-08-18T00:00:00+00:00</updated><id>http://localhost:4000/2020/08/18/django-deployment</id><content type="html" xml:base="http://localhost:4000/2020/08/18/django-deployment.html">&lt;p&gt;A few days ago I had a Django project I wanted to put on a real server.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-09T00:31:16+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">lamegames.tait.tech</title><link href="http://localhost:4000/2020/09/09/lamegames.html" rel="alternate" type="text/html" title="lamegames.tait.tech" /><published>2020-09-09T00:00:00+00:00</published><updated>2020-09-09T00:00:00+00:00</updated><id>http://localhost:4000/2020/09/09/lamegames</id><content type="html" xml:base="http://localhost:4000/2020/09/09/lamegames.html">&lt;p&gt;This is an announcement for a new project of mine:
+&lt;a href=&quot;https://lamegames.tait.tech&quot;&gt;lamegames.tait.tech&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is something I’m really excited to work on!&lt;/p&gt;
+
+&lt;p&gt;Right now, I’ve just got a rock-paper-scissors game.
+A chat function, and a few simple card games to come.&lt;/p&gt;
+
+&lt;p&gt;Check out the repository on my &lt;a href=&quot;https://github.com/TTWNO/lamegames.io&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">This is an announcement for a new project of mine: lamegames.tait.tech.</summary></entry><entry><title type="html">How to Solve The Django Deployment Puzzle</title><link href="http://localhost:4000/2020/08/18/django-deployment.html" rel="alternate" type="text/html" title="How to Solve The Django Deployment Puzzle" /><published>2020-08-18T00:00:00+00:00</published><updated>2020-08-18T00:00:00+00:00</updated><id>http://localhost:4000/2020/08/18/django-deployment</id><content type="html" xml:base="http://localhost:4000/2020/08/18/django-deployment.html">&lt;p&gt;A few days ago I had a Django project I wanted to put on a real server.
 This project is still in its infancy, but I thought it would be nice to put it on my resume and show my friends.
 Little did I know the headache coming my way.
 Here are some tips to help you not make the same mistakes as me.&lt;/p&gt;
@@ -529,98 +537,4 @@ $ pwd
 $ ln -s ../server/node_modules/socket.io-client/dist/socket.io.js .
 &lt;/pre&gt;
 
-&lt;p&gt;&lt;em&gt;Happy hacking 2.0!&lt;/em&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Despite the long name of the article, I have a feeling this may apply to more people than I might think. If you have a Node.js application which needs socket.io connections that you want to pass throgh nginx’s reverse_proxy directive then this is the article for you!</summary></entry><entry><title type="html">What is XSS?</title><link href="http://localhost:4000/2020/04/25/xss.html" rel="alternate" type="text/html" title="What is XSS?" /><published>2020-04-25T00:00:00+00:00</published><updated>2020-04-25T00:00:00+00:00</updated><id>http://localhost:4000/2020/04/25/xss</id><content type="html" xml:base="http://localhost:4000/2020/04/25/xss.html">&lt;p&gt;I found a cross-site scripting (XSS) attack
-in a well-known quiz hosting website.
-I disclosed the vulnerability to them years ago, so I thought
-now might be a good time to write about it.&lt;/p&gt;
-
-&lt;p&gt;In this first article I will explain what XSS is.&lt;/p&gt;
-
-&lt;p&gt;In the next article I will explain how I found this attack.&lt;/p&gt;
-
-&lt;h2 id=&quot;what-is-cross-site-scripting-xss&quot;&gt;What is cross-site scripting (XSS)&lt;/h2&gt;
-
-&lt;p&gt;Cross-site scripting, XSS for short,
-is a technique to execute arbitrary Javascript code on a user visiting a website
-by linking to Javascript code stored on another server.&lt;/p&gt;
-
-&lt;p&gt;So for example:&lt;/p&gt;
-
-&lt;p&gt;I have a file on my website called &lt;a href=&quot;/assets/js/hacked.js&quot;&gt;hacked.js&lt;/a&gt;.
-If I was able to run this javascript file on anybody visiting a certain website &lt;em&gt;that is not mine&lt;/em&gt;, this would be called cross-site scripting.&lt;/p&gt;
-
-&lt;p&gt;Click the above &lt;code class=&quot;highlighter-rouge&quot;&gt;hacked.js&lt;/code&gt; link to view the code I use to “hack” this website.
-It’s safe, I promise ;)&lt;/p&gt;
-
-&lt;p&gt;Now, how can we get this code to execute when a user visits this site?
-To explain, I will start with some of the underlying technologies.&lt;/p&gt;
-
-&lt;h3 id=&quot;escape-characters&quot;&gt;Escape Characters!&lt;/h3&gt;
-
-&lt;p&gt;No, this is not a Sherlock Holmes novel!&lt;/p&gt;
-
-&lt;p&gt;If we suppose that a website is built with sequences like these (called “tags”):
-&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;body&amp;gt;&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;p&amp;gt;&lt;/code&gt; (for paragraph), &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;link&amp;gt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;b&amp;gt;&lt;/code&gt; for bold,
-then why can you &lt;em&gt;see&lt;/em&gt; the left and right angle bracket characters?
-Don’t they mean something? Shouldn’t they be telling the browser:
-&lt;em&gt;“Hey! Make me bold!”?&lt;/em&gt;
-Why &lt;em&gt;doesn’t&lt;/em&gt; everything after me typing &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;b&amp;gt;&lt;/code&gt; turn bold?&lt;/p&gt;
-
-&lt;p&gt;The answer is:&lt;/p&gt;
-
-&lt;p&gt;There are special characters in HTML to type a visible left (&amp;lt;)
-and visible right angle bracket (&amp;gt;) in a website.
-If I use the left and right brackets on my keyboard however,
-things will indeed &lt;b&gt;show up bold&lt;/b&gt;.&lt;/p&gt;
-
-&lt;p&gt;This is the code for the sentence I wrote above:&lt;/p&gt;
-&lt;pre class=&quot;terminal&quot;&gt;
-There are special characters in HTML to type a visible left (&amp;amp;lt;)
-and visible right angle bracket (&amp;amp;gt;) in a website.
-If I use the left and right brackets on my keyboard however,
-things will indeed &amp;lt;b&amp;gt;show up bold&amp;lt;/b&amp;gt;.
-&lt;/pre&gt;
-
-&lt;p&gt;Notice how all visible left angle brackets use an &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;lt;&lt;/code&gt; to show them?&lt;/p&gt;
-
-&lt;p&gt;These are called &lt;a href=&quot;https://en.wikipedia.org/wiki/Escape_character&quot;&gt;escape characters&lt;/a&gt;.
-They tell a system, in this case your web browser:
-&lt;em&gt;“Hello! Please show me off! I don’t want to be hidden.”&lt;/em&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;sanitization&quot;&gt;Sanitization&lt;/h4&gt;
-
-&lt;p&gt;Most of the time XSS attacks are done using poorly sanitized HTML &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;input&amp;gt;&lt;/code&gt; elements.&lt;/p&gt;
-
-&lt;p&gt;Sanitization is when a program (usually on the server side),
-will remove characters like &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt; and replace them with the aforementioned “escape characters”.
-Internally this would be something like &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;lt;&lt;/code&gt;,
-but they would show up to a user as &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;When inputs are not properly sanitized &lt;em&gt;and&lt;/em&gt; the input is shown to the user in another part of the website,
-then a malicous user can type in HTML that will run whenever anybody tries to look at what they typed.
-For example: a name for a quiz website (input) and the leaderboard for said quiz (display).&lt;/p&gt;
-
-&lt;p&gt;HTML, by itself is not very dangerous.
-The worst thing you could do is probably put a link on your name,
-and then point it to a porn site.
-Make your name bold, italic. Maybe make the background a funny color.
-Although this may annoy your victim it is not dangerous security wise.&lt;/p&gt;
-
-&lt;p&gt;There is one tag however, that &lt;em&gt;is&lt;/em&gt; scary…&lt;/p&gt;
-
-&lt;h2 id=&quot;script&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&lt;/code&gt;&lt;/h2&gt;
-
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&lt;/code&gt; tag allows you to write code that can:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Change the page contents.&lt;/li&gt;
-  &lt;li&gt;Redirect the user to a new page automatically.&lt;/li&gt;
-  &lt;li&gt;Get a user’s location.&lt;/li&gt;
-  &lt;li&gt;Open a user’s microphone/webcam.&lt;/li&gt;
-  &lt;li&gt;With the &lt;code class=&quot;highlighter-rouge&quot;&gt;src&lt;/code&gt; &lt;a href=&quot;https://www.w3schools.com/htmL/html_attributes.asp&quot;&gt;attribute&lt;/a&gt; you can also load a script from another site. (This is XSS)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Those last two will ask for permission from the user (if their browser isn’t insanely insecure).&lt;/p&gt;
-
-&lt;p&gt;In my next article I’ll talk about a website I found which is vulnerable to this attack.
-And, show you how you can run your own XSS attack.&lt;/p&gt;</content><author><name></name></author><summary type="html">I found a cross-site scripting (XSS) attack in a well-known quiz hosting website. I disclosed the vulnerability to them years ago, so I thought now might be a good time to write about it.</summary></entry></feed>
+&lt;p&gt;&lt;em&gt;Happy hacking 2.0!&lt;/em&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Despite the long name of the article, I have a feeling this may apply to more people than I might think. If you have a Node.js application which needs socket.io connections that you want to pass throgh nginx’s reverse_proxy directive then this is the article for you!</summary></entry></feed>
