@@ -39,22 +39,57 @@ funny for them to know it is me without anyone else knowing.
 We were young and had <code class="highlighter-rouge">Inspect Element</code>ed a few things together,
 so it was a safe bet that an HTML joke would let them know.</p>
 
-<p>So I typed in my name like so:</p>
+<p>I decided to write my name like so: <code class="highlighter-rouge">&lt;b&gt;Steve&lt;/b&gt;</code>.
+Steve is in reference to the <a href="https://minecraft.gamepedia.com/Player">main character</a> in the video game Minecraft.</p>
 
 <figure>
   <img src="/assets/img/qyf-xss/2-bold.png" />
   <figcaption>
+    <p>Me typing in my name as <span class="mono">&lt;b&gt;Steve&lt;/b&gt;</span>.</p>
   </figcaption>
 </figure>
-<p><code class="highlighter-rouge">BOLD_STEVE.JPG</code></p>
 
-<p>Now in theory this should have shown in in the leaderboard as: “&lt;b&gt;Bold Steve&lt;/b&gt;”
+<p>Now in theory this should have shown in in the leaderboard as: “&lt;b&gt;Steve&lt;/b&gt;”
 However, to my horror and excitement, I saw this in the leaderboard:</p>
 
-<p><code class="highlighter-rouge">BOLD_STEVE_LEADERBOARD.JPG</code></p>
+<figure>
+  <img src="/assets/img/qyf-xss/3-steve-board.png" />
+  <figcaption>
+    <p><span class="mono">&lt;b&gt;Steve&lt;/b&gt;</span> displaying in the leaderboard as bold text: <b>Steve</b></p>
+  </figcaption>
+</figure>
 
-<p>The text “Bold Steve” showed up <strong>in bold</strong> on the leaderboard.
-This told me all I needed to know. To add a <code class="highlighter-rouge">&lt;script&gt;</code> tag was next.</p>
+<p>The text “Steve” showed up <strong>in bold</strong> on the leaderboard.
+This told me all I needed to know.
+How did this happen? You might wonder.</p>
+
+<h3 id="server-side-validation">Server-Side Validation</h3>
+
+<p>Here is a great demonstration why you should do most of your validation on the server side.
+As a user, I can edit any of the HTML, CSS, or Javascript your server serves to me.</p>
+
+<p>Quiz your friends uses the <code class="highlighter-rouge">maxlength=20</code> HTML attribute on the name input field.
+Imagine trying to fit in a script tag doing anything useful with 20 characters! Don’t forget that includes the <code class="highlighter-rouge">&lt;script&gt;</code> tag.
+That would leave 13 characters for Javascript.
+Although I’m sure a genius would be able to <a href="https://code.golf/">code golf</a> that, I know I couldn’t.</p>
+
+<p>Now obviously I can edit any HTML that a server has sent to me.
+If I open up my inspect element window, I can go ahead and change that <code class="highlighter-rouge">maxlength</code> attribute to anything I want.
+Let’s change it to 100!</p>
+
+<figure>
+  <img src="/assets/img/qyf-xss/5-maxlength.png" alt="An image of the Quiz Your Friends name input field with inspect element. THe code reads: &lt;font class=&quot;style6&quot;&gt;&lt;input class=&quot;inputbutton&quot; name=&quot;takername&quot; type=&quot;text&quot; id=&quot;takername&quot; maxlength=&quot;20&quot; width=&quot;425&quot; placeholder=&quot;Your First Name&quot; style=&quot;text-align: center; text-decoration:inherit; font-size:38px;&quot; tabindex=&quot;-1&quot;&gt;&lt;/font&gt;" />
+  <figcaption>
+    Manually changing the maxlength attribute. 
+  </figcaption>
+</figure>
+
+<p>In theory, there is a way that a site can stop people from just putting in their name of any length: server-side validation.
+The server <em>could</em> check to see if the input is too long and reject it if it is.
+The Quiz My Friends server has <em>no such checks in place</em>.
+Therefore, I can send an almost arbitrary load to them.
+Being able to send something potentially very large (more than a few megabytes) is a vulnerability of its own.
+Imagine being able to send entire executable programs as your “name” in one of these quizzes?</p>
 
 <h4 id="hacking">Hacking:</h4>
 
@@ -74,22 +109,6 @@ but there were no client-side OR server-side checks to make sure the name I was 
 
 <p>If Javascript checked it, it would have stopped me (although maybe not a professional).
 If the server checked it, it could have stopped almost anyone.</p>
-
-<h5 id="server-side-validation">Server-Side Validation</h5>
-
-<p>As a side note, here is a great reason why you should do most of your validation on the server side.
-As a user, I can edit any of the HTML, CSS, or Javascript your server serves to me.</p>
-
-<p>Imagine trying to fit in a script tag doing anything useful with 20 characters?</p>
-
-<p><code class="highlighter-rouge">&lt;script src="http:"&gt;</code></p>
-
-<p>There’s your 20 characters! No more! Good luck trying to do anything useful with this!</p>
-
-<p>The Quiz My Friends server has <em>no such checks in place</em>.
-Therefore, I can send an almost arbitrary load to them.
-Being able to send something potentially very large (more than a few megabytes) is a vulnerability of its own.
-Imagine being able to send entire executable progrmas as your “name” in one of these quizes?</p>
 
 <h2 id="executing-an-exploit">Executing An Exploit</h2>
 
