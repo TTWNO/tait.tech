@@ -49,7 +49,7 @@ It focuses on speed, which is a priority, especially when using the ASGI protoco
 $ uvicorn --reload myapp.asgi:application
 </pre>
 
-<p>The <code class="highlighter-rouge">--reload</code> option says to reload the server if any of the files get updated.
+<p>The <code class="language-plaintext highlighter-rouge">--reload</code> option says to reload the server if any of the files get updated.
 This is not recommended in production.
 Sadly, I thought this meant I would need to do a hard shutdown of the server process every time I wanted to update.
 This turned out to not be the case.</p>
@@ -58,7 +58,7 @@ This turned out to not be the case.</p>
 
 <p>There is another equine-named program called <a href="https://gunicorn.org/">gunicorn</a>
 which can hold a number of processes under its control.
-An interesting feature of <code class="highlighter-rouge">gunicorn</code> is that it will gracefully switch from an old to a new deployment,
+An interesting feature of <code class="language-plaintext highlighter-rouge">gunicorn</code> is that it will gracefully switch from an old to a new deployment,
 replacing the subprocesses one-by-one and eventually having only the new deployment active on all subprocesses.
 The greatest part? Zero down time.
 The server keeps any old processes open if there is communication with them,
@@ -67,13 +67,13 @@ This was a very cool feature I wanted to take advantage of.</p>
 
 <p>“Now hold on!” you might protest.
 “gunicorn is a WSGI server!” … oh you got me there!
-Yes, that’s right, <code class="highlighter-rouge">gunicorn</code> is paired with <code class="highlighter-rouge">uvicorn</code> to serve my files.</p>
+Yes, that’s right, <code class="language-plaintext highlighter-rouge">gunicorn</code> is paired with <code class="language-plaintext highlighter-rouge">uvicorn</code> to serve my files.</p>
 
 <h3 id="systemd">systemd</h3>
 
-<p>Love it or hate it, the majority of Linux distributions use the <code class="highlighter-rouge">systemd</code> init system.
+<p>Love it or hate it, the majority of Linux distributions use the <code class="language-plaintext highlighter-rouge">systemd</code> init system.
 I decided it would be very convenient to have a .service file for my Django application to run automatically at boot.
-<code class="highlighter-rouge">Systemd</code> allows me to do this with a file like the following one I stored in <code class="highlighter-rouge">/lib/systemd/system/lamegames.service</code>.</p>
+<code class="language-plaintext highlighter-rouge">Systemd</code> allows me to do this with a file like the following one I stored in <code class="language-plaintext highlighter-rouge">/lib/systemd/system/lamegames.service</code>.</p>
 
 <pre class="file">
 [Unit]
@@ -100,11 +100,11 @@ To configure my nginx installation, I used the following few directives to:</p>
 
 <ol>
   <li>Redirect most traffic towards the gunicorn server.</li>
-  <li>Redirect statically served files (CSS, JS, images) to the directory specified in the STATIC_ROOT variable of my <code class="highlighter-rouge">settings.py</code> file.</li>
+  <li>Redirect statically served files (CSS, JS, images) to the directory specified in the STATIC_ROOT variable of my <code class="language-plaintext highlighter-rouge">settings.py</code> file.</li>
   <li>Use TLS to enable https://</li>
 </ol>
 
-<p>Serving the static files from nginx as opposed to the <code class="highlighter-rouge">gunicorn</code> server is necessary.
+<p>Serving the static files from nginx as opposed to the <code class="language-plaintext highlighter-rouge">gunicorn</code> server is necessary.
 Gunicorn and other production A/WSGI web server will not set the proper MIME type over TLS.
 This will cause your browser to not load the Javascript/CSS.</p>
 
@@ -141,7 +141,7 @@ server {
 # systemctl enable lamegames
 </pre>
 
-<p>This enabled my <code class="highlighter-rouge">gunicorn</code> server to run once the server started.
+<p>This enabled my <code class="language-plaintext highlighter-rouge">gunicorn</code> server to run once the server started.
 NGINX is that way be default.</p>
 
 <p>And tada! You now have a working Django project on a production server!</p>

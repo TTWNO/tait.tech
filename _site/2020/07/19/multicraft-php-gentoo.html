@@ -33,20 +33,20 @@
 <div class="article">
   <p>In a very odd combination of requirements,
 I needed to install <a href="https://multicraft.org">MultiCraft</a> on a Gentoo Linux system.
-The PHP <code class="highlighter-rouge">USE</code> flags are important so you don’t have to recompile it three times like I did.</p>
+The PHP <code class="language-plaintext highlighter-rouge">USE</code> flags are important so you don’t have to recompile it three times like I did.</p>
 
 <p>Here are some useful tips I came across:</p>
 
-<h3 id="php-use-flags">PHP <code class="highlighter-rouge">USE</code> flags</h3>
+<h3 id="php-use-flags">PHP <code class="language-plaintext highlighter-rouge">USE</code> flags</h3>
 
-<p>In <code class="highlighter-rouge">/etc/portage/package.use/php</code> I placed the following line:</p>
+<p>In <code class="language-plaintext highlighter-rouge">/etc/portage/package.use/php</code> I placed the following line:</p>
 
 <pre class="terminal">
 dev-lang/php cgi mysql mysqli fpm pdo gd truetype
 </pre>
 
 <p>This should give you enough for a mysql backended MultiCraft installation.
-The <code class="highlighter-rouge">cgi</code> option may not be required as <code class="highlighter-rouge">fpm</code> stands for <em>FastCGI Process Managment</em>.
+The <code class="language-plaintext highlighter-rouge">cgi</code> option may not be required as <code class="language-plaintext highlighter-rouge">fpm</code> stands for <em>FastCGI Process Managment</em>.
 I don’t know for sure though.</p>
 
 <h3 id="paper">Paper</h3>
@@ -80,7 +80,7 @@ This completely stalled any work getting done with a ton of ‘permission denied
 <h4 id="security">Security</h4>
 
 <p>If the panel is in the root directory of your NGINX web server,
-use the following in your server block to deny access to the <code class="highlighter-rouge">/protected</code> directory.</p>
+use the following in your server block to deny access to the <code class="language-plaintext highlighter-rouge">/protected</code> directory.</p>
 
 <pre class="terminal">
 location /protected {

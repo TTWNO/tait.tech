@@ -65,7 +65,7 @@ there will be code equivalents to the math.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">random</span>
 <span class="c1"># r &lt;= 0 &lt;= W*H
-</span><span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">W</span><span class="o">*</span><span class="n">H</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+</span><span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">W</span><span class="o">*</span><span class="n">H</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
 
 <span class="c1"># x = r mod W
 </span><span class="n">x</span> <span class="o">=</span> <span class="n">r</span> <span class="o">%</span> <span class="n">W</span>
@@ -99,7 +99,7 @@ Whenever a player clicks a tile, the following logic should be used:</p>
     <span class="n">you_lose</span><span class="p">()</span>
     <span class="k">return</span>
   <span class="c1"># if the bomb number is more than 0
-</span>  <span class="n">already_revealed</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">))</span>
+</span>  <span class="n">already_revealed</span><span class="p">.</span><span class="n">append</span><span class="p">((</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">))</span>
 
   <span class="c1"># from -1 to 1
 </span>  <span class="k">for</span> <span class="n">xd</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>

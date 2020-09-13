@@ -32,16 +32,16 @@
 
 <div class="article">
   <p>Despite the long name of the article, I have a feeling this may apply to more people than I might think.
-If you have a Node.js application which needs socket.io connections that you want to pass throgh nginx’s <code class="highlighter-rouge">reverse_proxy</code> directive then this is the article for you!</p>
+If you have a Node.js application which needs socket.io connections that you want to pass throgh nginx’s <code class="language-plaintext highlighter-rouge">reverse_proxy</code> directive then this is the article for you!</p>
 
 <p>You <em>must</em> seperate the socket.io sockets and the static resources.</p>
 
 <ul>
-  <li>The socket connections can be routed through the default <code class="highlighter-rouge">$host/socket.io</code> if you want to ease modifications to the source code.</li>
+  <li>The socket connections can be routed through the default <code class="language-plaintext highlighter-rouge">$host/socket.io</code> if you want to ease modifications to the source code.</li>
   <li>The connections to your main npm Node.js application can be routed through the relevant directory.</li>
 </ul>
 
-<p>Here is the relevant part of my <code class="highlighter-rouge">projects.tait.tech.conf</code> file:</p>
+<p>Here is the relevant part of my <code class="language-plaintext highlighter-rouge">projects.tait.tech.conf</code> file:</p>
 
 <pre class="terminal">
 location /socket.io {
@@ -64,13 +64,13 @@ location /ttrpg {
 <h3 id="explaination">Explaination:</h3>
 
 <p>For this application,
-I needed the <code class="highlighter-rouge">/ttrpg</code> directory to connect to my main Node.js instance. This was going to be the root of a ttrpg project.
+I needed the <code class="language-plaintext highlighter-rouge">/ttrpg</code> directory to connect to my main Node.js instance. This was going to be the root of a ttrpg project.
 It was to have static files served form my Node.js application.</p>
 
-<p>I also needed <code class="highlighter-rouge">/socket.io</code> to conenct to my running <code class="highlighter-rouge">npm</code> instance.
-When I tried to route all the traffic through the <code class="highlighter-rouge">/trrpg</code> location directive
+<p>I also needed <code class="language-plaintext highlighter-rouge">/socket.io</code> to conenct to my running <code class="language-plaintext highlighter-rouge">npm</code> instance.
+When I tried to route all the traffic through the <code class="language-plaintext highlighter-rouge">/trrpg</code> location directive
 I had no luck whatsoever;
-<code class="highlighter-rouge">$host/ttrpg/socket.io/*</code> calls <em>always</em> failed with a 404.</p>
+<code class="language-plaintext highlighter-rouge">$host/ttrpg/socket.io/*</code> calls <em>always</em> failed with a 404.</p>
 
 <p>Having two seperate blocks forwarding in different ways seems to fix this.
 I am not knowledgable enough to understand how.</p>
@@ -79,7 +79,7 @@ I am not knowledgable enough to understand how.</p>
 
 <p>Happy hacking!</p>
 
-<p><em>P.S. I forgot to mention I also symbolically linked the <code class="highlighter-rouge">socket.io.js</code> file (that node is supposed to serve automatically) to the static client dir.
+<p><em>P.S. I forgot to mention I also symbolically linked the <code class="language-plaintext highlighter-rouge">socket.io.js</code> file (that node is supposed to serve automatically) to the static client dir.
 For some reson the node instance would not serve this file without that.</em></p>
 
 <pre class="terminal">

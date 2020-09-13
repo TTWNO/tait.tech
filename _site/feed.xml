@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://192.168.1.101:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://192.168.1.101:4000/" rel="alternate" type="text/html" /><updated>2020-09-13T01:20:44+00:00</updated><id>http://192.168.1.101:4000/feed.xml</id><entry><title type="html">Minesweeper Bomb Generation And Tile Revealing</title><link href="http://192.168.1.101:4000/2020/09/12/minesweeper.html" rel="alternate" type="text/html" title="Minesweeper Bomb Generation And Tile Revealing" /><published>2020-09-12T00:00:00+00:00</published><updated>2020-09-12T00:00:00+00:00</updated><id>http://192.168.1.101:4000/2020/09/12/minesweeper</id><content type="html" xml:base="http://192.168.1.101:4000/2020/09/12/minesweeper.html">&lt;p&gt;When I was creating a little Minesweeper game, I got confused at some points.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-13T01:36:31+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Minesweeper Bomb Generation And Tile Revealing</title><link href="http://localhost:4000/2020/09/12/minesweeper.html" rel="alternate" type="text/html" title="Minesweeper Bomb Generation And Tile Revealing" /><published>2020-09-12T00:00:00+00:00</published><updated>2020-09-12T00:00:00+00:00</updated><id>http://localhost:4000/2020/09/12/minesweeper</id><content type="html" xml:base="http://localhost:4000/2020/09/12/minesweeper.html">&lt;p&gt;When I was creating a little Minesweeper game, I got confused at some points.
 My bomb generation didn’t look quite right, and I for sure didn’t quite get the whole cascading tile reveal thing.
 With a bit of internet research, I found what I was looking for.
 I’ll explain it all in one place for my own research purposes.&lt;/p&gt;
@@ -31,7 +31,7 @@ there will be code equivalents to the math.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;random&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;# r &amp;lt;= 0 &amp;lt;= W*H
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;W&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;W&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
 
 &lt;span class=&quot;c1&quot;&gt;# x = r mod W
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;W&lt;/span&gt;
@@ -65,7 +65,7 @@ Whenever a player clicks a tile, the following logic should be used:&lt;/p&gt;
     &lt;span class=&quot;n&quot;&gt;you_lose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;
   &lt;span class=&quot;c1&quot;&gt;# if the bomb number is more than 0
-&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;already_revealed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ny&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;already_revealed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ny&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 
   &lt;span class=&quot;c1&quot;&gt;# from -1 to 1
 &lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xd&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
@@ -88,7 +88,7 @@ I hope that this helps you with getting the general idea of a Minesweeper game.
 The completed version of this game is available on my &lt;a href=&quot;https://lamegames.tait.tech/&quot;&gt;lamegames&lt;/a&gt; site.
 Let me know what you think!&lt;/p&gt;
 
-&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">When I was creating a little Minesweeper game, I got confused at some points. My bomb generation didn’t look quite right, and I for sure didn’t quite get the whole cascading tile reveal thing. With a bit of internet research, I found what I was looking for. I’ll explain it all in one place for my own research purposes.</summary></entry><entry><title type="html">lamegames.tait.tech</title><link href="http://192.168.1.101:4000/2020/09/09/lamegames.html" rel="alternate" type="text/html" title="lamegames.tait.tech" /><published>2020-09-09T00:00:00+00:00</published><updated>2020-09-09T00:00:00+00:00</updated><id>http://192.168.1.101:4000/2020/09/09/lamegames</id><content type="html" xml:base="http://192.168.1.101:4000/2020/09/09/lamegames.html">&lt;p&gt;This is an announcement for a new project of mine:
+&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">When I was creating a little Minesweeper game, I got confused at some points. My bomb generation didn’t look quite right, and I for sure didn’t quite get the whole cascading tile reveal thing. With a bit of internet research, I found what I was looking for. I’ll explain it all in one place for my own research purposes.</summary></entry><entry><title type="html">lamegames.tait.tech</title><link href="http://localhost:4000/2020/09/09/lamegames.html" rel="alternate" type="text/html" title="lamegames.tait.tech" /><published>2020-09-09T00:00:00+00:00</published><updated>2020-09-09T00:00:00+00:00</updated><id>http://localhost:4000/2020/09/09/lamegames</id><content type="html" xml:base="http://localhost:4000/2020/09/09/lamegames.html">&lt;p&gt;This is an announcement for a new project of mine:
 &lt;a href=&quot;https://lamegames.tait.tech&quot;&gt;lamegames.tait.tech&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;This is something I’m really excited to work on!&lt;/p&gt;
@@ -96,7 +96,7 @@ Let me know what you think!&lt;/p&gt;
 &lt;p&gt;Right now, I’ve just got a rock-paper-scissors game.
 A chat function, and a few simple card games to come.&lt;/p&gt;
 
-&lt;p&gt;Check out the repository on my &lt;a href=&quot;https://github.com/TTWNO/lamegames.io&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">This is an announcement for a new project of mine: lamegames.tait.tech.</summary></entry><entry><title type="html">How to Solve The Django Deployment Puzzle</title><link href="http://192.168.1.101:4000/2020/08/18/django-deployment.html" rel="alternate" type="text/html" title="How to Solve The Django Deployment Puzzle" /><published>2020-08-18T00:00:00+00:00</published><updated>2020-08-18T00:00:00+00:00</updated><id>http://192.168.1.101:4000/2020/08/18/django-deployment</id><content type="html" xml:base="http://192.168.1.101:4000/2020/08/18/django-deployment.html">&lt;p&gt;A few days ago I had a Django project I wanted to put on a real server.
+&lt;p&gt;Check out the repository on my &lt;a href=&quot;https://github.com/TTWNO/lamegames.io&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">This is an announcement for a new project of mine: lamegames.tait.tech.</summary></entry><entry><title type="html">How to Solve The Django Deployment Puzzle</title><link href="http://localhost:4000/2020/08/18/django-deployment.html" rel="alternate" type="text/html" title="How to Solve The Django Deployment Puzzle" /><published>2020-08-18T00:00:00+00:00</published><updated>2020-08-18T00:00:00+00:00</updated><id>http://localhost:4000/2020/08/18/django-deployment</id><content type="html" xml:base="http://localhost:4000/2020/08/18/django-deployment.html">&lt;p&gt;A few days ago I had a Django project I wanted to put on a real server.
 This project is still in its infancy, but I thought it would be nice to put it on my resume and show my friends.
 Little did I know the headache coming my way.
 Here are some tips to help you not make the same mistakes as me.&lt;/p&gt;
@@ -114,7 +114,7 @@ It focuses on speed, which is a priority, especially when using the ASGI protoco
 $ uvicorn --reload myapp.asgi:application
 &lt;/pre&gt;
 
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;--reload&lt;/code&gt; option says to reload the server if any of the files get updated.
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--reload&lt;/code&gt; option says to reload the server if any of the files get updated.
 This is not recommended in production.
 Sadly, I thought this meant I would need to do a hard shutdown of the server process every time I wanted to update.
 This turned out to not be the case.&lt;/p&gt;
@@ -123,7 +123,7 @@ This turned out to not be the case.&lt;/p&gt;
 
 &lt;p&gt;There is another equine-named program called &lt;a href=&quot;https://gunicorn.org/&quot;&gt;gunicorn&lt;/a&gt;
 which can hold a number of processes under its control.
-An interesting feature of &lt;code class=&quot;highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; is that it will gracefully switch from an old to a new deployment,
+An interesting feature of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; is that it will gracefully switch from an old to a new deployment,
 replacing the subprocesses one-by-one and eventually having only the new deployment active on all subprocesses.
 The greatest part? Zero down time.
 The server keeps any old processes open if there is communication with them,
@@ -132,13 +132,13 @@ This was a very cool feature I wanted to take advantage of.&lt;/p&gt;
 
 &lt;p&gt;“Now hold on!” you might protest.
 “gunicorn is a WSGI server!” … oh you got me there!
-Yes, that’s right, &lt;code class=&quot;highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; is paired with &lt;code class=&quot;highlighter-rouge&quot;&gt;uvicorn&lt;/code&gt; to serve my files.&lt;/p&gt;
+Yes, that’s right, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; is paired with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;uvicorn&lt;/code&gt; to serve my files.&lt;/p&gt;
 
 &lt;h3 id=&quot;systemd&quot;&gt;systemd&lt;/h3&gt;
 
-&lt;p&gt;Love it or hate it, the majority of Linux distributions use the &lt;code class=&quot;highlighter-rouge&quot;&gt;systemd&lt;/code&gt; init system.
+&lt;p&gt;Love it or hate it, the majority of Linux distributions use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;systemd&lt;/code&gt; init system.
 I decided it would be very convenient to have a .service file for my Django application to run automatically at boot.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;Systemd&lt;/code&gt; allows me to do this with a file like the following one I stored in &lt;code class=&quot;highlighter-rouge&quot;&gt;/lib/systemd/system/lamegames.service&lt;/code&gt;.&lt;/p&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Systemd&lt;/code&gt; allows me to do this with a file like the following one I stored in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/lib/systemd/system/lamegames.service&lt;/code&gt;.&lt;/p&gt;
 
 &lt;pre class=&quot;file&quot;&gt;
 [Unit]
@@ -165,11 +165,11 @@ To configure my nginx installation, I used the following few directives to:&lt;/
 
 &lt;ol&gt;
   &lt;li&gt;Redirect most traffic towards the gunicorn server.&lt;/li&gt;
-  &lt;li&gt;Redirect statically served files (CSS, JS, images) to the directory specified in the STATIC_ROOT variable of my &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt; file.&lt;/li&gt;
+  &lt;li&gt;Redirect statically served files (CSS, JS, images) to the directory specified in the STATIC_ROOT variable of my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;settings.py&lt;/code&gt; file.&lt;/li&gt;
   &lt;li&gt;Use TLS to enable https://&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Serving the static files from nginx as opposed to the &lt;code class=&quot;highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; server is necessary.
+&lt;p&gt;Serving the static files from nginx as opposed to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; server is necessary.
 Gunicorn and other production A/WSGI web server will not set the proper MIME type over TLS.
 This will cause your browser to not load the Javascript/CSS.&lt;/p&gt;
 
@@ -206,7 +206,7 @@ server {
 # systemctl enable lamegames
 &lt;/pre&gt;
 
-&lt;p&gt;This enabled my &lt;code class=&quot;highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; server to run once the server started.
+&lt;p&gt;This enabled my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; server to run once the server started.
 NGINX is that way be default.&lt;/p&gt;
 
 &lt;p&gt;And tada! You now have a working Django project on a production server!&lt;/p&gt;
@@ -216,7 +216,7 @@ NGINX is that way be default.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;If using ws:// websockets, change them to wss:// for secure web sockets.&lt;/li&gt;
   &lt;li&gt;Make sure to use channels.routing.get_default_application() instead of django.get_asgi_application() if your’re wanting to use channels/redis WebSockets.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><summary type="html">A few days ago I had a Django project I wanted to put on a real server. This project is still in its infancy, but I thought it would be nice to put it on my resume and show my friends. Little did I know the headache coming my way. Here are some tips to help you not make the same mistakes as me.</summary></entry><entry><title type="html">BSD Journey, Part 1</title><link href="http://192.168.1.101:4000/2020/08/15/openbsd1.html" rel="alternate" type="text/html" title="BSD Journey, Part 1" /><published>2020-08-15T00:00:00+00:00</published><updated>2020-08-15T00:00:00+00:00</updated><id>http://192.168.1.101:4000/2020/08/15/openbsd1</id><content type="html" xml:base="http://192.168.1.101:4000/2020/08/15/openbsd1.html">&lt;p&gt;As Linux becomes controlled by corporate sponsors and becomes more full of proprietary blobs, drivers, and even closed-source software like Steam,
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">A few days ago I had a Django project I wanted to put on a real server. This project is still in its infancy, but I thought it would be nice to put it on my resume and show my friends. Little did I know the headache coming my way. Here are some tips to help you not make the same mistakes as me.</summary></entry><entry><title type="html">BSD Journey, Part 1</title><link href="http://localhost:4000/2020/08/15/openbsd1.html" rel="alternate" type="text/html" title="BSD Journey, Part 1" /><published>2020-08-15T00:00:00+00:00</published><updated>2020-08-15T00:00:00+00:00</updated><id>http://localhost:4000/2020/08/15/openbsd1</id><content type="html" xml:base="http://localhost:4000/2020/08/15/openbsd1.html">&lt;p&gt;As Linux becomes controlled by corporate sponsors and becomes more full of proprietary blobs, drivers, and even closed-source software like Steam,
 One may wonder if there are other options out there.
 For me, somebody that is intensely interested in security, there is one option: OpenBSD.&lt;/p&gt;
 
@@ -249,7 +249,7 @@ Maybe he was right, maybe not. What I know is I am excited to find out!&lt;/p&gt
 
 &lt;p&gt;Wish my luck on my OpenBSD journey. I will post updates here along the way.&lt;/p&gt;
 
-&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">As Linux becomes controlled by corporate sponsors and becomes more full of proprietary blobs, drivers, and even closed-source software like Steam, One may wonder if there are other options out there. For me, somebody that is intensely interested in security, there is one option: OpenBSD.</summary></entry><entry><title type="html">Know How Your Representative Votes In Parliament</title><link href="http://192.168.1.101:4000/2020/07/30/canadian-parliament.html" rel="alternate" type="text/html" title="Know How Your Representative Votes In Parliament" /><published>2020-07-30T00:00:00+00:00</published><updated>2020-07-30T00:00:00+00:00</updated><id>http://192.168.1.101:4000/2020/07/30/canadian-parliament</id><content type="html" xml:base="http://192.168.1.101:4000/2020/07/30/canadian-parliament.html">&lt;p&gt;As an advocate for openness, I had an idea to make a project out of the government of Canada’s &lt;a href=&quot;https://open.canada.ca/en/open-data&quot;&gt;Open Data&lt;/a&gt;
+&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">As Linux becomes controlled by corporate sponsors and becomes more full of proprietary blobs, drivers, and even closed-source software like Steam, One may wonder if there are other options out there. For me, somebody that is intensely interested in security, there is one option: OpenBSD.</summary></entry><entry><title type="html">Know How Your Representative Votes In Parliament</title><link href="http://localhost:4000/2020/07/30/canadian-parliament.html" rel="alternate" type="text/html" title="Know How Your Representative Votes In Parliament" /><published>2020-07-30T00:00:00+00:00</published><updated>2020-07-30T00:00:00+00:00</updated><id>http://localhost:4000/2020/07/30/canadian-parliament</id><content type="html" xml:base="http://localhost:4000/2020/07/30/canadian-parliament.html">&lt;p&gt;As an advocate for openness, I had an idea to make a project out of the government of Canada’s &lt;a href=&quot;https://open.canada.ca/en/open-data&quot;&gt;Open Data&lt;/a&gt;
 initiative to take a look at how my local MP voted on various pieces of legislation.
 It turns out though that this was not necessary due to how easy it was to find this information on the government’s own website.
 In this article, I will explain how you can do the same.&lt;/p&gt;
@@ -292,22 +292,22 @@ or read the actual text by clicking the &lt;strong&gt;View this Bill on LEGISinf
 &lt;p&gt;I thought this was pretty cool!
 It was &lt;em&gt;way&lt;/em&gt; simpler than I thought it would be.&lt;/p&gt;
 
-&lt;p&gt;Thanks, Canada!&lt;/p&gt;</content><author><name></name></author><summary type="html">As an advocate for openness, I had an idea to make a project out of the government of Canada’s Open Data initiative to take a look at how my local MP voted on various pieces of legislation. It turns out though that this was not necessary due to how easy it was to find this information on the government’s own website. In this article, I will explain how you can do the same.</summary></entry><entry><title type="html">Installing MultiCraft on Gentoo Linux</title><link href="http://192.168.1.101:4000/2020/07/19/multicraft-php-gentoo.html" rel="alternate" type="text/html" title="Installing MultiCraft on Gentoo Linux" /><published>2020-07-19T00:00:00+00:00</published><updated>2020-07-19T00:00:00+00:00</updated><id>http://192.168.1.101:4000/2020/07/19/multicraft-php-gentoo</id><content type="html" xml:base="http://192.168.1.101:4000/2020/07/19/multicraft-php-gentoo.html">&lt;p&gt;In a very odd combination of requirements,
+&lt;p&gt;Thanks, Canada!&lt;/p&gt;</content><author><name></name></author><summary type="html">As an advocate for openness, I had an idea to make a project out of the government of Canada’s Open Data initiative to take a look at how my local MP voted on various pieces of legislation. It turns out though that this was not necessary due to how easy it was to find this information on the government’s own website. In this article, I will explain how you can do the same.</summary></entry><entry><title type="html">Installing MultiCraft on Gentoo Linux</title><link href="http://localhost:4000/2020/07/19/multicraft-php-gentoo.html" rel="alternate" type="text/html" title="Installing MultiCraft on Gentoo Linux" /><published>2020-07-19T00:00:00+00:00</published><updated>2020-07-19T00:00:00+00:00</updated><id>http://localhost:4000/2020/07/19/multicraft-php-gentoo</id><content type="html" xml:base="http://localhost:4000/2020/07/19/multicraft-php-gentoo.html">&lt;p&gt;In a very odd combination of requirements,
 I needed to install &lt;a href=&quot;https://multicraft.org&quot;&gt;MultiCraft&lt;/a&gt; on a Gentoo Linux system.
-The PHP &lt;code class=&quot;highlighter-rouge&quot;&gt;USE&lt;/code&gt; flags are important so you don’t have to recompile it three times like I did.&lt;/p&gt;
+The PHP &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;USE&lt;/code&gt; flags are important so you don’t have to recompile it three times like I did.&lt;/p&gt;
 
 &lt;p&gt;Here are some useful tips I came across:&lt;/p&gt;
 
-&lt;h3 id=&quot;php-use-flags&quot;&gt;PHP &lt;code class=&quot;highlighter-rouge&quot;&gt;USE&lt;/code&gt; flags&lt;/h3&gt;
+&lt;h3 id=&quot;php-use-flags&quot;&gt;PHP &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;USE&lt;/code&gt; flags&lt;/h3&gt;
 
-&lt;p&gt;In &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/portage/package.use/php&lt;/code&gt; I placed the following line:&lt;/p&gt;
+&lt;p&gt;In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/portage/package.use/php&lt;/code&gt; I placed the following line:&lt;/p&gt;
 
 &lt;pre class=&quot;terminal&quot;&gt;
 dev-lang/php cgi mysql mysqli fpm pdo gd truetype
 &lt;/pre&gt;
 
 &lt;p&gt;This should give you enough for a mysql backended MultiCraft installation.
-The &lt;code class=&quot;highlighter-rouge&quot;&gt;cgi&lt;/code&gt; option may not be required as &lt;code class=&quot;highlighter-rouge&quot;&gt;fpm&lt;/code&gt; stands for &lt;em&gt;FastCGI Process Managment&lt;/em&gt;.
+The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cgi&lt;/code&gt; option may not be required as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fpm&lt;/code&gt; stands for &lt;em&gt;FastCGI Process Managment&lt;/em&gt;.
 I don’t know for sure though.&lt;/p&gt;
 
 &lt;h3 id=&quot;paper&quot;&gt;Paper&lt;/h3&gt;
@@ -341,7 +341,7 @@ This completely stalled any work getting done with a ton of ‘permission denied
 &lt;h4 id=&quot;security&quot;&gt;Security&lt;/h4&gt;
 
 &lt;p&gt;If the panel is in the root directory of your NGINX web server,
-use the following in your server block to deny access to the &lt;code class=&quot;highlighter-rouge&quot;&gt;/protected&lt;/code&gt; directory.&lt;/p&gt;
+use the following in your server block to deny access to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/protected&lt;/code&gt; directory.&lt;/p&gt;
 
 &lt;pre class=&quot;terminal&quot;&gt;
 location /protected {
@@ -385,7 +385,7 @@ Query OK, 0 rows affected (0.01 sec)
 Database 1 is the panel database.
 Database 2 is the daemon database.&lt;/p&gt;
 
-&lt;p&gt;Happy hacking :)&lt;/p&gt;</content><author><name></name></author><summary type="html">In a very odd combination of requirements, I needed to install MultiCraft on a Gentoo Linux system. The PHP USE flags are important so you don’t have to recompile it three times like I did.</summary></entry><entry><title type="html">Independence</title><link href="http://192.168.1.101:4000/2020/07/12/independence.html" rel="alternate" type="text/html" title="Independence" /><published>2020-07-12T00:00:00+00:00</published><updated>2020-07-12T00:00:00+00:00</updated><id>http://192.168.1.101:4000/2020/07/12/independence</id><content type="html" xml:base="http://192.168.1.101:4000/2020/07/12/independence.html">&lt;blockquote&gt;
+&lt;p&gt;Happy hacking :)&lt;/p&gt;</content><author><name></name></author><summary type="html">In a very odd combination of requirements, I needed to install MultiCraft on a Gentoo Linux system. The PHP USE flags are important so you don’t have to recompile it three times like I did.</summary></entry><entry><title type="html">Independence</title><link href="http://localhost:4000/2020/07/12/independence.html" rel="alternate" type="text/html" title="Independence" /><published>2020-07-12T00:00:00+00:00</published><updated>2020-07-12T00:00:00+00:00</updated><id>http://localhost:4000/2020/07/12/independence</id><content type="html" xml:base="http://localhost:4000/2020/07/12/independence.html">&lt;blockquote&gt;
   &lt;p&gt;“When given a choice between independence and dependence, always choose independence; you will never regret that choice!”—Luke Smith&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -423,7 +423,7 @@ know where I live, where I am going, who are my friends, what do I believe; in t
 &lt;p&gt;Your website is pulled for controversial views: switch hosts.&lt;/p&gt;
 
 &lt;p&gt;Protect yourself; give yourself choices.
-Why give others that power when you could have it for yourself?&lt;/p&gt;</content><author><name></name></author><summary type="html">“When given a choice between independence and dependence, always choose independence; you will never regret that choice!”—Luke Smith</summary></entry><entry><title type="html">How to use tmux to send and receive things from your Minecraft server</title><link href="http://192.168.1.101:4000/2020/06/25/tmux-minecraft.html" rel="alternate" type="text/html" title="How to use tmux to send and receive things from your Minecraft server" /><published>2020-06-25T00:00:00+00:00</published><updated>2020-06-25T00:00:00+00:00</updated><id>http://192.168.1.101:4000/2020/06/25/tmux-minecraft</id><content type="html" xml:base="http://192.168.1.101:4000/2020/06/25/tmux-minecraft.html">&lt;p&gt;So recently I had problem.
+Why give others that power when you could have it for yourself?&lt;/p&gt;</content><author><name></name></author><summary type="html">“When given a choice between independence and dependence, always choose independence; you will never regret that choice!”—Luke Smith</summary></entry><entry><title type="html">How to use tmux to send and receive things from your Minecraft server</title><link href="http://localhost:4000/2020/06/25/tmux-minecraft.html" rel="alternate" type="text/html" title="How to use tmux to send and receive things from your Minecraft server" /><published>2020-06-25T00:00:00+00:00</published><updated>2020-06-25T00:00:00+00:00</updated><id>http://localhost:4000/2020/06/25/tmux-minecraft</id><content type="html" xml:base="http://localhost:4000/2020/06/25/tmux-minecraft.html">&lt;p&gt;So recently I had problem.
 I run a Minecraft server on a big Linux computer I have running in my room.
 Now, as a system administrator it is very helpful to be able to run some simple commands without needing to login with my key, password, TFA, etc.
 It is, frankly, a lot of work.
@@ -437,18 +437,18 @@ Especially when I really just want to be playing games but I just need to check 
 
 &lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
 
-&lt;p&gt;So to solve this interesting problem, I decided to use &lt;code class=&quot;highlighter-rouge&quot;&gt;tmux&lt;/code&gt;.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;tmux&lt;/code&gt; is a &lt;strong&gt;t&lt;/strong&gt;terminal &lt;strong&gt;mu&lt;/strong&gt;ltiple&lt;strong&gt;x&lt;/strong&gt;er.
+&lt;p&gt;So to solve this interesting problem, I decided to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tmux&lt;/code&gt;.
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tmux&lt;/code&gt; is a &lt;strong&gt;t&lt;/strong&gt;terminal &lt;strong&gt;mu&lt;/strong&gt;ltiple&lt;strong&gt;x&lt;/strong&gt;er.
 This allows you to run a terminal session, then detach fromc it while it  still runs in the background.&lt;/p&gt;
 
 &lt;p&gt;This is very valuable when running command line applications that need to have an active console connection, like a Minecraft server.&lt;/p&gt;
 
-&lt;p&gt;So first I looked at the &lt;code class=&quot;highlighter-rouge&quot;&gt;tmux&lt;/code&gt; command &lt;code class=&quot;highlighter-rouge&quot;&gt;send-keys&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;So first I looked at the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tmux&lt;/code&gt; command &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;send-keys&lt;/code&gt;.&lt;/p&gt;
 
-&lt;h4 id=&quot;send-keys&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;send-keys&lt;/code&gt;&lt;/h4&gt;
+&lt;h4 id=&quot;send-keys&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;send-keys&lt;/code&gt;&lt;/h4&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;send-keys&lt;/code&gt; allows you to send text, and key presses to a &lt;code class=&quot;highlighter-rouge&quot;&gt;tmux&lt;/code&gt; session.
-Now assuming this &lt;code class=&quot;highlighter-rouge&quot;&gt;tmux&lt;/code&gt; session is attached to a Minecraft server,
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;send-keys&lt;/code&gt; allows you to send text, and key presses to a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tmux&lt;/code&gt; session.
+Now assuming this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tmux&lt;/code&gt; session is attached to a Minecraft server,
 there is no reason you could not run a command like this:&lt;/p&gt;
 
 &lt;pre class=&quot;terminal&quot;&gt;
@@ -462,9 +462,9 @@ Then, it will hit the newline character, this will execute the command.&lt;/p&gt
 
 &lt;p&gt;But how do we get information about who is typing what in the Minecraft chat?&lt;/p&gt;
 
-&lt;h3 id=&quot;tmuxs-capture-pane-is-painful&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;tmux&lt;/code&gt;’s &lt;code class=&quot;highlighter-rouge&quot;&gt;capture-pane&lt;/code&gt; is painful&lt;/h3&gt;
+&lt;h3 id=&quot;tmuxs-capture-pane-is-painful&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tmux&lt;/code&gt;’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;capture-pane&lt;/code&gt; is painful&lt;/h3&gt;
 
-&lt;p&gt;So in the manual page for &lt;code class=&quot;highlighter-rouge&quot;&gt;tmux&lt;/code&gt; I can see a section recorded below for options I can give to the &lt;code class=&quot;highlighter-rouge&quot;&gt;capture-pane&lt;/code&gt; subcommand.&lt;/p&gt;
+&lt;p&gt;So in the manual page for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tmux&lt;/code&gt; I can see a section recorded below for options I can give to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;capture-pane&lt;/code&gt; subcommand.&lt;/p&gt;
 
 &lt;pre class=&quot;terminal&quot;&gt;
   -S and -E specify the starting and ending line numbers,
@@ -474,10 +474,10 @@ Then, it will hit the newline character, this will execute the command.&lt;/p&gt
   default is to capture only the visible contents of the pane.
 &lt;/pre&gt;
 
-&lt;p&gt;What it seems to be saying is I can start at line &lt;code class=&quot;highlighter-rouge&quot;&gt;-S n&lt;/code&gt; and end at line &lt;code class=&quot;highlighter-rouge&quot;&gt;-E n&lt;/code&gt;.
-Negative numbers start from the bottom, so &lt;em&gt;in theory&lt;/em&gt; I can do the following: &lt;code class=&quot;highlighter-rouge&quot;&gt;tmux capture-pane -S -1&lt;/code&gt; should capture only the last line, because I’m starting from the last line. Right?&lt;/p&gt;
+&lt;p&gt;What it seems to be saying is I can start at line &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-S n&lt;/code&gt; and end at line &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-E n&lt;/code&gt;.
+Negative numbers start from the bottom, so &lt;em&gt;in theory&lt;/em&gt; I can do the following: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tmux capture-pane -S -1&lt;/code&gt; should capture only the last line, because I’m starting from the last line. Right?&lt;/p&gt;
 
-&lt;p&gt;No. It just doesn’t work. Negative numbers do &lt;em&gt;not&lt;/em&gt; work with the &lt;code class=&quot;highlighter-rouge&quot;&gt;tmux capture-pane&lt;/code&gt; subcommand.&lt;/p&gt;
+&lt;p&gt;No. It just doesn’t work. Negative numbers do &lt;em&gt;not&lt;/em&gt; work with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tmux capture-pane&lt;/code&gt; subcommand.&lt;/p&gt;
 
 &lt;p&gt;So I did some simple UNIX piping, like so, to get just the last thing in the chat.&lt;/p&gt;
 
@@ -487,19 +487,19 @@ $ tmux capture-pane -p -t steve | tail -n1
 &lt;/pre&gt;
 &lt;p&gt;TaterTheTot is my Minecraft username :)&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt; prints the result to the terminal/stdout.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-p&lt;/code&gt; prints the result to the terminal/stdout.&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;steve&lt;/code&gt; is the name of the tmux session I’m trying to pull form.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;steve&lt;/code&gt; is the name of the tmux session I’m trying to pull form.&lt;/p&gt;
 
 &lt;p&gt;So that’s done! Beauty!&lt;/p&gt;
 
 &lt;p&gt;Now that we have that, how can we extract the username and the message from the latest line?&lt;/p&gt;
 
-&lt;h3 id=&quot;grep&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;grep&lt;/code&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;grep&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt;&lt;/h3&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;grep&lt;/code&gt; is a command to find patterns of text.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;grep&lt;/code&gt; has an option to only show a matching pattern of text.
-This option is &lt;code class=&quot;highlighter-rouge&quot;&gt;-o&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt; is a command to find patterns of text.
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt; has an option to only show a matching pattern of text.
+This option is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-o&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Let’s see how we can use this in conjunction with our latest line of server output to get our results.&lt;/p&gt;
 
@@ -509,11 +509,11 @@ $ echo &quot;[DEBUG] [SERVER] blah blah: &amp;lt;TaterTheTot&amp;gt; MY_MESAGE&q
 &lt;/pre&gt;
 
 &lt;p&gt;Now, that’s my name with the &amp;lt; and &amp;gt; attached. Not bad!
-We can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;sed&lt;/code&gt; command to clean it up a bit.&lt;/p&gt;
+We can use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sed&lt;/code&gt; command to clean it up a bit.&lt;/p&gt;
 
-&lt;p&gt;The syntax is like so: &lt;code class=&quot;highlighter-rouge&quot;&gt;select/somepattern/replacewith/global&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The syntax is like so: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;select/somepattern/replacewith/global&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;So the following command is: &lt;code class=&quot;highlighter-rouge&quot;&gt;s/[&amp;lt;&amp;gt;]//g&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;So the following command is: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s/[&amp;lt;&amp;gt;]//g&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;Select any characters that are either &amp;lt; or &amp;gt;.
 Replace with nothing.
@@ -530,7 +530,7 @@ TaterTheTot
 
 &lt;p&gt;Now what about that pesky message?&lt;/p&gt;
 
-&lt;h3 id=&quot;more-grep-more-sed&quot;&gt;more &lt;code class=&quot;highlighter-rouge&quot;&gt;grep&lt;/code&gt;; more &lt;code class=&quot;highlighter-rouge&quot;&gt;sed&lt;/code&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;more-grep-more-sed&quot;&gt;more &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt;; more &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sed&lt;/code&gt;&lt;/h3&gt;
 
 &lt;p&gt;Simple: capture everything after the &amp;gt;. Leaving the user’s message entirely in tact.&lt;/p&gt;
 
@@ -553,11 +553,11 @@ And, we have a way to respond.&lt;/p&gt;
 
 &lt;p&gt;Remember to checkout the git repository to see what I did with it: &lt;a href=&quot;https://github.com/TTWNO/termcraft&quot;&gt;https://github.com/TTWNO/termcraft&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">So recently I had problem. I run a Minecraft server on a big Linux computer I have running in my room. Now, as a system administrator it is very helpful to be able to run some simple commands without needing to login with my key, password, TFA, etc. It is, frankly, a lot of work. Especially when I really just want to be playing games but I just need to check something quickly.</summary></entry><entry><title type="html">Site Update</title><link href="http://192.168.1.101:4000/2020/06/04/site-update.html" rel="alternate" type="text/html" title="Site Update" /><published>2020-06-04T00:00:00+00:00</published><updated>2020-06-04T00:00:00+00:00</updated><id>http://192.168.1.101:4000/2020/06/04/site-update</id><content type="html" xml:base="http://192.168.1.101:4000/2020/06/04/site-update.html">&lt;p&gt;I updated the site with some easier to identify information about me and my projects :)&lt;/p&gt;
+&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">So recently I had problem. I run a Minecraft server on a big Linux computer I have running in my room. Now, as a system administrator it is very helpful to be able to run some simple commands without needing to login with my key, password, TFA, etc. It is, frankly, a lot of work. Especially when I really just want to be playing games but I just need to check something quickly.</summary></entry><entry><title type="html">Site Update</title><link href="http://localhost:4000/2020/06/04/site-update.html" rel="alternate" type="text/html" title="Site Update" /><published>2020-06-04T00:00:00+00:00</published><updated>2020-06-04T00:00:00+00:00</updated><id>http://localhost:4000/2020/06/04/site-update</id><content type="html" xml:base="http://localhost:4000/2020/06/04/site-update.html">&lt;p&gt;I updated the site with some easier to identify information about me and my projects :)&lt;/p&gt;
 
 &lt;p&gt;Also, Clue has been delayed due to my partner in crime on the project wokring too many hours.&lt;/p&gt;
 
-&lt;p&gt;I also posted a new project called &lt;em&gt;&lt;a href=&quot;https://github.com/TTWNO/caesar-cipher&quot;&gt;Caesar Cipher&lt;/a&gt;&lt;/em&gt; in C. It will be an intermediate example of how to use build systems like &lt;code class=&quot;highlighter-rouge&quot;&gt;make&lt;/code&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">I updated the site with some easier to identify information about me and my projects :)</summary></entry><entry><title type="html">New Game: Clue (coming soon)</title><link href="http://192.168.1.101:4000/2020/05/19/clue-announcement.html" rel="alternate" type="text/html" title="New Game: Clue (coming soon)" /><published>2020-05-19T00:00:00+00:00</published><updated>2020-05-19T00:00:00+00:00</updated><id>http://192.168.1.101:4000/2020/05/19/clue-announcement</id><content type="html" xml:base="http://192.168.1.101:4000/2020/05/19/clue-announcement.html">&lt;p&gt;Ooo! Exciting!
+&lt;p&gt;I also posted a new project called &lt;em&gt;&lt;a href=&quot;https://github.com/TTWNO/caesar-cipher&quot;&gt;Caesar Cipher&lt;/a&gt;&lt;/em&gt; in C. It will be an intermediate example of how to use build systems like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make&lt;/code&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">I updated the site with some easier to identify information about me and my projects :)</summary></entry><entry><title type="html">New Game: Clue (coming soon)</title><link href="http://localhost:4000/2020/05/19/clue-announcement.html" rel="alternate" type="text/html" title="New Game: Clue (coming soon)" /><published>2020-05-19T00:00:00+00:00</published><updated>2020-05-19T00:00:00+00:00</updated><id>http://localhost:4000/2020/05/19/clue-announcement</id><content type="html" xml:base="http://localhost:4000/2020/05/19/clue-announcement.html">&lt;p&gt;Ooo! Exciting!
 Today I want to announce a new project I’ll be working on which should be live within the month of May:
 Clue.&lt;/p&gt;
 

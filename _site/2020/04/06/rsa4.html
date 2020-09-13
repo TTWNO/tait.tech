@@ -56,7 +56,7 @@ You have been warned.</p>
 
 <h2 id="step-0-setup">Step 0: Setup</h2>
 
-<p>We will be using the utility <code class="highlighter-rouge">gpg</code> for this tutorial.</p>
+<p>We will be using the utility <code class="language-plaintext highlighter-rouge">gpg</code> for this tutorial.</p>
 
 <p>The other thing to note: The character ‘$’ (dollar sign) is usually not typed when shown in a command.
 It simply indicates that you do not need administrative privilages to run these commands.</p>
@@ -84,7 +84,7 @@ License GPLv3+: GNU GPL version 3 or later &lt;https://gnu.org/licenses/gpl.html
 <p>To encrypt a document with somebody’s public key, you need to first obtain it.
 My public key is available <a href="/public-key.asc">at this link</a>, and you can use it to send me encrypted stuff.</p>
 
-<p>If you are on a linux terminal, you can use the <code class="highlighter-rouge">curl</code> or <code class="highlighter-rouge">wget</code> command to download it.</p>
+<p>If you are on a linux terminal, you can use the <code class="language-plaintext highlighter-rouge">curl</code> or <code class="language-plaintext highlighter-rouge">wget</code> command to download it.</p>
 
 <p>wget:</p>
 <pre class="terminal">
@@ -130,7 +130,7 @@ Please select what kind of key you want:
 Your selection? 
 </pre>
 
-<p>Select the option <code class="highlighter-rouge">1</code>. You want two keys, both RSA.</p>
+<p>Select the option <code class="language-plaintext highlighter-rouge">1</code>. You want two keys, both RSA.</p>
 
 <p>Next we will select the key size:</p>
 <pre class="terminal">
@@ -164,9 +164,9 @@ Key expires at Tue Apr  7 02:24:23 2020 UTC
 Is this correct? (y/N) 
 </pre>
 
-<p>Type <code class="highlighter-rouge">y</code> to confirm your choice.</p>
+<p>Type <code class="language-plaintext highlighter-rouge">y</code> to confirm your choice.</p>
 
-<p>Now <code class="highlighter-rouge">gpg</code> is going to ask you to create a user id to indetify this key.
+<p>Now <code class="language-plaintext highlighter-rouge">gpg</code> is going to ask you to create a user id to indetify this key.
 Use some test data for now.
 User input is in bold, feel free to follow along or to put your own test data in.</p>
 
@@ -190,7 +190,7 @@ If you are simply using this for test purposes,
 then you can feel free to set it to something like “test”.
 When create a long-term use pulbic key make sure to make the password <em>very</em> secure.</p>
 
-<p>During the process of creating your key, <code class="highlighter-rouge">gpg</code> may warn you with this message:</p>
+<p>During the process of creating your key, <code class="language-plaintext highlighter-rouge">gpg</code> may warn you with this message:</p>
 
 <pre class="terminal">
 We need to generate a lot of random bytes. It is a good idea to perform
@@ -236,8 +236,8 @@ $ gpg --export --armour "&lt;test@test.org&gt;" &gt; public-key.asc
 
 <h2 id="step-2-import-public-key">Step 2: Import Public Key</h2>
 
-<p>This list of keys that <code class="highlighter-rouge">gpg</code> keeps on tap so to speak, is called our “keyring”.
-Your will need to import a new public key to encrypt files with <code class="highlighter-rouge">gpg</code>.</p>
+<p>This list of keys that <code class="language-plaintext highlighter-rouge">gpg</code> keeps on tap so to speak, is called our “keyring”.
+Your will need to import a new public key to encrypt files with <code class="language-plaintext highlighter-rouge">gpg</code>.</p>
 
 <p>If you already created your own public key, then this step is not necessary unless you want to also encrypt something for me :)</p>
 
@@ -248,7 +248,7 @@ Your will need to import a new public key to encrypt files with <code class="hig
   </figcaption>
 </figure>
 
-<p>To import a public key to use for encrypting files, use the <code class="highlighter-rouge">--import</code> option of <code class="highlighter-rouge">gpg</code>. Like so:</p>
+<p>To import a public key to use for encrypting files, use the <code class="language-plaintext highlighter-rouge">--import</code> option of <code class="language-plaintext highlighter-rouge">gpg</code>. Like so:</p>
 
 <pre class="terminal">
 $ gpg --import public-key.asc
@@ -262,7 +262,7 @@ gpg:               imported: 1
 <h2 id="step-3-have-a-message-to-encrypt">Step 3: Have A Message To Encrypt</h2>
 
 <p>You can make a new file which holds some important, secret data.
-Feel free to use a graphical editor if you have one, if not, <code class="highlighter-rouge">nano</code> works alright too.</p>
+Feel free to use a graphical editor if you have one, if not, <code class="language-plaintext highlighter-rouge">nano</code> works alright too.</p>
 
 <pre class="terminal">
   Rules Of A Good Life:
@@ -273,21 +273,21 @@ Feel free to use a graphical editor if you have one, if not, <code class="highli
   5. Have good friends!
 </pre>
 
-<p>Save this file as something like <code class="highlighter-rouge">test-pgp.txt</code>, and we’ll use that name later.</p>
+<p>Save this file as something like <code class="language-plaintext highlighter-rouge">test-pgp.txt</code>, and we’ll use that name later.</p>
 
 <h2 id="step-4-encrypt-a-message">Step 4: Encrypt A Message</h2>
 
 <p>Now that we have a message to send and person to send to,
 all we have to do is encrypt this message and it’ll be on its merry way!
-To do so, we must specify two new options to <code class="highlighter-rouge">gpg</code>.</p>
+To do so, we must specify two new options to <code class="language-plaintext highlighter-rouge">gpg</code>.</p>
 
-<p>The first is <code class="highlighter-rouge">--recipient</code>.
-This tells <code class="highlighter-rouge">gpg</code> to encrypt using a certin public key that we have in our keyring.
+<p>The first is <code class="language-plaintext highlighter-rouge">--recipient</code>.
+This tells <code class="language-plaintext highlighter-rouge">gpg</code> to encrypt using a certin public key that we have in our keyring.
 You can use the person’s name, email address, or the key’s uid.</p>
 
-<p>The second is <code class="highlighter-rouge">--encrypt</code>.</p>
+<p>The second is <code class="language-plaintext highlighter-rouge">--encrypt</code>.</p>
 
-<p>You will also specify the <code class="highlighter-rouge">--armour</code> option to use ASCII armoured files. Put this option after <code class="highlighter-rouge">--encrypt</code>, and put the file name after <code class="highlighter-rouge">--armour</code>. See below.</p>
+<p>You will also specify the <code class="language-plaintext highlighter-rouge">--armour</code> option to use ASCII armoured files. Put this option after <code class="language-plaintext highlighter-rouge">--encrypt</code>, and put the file name after <code class="language-plaintext highlighter-rouge">--armour</code>. See below.</p>
 
 <p>You can either use your own public key name to encrypt a document (allowng only you to decrypt it),
 or you can use my public key that we imported earlier (allowing only me to decrypt it).
@@ -329,10 +329,10 @@ nv117moLfK22Mst/
 <h2 id="step-5-decryption-optional">Step 5: Decryption (optional)</h2>
 
 <p>If you created your own public/private keypair in step 1,
-and you encryped using <code class="highlighter-rouge">--recipient "Your Test Name"</code>,
+and you encryped using <code class="language-plaintext highlighter-rouge">--recipient "Your Test Name"</code>,
 then you can decrypt your document as well!</p>
 
-<p>You will need to specify <code class="highlighter-rouge">--decrypt</code>, and that’s all folks!</p>
+<p>You will need to specify <code class="language-plaintext highlighter-rouge">--decrypt</code>, and that’s all folks!</p>
 
 <pre class="terminal">
 $ gpg --decrypt test-gpg.txt.asc

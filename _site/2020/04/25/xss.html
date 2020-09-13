@@ -51,7 +51,7 @@ by linking to Javascript code stored on another server.</p>
 <p>I have a file on my website called <a href="/assets/js/hacked.js">hacked.js</a>.
 If I was able to run this javascript file on anybody visiting a certain website <em>that is not mine</em>, this would be called cross-site scripting.</p>
 
-<p>Click the above <code class="highlighter-rouge">hacked.js</code> link to view the code I use to “hack” this website.
+<p>Click the above <code class="language-plaintext highlighter-rouge">hacked.js</code> link to view the code I use to “hack” this website.
 It’s safe, I promise ;)</p>
 
 <p>Now, how can we get this code to execute when a user visits this site?
@@ -62,11 +62,11 @@ To explain, I will start with some of the underlying technologies.</p>
 <p>No, this is not a Sherlock Holmes novel!</p>
 
 <p>If we suppose that a website is built with sequences like these (called “tags”):
-<code class="highlighter-rouge">&lt;body&gt;</code>, <code class="highlighter-rouge">&lt;p&gt;</code> (for paragraph), <code class="highlighter-rouge">&lt;link&gt;</code> and <code class="highlighter-rouge">&lt;b&gt;</code> for bold,
+<code class="language-plaintext highlighter-rouge">&lt;body&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;p&gt;</code> (for paragraph), <code class="language-plaintext highlighter-rouge">&lt;link&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;b&gt;</code> for bold,
 then why can you <em>see</em> the left and right angle bracket characters?
 Don’t they mean something? Shouldn’t they be telling the browser:
 <em>“Hey! Make me bold!”?</em>
-Why <em>doesn’t</em> everything after me typing <code class="highlighter-rouge">&lt;b&gt;</code> turn bold?</p>
+Why <em>doesn’t</em> everything after me typing <code class="language-plaintext highlighter-rouge">&lt;b&gt;</code> turn bold?</p>
 
 <p>The answer is:</p>
 
@@ -83,7 +83,7 @@ If I use the left and right brackets on my keyboard however,
 things will indeed &lt;b&gt;show up bold&lt;/b&gt;.
 </pre>
 
-<p>Notice how all visible left angle brackets use an <code class="highlighter-rouge">&amp;lt;</code> to show them?</p>
+<p>Notice how all visible left angle brackets use an <code class="language-plaintext highlighter-rouge">&amp;lt;</code> to show them?</p>
 
 <p>These are called <a href="https://en.wikipedia.org/wiki/Escape_character">escape characters</a>.
 They tell a system, in this case your web browser:
@@ -91,12 +91,12 @@ They tell a system, in this case your web browser:
 
 <h4 id="sanitization">Sanitization</h4>
 
-<p>Most of the time XSS attacks are done using poorly sanitized HTML <code class="highlighter-rouge">&lt;input&gt;</code> elements.</p>
+<p>Most of the time XSS attacks are done using poorly sanitized HTML <code class="language-plaintext highlighter-rouge">&lt;input&gt;</code> elements.</p>
 
 <p>Sanitization is when a program (usually on the server side),
-will remove characters like <code class="highlighter-rouge">&lt;</code> and replace them with the aforementioned “escape characters”.
-Internally this would be something like <code class="highlighter-rouge">&amp;lt;</code>,
-but they would show up to a user as <code class="highlighter-rouge">&lt;</code>.</p>
+will remove characters like <code class="language-plaintext highlighter-rouge">&lt;</code> and replace them with the aforementioned “escape characters”.
+Internally this would be something like <code class="language-plaintext highlighter-rouge">&amp;lt;</code>,
+but they would show up to a user as <code class="language-plaintext highlighter-rouge">&lt;</code>.</p>
 
 <p>When inputs are not properly sanitized <em>and</em> the input is shown to the user in another part of the website,
 then a malicous user can type in HTML that will run whenever anybody tries to look at what they typed.
@@ -110,16 +110,16 @@ Although this may annoy your victim it is not dangerous security wise.</p>
 
 <p>There is one tag however, that <em>is</em> scary…</p>
 
-<h2 id="script"><code class="highlighter-rouge">&lt;script&gt;</code></h2>
+<h2 id="script"><code class="language-plaintext highlighter-rouge">&lt;script&gt;</code></h2>
 
-<p>The <code class="highlighter-rouge">&lt;script&gt;</code> tag allows you to write code that can:</p>
+<p>The <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> tag allows you to write code that can:</p>
 
 <ol>
   <li>Change the page contents.</li>
   <li>Redirect the user to a new page automatically.</li>
   <li>Get a user’s location.</li>
   <li>Open a user’s microphone/webcam.</li>
-  <li>With the <code class="highlighter-rouge">src</code> <a href="https://www.w3schools.com/htmL/html_attributes.asp">attribute</a> you can also load a script from another site. (This is XSS)</li>
+  <li>With the <code class="language-plaintext highlighter-rouge">src</code> <a href="https://www.w3schools.com/htmL/html_attributes.asp">attribute</a> you can also load a script from another site. (This is XSS)</li>
 </ol>
 
 <p>Those last two will ask for permission from the user (if their browser isn’t insanely insecure).</p>
