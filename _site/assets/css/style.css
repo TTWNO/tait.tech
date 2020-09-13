@@ -2,7 +2,7 @@ body { background-color: #fefefe; padding: 15px; font-family: -apple-system, hel
 
 #wrapper { max-width: 800px; margin: auto; color: #444444; font-size: 14px; }
 
-#main-name { color: rgba(0, 0, 0, 0.8); }
+#main-name { color: #aaaaaa; }
 
 li { line-height: 1.5em; }
 
@@ -51,9 +51,9 @@ p { font-size: 15px; line-height: 1.5; padding: .1em 0; }
 
 .line-under { padding-bottom: 1.5em; border-bottom: 1px solid #aaa; }
 
-.article a:hover { color: rgba(0, 0, 0, 0.5); }
+.article a:hover { color: #aaa; }
 
-table, table tr, table td, table th { border: 1px solid rgba(0, 0, 0, 0.5); border-collapse: collapse; padding: 5px; font-weight: normal; }
+table, table tr, table td, table th { border: 1px solid #aaa; border-collapse: collapse; padding: 5px; font-weight: normal; }
 
 table th { font-weight: bold; }
 
@@ -71,7 +71,7 @@ blockquote { font-style: italic; }
   .menu-content { max-height: 0; overflow: hidden; }
   nav { text-align: left; width: 100%; }
   nav a { display: block; text-align: left; padding-left: 0; margin-left: 0; }
-  input#menu { display: none; }
+  #menu { display: none; }
   input:checked ~ .menu-content { max-height: 100%; border-bottom: 1px solid #aaa; color: red; } }
 
 .contact-info { width: 90%; margin: auto; word-wrap: break-word; }
@@ -94,11 +94,11 @@ footer { border-top: 1px solid #aaa; padding-top: 16px; margin-bottom: 100px; }
 
 .small-image { width: 100%; }
 
-.post-date { font-size: 17px; text-transform: uppercase; font-weight: bold; color: rgba(0, 0, 0, 0.5); }
+.post-date { font-size: 17px; text-transform: uppercase; font-weight: bold; color: #777; }
 
-.post-desc { color: rgba(0, 0, 0, 0.7); padding: 10px; font-weight: lighter; }
+.post-excerpt { margin: 15px; margin-bottom: 0; }
 
-p.post-excerpt { margin-top: 0; padding-top: 10px; }
+hr { border: none; border-bottom: 1px solid #999; }
 
 /* code highlghting */
 .highlight .hll { background-color: #ffffcc; }
