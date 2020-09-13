@@ -20,7 +20,7 @@ body {
   font-size: 14px;
 }
 #main-name {
-  color: rgba(0, 0, 0, 0.8);
+  color: #aaaaaa;
 }
 
 li {
@@ -114,14 +114,14 @@ p {
   border-bottom: $line-under;
 }
 .article a:hover {
-  color: rgba(0, 0, 0, 0.5);
+  color: #aaa;
 }
 
 table,
 table tr,
 table td,
 table th{
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: 1px solid #aaa;
   border-collapse: collapse;
   padding: 5px;
   font-weight: normal;
@@ -179,7 +179,7 @@ blockquote {
     padding-left: 0;
     margin-left: 0;
   }
-  input#menu{
+  #menu {
     display: none;
   }
   input:checked ~ .menu-content {
@@ -250,18 +250,17 @@ footer {
   font-size: 17px;
   text-transform: uppercase;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.5);
+  color: #777;
 }
 
-.post-desc {
-  color: rgba(0, 0, 0, .7);
-  padding: 10px;
-  font-weight: lighter;
+.post-excerpt {
+  margin: 15px;
+  margin-bottom: 0;
 }
 
-p.post-excerpt {
-  margin-top: 0;
-  padding-top: 10px;
+hr {
+  border: none;
+  border-bottom: 1px solid #999;
 }
 
 /* code highlghting */
@@ -344,4 +343,3 @@ div.highlight {
   margin: auto;
   overflow-x: scroll;
 }
-
