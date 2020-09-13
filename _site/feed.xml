@@ -1,4 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-12T19:02:45+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">lamegames.tait.tech</title><link href="http://localhost:4000/2020/09/09/lamegames.html" rel="alternate" type="text/html" title="lamegames.tait.tech" /><published>2020-09-09T00:00:00+00:00</published><updated>2020-09-09T00:00:00+00:00</updated><id>http://localhost:4000/2020/09/09/lamegames</id><content type="html" xml:base="http://localhost:4000/2020/09/09/lamegames.html">&lt;p&gt;This is an announcement for a new project of mine:
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-13T00:11:58+00:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Minesweeper Bomb Generation And Tile Revealing</title><link href="http://localhost:4000/2020/09/12/minesweeper.html" rel="alternate" type="text/html" title="Minesweeper Bomb Generation And Tile Revealing" /><published>2020-09-12T00:00:00+00:00</published><updated>2020-09-12T00:00:00+00:00</updated><id>http://localhost:4000/2020/09/12/minesweeper</id><content type="html" xml:base="http://localhost:4000/2020/09/12/minesweeper.html">&lt;p&gt;When I was creating a little Minesweeper game, I got confused at some points.
+My bomb generation didn’t look quite right, and I for sure didn’t quite get the whole cascading tile reveal thing.
+With a bit of internet research, I found what I was looking for.
+I’ll explain it all in one place for my own research purposes.&lt;/p&gt;
+
+&lt;h3 id=&quot;bomb-generation&quot;&gt;Bomb Generation&lt;/h3&gt;
+
+&lt;p&gt;When I started this project I attempted to use a random bomb generator.
+By this I mean on each square, before it gets generated, give it a one in 15 change of being a bomb.
+Personally, I’m not sure why this never looked right.
+Something about the layout of the bombs did not mimic the classic Minesweeper game.&lt;/p&gt;
+
+&lt;p&gt;After looking at some open source Minesweeper examples, I started to get the idea.
+I wrote some mathematical statements describing the generation of bombs and how to get their x,y position from an appropriate number.
+For those non-mathy people, don’t leave just yet;
+there will be code equivalents to the math.&lt;/p&gt;
+
+&lt;p&gt;W and H are the width and height of the board respectively.&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn mathvariant=&quot;italic&quot;&gt;0&lt;/mn&gt;&lt;mo&gt;≤&lt;/mo&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mo&gt;≤&lt;/mo&gt;&lt;mtext&gt;W&lt;/mtext&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;mtext&gt;H&lt;/mtext&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;
+\it 0 \leq r \leq \text W \times \text H
+&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8193em;vertical-align:-0.13597em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathit&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;≤&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathit&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;≤&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord text&quot;&gt;&lt;span class=&quot;mord&quot;&gt;W&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mbin&quot;&gt;×&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord text&quot;&gt;&lt;span class=&quot;mord&quot;&gt;H&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mtext&gt; &lt;/mtext&gt;&lt;mo lspace=&quot;0.22em&quot; rspace=&quot;0.22em&quot;&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;m&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;o&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;d&lt;/mi&gt;&lt;/mrow&gt;&lt;/mo&gt;&lt;mtext&gt; &lt;/mtext&gt;&lt;mtext&gt;W&lt;/mtext&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;
+\it x = r \bmod \text W
+&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.69444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathit&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathit&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.05555555555555555em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mbin&quot;&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathrm&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;d&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.05555555555555555em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord text&quot;&gt;&lt;span class=&quot;mord&quot;&gt;W&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;y&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mrow&gt;&lt;mo fence=&quot;true&quot;&gt;⌊&lt;/mo&gt;&lt;mfrac&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mtext&gt;H&lt;/mtext&gt;&lt;/mfrac&gt;&lt;mo fence=&quot;true&quot;&gt;⌋&lt;/mo&gt;&lt;/mrow&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;
+\it y = \left\lfloor\frac{r}{\text H}\right\rfloor
+&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1.8359999999999999em;vertical-align:-0.686em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathit&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;minner&quot;&gt;&lt;span class=&quot;mopen delimcenter&quot; style=&quot;top:0em;&quot;&gt;&lt;span class=&quot;delimsizing size2&quot;&gt;⌊&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mopen nulldelimiter&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mfrac&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:1.10756em;&quot;&gt;&lt;span style=&quot;top:-2.314em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord text&quot;&gt;&lt;span class=&quot;mord&quot;&gt;H&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.23em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;frac-line&quot; style=&quot;border-bottom-width:0.04em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.677em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathit&quot;&gt;r&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.686em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose nulldelimiter&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose delimcenter&quot; style=&quot;top:0em;&quot;&gt;&lt;span class=&quot;delimsizing size2&quot;&gt;⌋&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;The code equivalent to this in Python is below:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;random&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# r &amp;lt;= 0 &amp;lt;= W*H
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;W&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# x = r mod W
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;W&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# y = floor(r/H); note the special syntax python has for this operation
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So that’s that, we can put this in a big ‘ol for loop and generate an arbitrary &lt;em&gt;n&lt;/em&gt; number of bombs given a width and height of a Minesweeper board.&lt;/p&gt;
+
+&lt;h3 id=&quot;cascading-tile-revealing&quot;&gt;Cascading Tile Revealing&lt;/h3&gt;
+
+&lt;p&gt;This one is hard to describe;
+I am adapting this from &lt;a href=&quot;https://leetcode.com/problems/minesweeper/&quot;&gt;leetcode.com&lt;/a&gt;.
+Whenever a player clicks a tile, the following logic should be used:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;If a mine is revealed, the game is over. (obviously)&lt;/li&gt;
+  &lt;li&gt;If a tile with &lt;em&gt;no&lt;/em&gt; adjacent mines is revealed, recursively reveal all eight adjacent tiles.&lt;/li&gt;
+  &lt;li&gt;If a tile with one or more adjacent mines is revealed, display the number of mines next to it.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Here is the code in Python for this algorithm.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;reveal_square&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;board&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alread_revealed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# if already checked
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;already_revealed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# if it's a bomb
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;board&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'B'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;you_lose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# if the bomb number is more than 0
+&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;already_revealed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ny&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# from -1 to 1
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xd&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yd&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# skip if it is this the center tile
+&lt;/span&gt;      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# recursively check the adjacent square
+&lt;/span&gt;      &lt;span class=&quot;n&quot;&gt;reveal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;board&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;already_revealed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;already_revealed&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This has no checks for valid squares, but it’s the general idea.
+This function returns an array of tile coordinates which should be revealed.&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;I wrote this because in the first place because I was writing my own Minesweeper game.
+I hope that this helps you with getting the general idea of a Minesweeper game.
+The completed version of this game is available on my &lt;a href=&quot;https://lamegames.tait.tech/&quot;&gt;lamegames&lt;/a&gt; site.
+Let me know what you think!&lt;/p&gt;
+
+&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">When I was creating a little Minesweeper game, I got confused at some points. My bomb generation didn’t look quite right, and I for sure didn’t quite get the whole cascading tile reveal thing. With a bit of internet research, I found what I was looking for. I’ll explain it all in one place for my own research purposes.</summary></entry><entry><title type="html">lamegames.tait.tech</title><link href="http://localhost:4000/2020/09/09/lamegames.html" rel="alternate" type="text/html" title="lamegames.tait.tech" /><published>2020-09-09T00:00:00+00:00</published><updated>2020-09-09T00:00:00+00:00</updated><id>http://localhost:4000/2020/09/09/lamegames</id><content type="html" xml:base="http://localhost:4000/2020/09/09/lamegames.html">&lt;p&gt;This is an announcement for a new project of mine:
 &lt;a href=&quot;https://lamegames.tait.tech&quot;&gt;lamegames.tait.tech&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;This is something I’m really excited to work on!&lt;/p&gt;
@@ -480,61 +570,4 @@ Nothing fancy.&lt;/p&gt;
 
 &lt;p&gt;It will be licensed under the BSD-3 license, meaning it can be used for any reason—even commercially and without source-code disclosure—without prior authorization, but it &lt;em&gt;must&lt;/em&gt; acknowledge that I helped build the end product.&lt;/p&gt;
 
-&lt;p&gt;Once the project is live, it will be located at: &lt;a href=&quot;&quot;&gt;Lame Games&lt;/a&gt; (currently a dead link).&lt;/p&gt;</content><author><name></name></author><summary type="html">Ooo! Exciting! Today I want to announce a new project I’ll be working on which should be live within the month of May: Clue.</summary></entry><entry><title type="html">How to use NGINX as a reverse-proxy server for a Node.js application using socket.io</title><link href="http://localhost:4000/2020/05/01/nginx-socket-io-projects.html" rel="alternate" type="text/html" title="How to use NGINX as a reverse-proxy server for a Node.js application using socket.io" /><published>2020-05-01T00:00:00+00:00</published><updated>2020-05-01T00:00:00+00:00</updated><id>http://localhost:4000/2020/05/01/nginx-socket-io-projects</id><content type="html" xml:base="http://localhost:4000/2020/05/01/nginx-socket-io-projects.html">&lt;p&gt;Despite the long name of the article, I have a feeling this may apply to more people than I might think.
-If you have a Node.js application which needs socket.io connections that you want to pass throgh nginx’s &lt;code class=&quot;highlighter-rouge&quot;&gt;reverse_proxy&lt;/code&gt; directive then this is the article for you!&lt;/p&gt;
-
-&lt;p&gt;You &lt;em&gt;must&lt;/em&gt; seperate the socket.io sockets and the static resources.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;The socket connections can be routed through the default &lt;code class=&quot;highlighter-rouge&quot;&gt;$host/socket.io&lt;/code&gt; if you want to ease modifications to the source code.&lt;/li&gt;
-  &lt;li&gt;The connections to your main npm Node.js application can be routed through the relevant directory.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Here is the relevant part of my &lt;code class=&quot;highlighter-rouge&quot;&gt;projects.tait.tech.conf&lt;/code&gt; file:&lt;/p&gt;
-
-&lt;pre class=&quot;terminal&quot;&gt;
-location /socket.io {
-  proxy_pass http://localhost:8080/socket.io/;
-  proxy_set_header Upgrade $http_upgrade;
-  proxy_set_header Connection &quot;upgrade&quot;;
-  proxy_http_version 1.1;
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  proxy_set_header Host $host;
-}
-
-location /ttrpg {
-  proxy_pass http://localhost:8080/;
-  proxy_set_header Host $host;
-  proxy_set_header X-Real-IP $remote_addr;
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-}
-&lt;/pre&gt;
-
-&lt;h3 id=&quot;explaination&quot;&gt;Explaination:&lt;/h3&gt;
-
-&lt;p&gt;For this application,
-I needed the &lt;code class=&quot;highlighter-rouge&quot;&gt;/ttrpg&lt;/code&gt; directory to connect to my main Node.js instance. This was going to be the root of a ttrpg project.
-It was to have static files served form my Node.js application.&lt;/p&gt;
-
-&lt;p&gt;I also needed &lt;code class=&quot;highlighter-rouge&quot;&gt;/socket.io&lt;/code&gt; to conenct to my running &lt;code class=&quot;highlighter-rouge&quot;&gt;npm&lt;/code&gt; instance.
-When I tried to route all the traffic through the &lt;code class=&quot;highlighter-rouge&quot;&gt;/trrpg&lt;/code&gt; location directive
-I had no luck whatsoever;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;$host/ttrpg/socket.io/*&lt;/code&gt; calls &lt;em&gt;always&lt;/em&gt; failed with a 404.&lt;/p&gt;
-
-&lt;p&gt;Having two seperate blocks forwarding in different ways seems to fix this.
-I am not knowledgable enough to understand how.&lt;/p&gt;
-
-&lt;p&gt;For now, the project is alive!!!&lt;/p&gt;
-
-&lt;p&gt;Happy hacking!&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;P.S. I forgot to mention I also symbolically linked the &lt;code class=&quot;highlighter-rouge&quot;&gt;socket.io.js&lt;/code&gt; file (that node is supposed to serve automatically) to the static client dir.
-For some reson the node instance would not serve this file without that.&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre class=&quot;terminal&quot;&gt;
-$ pwd
-/home/user/ttrpg.co/client
-$ ln -s ../server/node_modules/socket.io-client/dist/socket.io.js .
-&lt;/pre&gt;
-
-&lt;p&gt;&lt;em&gt;Happy hacking 2.0!&lt;/em&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Despite the long name of the article, I have a feeling this may apply to more people than I might think. If you have a Node.js application which needs socket.io connections that you want to pass throgh nginx’s reverse_proxy directive then this is the article for you!</summary></entry></feed>
+&lt;p&gt;Once the project is live, it will be located at: &lt;a href=&quot;&quot;&gt;Lame Games&lt;/a&gt; (currently a dead link).&lt;/p&gt;</content><author><name></name></author><summary type="html">Ooo! Exciting! Today I want to announce a new project I’ll be working on which should be live within the month of May: Clue.</summary></entry></feed>
