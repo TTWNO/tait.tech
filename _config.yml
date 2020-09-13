@@ -1,2 +1,4 @@
 plugins:
   - jekyll-katex
+
+highlihger: rouge
