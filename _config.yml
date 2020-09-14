@@ -1,4 +1,5 @@
 plugins:
   - jekyll-katex
+  - jekyll-minifier
 
 highlihger: rouge
