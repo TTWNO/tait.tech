@@ -5,18 +5,13 @@ title: "Home"
 
 ## Tait Hoyem
 
-<div id="img-wrapper">
-  <img id="main-img" src="/assets/img/banff.jpg" alt="A photo I took of the valley Banff, Alberta sits in">
-  <label for="main-img">Alberta, Canada</label>
-</div>
-### About
-
 I am a student at the <a href="https://sait.ca/">Southern Alberta Institute of Technology (SAIT)</a>.
 
-I have two goals in my software development career.
+I have three goals in my software development career.
 
-1. The security, privacy, and anonymity of the internet and other digital devices.
-2. The accessibility of this technology to the visually impaired.
+1. Strong adherance to the [UNIX principles](http://www.catb.org/~esr/writings/taoup/html/ch01s06.html) of software design.
+2. Security, privacy, and anonymity of the internet.
+3. The accessibility of this technology to the visually impaired.
 
 Some of my projects reflect these goals.
 Others are just fun along the way.
