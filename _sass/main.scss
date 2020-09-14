@@ -42,6 +42,9 @@ h4 {
 h5 {
   font-size: 1.1em;
 }
+header {
+  margin-bottom: 32px;
+}
 a {
   text-decoration: underline;
   color: $link-color;
@@ -78,10 +81,6 @@ label[for="menu"]{
 nav {
   text-align: center;
   padding: $nav-padd 0px;
-  margin: 0px;
-}
-nav a:first-of-type {
-  margin-left: 0;
 }
 nav a {
   margin: 1em;
@@ -101,17 +100,10 @@ li {
   margin: .5em;
 }
 
-#main-img {
-  width: 100%;
-}
 p {
   font-size: 15px;
   line-height: 1.5;
   padding: .1em 0;
-}
-.line-under {
-  padding-bottom: $last-p-padd;
-  border-bottom: $line-under;
 }
 .article a:hover {
   color: #aaa;
@@ -184,8 +176,6 @@ blockquote {
   }
   input:checked ~ .menu-content {
     max-height: 100%;
-    border-bottom: $line-under;
-    color: red;
   }
 }
 
@@ -219,7 +209,6 @@ figcaption {
 }
 
 footer {
-  border-top: $line-under; 
   padding-top: 16px;
   margin-bottom: 100px;
 }
@@ -247,7 +236,7 @@ footer {
 }
 
 .post-date {
-  font-size: 17px;
+  font-size: 18px;
   text-transform: uppercase;
   font-weight: bold;
   color: #777;
