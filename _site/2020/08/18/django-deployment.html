@@ -1,81 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>How to Solve The Django Deployment Puzzle | tait.tech</title>
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-  <div id="wrapper">
-    <nav>
-  <input type="checkbox" id="menu">
-  <label for="menu">&#9776;</label>
-  <div class="menu-content">
-    
-      <a href="/" class="nav-link"  >Home</a>
-    
-      <a href="/tutoring/" class="nav-link"  >Tutoring</a>
-    
-      <a href="/blog/" class="nav-link"  >Blog</a>
-    
-      <a href="/links/" class="nav-link"  >Links</a>
-    
-      <a href="https://github.com/TTWNO/" class="nav-link"   target="_blank" rel="noopener noreferrer" >Code</a>
-    
-  </div>
-</nav>
-
-    <h1>How to Solve The Django Deployment Puzzle</h1>
-<h4 class="post-date">Tuesday, August 18 2020</h4>
-<hr>
-
-<div class="article">
-  <p>A few days ago I had a Django project I wanted to put on a real server.
-This project is still in its infancy, but I thought it would be nice to put it on my resume and show my friends.
-Little did I know the headache coming my way.
-Here are some tips to help you not make the same mistakes as me.</p>
-
-<h3 id="asgi-servers">ASGI Servers</h3>
-
-<p>Because my project used the ASGI (Asynchronous webServer Gateway Interface),
-I needed to find a good production ASGI server to handle all the incoming requests.
-The best thing I found was <a href="http://www.uvicorn.org/">uvicorn</a>.
-It focuses on speed, which is a priority, especially when using the ASGI protocol.</p>
-
-<p>To run uvicorn on the command line for testing purposes, use something like the following:</p>
-
-<pre class="terminal">
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>How to Solve The Django Deployment Puzzle | tait.tech</title> <link rel="stylesheet" href="/assets/css/style.css"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> </head> <body> <div id="wrapper"> <nav> <input type="checkbox" id="menu"> <label for="menu">&#9776;</label> <div class="menu-content"> <a href="/" class="nav-link">Home</a> <a href="/blog/" class="nav-link">Blog</a> <a href="/links/" class="nav-link">Links</a> <a href="https://github.com/TTWNO/" class="nav-link" target="_blank" rel="noopener noreferrer">Code</a> </div> </nav> <main> <header> <h1>How to Solve The Django Deployment Puzzle</h1> <span class="post-date">Tuesday, August 18 2020</span> </header> <hr> <div class="article"> <p>A few days ago I had a Django project I wanted to put on a real server. This project is still in its infancy, but I thought it would be nice to put it on my resume and show my friends. Little did I know the headache coming my way. Here are some tips to help you not make the same mistakes as me.</p> <h3 id="asgi-servers">ASGI Servers</h3> <p>Because my project used the ASGI (Asynchronous webServer Gateway Interface), I needed to find a good production ASGI server to handle all the incoming requests. The best thing I found was <a href="http://www.uvicorn.org/">uvicorn</a>. It focuses on speed, which is a priority, especially when using the ASGI protocol.</p> <p>To run uvicorn on the command line for testing purposes, use something like the following:</p> <pre class="terminal">
 $ uvicorn --reload myapp.asgi:application
-</pre>
-
-<p>The <code class="language-plaintext highlighter-rouge">--reload</code> option says to reload the server if any of the files get updated.
-This is not recommended in production.
-Sadly, I thought this meant I would need to do a hard shutdown of the server process every time I wanted to update.
-This turned out to not be the case.</p>
-
-<h3 id="workload-managers">Workload Managers</h3>
-
-<p>There is another equine-named program called <a href="https://gunicorn.org/">gunicorn</a>
-which can hold a number of processes under its control.
-An interesting feature of <code class="language-plaintext highlighter-rouge">gunicorn</code> is that it will gracefully switch from an old to a new deployment,
-replacing the subprocesses one-by-one and eventually having only the new deployment active on all subprocesses.
-The greatest part? Zero down time.
-The server keeps any old processes open if there is communication with them,
-then shift and new connections to the new deployment.
-This was a very cool feature I wanted to take advantage of.</p>
-
-<p>“Now hold on!” you might protest.
-“gunicorn is a WSGI server!” … oh you got me there!
-Yes, that’s right, <code class="language-plaintext highlighter-rouge">gunicorn</code> is paired with <code class="language-plaintext highlighter-rouge">uvicorn</code> to serve my files.</p>
-
-<h3 id="systemd">systemd</h3>
-
-<p>Love it or hate it, the majority of Linux distributions use the <code class="language-plaintext highlighter-rouge">systemd</code> init system.
-I decided it would be very convenient to have a .service file for my Django application to run automatically at boot.
-<code class="language-plaintext highlighter-rouge">Systemd</code> allows me to do this with a file like the following one I stored in <code class="language-plaintext highlighter-rouge">/lib/systemd/system/lamegames.service</code>.</p>
-
-<pre class="file">
+</pre> <p>The <code class="language-plaintext highlighter-rouge">--reload</code> option says to reload the server if any of the files get updated. This is not recommended in production. Sadly, I thought this meant I would need to do a hard shutdown of the server process every time I wanted to update. This turned out to not be the case.</p> <h3 id="workload-managers">Workload Managers</h3> <p>There is another equine-named program called <a href="https://gunicorn.org/">gunicorn</a> which can hold a number of processes under its control. An interesting feature of <code class="language-plaintext highlighter-rouge">gunicorn</code> is that it will gracefully switch from an old to a new deployment, replacing the subprocesses one-by-one and eventually having only the new deployment active on all subprocesses. The greatest part? Zero down time. The server keeps any old processes open if there is communication with them, then shift and new connections to the new deployment. This was a very cool feature I wanted to take advantage of.</p> <p>“Now hold on!” you might protest. “gunicorn is a WSGI server!” … oh you got me there! Yes, that’s right, <code class="language-plaintext highlighter-rouge">gunicorn</code> is paired with <code class="language-plaintext highlighter-rouge">uvicorn</code> to serve my files.</p> <h3 id="systemd">systemd</h3> <p>Love it or hate it, the majority of Linux distributions use the <code class="language-plaintext highlighter-rouge">systemd</code> init system. I decided it would be very convenient to have a .service file for my Django application to run automatically at boot. <code class="language-plaintext highlighter-rouge">Systemd</code> allows me to do this with a file like the following one I stored in <code class="language-plaintext highlighter-rouge">/lib/systemd/system/lamegames.service</code>.</p> <pre class="file">
 [Unit]
 Description=Gunicorn/Uvicorn (lamegames.io)
 
@@ -89,28 +14,7 @@ Restart=always
 
 [Install]
 WantedBy=multi-user.target
-</pre>
-
-<h3 id="nginx">nginx</h3>
-
-<p>NGINX (pronounced engine-X) is a performance web server designed for speed and simplicity.
-For the front facing side of the site, I do need a production web server like nginx.
-Gunicorn simply doesn’t need all the features that nginx provides, but I do.
-To configure my nginx installation, I used the following few directives to:</p>
-
-<ol>
-  <li>Redirect most traffic towards the gunicorn server.</li>
-  <li>Redirect statically served files (CSS, JS, images) to the directory specified in the STATIC_ROOT variable of my <code class="language-plaintext highlighter-rouge">settings.py</code> file.</li>
-  <li>Use TLS to enable https://</li>
-</ol>
-
-<p>Serving the static files from nginx as opposed to the <code class="language-plaintext highlighter-rouge">gunicorn</code> server is necessary.
-Gunicorn and other production A/WSGI web server will not set the proper MIME type over TLS.
-This will cause your browser to not load the Javascript/CSS.</p>
-
-<p>This is the important part of my nginx config.</p>
-
-<pre class="file">
+</pre> <h3 id="nginx">nginx</h3> <p>NGINX (pronounced engine-X) is a performance web server designed for speed and simplicity. For the front facing side of the site, I do need a production web server like nginx. Gunicorn simply doesn’t need all the features that nginx provides, but I do. To configure my nginx installation, I used the following few directives to:</p> <ol> <li>Redirect most traffic towards the gunicorn server.</li> <li>Redirect statically served files (CSS, JS, images) to the directory specified in the STATIC_ROOT variable of my <code class="language-plaintext highlighter-rouge">settings.py</code> file.</li> <li>Use TLS to enable https://</li> </ol> <p>Serving the static files from nginx as opposed to the <code class="language-plaintext highlighter-rouge">gunicorn</code> server is necessary. Gunicorn and other production A/WSGI web server will not set the proper MIME type over TLS. This will cause your browser to not load the Javascript/CSS.</p> <p>This is the important part of my nginx config.</p> <pre class="file">
 server {
     location / {
         proxy_set_header Host $http_host;
@@ -131,34 +35,6 @@ server {
         alias /home/lame/lamegames.io/static_generated;
     }
 }
-</pre>
-
-<h3 id="setup">Setup</h3>
-
-<p>After all that, I was able to do the following:</p>
-
-<pre class="terminal">
+</pre> <h3 id="setup">Setup</h3> <p>After all that, I was able to do the following:</p> <pre class="terminal">
 # systemctl enable lamegames
-</pre>
-
-<p>This enabled my <code class="language-plaintext highlighter-rouge">gunicorn</code> server to run once the server started.
-NGINX is that way be default.</p>
-
-<p>And tada! You now have a working Django project on a production server!</p>
-
-<h4 id="notes">Notes</h4>
-
-<ul>
-  <li>If using ws:// websockets, change them to wss:// for secure web sockets.</li>
-  <li>Make sure to use channels.routing.get_default_application() instead of django.get_asgi_application() if your’re wanting to use channels/redis WebSockets.</li>
-</ul>
-
-</div>
-
-    <footer>
-  This page is mirrored on <a href="https://beta.tait.tech/2020/08/18/django-deployment.html">beta.tait.tech</a>.
-</footer>
-
-  </div>
-</body>
-</html>
+</pre> <p>This enabled my <code class="language-plaintext highlighter-rouge">gunicorn</code> server to run once the server started. NGINX is that way be default.</p> <p>And tada! You now have a working Django project on a production server!</p> <h4 id="notes">Notes</h4> <ul> <li>If using ws:// websockets, change them to wss:// for secure web sockets.</li> <li>Make sure to use channels.routing.get_default_application() instead of django.get_asgi_application() if your’re wanting to use channels/redis WebSockets.</li> </ul> </div> </main> <hr> <footer> This page is mirrored on <a href="https://beta.tait.tech/2020/08/18/django-deployment.html">beta.tait.tech</a>. </footer> </div> </body> </html>

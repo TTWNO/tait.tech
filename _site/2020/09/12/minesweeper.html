@@ -1,69 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Minesweeper Bomb Generation And Tile Revealing | tait.tech</title>
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/assets/css/katex.css">
-  
-</head>
-<body>
-  <div id="wrapper">
-    <nav>
-  <input type="checkbox" id="menu">
-  <label for="menu">&#9776;</label>
-  <div class="menu-content">
-    
-      <a href="/" class="nav-link"  >Home</a>
-    
-      <a href="/tutoring/" class="nav-link"  >Tutoring</a>
-    
-      <a href="/blog/" class="nav-link"  >Blog</a>
-    
-      <a href="/links/" class="nav-link"  >Links</a>
-    
-      <a href="https://github.com/TTWNO/" class="nav-link"   target="_blank" rel="noopener noreferrer" >Code</a>
-    
-  </div>
-</nav>
-
-    <h1>Minesweeper Bomb Generation And Tile Revealing</h1>
-<h4 class="post-date">Saturday, September 12 2020</h4>
-<hr>
-
-<div class="article">
-  <p>When I was creating a little Minesweeper game, I got confused at some points.
-My bomb generation didn’t look quite right, and I for sure didn’t quite get the whole cascading tile reveal thing.
-With a bit of internet research, I found what I was looking for.
-I’ll explain it all in one place for my own research purposes.</p>
-
-<h3 id="bomb-generation">Bomb Generation</h3>
-
-<p>When I started this project I attempted to use a random bomb generator.
-By this I mean on each square, before it gets generated, give it a one in 15 change of being a bomb.
-Personally, I’m not sure why this never looked right.
-Something about the layout of the bombs did not mimic the classic Minesweeper game.</p>
-
-<p>After looking at some open source Minesweeper examples, I started to get the idea.
-I wrote some mathematical statements describing the generation of bombs and how to get their x,y position from an appropriate number.
-For those non-mathy people, don’t leave just yet;
-there will be code equivalents to the math.</p>
-
-<p>W and H are the width and height of the board respectively.</p>
-
-<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn mathvariant="italic">0</mn><mo>≤</mo><mi>r</mi><mo>≤</mo><mtext>W</mtext><mo>×</mo><mtext>H</mtext></mrow><annotation encoding="application/x-tex">
-\it 0 \leq r \leq \text W \times \text H
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord"><span class="mord mathit">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathit">r</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord text"><span class="mord">W</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord text"><span class="mord">H</span></span></span></span></span></span></span>
-<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>r</mi><mtext> </mtext><mo lspace="0.22em" rspace="0.22em"><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow></mo><mtext> </mtext><mtext>W</mtext></mrow><annotation encoding="application/x-tex">
-\it x = r \bmod \text W
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord"><span class="mord mathit">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathit">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mbin"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mord text"><span class="mord">W</span></span></span></span></span></span></span>
-<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mrow><mo fence="true">⌊</mo><mfrac><mi>r</mi><mtext>H</mtext></mfrac><mo fence="true">⌋</mo></mrow></mrow><annotation encoding="application/x-tex">
-\it y = \left\lfloor\frac{r}{\text H}\right\rfloor
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.8359999999999999em;vertical-align:-0.686em;"></span><span class="mord"><span class="mord mathit">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size2">⌊</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.10756em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">H</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size2">⌋</span></span></span></span></span></span></span></span></p>
-
-<p>The code equivalent to this in Python is below:</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">random</span>
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>Minesweeper Bomb Generation And Tile Revealing | tait.tech</title> <link rel="stylesheet" href="/assets/css/style.css"> <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/assets/css/katex.css"> </head> <body> <div id="wrapper"> <nav> <input type="checkbox" id="menu"> <label for="menu">&#9776;</label> <div class="menu-content"> <a href="/" class="nav-link">Home</a> <a href="/blog/" class="nav-link">Blog</a> <a href="/links/" class="nav-link">Links</a> <a href="https://github.com/TTWNO/" class="nav-link" target="_blank" rel="noopener noreferrer">Code</a> </div> </nav> <main> <header> <h1>Minesweeper Bomb Generation And Tile Revealing</h1> <span class="post-date">Saturday, September 12 2020</span> </header> <hr> <div class="article"> <p>When I was creating a little Minesweeper game, I got confused at some points. My bomb generation didn’t look quite right, and I for sure didn’t quite get the whole cascading tile reveal thing. With a bit of internet research, I found what I was looking for. I’ll explain it all in one place for my own research purposes.</p> <h3 id="bomb-generation">Bomb Generation</h3> <p>When I started this project I attempted to use a random bomb generator. By this I mean on each square, before it gets generated, give it a one in 15 change of being a bomb. Personally, I’m not sure why this never looked right. Something about the layout of the bombs did not mimic the classic Minesweeper game.</p> <p>After looking at some open source Minesweeper examples, I started to get the idea. I wrote some mathematical statements describing the generation of bombs and how to get their x,y position from an appropriate number. For those non-mathy people, don’t leave just yet; there will be code equivalents to the math.</p> <p>W and H are the width and height of the board respectively.</p> <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn mathvariant="italic">0</mn><mo>≤</mo><mi>r</mi><mo>≤</mo><mtext>W</mtext><mo>×</mo><mtext>H</mtext></mrow><annotation encoding="application/x-tex"> \it 0 \leq r \leq \text W \times \text H </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord"><span class="mord mathit">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathit">r</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord text"><span class="mord">W</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord text"><span class="mord">H</span></span></span></span></span></span></span> <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>r</mi><mtext> </mtext><mo lspace="0.22em" rspace="0.22em"><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow></mo><mtext> </mtext><mtext>W</mtext></mrow><annotation encoding="application/x-tex"> \it x = r \bmod \text W </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord"><span class="mord mathit">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathit">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mbin"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mord text"><span class="mord">W</span></span></span></span></span></span></span> <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mrow><mo fence="true">⌊</mo><mfrac><mi>r</mi><mtext>H</mtext></mfrac><mo fence="true">⌋</mo></mrow></mrow><annotation encoding="application/x-tex"> \it y = \left\lfloor\frac{r}{\text H}\right\rfloor </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.8359999999999999em;vertical-align:-0.686em;"></span><span class="mord"><span class="mord mathit">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size2">⌊</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.10756em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">H</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size2">⌋</span></span></span></span></span></span></span></span></p> <p>The code equivalent to this in Python is below:</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">random</span>
 <span class="c1"># r &lt;= 0 &lt;= W*H
 </span><span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">W</span><span class="o">*</span><span class="n">H</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
 
@@ -72,25 +7,7 @@ there will be code equivalents to the math.</p>
 
 <span class="c1"># y = floor(r/H); note the special syntax python has for this operation
 </span><span class="n">y</span> <span class="o">=</span> <span class="n">r</span> <span class="o">//</span> <span class="n">H</span>
-</code></pre></div></div>
-
-<p>So that’s that, we can put this in a big ‘ol for loop and generate an arbitrary <em>n</em> number of bombs given a width and height of a Minesweeper board.</p>
-
-<h3 id="cascading-tile-revealing">Cascading Tile Revealing</h3>
-
-<p>This one is hard to describe;
-I am adapting this from <a href="https://leetcode.com/problems/minesweeper/">leetcode.com</a>.
-Whenever a player clicks a tile, the following logic should be used:</p>
-
-<ol>
-  <li>If a mine is revealed, the game is over. (obviously)</li>
-  <li>If a tile with <em>no</em> adjacent mines is revealed, recursively reveal all eight adjacent tiles.</li>
-  <li>If a tile with one or more adjacent mines is revealed, display the number of mines next to it.</li>
-</ol>
-
-<p>Here is the code in Python for this algorithm.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">reveal_square</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">alread_revealed</span><span class="p">):</span>
+</code></pre></div></div> <p>So that’s that, we can put this in a big ‘ol for loop and generate an arbitrary <em>n</em> number of bombs given a width and height of a Minesweeper board.</p> <h3 id="cascading-tile-revealing">Cascading Tile Revealing</h3> <p>This one is hard to describe; I am adapting this from <a href="https://leetcode.com/problems/minesweeper/">leetcode.com</a>. Whenever a player clicks a tile, the following logic should be used:</p> <ol> <li>If a mine is revealed, the game is over. (obviously)</li> <li>If a tile with <em>no</em> adjacent mines is revealed, recursively reveal all eight adjacent tiles.</li> <li>If a tile with one or more adjacent mines is revealed, display the number of mines next to it.</li> </ol> <p>Here is the code in Python for this algorithm.</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">reveal_square</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">alread_revealed</span><span class="p">):</span>
   <span class="c1"># if already checked
 </span>  <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">already_revealed</span><span class="p">:</span>
     <span class="k">return</span>
@@ -110,26 +27,4 @@ Whenever a player clicks a tile, the following logic should be used:</p>
       <span class="c1"># recursively check the adjacent square
 </span>      <span class="n">reveal</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">xd</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">yd</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">already_revealed</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">already_revealed</span>
-</code></pre></div></div>
-
-<p>This has no checks for valid squares, but it’s the general idea.
-This function returns an array of tile coordinates which should be revealed.</p>
-
-<h3 id="conclusion">Conclusion</h3>
-
-<p>I wrote this because in the first place because I was writing my own Minesweeper game.
-I hope that this helps you with getting the general idea of a Minesweeper game.
-The completed version of this game is available on my <a href="https://lamegames.tait.tech/">lamegames</a> site.
-Let me know what you think!</p>
-
-<p>Happy hacking!</p>
-
-</div>
-
-    <footer>
-  This page is mirrored on <a href="https://beta.tait.tech/2020/09/12/minesweeper.html">beta.tait.tech</a>.
-</footer>
-
-  </div>
-</body>
-</html>
+</code></pre></div></div> <p>This has no checks for valid squares, but it’s the general idea. This function returns an array of tile coordinates which should be revealed.</p> <h3 id="conclusion">Conclusion</h3> <p>I wrote this because in the first place because I was writing my own Minesweeper game. I hope that this helps you with getting the general idea of a Minesweeper game. The completed version of this game is available on my <a href="https://lamegames.tait.tech/">lamegames</a> site. Let me know what you think!</p> <p>Happy hacking!</p> </div> </main> <hr> <footer> This page is mirrored on <a href="https://beta.tait.tech/2020/09/12/minesweeper.html">beta.tait.tech</a>. </footer> </div> </body> </html>
