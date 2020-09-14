@@ -45,6 +45,10 @@ h5 {
 header {
   margin-bottom: 32px;
 }
+hr {
+  border: none;
+  border-bottom: 1px solid #999;
+}
 a {
   text-decoration: underline;
   color: $link-color;
@@ -247,10 +251,6 @@ footer {
   margin-bottom: 0;
 }
 
-hr {
-  border: none;
-  border-bottom: 1px solid #999;
-}
 
 /* code highlghting */
 .highlight .hll { background-color: #ffffcc }
