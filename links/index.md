@@ -3,19 +3,25 @@ layout: default
 title: "Links"
 ---
 {% for types in site.data.links %}
-  <h2>{{ types.heading }}</h2>
-  <section class="contact-info">
-    {% for info in types.values %}
-      <p><span class="bold">{{ info.name }}</span> -
+<section>
+  <header>
+    <h2>{{ types.heading }}</h2>
+  </header>
+  {% for info in types.values %}
+  <ul>
+    <li>
+      <span class="bold">{{ info.name }}</span> -
       <a href="{{ info.value }}" class="mono">
         {% if info.label != "INHERIT" %}
           {{ info.label }}
         {% else %}
           {{ info.value }}
         {% endif %}
-      </a></p>
-    {% endfor %}
-  </section>
+      </a>
+    </li>
+  </ul>
+  {% endfor %}
+</section>
 {% endfor %}
 
 All my big projects are on my [homepage](/).
