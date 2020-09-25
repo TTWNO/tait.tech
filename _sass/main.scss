@@ -10,23 +10,28 @@ $line-under: 1px solid #aaa;
 
 body {
   background-color: #fefefe;
-  padding: 15px;
+  padding: 16px;
   font-family: -apple-system, helvetica, arial, sans-serif;
+  font-size: 16px;
+  color: $normal-text-color;
 }
 #wrapper {
   max-width: 800px;
   margin: auto;
-  color: $normal-text-color;
-  font-size: 14px;
-}
-#main-name {
-  color: #aaaaaa;
 }
 
-li {
-  line-height: 1.5em;
+.clear-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
-
+.clear-list li {
+  margin: 0;
+  padding: 0;
+}
+.projects a {
+  font-weight: bold;
+}
 h1 {
   font-size: 2.5em;
 }
@@ -61,20 +66,12 @@ a.post-title-link {
   color: $nav-link-color;
   text-decoration: none;
 }
+.post-title {
+  color: $nav-link-color;
+  line-height: 1.3em;
+}
 a.citation-link {
   text-decoration: none;
-}
-
-#img-wrapper img {
-  margin-bottom: 10px;
-}
-
-#img-wrapper label {
-  margin-left: 10px;
-}
-
-label {
-  font-size: 12px;
 }
 
 #menu,
@@ -92,10 +89,6 @@ nav a {
   font-weight: bold;
   font-style: none;
 }
-/* TODO: Does not work */
-.on-page {
-  color: #000;
-}
 nav a:hover {
   text-decoration: underline; 
 }
@@ -105,18 +98,14 @@ li {
 }
 
 p {
-  font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.5em;
   padding: .1em 0;
-}
-.article a:hover {
-  color: #aaa;
 }
 
 table,
 table tr,
 table td,
-table th{
+table th {
   border: 1px solid #aaa;
   border-collapse: collapse;
   padding: 5px;
@@ -130,13 +119,6 @@ table {
   margin: auto;
 }
 
-table.post-list,
-table.post-list tr,
-table.post-list td {
-  width: 100%;
-  border: none;
-  padding-left: 0;
-}
 img {
   display: block;
   width: 55%;
@@ -146,6 +128,9 @@ img {
 
 blockquote {
   font-style: italic;
+}
+address { 
+  font-style: normal;
 }
 
 @media screen and (max-width: 600px){
@@ -183,16 +168,6 @@ blockquote {
   }
 }
 
-.contact-info {
-  width: 90%;
-  margin: auto;
-  word-wrap: break-word;
-}
-.contact-info p {
-  margin: 7px;
-  padding: 0;
-}
-
 .mono {
   font-family: monospace;
 }
@@ -208,8 +183,7 @@ sup {
 
 figcaption {
   margin-top: 10px;
-  font-size: .8em;
-  text-decoration: italic;
+  font-style: italic;
 }
 
 footer {
@@ -243,11 +217,11 @@ footer {
   font-size: 18px;
   text-transform: uppercase;
   font-weight: bold;
-  color: #777;
+  color: #555;
 }
 
 .post-excerpt {
-  margin: 15px;
+  margin: 16px;
   margin-bottom: 0;
 }
 
