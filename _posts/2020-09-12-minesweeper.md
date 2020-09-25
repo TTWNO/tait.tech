@@ -9,7 +9,7 @@ My bomb generation didn't look quite right, and I for sure didn't quite get the 
 With a bit of internet research, I found what I was looking for.
 I'll explain it all in one place for my own research purposes.
 
-### Bomb Generation
+## Bomb Generation
 
 When I started this project I attempted to use a random bomb generator.
 By this I mean on each square, before it gets generated, give it a one in 15 change of being a bomb.
@@ -49,7 +49,7 @@ y = r // H
 
 So that's that, we can put this in a big 'ol for loop and generate an arbitrary *n* number of bombs given a width and height of a Minesweeper board.
 
-### Cascading Tile Revealing
+## Cascading Tile Revealing
 
 This one is hard to describe;
 I am adapting this from [leetcode.com](https://leetcode.com/problems/minesweeper/).
@@ -87,7 +87,7 @@ def reveal_square(x, y, board, alread_revealed):
 This has no checks for valid squares, but it's the general idea.
 This function returns an array of tile coordinates which should be revealed.
 
-### Conclusion
+## Conclusion
 
 I wrote this because in the first place because I was writing my own Minesweeper game.
 I hope that this helps you with getting the general idea of a Minesweeper game.
