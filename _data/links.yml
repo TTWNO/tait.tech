@@ -51,10 +51,18 @@
   - name: Edward Snowden
     value: https://www.biography.com/activist/edward-snowden/
     label: INHERIT
-- heading: Best Websites in Existence
+- heading: Inspiration Comes From
   values:
   - name: Gregory Gundersen
     value: https://gregorygundersen.com/
+    label: INHERIT
+- heading: The This Is A Website Series
+  values:
+  - name: Website
+    value: https://motherfuckingwebsite.com/
+    label: INHERIT
+  - name: Better Website
+    value: http://bettermotherfuckingwebsite.com/
     label: INHERIT
   - name: The Best Website
     value: https://thebestmotherfucking.website/
