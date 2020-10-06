@@ -5,43 +5,37 @@ keywords: "UNIX Design, Tait Hoyem, security, privacy, software developer, Calga
 description: "Tait Hoyem's website. The home of accessible, simple and secure computing."
 ---
 
-<section>
-  <h1>Tait Hoyem</h1>
+<h1>Tait Hoyem</h1>
 
-  <p>I have three goals in my software development career:</p>
+<p>I have three goals in my software development career:</p>
 
-  <ol>
-    <li>Strong adherence to the <a href="http://www.catb.org/~esr/writings/taoup/html/ch01s06.html">UNIX principles</a> of software design.</li>
-    <li>Security, privacy, and anonymity of the internet.</li>
-    <li>Accessibility of technology to the visually impaired.</li>
-  </ol>
+<ol>
+  <li>Strong adherence to the <a href="http://www.catb.org/~esr/writings/taoup/html/ch01s06.html">UNIX principles</a> of software design.</li>
+  <li>Security, privacy, and anonymity of the internet.</li>
+  <li>Accessibility of technology to the visually impaired.</li>
+</ol>
 
-  <p>Some of my projects reflect these goals;
-  others are just fun along the way.
-  I have all of my code projects hosted on <a href="https://github.com/TTWNO">my Github</a>.</p>
-</section>
+<p>Some of my projects reflect these goals;
+others are just fun along the way.
+I have all of my code projects hosted on <a href="https://github.com/TTWNO">my Github</a>.</p>
 
-<section>
-  <h2>Projects</h2>
-  <p>Here is some of my best work:</p>
-  <ul class="clear-list projects">
-  {% for project in site.data.projects %}
-    <li>
-      <p>
-        <a href="{{ project.link }}">{{ project.name }}</a> &mdash; {{ project.description }}
-      </p>
-    </li>
-  {% endfor %}
-  </ul>
+<h2>Projects</h2>
+<p>Here is some of my best work:</p>
+<ul class="clear-list projects">
+{% for project in site.data.projects %}
+  <li>
+    <p>
+      <a href="{{ project.link }}">{{ project.name }}</a> &mdash; {{ project.description }}
+    </p>
+  </li>
+{% endfor %}
+</ul>
 
-  <p>I also occasionally put some content on <a href="/blog">my blog</a></p>
-</section>
+<p>I also occasionally put some content on <a href="/blog">my blog</a></p>
 
-<section>
-  <h2>Contact</h2>
-  <address>
-    <p>You can reach me via email at <a href="mailto:tait@tait.tech">tait@tait.tech</a>.</p>
-  </address>
-  <p>If you use PGP, download my <a href="/public-key.asc">public key</a>.</p>
-</section>
+<h2>Contact</h2>
+<address>
+  <p>You can reach me via email at <a href="mailto:tait@tait.tech">tait@tait.tech</a>.</p>
+</address>
+<p>If you use PGP, download my <a href="/public-key.asc">public key</a>.</p>
 
