@@ -19,6 +19,7 @@ body {
   font-size: 16px;
   color: $normal-text-color;
   line-height: $line-height;
+  overflow-wrap: break-word;
 }
 #wrapper {
   max-width: 800px;
