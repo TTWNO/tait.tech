@@ -2,12 +2,14 @@
   link: /
 #- name: Tutoring
 #  link: /tutoring
+#- name: About
+#  link: /about/
 - name: Blog
   link: /blog/
 #- name: Podcast
 #  link: /podcast.html 
-- name: Links
-  link: /links/
-- name: Code
+#- name: Links
+#  link: /links/
+- name: Github
   new_tab: true 
   link: https://github.com/TTWNO/
