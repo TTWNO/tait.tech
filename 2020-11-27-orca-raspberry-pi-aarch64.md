@@ -2,6 +2,7 @@
 title: "Orca, Emacspeak and Chromium Accessibility on A Raspberry Pi Running Manjaro ARM"
 keywords: "orca linux raspberry-pi rpi raspberry pi screen reader screen-reader 64 bit 64-bit 64bit aarch64 emacs emacspeak manjaro manjaro-arm manjaro-aarch64"
 layout: post
+draft: true
 ---
 
 I wanted to get a gift for my blind friend who has been interested in learning Linux for a while now.
