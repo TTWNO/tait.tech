@@ -55,4 +55,9 @@ And now Orca will be activated on boot and login.
 
 ## AUR
 
+To get the AUR working, we need to install the `pacaur` helper.
+This merited its own article, so check that out here:
 
+[How to Install Pacaur on Manjaro ARM](/2020/12/01/pacaur-rpi.html)
+
+## 
