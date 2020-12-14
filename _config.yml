@@ -3,3 +3,5 @@ plugins:
   - jekyll-minifier
 
 highlihger: rouge
+
+permalink: /:categories/:year/:month/:day/:title/

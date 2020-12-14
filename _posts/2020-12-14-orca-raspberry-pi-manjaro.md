@@ -73,7 +73,7 @@ Basically, you download a file which will tell your computer how to download, bu
 
 To get the AUR working in a more automatic way, we need to install the `pacaur` helper.
 This merited its own article, so check that out here:
-[How to Install Pacaur on Manjaro ARM](/2020/12/01/pacaur-rpi.html)
+[How to Install Pacaur on Manjaro ARM]({% post_url 2020-12-01-pacaur-rpi %})
 
 The TL;DR is that we need to open the `/etc/makepkg.conf` file and replace any mention of `-march=armv8-a` with `-march=armv8-a+crypto`.
 
