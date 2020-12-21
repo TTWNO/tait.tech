@@ -140,6 +140,46 @@ Interesting though for such a young browser to have a minimal level of accessibi
 
 I would be interested where this goes in the future.
 
+## P.S.
+
+Somehow I forgot that you would need to setup the dummy display driver to work with the graphics without a display attached.
+To do this, install the `xf86-video-dummy` pacakge:
+<pre class="terminal">
+# pacman -S xf86-video-dummy
+</pre>
+
+Next, override any `/etc/X11/xorg.conf` you may have with this:
+
+<pre class="file">
+Section "Monitor"
+	Identifier "Monitor0"
+	HorizSync 28.0-80.0
+	VertRefresh 48.0-75.0
+	# https://arachnoid.com/modelines/
+	# 1920x1080 @ 60.00 Hz (GTF) hsync: 67.08 kHz; pclk: 172.80 MHz
+	Modeline "1920x1080_60.00" 172.80 1920 2040 2248 2576 1080 1081 1084 1118 -HSync +Vsync
+EndSection
+
+Section "Device"
+	Identifier "Card0"
+	Driver "dummy"
+	VideoRam 256000
+EndSection
+
+Section "Screen"
+	DefaultDepth 24
+	Identifier "Screen0"
+	Device "Card0"
+	Monitor "Monitor0"
+	SubSection "Display"
+		Depth 24
+		Modes "1920x1080_60.00"
+	EndSubSection
+EndSection
+</pre>
+
+Now, when you boot, you should head 'Screen reader on'.
+
 ## Conclusion
 
 It took a bit of messing around to get this working, but I'm glad I did!

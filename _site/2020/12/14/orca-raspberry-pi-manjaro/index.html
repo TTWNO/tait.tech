@@ -9,4 +9,32 @@ export ENABLE_ACCESSIBILITY=1
 </pre> <p>Next, add two flags to the <code class="language-plaintext highlighter-rouge">$HOME/.config/chromium-flags.conf</code> file.</p> <pre class="file">
 --force-renderer-accessibility
 --enable-caret-browsing
-</pre> <p>You will need to relog to set the ENABLE_ACCESSIBILITY environment variable. Now Chromium should work with Orca.</p> <h3 id="badwolf">Badwolf</h3> <p>The <a href="https://www.mankier.com/1/badwolf">Badwolf browser</a> is based on the WebkitGTK engine, as opposed to Firefox’s Gecko and Google’s Blink engines. It <em>almost</em> works out of the box. It is really fast compared to the other two, but it lacks some features like announcing a page is done loading and it doesn’t appear to support caret browsing, which will cause some other problems. Interesting though for such a young browser to have a minimal level of accessibility so early!</p> <p>I would be interested where this goes in the future.</p> <h2 id="conclusion">Conclusion</h2> <p>It took a bit of messing around to get this working, but I’m glad I did! Now I can nerd out with another Linux friend and given how well they seem to find problems with accessibility, hopefully a few upstream patches can be made.</p> <p>Happy hacking, for everyone!</p> </article> </main> <hr> <footer> This page is mirrored on <a href="https://beta.tait.tech/2020/12/14/orca-raspberry-pi-manjaro/">beta.tait.tech</a>. </footer> </div> </body> </html>
+</pre> <p>You will need to relog to set the ENABLE_ACCESSIBILITY environment variable. Now Chromium should work with Orca.</p> <h3 id="badwolf">Badwolf</h3> <p>The <a href="https://www.mankier.com/1/badwolf">Badwolf browser</a> is based on the WebkitGTK engine, as opposed to Firefox’s Gecko and Google’s Blink engines. It <em>almost</em> works out of the box. It is really fast compared to the other two, but it lacks some features like announcing a page is done loading and it doesn’t appear to support caret browsing, which will cause some other problems. Interesting though for such a young browser to have a minimal level of accessibility so early!</p> <p>I would be interested where this goes in the future.</p> <h2 id="ps">P.S.</h2> <p>Somehow I forgot that you would need to setup the dummy display driver to work with the graphics without a display attached. To do this, install the <code class="language-plaintext highlighter-rouge">xf86-video-dummy</code> pacakge:</p> <pre class="terminal">
+# pacman -S xf86-video-dummy
+</pre> <p>Next, override any <code class="language-plaintext highlighter-rouge">/etc/X11/xorg.conf</code> you may have with this:</p> <pre class="file">
+Section "Monitor"
+	Identifier "Monitor0"
+	HorizSync 28.0-80.0
+	VertRefresh 48.0-75.0
+	# https://arachnoid.com/modelines/
+	# 1920x1080 @ 60.00 Hz (GTF) hsync: 67.08 kHz; pclk: 172.80 MHz
+	Modeline "1920x1080_60.00" 172.80 1920 2040 2248 2576 1080 1081 1084 1118 -HSync +Vsync
+EndSection
+
+Section "Device"
+	Identifier "Card0"
+	Driver "dummy"
+	VideoRam 256000
+EndSection
+
+Section "Screen"
+	DefaultDepth 24
+	Identifier "Screen0"
+	Device "Card0"
+	Monitor "Monitor0"
+	SubSection "Display"
+		Depth 24
+		Modes "1920x1080_60.00"
+	EndSubSection
+EndSection
+</pre> <p>Now, when you boot, you should head ‘Screen reader on’.</p> <h2 id="conclusion">Conclusion</h2> <p>It took a bit of messing around to get this working, but I’m glad I did! Now I can nerd out with another Linux friend and given how well they seem to find problems with accessibility, hopefully a few upstream patches can be made.</p> <p>Happy hacking, for everyone!</p> </article> </main> <hr> <footer> This page is mirrored on <a href="https://beta.tait.tech/2020/12/14/orca-raspberry-pi-manjaro/">beta.tait.tech</a>. </footer> </div> </body> </html>
