@@ -34,7 +34,7 @@ I will not elaborate further as it is not necessary.
 This is the part that stumps most people.
 Getting a local development server usually works alright, but once you want to reverse proxy it for security and professionalism purposes, it get more interesting.
 
-Here is the relevant portion of my nginx configuration:
+Here is the relevant portion of my nginx configuration for lila:
 
 <pre class="file">
 server_name chess.tait.tech;
@@ -47,6 +47,8 @@ location / {
   proxy_set_header X-Real-IP $remote_addr;
 }
 </pre>
+
+This is the config for the lila-ws websocket subdomain:
 
 <pre class="file">
 server_name ws.chess.tait.tech;
