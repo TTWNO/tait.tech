@@ -34,7 +34,34 @@ I will not elaborate further as it is not necessary.
 This is the part that stumps most people.
 Getting a local development server usually works alright, but once you want to reverse proxy it for security and professionalism purposes, it get more interesting.
 
-### lila
+Here is the relevant portion of my nginx configuration:
+
+<pre class="file">
+server_name chess.tait.tech;
+
+location / {
+  proxy_pass http://127.0.0.1:9663;
+  proxy_set_header Host $host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-NginX-Proxy true;
+  proxy_set_header X-Real-IP $remote_addr;
+}
+</pre>
+
+<pre class="file">
+server_name ws.chess.tait.tech;
+
+location / {
+  proxy_pass http://127.0.0.1:9664;
+  proxy_http_version 1.1;
+  proxy_set_header Upgrade $http_upgrade;
+  proxy_set_header Connection "upgrade";
+}
+</pre>
+
+You will need to deploy these on two virtual hosts.
+
+## Lila
 
 [Lila](https://github.com/ornicar/lila/) is the name for the main chess server, we need to change a few settings. Here is my git diff for the `conf/base.conf` file:
 
@@ -51,7 +78,7 @@ Getting a local development server usually works alright, but once you want to r
 +  base_url = "https://"${net.domain}
 </pre>
 
-### lila-ws
+### Lila-ws
 
 [Lila-ws](https://github.com/ornicar/lila-ws/) is the websocket component of Lila.
 
