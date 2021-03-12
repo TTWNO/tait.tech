@@ -39,5 +39,5 @@ title: "Resume"
 {% endfor %}
 ##### Computer
 {% for lang in site.data.comp-langs %}
-  * {{ lang.name }} ({{ lang.level }}/5)
+  * {{ lang.name }}
 {% endfor %}
