@@ -1,16 +1,125 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>Getting Pacaur Working on a Raspberry Pi 4 with Manjaro ARM or Arch Linux | tait.tech</title> <link rel="stylesheet" href="/assets/css/style.css"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="author" content="Tait Hoyem"> <meta name="keywords" content=""> <meta name="description" content=""> </head> <body> <div id="wrapper"> <header> <nav> <input type="checkbox" id="menu"> <label for="menu">&#9776;</label> <div class="menu-content"> <a href="/" class="nav-link">Home</a> <a href="/blog/" class="nav-link">Blog</a> <a href="https://github.com/TTWNO/" class="nav-link" target="_blank" rel="noopener noreferrer">Github</a> </div> </nav> </header> <main> <article> <header> <h1 class="post-title">Getting Pacaur Working on a Raspberry Pi 4 with Manjaro ARM or Arch Linux</h1> <time datetime="20-12-01" class="post-date">Tuesday, December 01 2020</time> </header> <hr> <p>I recently installed Manjaro ARM (based on Arch Linux ARM) on a Raspberry Pi 4. I used some standard commands to start to add the <code class="language-plaintext highlighter-rouge">pacaur</code> package so I can easily retrieve <a href="https://wiki.archlinux.org/index.php/Arch_User_Repository">AUR packages</a> without needing to do it manually. Unfortunately, there is a small problem with compiling this on ARM.</p> <h2 id="always_inline">always_inline</h2> <p>To setup the install for <code class="language-plaintext highlighter-rouge">pacaur</code>, I first needed to download <a href="https://aur.archlinux.org/packages/auracle-git">auracle-git</a> AUR package manually. I ran into an error when compiling this package.</p> <p>But first, my setup:</p> <pre class="terminal">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Getting Pacaur Working on a Raspberry Pi 4 with Manjaro ARM or Arch Linux | tait.tech</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tait Hoyem">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+        <nav>
+  <input type="checkbox" id="menu">
+  <label for="menu">&#9776;</label>
+  <div class="menu-content">
+    
+      <a href="/" class="nav-link"  >Home</a>
+    
+      <a href="/blog/" class="nav-link"  >Blog</a>
+    
+      <a href="https://github.com/TTWNO/" class="nav-link"   target="_blank" rel="noopener noreferrer" >Github</a>
+    
+  </div>
+</nav>
+
+      </header>
+      <main>
+        <article>
+  <header>
+    <h1 class="post-title">Getting Pacaur Working on a Raspberry Pi 4 with Manjaro ARM or Arch Linux</h1>
+    <time datetime="20-12-01" class="post-date">Tuesday, December 01 2020</time>
+  </header>
+  <hr>
+
+  <p>I recently installed Manjaro ARM (based on Arch Linux ARM) on a Raspberry Pi 4.
+I used some standard commands to start to add the <code class="language-plaintext highlighter-rouge">pacaur</code> package so I can easily retrieve <a href="https://wiki.archlinux.org/index.php/Arch_User_Repository">AUR packages</a> without needing to do it manually.
+Unfortunately, there is a small problem with compiling this on ARM.</p>
+
+<h2 id="always_inline">always_inline</h2>
+
+<p>To setup the install for <code class="language-plaintext highlighter-rouge">pacaur</code>, I first needed to download <a href="https://aur.archlinux.org/packages/auracle-git">auracle-git</a> AUR package manually.
+I ran into an error when compiling this package.</p>
+
+<p>But first, my setup:</p>
+<pre class="terminal">
 $ git clone https://aur.archlinux.org/auracle-git
 $ cd auracle-git
 $ makepkg -sri
-</pre> <p>Around half way through compiling this project, I got this cryptic message telling me there was a “target specific option mismatch”…Whatever that means. The full error is below, hopefully that helps my chances on the search engines.</p> <pre class="terminal">
+</pre>
+
+<p>Around half way through compiling this project, I got this cryptic message telling me there was a “target specific option mismatch”…Whatever that means.
+The full error is below, hopefully that helps my chances on the search engines.</p>
+
+<pre class="terminal">
 In file included from ../subprojects/abseil-cpp-20200225.2/absl/random/internal/randen_hwaes.cc:225:
 /usr/lib/gcc/aarch64-unknown-linux-gnu/9.3.0/include/arm_neon.h: In function 'Vector128 {anonymous}::AesRound(const Vector128&amp;, const Vector128&amp;)':
 /usr/lib/gcc/aarch64-unknown-linux-gnu/9.3.0/include/arm_neon.h:12452:1: error: inlining failed in call to always_inline 'uint8x16_t vaesmcq_u8(uint8x16_t)': target specific option mismatch
 12452 | vaesmcq_u8 (uint8x16_t data)
-</pre> <p>Luckily, there is a very easy fix for this. The user redfish <a href="https://aur.archlinux.org/packages/auracle-git#comment-762117">helpfully pointed out</a> on the <code class="language-plaintext highlighter-rouge">auracle-git</code> package page that you need to add a special make option to your <code class="language-plaintext highlighter-rouge">/etc/make.conf</code> file to make this work.</p> <p>His solution, as commented is like so:</p> <blockquote> <p>If you get this error when building for ARM aarch64:</p> <p>(insert error message from before)</p> <p>Then check that in /etc/makepkg.conf CFLAGS and CXXFLAGS have the +crypto suffix in -march flag, like -march=armv8-a+crypto (the base identifier may very depending on your hardware)</p> </blockquote> <p>Basically, there is a file on Linux: <code class="language-plaintext highlighter-rouge">/etc/makepkg.conf</code> which tells your computer how to compile <em>all</em> programs on the system. By default the Manjaro ARM (RPi4) edition has the following relevant lines in <code class="language-plaintext highlighter-rouge">makepkg.conf</code>.</p> <pre class="file">
+</pre>
+
+<p>Luckily, there is a very easy fix for this.
+The user redfish <a href="https://aur.archlinux.org/packages/auracle-git#comment-762117">helpfully pointed out</a>
+on the <code class="language-plaintext highlighter-rouge">auracle-git</code> package page that you need to add a special make option to your <code class="language-plaintext highlighter-rouge">/etc/make.conf</code> file to make this work.</p>
+
+<p>His solution, as commented is like so:</p>
+
+<blockquote>
+  <p>If you get this error when building for ARM aarch64:</p>
+
+  <p>(insert error message from before)</p>
+
+  <p>Then check that in /etc/makepkg.conf CFLAGS and CXXFLAGS have the +crypto suffix in -march flag, like -march=armv8-a+crypto (the base identifier may very depending on your hardware)</p>
+</blockquote>
+
+<p>Basically, there is a file on Linux: <code class="language-plaintext highlighter-rouge">/etc/makepkg.conf</code> which tells your computer how to compile <em>all</em> programs on the system.
+By default the Manjaro ARM (RPi4) edition has the following relevant lines in <code class="language-plaintext highlighter-rouge">makepkg.conf</code>.</p>
+
+<pre class="file">
 CFLAGS="-march=armv8-a -O2 -pipe -fstack-protector-strong -fno-plt"
 CXXFLAGS="-march=armv8-a -O2 -pipe -fstack-protector-strong -fno-plt"
-</pre> <p>What Mr. redfish is telling us is that we must add ‘+crypto’ to the end of the -march compiler flag so that our compiler will know how to inline that pesky vaesmcq_u8 function.</p> <p>So in the end, your <code class="language-plaintext highlighter-rouge">makepkg.conf</code>’s relevant lines will look like so:</p> <pre class="file">
+</pre>
+
+<p>What Mr. redfish is telling us is that we must add ‘+crypto’ to the end of the -march compiler flag so that our compiler will know how to inline that pesky vaesmcq_u8 function.</p>
+
+<p>So in the end, your <code class="language-plaintext highlighter-rouge">makepkg.conf</code>’s relevant lines will look like so:</p>
+<pre class="file">
 CFLAGS="-march=armv8-a+crypto -O2 -pipe -fstack-protector-strong -fno-plt"
 CXXFLAGS="-march=armv8-a+crypto -O2 -pipe -fstack-protector-strong -fno-plt"
-</pre> <h2 id="why">Why?</h2> <p>Redfish continues:</p> <blockquote> <p>Build of abseil-cpp package works because it uses CMake which adds the correct -march flag regardless of makepkg.conf, whereas when abseil-cpp is build as a subproject within this package, it uses meson, which does not add the flag and thus fails with the above error.</p> </blockquote> <p>In other words, one of the dependencies pulled in with auracle is not compiling without this special compiler flag enabled.</p> <h2 id="conclusion">Conclusion</h2> <p>Thanks to redfish for posting this solution to the forums! Would’ve been quite the rabbit hole for me to figure out how to do that. In fact, it is very likely I would have never figured that one out.</p> <p>After this issue is resolved, the installation of <code class="language-plaintext highlighter-rouge">pacaur</code> goes as expected. Nice and easy! Pacuar will compile on any architecture so it’s smooth sailing from here.</p> <p>Happy hacking!</p> </article> </main> <hr> <footer> This page is mirrored on <a href="https://beta.tait.tech/2020/12/01/pacaur-rpi/">beta.tait.tech</a>. </footer> </div> </body> </html>
+</pre>
+
+<h2 id="why">Why?</h2>
+
+<p>Redfish continues:</p>
+
+<blockquote>
+  <p>Build of abseil-cpp package works because it uses CMake which adds the correct -march flag regardless of makepkg.conf, whereas when abseil-cpp is build as a subproject within this package, it uses meson, which does not add the flag and thus fails with the above error.</p>
+</blockquote>
+
+<p>In other words, one of the dependencies pulled in with auracle is not compiling without this special compiler flag enabled.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Thanks to redfish for posting this solution to the forums!
+Would’ve been quite the rabbit hole for me to figure out how to do that.
+In fact, it is very likely I would have never figured that one out.</p>
+
+<p>After this issue is resolved, the installation of <code class="language-plaintext highlighter-rouge">pacaur</code> goes as expected. Nice and easy!
+Pacuar will compile on any architecture so it’s smooth sailing from here.</p>
+
+<p>Happy hacking!</p>
+
+</article>
+
+      </main>
+      <hr>
+      <footer>
+  This page is mirrored on <a href="https://beta.tait.tech/2020/12/01/pacaur-rpi/">beta.tait.tech</a>.
+</footer>
+
+    </div>
+  </body>
+</html>

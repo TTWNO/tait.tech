@@ -1,1 +1,100 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>NAS Part 1: Theorize | tait.tech</title> <link rel="stylesheet" href="/assets/css/style.css"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="author" content="Tait Hoyem"> <meta name="keywords" content=""> <meta name="description" content=""> </head> <body> <div id="wrapper"> <header> <nav> <input type="checkbox" id="menu"> <label for="menu">&#9776;</label> <div class="menu-content"> <a href="/" class="nav-link">Home</a> <a href="/blog/" class="nav-link">Blog</a> <a href="https://github.com/TTWNO/" class="nav-link" target="_blank" rel="noopener noreferrer">Github</a> </div> </nav> </header> <main> <article> <header> <h1 class="post-title">NAS Part 1: Theorize</h1> <time datetime="20-04-12" class="post-date">Sunday, April 12 2020</time> </header> <hr> <p>New Project, phase one: Theorize.</p> <p>I want to build a NAS server to store a bunch of data on. Current problem is lack of a computer to accept multiple SATA connections.</p> <h3 id="problem-1-sata-connectors">Problem 1: SATA connectors</h3> <p>This can be solved by an HBE card. Although they tend to be quite expensive (250+). One decent model that isn’t that much is the <a href="https://www.amazon.ca/SAS9211-8I-8PORT-Int-Sata-Pcie/dp/B002RL8I7M/ref=sr_1_2?keywords=9211-8i&amp;qid=1586699707&amp;sr=8-2">LSI 9211-8I</a>. This is ideal for future expansion.</p> <p>A cheaper option is a PCIe multi-SATA connector <a href="https://www.amazon.ca/Rivo-Controller-Expansion-Profile-Non-Raid/dp/B0836MKFCR?ref_=ast_slp_dp">like this</a>.</p> <p>Either work, but one is cheaper and the other is more expandable. The 9211-8I uses two SAS ports, which can be expanded indefinetely. SAS supports splitting. SATA can be connected in a 4:1 ratio to SAS connectors with some <a href="https://www.amazon.com/Cable-Matters-Internal-SFF-8087-Breakout/dp/B012BPLYJC">cheap cables</a>.</p> <h3 id="problem-2-drives">Problem 2: Drives</h3> <p>I do not have enough drives to make this work right now. For the setup I want it would require 5 or 6 drives. I will get 4-5 drives worth of space as one drive worth of space is dedicated to “parity”, making you able to:</p> <ol> <li>Verify data integrity. If anything goes wrong with a write, it will be fixed automatically.</li> <li>If <em>one</em> drive dies, the system can stay online with no problem. Two drives and I’m eff-you-see-kay-ed-dee.</li> </ol> <p>My other option is to use two drives worth of space for partiy. This would only have me 3-4 drives of space, but this system can withstand the failure of <em>two</em> drives.</p> <h3 id="problem-3-computer-system">Problem 3: Computer System</h3> <p>I currently have 5 computers.</p> <ol> <li>Celery Stick. An old grey HP laptop with a Braille stickered keyboard. <em>Does not work right now; bad thermal paste job.</em></li> <li>A Dell laptop lent to me by my school during my studies.</li> <li>Houston. A 21-inch 2011 iMac for which the screen does not work under Linux (excep with the <code class="language-plaintext highlighter-rouge">nomodeset</code> kernel option enabled).</li> <li>An Old Toshiba laptop (circa 2010) that I got for $50 to test with OpenBSD (works….sometimes).</li> <li>Main Rig. My main laptop is an ASUS-705 TUF gaming laptop.</li> </ol> <p>None of these have PCIe expansion slots with a case that can handle the new drives.</p> <p>I think it’s reasonable to say that for hard-drives and low-end tower PCs, I will likely have luck on a place like <a href="https://kijiji.ca">Kijiji</a> (Canadian Craigslist).</p> <p>The search continues :)</p> <p>I’m in for a fun ride…. and a few monnies.</p> </article> </main> <hr> <footer> This page is mirrored on <a href="https://beta.tait.tech/2020/04/12/nas1/">beta.tait.tech</a>. </footer> </div> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>NAS Part 1: Theorize | tait.tech</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tait Hoyem">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+        <nav>
+  <input type="checkbox" id="menu">
+  <label for="menu">&#9776;</label>
+  <div class="menu-content">
+    
+      <a href="/" class="nav-link"  >Home</a>
+    
+      <a href="/blog/" class="nav-link"  >Blog</a>
+    
+      <a href="https://github.com/TTWNO/" class="nav-link"   target="_blank" rel="noopener noreferrer" >Github</a>
+    
+  </div>
+</nav>
+
+      </header>
+      <main>
+        <article>
+  <header>
+    <h1 class="post-title">NAS Part 1: Theorize</h1>
+    <time datetime="20-04-12" class="post-date">Sunday, April 12 2020</time>
+  </header>
+  <hr>
+
+  <p>New Project, phase one:
+Theorize.</p>
+
+<p>I want to build a NAS server to store a bunch of data on. Current problem is lack of a computer to accept multiple SATA connections.</p>
+
+<h3 id="problem-1-sata-connectors">Problem 1: SATA connectors</h3>
+
+<p>This can be solved by an HBE card. Although they tend to be quite expensive (250+).
+One decent model that isn’t that much is the <a href="https://www.amazon.ca/SAS9211-8I-8PORT-Int-Sata-Pcie/dp/B002RL8I7M/ref=sr_1_2?keywords=9211-8i&amp;qid=1586699707&amp;sr=8-2">LSI 9211-8I</a>.
+This is ideal for future expansion.</p>
+
+<p>A cheaper option is a PCIe multi-SATA connector <a href="https://www.amazon.ca/Rivo-Controller-Expansion-Profile-Non-Raid/dp/B0836MKFCR?ref_=ast_slp_dp">like this</a>.</p>
+
+<p>Either work, but one is cheaper and the other is more expandable.
+The 9211-8I uses two SAS ports, which can be expanded indefinetely. SAS supports splitting.
+SATA can be connected in a 4:1 ratio to SAS connectors with some <a href="https://www.amazon.com/Cable-Matters-Internal-SFF-8087-Breakout/dp/B012BPLYJC">cheap cables</a>.</p>
+
+<h3 id="problem-2-drives">Problem 2: Drives</h3>
+<p>I do not have enough drives to make this work right now.
+For the setup I want it would require 5 or 6 drives.
+I will get 4-5 drives worth of space as one drive worth of space is dedicated to “parity”, making you able to:</p>
+
+<ol>
+  <li>Verify data integrity. If anything goes wrong with a write, it will be fixed automatically.</li>
+  <li>If <em>one</em> drive dies, the system can stay online with no problem. Two drives and I’m eff-you-see-kay-ed-dee.</li>
+</ol>
+
+<p>My other option is to use two drives worth of space for partiy.
+This would only have me 3-4 drives of space, but
+this system can withstand the failure of <em>two</em> drives.</p>
+
+<h3 id="problem-3-computer-system">Problem 3: Computer System</h3>
+
+<p>I currently have 5 computers.</p>
+
+<ol>
+  <li>Celery Stick. An old grey HP laptop with a Braille stickered keyboard. <em>Does not work right now; bad thermal paste job.</em></li>
+  <li>A Dell laptop lent to me by my school during my studies.</li>
+  <li>Houston. A 21-inch 2011 iMac for which the screen does not work under Linux (excep with the <code class="language-plaintext highlighter-rouge">nomodeset</code> kernel option enabled).</li>
+  <li>An Old Toshiba laptop (circa 2010) that I got for $50 to test with OpenBSD (works….sometimes).</li>
+  <li>Main Rig. My main laptop is an ASUS-705 TUF gaming laptop.</li>
+</ol>
+
+<p>None of these have PCIe expansion slots with a case that can handle the new drives.</p>
+
+<p>I think it’s reasonable to say that for hard-drives and low-end tower PCs,
+I will likely have luck on a place like <a href="https://kijiji.ca">Kijiji</a> (Canadian Craigslist).</p>
+
+<p>The search continues :)</p>
+
+<p>I’m in for a fun ride…. and a few monnies.</p>
+
+</article>
+
+      </main>
+      <hr>
+      <footer>
+  This page is mirrored on <a href="https://beta.tait.tech/2020/04/12/nas1/">beta.tait.tech</a>.
+</footer>
+
+    </div>
+  </body>
+</html>
