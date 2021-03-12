@@ -1,0 +1,22 @@
+options="-d "
+all_files=""
+optstring=":la"
+while getopts "${optstring}" arg; do
+  case "${arg}" in
+    a) options+="-a " && all_files=".*/" ;;
+    l) options+="-l " ;;
+
+    ?)
+      echo "Invalid option: -${OPTARG}."
+      ;;
+  esac
+done
+for last; do true; done
+echo "$options"
+
+if [ -d "$last" ]; then
+  cd "$last"
+  ls $options */ $all_files
+else
+  ls $options */ $all_files
+fi
