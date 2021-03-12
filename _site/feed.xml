@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-12T10:59:21-07:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Full KMS in Manjaro ARM on Raspberry Pi 4</title><link href="http://localhost:4000/2021/02/18/full-kms-rpi4-manjaro/" rel="alternate" type="text/html" title="Full KMS in Manjaro ARM on Raspberry Pi 4" /><published>2021-02-18T00:00:00-07:00</published><updated>2021-02-18T00:00:00-07:00</updated><id>http://localhost:4000/2021/02/18/full-kms-rpi4-manjaro</id><content type="html" xml:base="http://localhost:4000/2021/02/18/full-kms-rpi4-manjaro/"></content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Lichess Accessibility</title><link href="http://localhost:4000/2021/01/31/lichess/" rel="alternate" type="text/html" title="Lichess Accessibility" /><published>2021-01-31T00:00:00-07:00</published><updated>2021-01-31T00:00:00-07:00</updated><id>http://localhost:4000/2021/01/31/lichess</id><content type="html" xml:base="http://localhost:4000/2021/01/31/lichess/">&lt;p&gt;I wanted to play chess with somebody who used a screen reader, without requiring a screen reader myself;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-12T11:05:41-07:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Lichess Accessibility</title><link href="http://localhost:4000/2021/01/31/lichess/" rel="alternate" type="text/html" title="Lichess Accessibility" /><published>2021-01-31T00:00:00-07:00</published><updated>2021-01-31T00:00:00-07:00</updated><id>http://localhost:4000/2021/01/31/lichess</id><content type="html" xml:base="http://localhost:4000/2021/01/31/lichess/">&lt;p&gt;I wanted to play chess with somebody who used a screen reader, without requiring a screen reader myself;
 some sites, like QuintenC’s Playroom have a rather poor visual interface for anyone who would like the play the game visually.
 &lt;a href=&quot;https://lichess.org&quot;&gt;Lichess&lt;/a&gt; is an free and open-source website for chess players;
 it bridges this gap by having two “modes” on the site:
@@ -648,4 +648,47 @@ Maybe he was right, maybe not. What I know is I am excited to find out!&lt;/p&gt
 
 &lt;p&gt;Wish my luck on my OpenBSD journey. I will post updates here along the way.&lt;/p&gt;
 
-&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">As Linux becomes controlled by corporate sponsors and becomes more full of proprietary blobs, drivers, and even closed-source software like Steam, One may wonder if there are other options out there. For me, somebody that is intensely interested in security, there is one option: OpenBSD.</summary></entry></feed>
+&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">As Linux becomes controlled by corporate sponsors and becomes more full of proprietary blobs, drivers, and even closed-source software like Steam, One may wonder if there are other options out there. For me, somebody that is intensely interested in security, there is one option: OpenBSD.</summary></entry><entry><title type="html">Know How Your Representative Votes In Parliament</title><link href="http://localhost:4000/2020/07/30/canadian-parliament/" rel="alternate" type="text/html" title="Know How Your Representative Votes In Parliament" /><published>2020-07-30T00:00:00-06:00</published><updated>2020-07-30T00:00:00-06:00</updated><id>http://localhost:4000/2020/07/30/canadian-parliament</id><content type="html" xml:base="http://localhost:4000/2020/07/30/canadian-parliament/">&lt;p&gt;As an advocate for openness, I had an idea to make a project out of the government of Canada’s &lt;a href=&quot;https://open.canada.ca/en/open-data&quot;&gt;Open Data&lt;/a&gt;
+initiative to take a look at how my local MP voted on various pieces of legislation.
+It turns out though that this was not necessary due to how easy it was to find this information on the government’s own website.
+In this article, I will explain how you can do the same.&lt;/p&gt;
+
+&lt;h3 id=&quot;1-find-your-representative&quot;&gt;1. Find Your Representative&lt;/h3&gt;
+
+&lt;p&gt;The first step in this process is to find who your representative is.
+To do so, go to the government’s own website
+&lt;a href=&quot;https://www.ourcommons.ca/Members/en&quot;&gt;ourcommons.ca’s search tool&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Simply type in your postal code in the search box to find out who your MP is.&lt;/p&gt;
+
+&lt;h3 id=&quot;2-their-voting-record&quot;&gt;2. Their Voting Record&lt;/h3&gt;
+
+&lt;p&gt;Every MP’s voting record is public knowledge,
+and it is available nice and simple in a table on that MP’s page.
+For example, this is a link to
+&lt;a href=&quot;https://www.ourcommons.ca/Members/en/pierre-poilievre(25524)/votes&quot;&gt;Pierre Poilievre’s voting record&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To find your MP’s voting record, do step one, then:
+After the &lt;strong&gt;Overview&lt;/strong&gt;, and &lt;strong&gt;Seat in The House&lt;/strong&gt; sections,
+there are three tabs, &lt;strong&gt;Roles&lt;/strong&gt;, &lt;strong&gt;Work&lt;/strong&gt;, and &lt;strong&gt;Contact&lt;/strong&gt;.
+Click on work.
+At the bottom of that tab is a link which says &lt;strong&gt;Chamber Votes&lt;/strong&gt;.
+This will open a small window with some recent votes by this politician.
+If you want to see all their votes, there is a button at the bottom named &lt;strong&gt;All Votes by This Member&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Tada! You can now keep your local MP accountable for anything you do or do not support.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-bill-details&quot;&gt;3. Bill Details&lt;/h3&gt;
+
+&lt;p&gt;If you want to get into the nitty gritty,
+once you open a specific bill, you can actually find out the status of said bill,
+or read the actual text by clicking the &lt;strong&gt;View this Bill on LEGISinfo&lt;/strong&gt; button.&lt;/p&gt;
+
+&lt;p&gt;Both the status of the bill, and a link to a PDF document containing the bilingual text of the bill are visible in the main body of the page.&lt;/p&gt;
+
+&lt;h4 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h4&gt;
+
+&lt;p&gt;I thought this was pretty cool!
+It was &lt;em&gt;way&lt;/em&gt; simpler than I thought it would be.&lt;/p&gt;
+
+&lt;p&gt;Thanks, Canada!&lt;/p&gt;</content><author><name></name></author><summary type="html">As an advocate for openness, I had an idea to make a project out of the government of Canada’s Open Data initiative to take a look at how my local MP voted on various pieces of legislation. It turns out though that this was not necessary due to how easy it was to find this information on the government’s own website. In this article, I will explain how you can do the same.</summary></entry></feed>
