@@ -6,10 +6,12 @@
 #  link: /about/
 - name: Blog
   link: /blog/
+- name: Ideas
+  link: /ideas/
 #- name: Podcast
 #  link: /podcast.html 
-#- name: Links
-#  link: /links/
+- name: Links
+  link: /links/
 - name: Github
   new_tab: true 
   link: https://github.com/TTWNO/

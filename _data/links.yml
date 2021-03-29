@@ -28,9 +28,6 @@
   - name: Arch Linux Wiki
     value: https://wiki.archlinux.org/
     label: INHERIT
-  - name: Talking Arch
-    value: https://talkingarch.info/
-    label: INHERIT
   - name: Speakup Project [Unencrypted]
     value: http://linux-speakup.org/
     label: INHERIT
@@ -45,7 +42,7 @@
   - name: Suckless
     value: https://suckless.org/
     label: INHERIT
-  - name: cat -v (considered harmful) [Unencrypted]
+  - name: cat -v considered harmful [Unencrypted]
     value: http://cat-v.org/
     label: INHERIT
   - name: Edward Snowden
@@ -56,7 +53,7 @@
   - name: Gregory Gundersen
     value: https://gregorygundersen.com/
     label: INHERIT
-- heading: The This Is A Website Series
+- heading: The "This Is A Website" Series
   values:
   - name: Website
     value: https://motherfuckingwebsite.com/
