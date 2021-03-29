@@ -24,6 +24,9 @@ body {
 #wrapper {
   max-width: 800px;
   margin: auto;
+  > header {
+    text-align: center;
+  }
 }
 
 .clear-list {
@@ -40,22 +43,6 @@ body {
 }
 h1, h2, h3, h4, h5, h6 {
   line-height: 1em;
-}
-
-h1 {
-  font-size: 2.5em;
-}
-h2 {
-  font-size: 2.0em;
-}
-h3 {
-  font-size: 1.6em;
-}
-h4 {
-  font-size: 1.3em;
-}
-h5 {
-  font-size: 1.1em;
 }
 header {
   margin-bottom: 32px;
@@ -82,11 +69,6 @@ a.post-title-link {
 }
 a.citation-link {
   text-decoration: none;
-}
-
-#menu,
-label[for="menu"]{
-  display: none;
 }
 
 nav {
@@ -143,12 +125,6 @@ address {
 }
 
 @media screen and (max-width: 600px){
-  #menu,
-  label[for="menu"]{
-    text-align: left;
-    display: inline-block;
-    font-size: 20px;
-  }
   body {
     width: 90%;
   }
@@ -168,12 +144,6 @@ address {
     text-align: left;
     padding-left: 0;
     margin-left: 0;
-  }
-  #menu {
-    display: none;
-  }
-  input:checked ~ .menu-content {
-    max-height: 100%;
   }
 }
 
