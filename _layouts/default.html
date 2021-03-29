@@ -15,13 +15,16 @@
   <body>
     <div id="wrapper">
       <header>
+	{% include header.html %}
         {% include nav.html %}
       </header>
       <main>
         {{ content }}
       </main>
       <hr>
-      {% include footer.html %}
+      <footer>
+        {% include footer.html %}
+      </footer>
     </div>
   </body>
 </html>
