@@ -3,7 +3,7 @@
   <section class="contact-info">
     {% for info in types.values %}
       <p><span>{{ info.name }}</span> -
-      <a href="{{ info.value }}" class="mono">
+      <a href="{{ info.value }}" >
         {% if info.label != "INHERIT" %}
           {{ info.label }}
         {% else %}
