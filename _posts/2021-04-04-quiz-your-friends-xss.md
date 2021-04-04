@@ -6,6 +6,8 @@ layout: post
 Note: I have alerted the administrators of this site multiple times about this vulnerability.
 One email was sent many years ago, which is more than enough time for [responsible disclosure](https://en.wikipedia.org/wiki/Responsible_disclosure).
 
+Update: They have fixed the vulnerability as of the day of release for this article.
+
 ## Background
 
 In early 2014, when my "programming" skills consisted of editing web pages with inspect element, I was sent a link from an old friend in a town about 3 hours away.
@@ -113,3 +115,4 @@ And if you see any messages warning you that a site is not secure and redirectin
 Take their info with a grain of salt.
 
 Happy Hacking, literally :)
+
