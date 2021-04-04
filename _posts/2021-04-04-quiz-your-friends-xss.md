@@ -86,7 +86,7 @@ I filled in the name with a script tag and a call to `alert()` to warn the user 
 I edited the max-length attribute to allow me to type a long string like this:
 
 ```
-<script>alert('Don\'t use this site. It is not secure!');</script>
+<script>alert("Don't use this site. It is not secure!");</script>
 ```
 
 Sure enough, I got a text from my friend saying: "Tait! I know this is you, why would you do that!"
@@ -99,7 +99,7 @@ As my final act, I decided to use a cross-site script that I could edit and have
 I set this as my name:
 
 ```
-<script src=\"https://tait.tech/assets/js/hacked.js\"></script>
+<script src="https://tait.tech/assets/js/hacked.js"></script>
 ```
 
 This script pops up a warning, telling the user that the site is insecure and it is now redirecting to an article about the attack.
