@@ -19,6 +19,3 @@
 - name: "Payroll"
   links: "https://github.com/TTWNO/payroll"
   description: "A payroll system written in PHP."
-- name: "Bytetools"
-  link: "https://bytetools.ca"
-  description: "I have my own company called Bytetools. We make websites, data archiving and custom applications. 10% discount for open-source or community-oriented projects."
