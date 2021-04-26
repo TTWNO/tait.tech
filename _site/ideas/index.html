@@ -1,1 +1,62 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>Ideas | tait.tech</title> <link rel="stylesheet" href="/assets/css/style.css"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="author" content="Tait Hoyem"> <meta name="keywords" content=""> <meta name="description" content=""> </head> <body> <div id="wrapper"> <header> <h1>tait.tech</h1> <nav> <a href="/" class="nav-link">Home</a> <a href="/blog/" class="nav-link">Blog</a> <a href="/ideas/" class="nav-link" class="on-page">Ideas</a> <a href="/links/" class="nav-link">Links</a> <a href="https://github.com/TTWNO/" class="nav-link" target="_blank" rel="noopener noreferrer">Github</a> </nav> </header> <main> <h1 id="ideas">Ideas</h1> <h2 id="1-accessible-bios">1. Accessible BIOS</h2> <p>Some server motherboards include serial UART/I<sup>2</sup>C ports which can be used to manage a BIOS via serial. If this is possible, would it be able to attach to a braille display via an intermediary like a Rockchip/Pi SBC or Arduino compatible chip using <a href="https://brltty.app">BRLTTY</a> and serial input from the motherboard? Maybe not as it <a href="https://tldp.org/HOWTO/Remote-Serial-Console-HOWTO/rhl-biosserial.html">appears to require</a> a full Unicode terminal, which I have the suspicion that BRLTTY will not be able to automatically filter out the formatting characters.</p> <p>Just an idea.</p> <h2 id="2-terminal-oriented-browser">2. Terminal-oriented browser</h2> <p>Use selenium to allow a cross-engine compatible terminal-browser with JS support. Yes, sure, it has all the bloat of the modern web as it uses the full code of Chrome/Firefox/Webkit—but at least it can be used in the terminal. Guaranteed to be accessible.</p> <p>I’m thinking of similar key commands to Orca/NVDA but output is send to the terminal. Unsure of how to handle aria-live regions, but perhaps a queue could be used to print text. Unsure how to calculate delay as the user may be using a screen reader at different speeds and/or a braille display.</p> <p>Change backend on-the-fly with a page reload. So if a website doesn’t work with Webkit, load it in Firefox with a key command.</p> <p>Just an idea.</p> </main> <hr> <footer> This page is mirrored on <a href="https://beta.tait.tech/ideas/">beta.tait.tech</a>. </footer> </div> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Ideas | tait.tech</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tait Hoyem">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+	<h1>tait.tech</h1>
+
+        <nav>
+	
+	<a href="/" class="nav-link"  >Home</a>
+	
+	<a href="/blog/" class="nav-link"  >Blog</a>
+	
+	<a href="/ideas/" class="nav-link"  class="on-page" >Ideas</a>
+	
+	<a href="/links/" class="nav-link"  >Links</a>
+	
+	<a href="https://github.com/TTWNO/" class="nav-link"   target="_blank" rel="noopener noreferrer" >Github</a>
+	
+</nav>
+
+      </header>
+      <main>
+        <h1 id="ideas">Ideas</h1>
+
+<h2 id="1-accessible-bios">1. Accessible BIOS</h2>
+
+<p>Some server motherboards include serial UART/I<sup>2</sup>C ports which can be used to manage a BIOS via serial.
+If this is possible, would it be able to attach to a braille display via an intermediary like a Rockchip/Pi SBC or Arduino compatible chip using <a href="https://brltty.app">BRLTTY</a> and serial input from the motherboard?
+Maybe not as it <a href="https://tldp.org/HOWTO/Remote-Serial-Console-HOWTO/rhl-biosserial.html">appears to require</a> a full Unicode terminal, which I have the suspicion that BRLTTY will not be able to automatically filter out the formatting characters.</p>
+
+<p>Just an idea.</p>
+
+<h2 id="2-terminal-oriented-browser">2. Terminal-oriented browser</h2>
+
+<p>Use selenium to allow a cross-engine compatible terminal-browser with JS support. Yes, sure, it has all the bloat of the modern web as it uses the full code of Chrome/Firefox/Webkit—but at least it can be used in the terminal.
+Guaranteed to be accessible.</p>
+
+<p>I’m thinking of similar key commands to Orca/NVDA but output is send to the terminal. Unsure of how to handle aria-live regions, but perhaps a queue could be used to print text. Unsure how to calculate delay as the user may be using a screen reader at different speeds and/or a braille display.</p>
+
+<p>Change backend on-the-fly with a page reload. So if a website doesn’t work with Webkit, load it in Firefox with a key command.</p>
+
+<p>Just an idea.</p>
+
+      </main>
+      <hr>
+      <footer>
+        This page is mirrored on <a href="https://beta.tait.tech/ideas/">beta.tait.tech</a>.
+
+      </footer>
+    </div>
+  </body>
+</html>

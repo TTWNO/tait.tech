@@ -1,1 +1,96 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>Padding And Margin | tait.tech</title> <link rel="stylesheet" href="/assets/css/style.css"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="author" content="Tait Hoyem"> <meta name="keywords" content=""> <meta name="description" content=""> </head> <body> <div id="wrapper"> <header> <h1>tait.tech</h1> <nav> <a href="/" class="nav-link">Home</a> <a href="/blog/" class="nav-link">Blog</a> <a href="/ideas/" class="nav-link">Ideas</a> <a href="/links/" class="nav-link">Links</a> <a href="https://github.com/TTWNO/" class="nav-link" target="_blank" rel="noopener noreferrer">Github</a> </nav> </header> <main> <article> <header> <h1 class="post-title">Padding And Margin</h1> <time datetime="20-01-22" class="post-date">Wednesday, January 22 2020</time> </header> <hr> <p>Many people have expressed confusion over how padding and margins work in HTML/CSS. I have been one of those people. In this short article I will explain what the differences are between the two, and how it may affect the functionality of your site.</p> <p>Here is an image from the World Wide Web Consortium (W3C) who sets the standards for the web.</p> <p><img src="/assets/img/w3c-padding-margin.png" alt="The W3C standard for padding, margin, borders and width. Width encompases the inner element + padding; the border then encompases it. The margin is the space beyond the border and in between other elements." title="W3C border, padding, margin standard."/></p> <p>Now although this image shows all the different types of spacing as equal, the majority of the time these will mostly be padding (inner) and margin (outer). Padding is the inner space between the element and its border; margin is the outer space between two different elements.</p> <p>Within the margin the user is unable to press any links or execute any javascript code. It is <em>empty</em> space. If each <code class="language-plaintext highlighter-rouge">&lt;link&gt;</code> on your navigation bar has 10 pixels of margin, then there would be 20 pixels in between each <code class="language-plaintext highlighter-rouge">&lt;link&gt;</code> that would <em>not</em> be clickable by the user.</p> <p>If you have <code class="language-plaintext highlighter-rouge">&lt;link&gt;</code>s on your navigation bar with <em>padding</em> set to 20 pixels, however, then there will be 20 pixels on each side of the <code class="language-plaintext highlighter-rouge">&lt;link&gt;</code> text where the user <em>is</em> able to click.</p> <p>If that part is confusing, try thinking about it in terms of whether <code class="language-plaintext highlighter-rouge">background-color</code> would apply.</p> <table> <thead> <tr> <th>Attribute</th> <th><strong>Padding</strong></th> <th><strong>Margin</strong></th> </tr> </thead> <tbody> <tr> <td>Spacing</td> <td>within element</td> <td>between elements</td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">background-color</code> applies</td> <td>Yes</td> <td>No</td> </tr> </tbody> </table> <p>In summary:</p> <ul> <li><strong>Padding</strong>: the space within a tag which is still part of the same tag. <code class="language-plaintext highlighter-rouge">background-color</code> applies.</li> <li><strong>Margin</strong>: the space in between two seperate tags. <code class="language-plaintext highlighter-rouge">background-color</code> does not apply; it is empty space.</li> <li><strong>Border</strong>: the space in between the two; it surrounds the padding, but is not the margin. It looks nice somtimes, but it has no non-visual function. <code class="language-plaintext highlighter-rouge">background-color</code> does not apply.</li> </ul> <p>I hope this covers the basics of margin and padding! Happy coding!</p> </article> </main> <hr> <footer> This page is mirrored on <a href="https://beta.tait.tech/2020/01/22/padding-and-margin/">beta.tait.tech</a>. </footer> </div> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Padding And Margin | tait.tech</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tait Hoyem">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+	<h1>tait.tech</h1>
+
+        <nav>
+	
+	<a href="/" class="nav-link"  >Home</a>
+	
+	<a href="/blog/" class="nav-link"  >Blog</a>
+	
+	<a href="/ideas/" class="nav-link"  >Ideas</a>
+	
+	<a href="/links/" class="nav-link"  >Links</a>
+	
+	<a href="https://github.com/TTWNO/" class="nav-link"   target="_blank" rel="noopener noreferrer" >Github</a>
+	
+</nav>
+
+      </header>
+      <main>
+        <article>
+  <header>
+    <h1 class="post-title">Padding And Margin</h1>
+    <time datetime="20-01-22" class="post-date">Wednesday, January 22 2020</time>
+  </header>
+  <hr>
+
+  <p>Many people have expressed confusion over how padding and margins work in HTML/CSS. I have been one of those people. In this short article I will explain what the differences are between the two, and how it may affect the functionality of your site.</p>
+
+<p>Here is an image from the World Wide Web Consortium (W3C) who sets the standards for the web.</p>
+
+<p><img src="/assets/img/w3c-padding-margin.png" alt="The W3C standard for padding, margin, borders and width. Width encompases the inner element + padding; the border then encompases it. The margin is the space beyond the border and in between other elements." title="W3C border, padding, margin standard." /></p>
+
+<p>Now although this image shows all the different types of spacing as equal, the majority of the time these will mostly be padding (inner) and margin (outer). Padding is the inner space between the element and its border; margin is the outer space between two different elements.</p>
+
+<p>Within the margin the user is unable to press any links or execute any javascript code. It is <em>empty</em> space. If each <code class="language-plaintext highlighter-rouge">&lt;link&gt;</code> on your navigation bar has 10 pixels of margin, then there would be 20 pixels in between each <code class="language-plaintext highlighter-rouge">&lt;link&gt;</code> that would <em>not</em> be clickable by the user.</p>
+
+<p>If you have <code class="language-plaintext highlighter-rouge">&lt;link&gt;</code>s on your navigation bar with <em>padding</em> set to 20 pixels, however, then there will be 20 pixels on each side of the <code class="language-plaintext highlighter-rouge">&lt;link&gt;</code> text where the user <em>is</em> able to click.</p>
+
+<p>If that part is confusing, try thinking about it in terms of whether <code class="language-plaintext highlighter-rouge">background-color</code> would apply.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th><strong>Padding</strong></th>
+      <th><strong>Margin</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Spacing</td>
+      <td>within element</td>
+      <td>between elements</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">background-color</code> applies</td>
+      <td>Yes</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In summary:</p>
+<ul>
+  <li><strong>Padding</strong>: the space within a tag which is still part of the same tag. <code class="language-plaintext highlighter-rouge">background-color</code> applies.</li>
+  <li><strong>Margin</strong>: the space in between two seperate tags. <code class="language-plaintext highlighter-rouge">background-color</code> does not apply; it is empty space.</li>
+  <li><strong>Border</strong>: the space in between the two; it surrounds the padding, but is not the margin. It looks nice somtimes, but it has no non-visual function. <code class="language-plaintext highlighter-rouge">background-color</code> does not apply.</li>
+</ul>
+
+<p>I hope this covers the basics of margin and padding! Happy coding!</p>
+
+
+</article>
+
+      </main>
+      <hr>
+      <footer>
+        This page is mirrored on <a href="https://beta.tait.tech/2020/01/22/padding-and-margin/">beta.tait.tech</a>.
+
+      </footer>
+    </div>
+  </body>
+</html>

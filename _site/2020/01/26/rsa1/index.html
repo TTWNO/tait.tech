@@ -1,1 +1,102 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>Is Encryption Worth It? | tait.tech</title> <link rel="stylesheet" href="/assets/css/style.css"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="author" content="Tait Hoyem"> <meta name="keywords" content=""> <meta name="description" content=""> </head> <body> <div id="wrapper"> <header> <h1>tait.tech</h1> <nav> <a href="/" class="nav-link">Home</a> <a href="/blog/" class="nav-link">Blog</a> <a href="/ideas/" class="nav-link">Ideas</a> <a href="/links/" class="nav-link">Links</a> <a href="https://github.com/TTWNO/" class="nav-link" target="_blank" rel="noopener noreferrer">Github</a> </nav> </header> <main> <article> <header> <h1 class="post-title">Is Encryption Worth It?</h1> <time datetime="20-01-26" class="post-date">Sunday, January 26 2020</time> </header> <hr> <p>What is the most embarassing thing you have typed into Google search? What is the most personal secret you told a friend in confidence? What is your bank password? What is your business’s secret to stay ahead of the competition?</p> <p>Now at first these questions may seem not completely related. There is a point though: You likely sent all of this information over the internet.</p> <p>When you send that messege to your friend or business partner, why is it that any person can’t just listen to the signals coming from your phone or laptop and know what you sent to your friend or colleague? The answer: encryption.</p> <p>First, some background about internet privacy. You can’t have a conversation about internet encryption and privacy without discussing the man himself:</p> <h3 id="snowden">Snowden</h3> <p><a href="https://en.wikipedia.org/wiki/Edward_Snowden" target="_blank">Edward Joseph Snowden</a> is an ex-NSA, ex-CIA employee who felt the <a href="https://en.wikipedia.org/wiki/Fourth_Amendment_to_the_United_States_Constitution" target="_blank">United State’s 4th Ammendment</a> was being violated by their programs of msas survailence. Snowden was raised a staunch establishmentarian conservative; his girlfriend Lisndey however, slowly started changing his mind. Snowden became very influenced by the ideology of <a href="https://en.wikipedia.org/wiki/Populism" target="_blank">populism</a>. His populist thinking is shown very clearly when he explains his reasoning for his disclosure of humongous troves of NSA documents.</p> <blockquote> <p>“My sole motive is to inform the public as to that which is done in their name and that which is done against them.” —<a href="https://www.theguardian.com/world/video/2013/jun/09/nsa-whistleblower-edward-snowden-interview-video" target="_blank">Edward Snowden</a></p> </blockquote> <p>Snowden’s first set of leaks went public in <a href="https://www.theguardian.com/world/2013/sep/05/nsa-gchq-encryption-codes-security" target="_blank">The Gaurdian</a>, <a href="https://www.nytimes.com/2013/06/10/us/former-cia-worker-says-he-leaked-surveillance-data.html" target="_blank">The New York Times</a>, and <a href="https://www.propublica.org/article/the-nsas-secret-campaign-to-crack-undermine-internet-encryption" target="_blank">ProPublica</a> in late 2013; people started to realize that their governments and internet service providers (ISPs) <strong>are</strong> listening. People understood there might be more sinister motives than “national security” at play.</p> <p>Personally, I have seen a lot of non-tech-savy individuals using security-conscious software when I am helping them fix a problem. In fact, there was one time I saw a collage student from rural Alberta who had a VPN running on her phone. This impressed me!</p> <h3 id="encryption-on-the-web">Encryption on The Web</h3> <p>The type of encryption used on the web is called: HyperText Transfer Protocol–Secure (HTTPS). This kind of encryption stops two things from happening: A) it stops the information you are sending and recieving online from being seen by easvesdroppers and criminals, and B) stops those same third-parties from tampering with the data.</p> <p>Without HTTPS it is possible for sombody to listen in and change the data being sent between you and a server.</p> <p>Only in recent years has HTTPS become near-universal across the web. It is used even on the simplest sites these days: this one included. After 2013, people became weary of government, criminal, and ISP interference with their web traffic. This can be backed up by statistics: The level of encrypted web traffic around the time of the Snowden leaks was around 30 percent. It was mostly used by banks, email providers, government, and journalists. At the turn of the 2020s however, this has risen to nearly 90 percent among U.S. users of Firefox. Japan lags slightly behind with 80 percent encrypted traffic.</p> <figure> <img src="/assets/img/encrypted-web-traffic.png" alt="Use of encrypted web traffic incresing over time."/> <figcaption> More at: <a href="https://letsencrypt.org/stats/" target="_blank">Let's Encrypt</a> </figcaption> </figure> <p>This is just the data we know of. You can disable the <a href="https://en.wikipedia.org/wiki/Telemetry#Software" target="_blank">telemetry</a> settings in Firefox, and it is very likely that hardcore privacy advocates would disable this data collection, so perhaps the amount of encrypted web traffic is slightly higher.</p> <h3 id="what-about-rsa">What about RSA?</h3> <p>RSA is an encryption method named after the initials of the inventors’ sir names: Ron <strong>R</strong>ivest, Adi <strong>S</strong>hamir, and Leonard <strong>A</strong>dleman. It uses the mathematical “factoring problem” to secure communication. The details of this specific type of encryption will be discussed in an article soon to come.</p> </article> </main> <hr> <footer> This page is mirrored on <a href="https://beta.tait.tech/2020/01/26/rsa1/">beta.tait.tech</a>. </footer> </div> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Is Encryption Worth It? | tait.tech</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tait Hoyem">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+	<h1>tait.tech</h1>
+
+        <nav>
+	
+	<a href="/" class="nav-link"  >Home</a>
+	
+	<a href="/blog/" class="nav-link"  >Blog</a>
+	
+	<a href="/ideas/" class="nav-link"  >Ideas</a>
+	
+	<a href="/links/" class="nav-link"  >Links</a>
+	
+	<a href="https://github.com/TTWNO/" class="nav-link"   target="_blank" rel="noopener noreferrer" >Github</a>
+	
+</nav>
+
+      </header>
+      <main>
+        <article>
+  <header>
+    <h1 class="post-title">Is Encryption Worth It?</h1>
+    <time datetime="20-01-26" class="post-date">Sunday, January 26 2020</time>
+  </header>
+  <hr>
+
+  <p>What is the most embarassing thing you have typed into Google search? What is the most personal secret you told a friend in confidence? What is your bank password? What is your business’s secret to stay ahead of the competition?</p>
+
+<p>Now at first these questions may seem not completely related. There is a point though: You likely sent all of this information over the internet.</p>
+
+<p>When you send that messege to your friend or business partner, why is it that any person can’t just listen to the signals coming from your phone or laptop and know what you sent to your friend or colleague? The answer: encryption.</p>
+
+<p>First, some background about internet privacy. You can’t have a conversation about internet encryption and privacy without discussing the man himself:</p>
+
+<h3 id="snowden">Snowden</h3>
+
+<p><a href="https://en.wikipedia.org/wiki/Edward_Snowden" target="_blank">Edward Joseph Snowden</a> is an ex-NSA, ex-CIA employee who felt the <a href="https://en.wikipedia.org/wiki/Fourth_Amendment_to_the_United_States_Constitution" target="_blank">United State’s 4th Ammendment</a> was being violated by their programs of msas survailence.
+Snowden was raised a staunch establishmentarian conservative; his girlfriend Lisndey however, slowly started changing his mind. Snowden became very influenced by the ideology of <a href="https://en.wikipedia.org/wiki/Populism" target="_blank">populism</a>.
+His populist thinking is shown very clearly when he explains his reasoning for his disclosure of humongous troves of NSA documents.</p>
+
+<blockquote>
+  <p>“My sole motive is to inform the public as to that which is done in their name and that which is done against them.”
+—<a href="https://www.theguardian.com/world/video/2013/jun/09/nsa-whistleblower-edward-snowden-interview-video" target="_blank">Edward Snowden</a></p>
+</blockquote>
+
+<p>Snowden’s first set of leaks went public in <a href="https://www.theguardian.com/world/2013/sep/05/nsa-gchq-encryption-codes-security" target="_blank">The Gaurdian</a>, <a href="https://www.nytimes.com/2013/06/10/us/former-cia-worker-says-he-leaked-surveillance-data.html" target="_blank">The New York Times</a>, and <a href="https://www.propublica.org/article/the-nsas-secret-campaign-to-crack-undermine-internet-encryption" target="_blank">ProPublica</a> in late 2013;
+people started to realize that their governments and internet service providers (ISPs) <strong>are</strong> listening. People understood there might be more sinister motives than “national security” at play.</p>
+
+<p>Personally, I have seen a lot of non-tech-savy individuals using security-conscious software when I am helping them fix a problem.
+In fact, there was one time I saw a collage student from rural Alberta who had a VPN running on her phone. This impressed me!</p>
+
+<h3 id="encryption-on-the-web">Encryption on The Web</h3>
+
+<p>The type of encryption used on the web is called: HyperText Transfer Protocol–Secure (HTTPS).
+This kind of encryption stops two things from happening: A) it stops the information you are sending and recieving online from being seen by easvesdroppers and criminals, and B) stops those same third-parties from tampering with the data.</p>
+
+<p>Without HTTPS it is possible for sombody to listen in and change the data being sent between you and a server.</p>
+
+<p>Only in recent years has HTTPS become near-universal across the web. It is used even on the simplest sites these days: this one included. After 2013, people became weary of government, criminal, and ISP interference with their web traffic.
+This can be backed up by statistics:
+The level of encrypted web traffic around the time of the Snowden leaks was around 30 percent. It was mostly used by banks, email providers, government, and journalists.
+At the turn of the 2020s however, this has risen to nearly 90 percent among U.S. users of Firefox.
+Japan lags slightly behind with 80 percent encrypted traffic.</p>
+
+<figure>
+  <img src="/assets/img/encrypted-web-traffic.png" alt="Use of encrypted web traffic incresing over time." />
+  <figcaption>
+    More at: <a href="https://letsencrypt.org/stats/" target="_blank">Let's Encrypt</a>
+  </figcaption>
+</figure>
+
+<p>This is just the data we know of. You can disable the <a href="https://en.wikipedia.org/wiki/Telemetry#Software" target="_blank">telemetry</a> settings in Firefox, and it is very likely that hardcore privacy advocates would disable this data collection, so perhaps the amount of encrypted web traffic is slightly higher.</p>
+
+<h3 id="what-about-rsa">What about RSA?</h3>
+
+<p>RSA is an encryption method named after the initials of the inventors’ sir names: Ron <strong>R</strong>ivest, Adi <strong>S</strong>hamir, and Leonard <strong>A</strong>dleman. It uses the mathematical “factoring problem” to secure communication. The details of this specific type of encryption will be discussed in an article soon to come.</p>
+
+
+</article>
+
+      </main>
+      <hr>
+      <footer>
+        This page is mirrored on <a href="https://beta.tait.tech/2020/01/26/rsa1/">beta.tait.tech</a>.
+
+      </footer>
+    </div>
+  </body>
+</html>
