@@ -1,0 +1,23 @@
+- section: "Languages"
+  skilllist:
+    - skill: "English (native)"
+    - skill: "Mandarin (novice)"
+- section: "Programming Languages"
+  skilllist:
+    - skill: "C/C++"
+    - skill: "Python"
+    - skill: "Java & Java EE"
+    - skill: "HTML/CSS/JS (Frontend Web)"
+    - skill: "Typescript, SCSS, Static Site Generation (Compiled Web)"
+    - skill: "PHP"
+    - skill: "POSIX Shell"
+- section: "Frameworks/Environments"
+  skilllist:
+    - skill: "Flask"
+    - skill: "Django"
+    - skill: "JQuery"
+- section: "Miscellaneous"
+  skilllist:
+    - skill: "3D Printing"
+    - skill: "Proxmox Virtualization"
+    - skill: "Embedded Systems (RPi, ESP-compatible)"

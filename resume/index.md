@@ -1,43 +1,49 @@
----
+--- 
 layout: simple
 title: "Resume"
----
-# Tait Hoyem
+--- 
+<h1 class="center">Tait Hoyem</h1>
 
-
-### Experience
+## Experience
+<ul class="clear-list">
 {% for job in site.data.experience %}
-  **{{ job.company }}**---*{{ job.position }}* ({{ job.years }})
+  <li>
+  <strong>{{ job.company }}</strong> &mdash; <em>{{ job.position }}</em> ({{ job.years }})
   
-  {{ job.description }}
+  <p>{{ job.description }}</p>
+  </li>
 {% endfor %}
+</ul>
 
-### Education
+## Education
+<ul class="clear-list">
 {% for education in site.data.education %}
-  **{{ education.institution }}**---{{ education.level }} / *{{ education.name }}* ({{ education.years }})
+<li>
+  <strong>{{ education.institution }}</strong> &mdash; {{ education.level }} / <em>{{ education.name }}</em> ({{ education.years }})
 
-  {{ education.description }}
+  {{ education.description | markdownify }}
+</li>
 {% endfor %}
+</ul>
 
-### Professional Development
-{% for education in site.data.proffedu %}
-  **{{ education.institution }}**---{{ education.level }} / *{{ education.name }}* ({{ education.years }})
-
-  {{ education.description }}
-{% endfor %}
-
-### Projects
+## Projects
+<ul class="clear-list">
 {% for project in site.data.projects %}
-  **[{{ project.name }}]({{ project.link }})**
+<li>
+  <strong><a href="{{ project.link }}">{{ project.name }}</a></strong>
 
-  *{{ project.description }}*
+  <p>{{ project.description }}</p>
+</li>
 {% endfor %}
-### Languages
-##### Human
-{% for lang in site.data.languages %}
-  * {{ lang.name }} ({{ lang.level }})
+</ul>
+
+## Skills
+{% for list in site.data.skills %}
+  <h3>{{ list.section }}</h3>
+<ul>
+  {% for skill in list.skilllist %}
+    <li>{{ skill.skill }}</li>
+  {% endfor %}
+</ul>
 {% endfor %}
-##### Computer
-{% for lang in site.data.comp-langs %}
-  * {{ lang.name }}
-{% endfor %}
+
