@@ -150,4 +150,7 @@
 <url>
 <loc>http://localhost:4000/links/</loc>
 </url>
+<url>
+<loc>http://localhost:4000/emacspeak-tutorials/printing/</loc>
+</url>
 </urlset>
