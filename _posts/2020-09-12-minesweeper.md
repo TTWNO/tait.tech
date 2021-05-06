@@ -2,6 +2,7 @@
 title: "Minesweeper Bomb Generation And Tile Revealing"
 layout: post
 math: true
+code: true
 ---
 
 When I was creating a little Minesweeper game, I got confused at some points.
