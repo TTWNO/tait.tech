@@ -5,6 +5,7 @@ plugins:
 highlihger: rouge
 
 permalink: /:categories/:year/:month/:day/:title/
+
 collections:
   emacspeak_tutorials:
     output: true

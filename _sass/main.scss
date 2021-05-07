@@ -12,6 +12,12 @@ $line-height: 1.5em;
 $term-line-height: 1em;
 $file-line-height: 1.2em;
 
+$terminal-bg: #121212;
+$terminal-fg: #00FF41;
+
+$file-bg: #dfdfdf;
+$file-fg: #000000;
+
 body {
   background-color: #fefefe;
   padding: 16px;
@@ -21,6 +27,7 @@ body {
   line-height: $line-height;
   overflow-wrap: break-word;
 }
+
 #wrapper {
   max-width: 800px;
   margin: auto;
@@ -34,42 +41,53 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .clear-list li {
   margin: 0;
   padding: 0;
 }
+
 .projects a {
   font-weight: bold;
 }
+
 h1, h2, h3, h4, h5, h6 {
   line-height: 1em;
 }
+
 .center {
   text-align: center;
 }
+
 header {
   margin-bottom: 32px;
 }
+
 hr {
   border: none;
   border-bottom: 1px solid #999;
 }
+
 a {
   text-decoration: underline;
   color: $link-color;
 }  
+
 a:visited {
   color: $visited-link-color;
 }
+
 a.nav-link,
 a.post-title-link {
   color: $nav-link-color;
   text-decoration: none;
 }
+
 .post-title {
   line-height: $line-height;
   color: $nav-link-color;
 }
+
 a.citation-link {
   text-decoration: none;
 }
@@ -78,22 +96,20 @@ nav {
   text-align: center;
   padding: $nav-padd 0px;
 }
+
 nav a {
   margin: 1em;
   color: $nav-link-color;
   font-weight: bold;
   font-style: none;
 }
+
 nav a:hover {
   text-decoration: underline; 
 }
 
 li {
   margin: .5em;
-}
-
-p {
-  padding: .1em 0;
 }
 
 table,
@@ -123,6 +139,7 @@ img {
 blockquote {
   font-style: italic;
 }
+
 address { 
   font-style: normal;
 }
@@ -130,13 +147,6 @@ address {
 @media screen and (max-width: 600px){
   body {
     width: 90%;
-  }
-  #info {
-    margin: 0 7px;
-  }
-  .menu-content {
-    max-height: 0;
-    overflow: hidden;
   }
   nav {
     text-align: left;
@@ -158,11 +168,6 @@ address {
   font-weight: bold;
 }
 
-sup {
-  margin: 0;
-  padding: 0;
-}
-
 figcaption {
   margin-top: 10px;
   font-style: italic;
@@ -173,22 +178,22 @@ footer {
   margin-bottom: 100px;
 }
 
+.terminal,
+.file {
+  padding: 10px;
+  overflow: scroll;
+}
+
 .terminal {
   line-height: $term-line-height;
-  overflow: scroll;
-  padding: 10px; 
-  color: #00FF41;
-  margin: 0px;
-  background-color: #151515;
+  color: $terminal-fg;
+  background-color: $terminal-bg;
 }
 
 .file {
-  overflow: scroll;
-  padding: 10px;
-  margin: 0px;
   line-height: $file-line-height;
-  background-color: #dfdfdf;
-  color: #000;
+  background-color: $file-bg;
+  color: $file-fg;
 }
 
 .small-image {
@@ -196,14 +201,15 @@ footer {
 }
 
 .post-date {
-  font-size: 18px;
   text-transform: uppercase;
   font-weight: bold;
   color: #555;
 }
 
 .post-excerpt {
-  margin: 16px;
-  margin-bottom: 0;
+  margin-left: 24px;
 }
 
+.post-header {
+  margin-bottom: 12px;
+}
