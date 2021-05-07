@@ -36,8 +36,6 @@ nav a:hover { text-decoration: underline; }
 
 li { margin: .5em; }
 
-p { padding: .1em 0; }
-
 table, table tr, table td, table th { border: 1px solid #aaa; border-collapse: collapse; padding: 5px; font-weight: normal; }
 
 table th { font-weight: bold; }
@@ -50,26 +48,28 @@ blockquote { font-style: italic; }
 
 address { font-style: normal; }
 
-@media screen and (max-width: 600px) { body { width: 90%; } #info { margin: 0 7px; } .menu-content { max-height: 0; overflow: hidden; } nav { text-align: left; width: 100%; } nav a { display: block; text-align: left; padding-left: 0; margin-left: 0; } }
+@media screen and (max-width: 600px) { body { width: 90%; } nav { text-align: left; width: 100%; } nav a { display: block; text-align: left; padding-left: 0; margin-left: 0; } }
 
 .mono { font-family: monospace; }
 
 .bold { font-weight: bold; }
 
-sup { margin: 0; padding: 0; }
-
 figcaption { margin-top: 10px; font-style: italic; }
 
 footer { padding-top: 16px; margin-bottom: 100px; }
 
-.terminal { line-height: 1em; overflow: scroll; padding: 10px; color: #00FF41; margin: 0px; background-color: #151515; }
+.terminal, .file { padding: 10px; overflow: scroll; }
 
-.file { overflow: scroll; padding: 10px; margin: 0px; line-height: 1.2em; background-color: #dfdfdf; color: #000; }
+.terminal { line-height: 1em; color: #00FF41; background-color: #121212; }
+
+.file { line-height: 1.2em; background-color: #dfdfdf; color: #000000; }
 
 .small-image { width: 100%; }
 
-.post-date { font-size: 18px; text-transform: uppercase; font-weight: bold; color: #555; }
+.post-date { text-transform: uppercase; font-weight: bold; color: #555; }
 
-.post-excerpt { margin: 16px; margin-bottom: 0; }
+.post-excerpt { margin-left: 24px; }
+
+.post-header { margin-bottom: 12px; }
 
 /*# sourceMappingURL=style.css.map */
