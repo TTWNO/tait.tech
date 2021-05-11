@@ -10,8 +10,18 @@ Some server motherboards include serial UART/I<sup>2</sup>C ports which can be u
 If this is possible, would it be able to attach to a braille display via an intermediary like a Rockchip/Pi SBC or Arduino compatible chip using [BRLTTY](https://brltty.app) and serial input from the motherboard?
 Maybe not as it [appears to require](https://tldp.org/HOWTO/Remote-Serial-Console-HOWTO/rhl-biosserial.html) a full Unicode terminal, which I have the suspicion that BRLTTY will not be able to automatically filter out the formatting characters.
 
-Just an idea.
+I found one paper referencing the (in)accessibility of BIOS, specifically UEFI BIOS from Brazil.
+I have downloaded the paper and uploaded it here for reference.
+[PDF of "UEFI BIOS Accessibility for the Visually Impaired"](/assets/pdf/bios-accessibility.pdf).
 
+After emailing the authors of the paper, I found out that one of them, Rafael Machado, was able to get a song playing in UEFI as a part of his masters.
+Here is a link to the Github [Msc UEFI PreOS Accessibility](https://github.com/RafaelRMachado/Msc_UefiHda_PreOs_Accessibility);
+he has links to YouTube videos where he is shown playing a song on an ASUS laptop with PCIe connected speakers: [Song Playing in UEFI](https://www.youtube.com/watch?v=2De9dI9WbwM)
+
+I have downloaded and played around with his Github project but to no avail.
+Either I am not setting it up correctly, or I do not have the proper sound setup, but in any case no sound plays from either my laptop or desktop.
+
+This requires more research and investment to understand UEFI, HDA audio, what systems have it and how to work with words and other sounds.
 
 ## 2. Terminal-oriented browser
 
