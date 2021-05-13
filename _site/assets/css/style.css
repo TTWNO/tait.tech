@@ -14,7 +14,7 @@ h1, h2, h3, h4, h5, h6 { line-height: 1em; }
 
 .center { text-align: center; }
 
-header { margin-bottom: 24px; }
+header { margin-bottom: 18px; }
 
 hr { border: none; border-bottom: 1px solid #999; }
 
@@ -24,7 +24,7 @@ a:visited { color: #941452; }
 
 a.nav-link, a.post-title-link { color: #333; text-decoration: none; }
 
-.post-title { line-height: 1.5em; color: #333; }
+.post-title { line-height: 1.5em; color: #333; margin-bottom: 8px; }
 
 a.citation-link { text-decoration: none; }
 
@@ -70,6 +70,6 @@ footer { padding-top: 16px; margin-bottom: 100px; }
 
 .post-excerpt { margin-left: 24px; }
 
-.post-header { margin-bottom: 12px; }
+.post-header { margin-bottom: 8px; }
 
 /*# sourceMappingURL=style.css.map */
