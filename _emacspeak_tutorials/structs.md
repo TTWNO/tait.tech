@@ -11,4 +11,4 @@ They often have many individual attributes that combine to make that thing.
 For example, a student may have a first name, last name, student ID, GPA, list of classes, etc.
 In this tutorial I use a very trimmed down version of what a structure generally contains to make the point without overwhelming you.
 
-Hopefully it helps. Let me know about any improvments.
+Hopefully it helps. Let me know about any improvements.
