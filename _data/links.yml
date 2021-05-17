@@ -3,9 +3,6 @@
   - name: Main Site
     value: https://tait.tech/
     label: tait.tech
-  - name: Backup/Mirror Site
-    value: https://beta.tait.tech/
-    label: beta.tait.tech
   - name: Email
     value: mailto:tait@tait.tech
     label: tait@tait.tech
@@ -15,6 +12,9 @@
   - name: Github
     label: github.com/TTWNO
     value: https://github.com/TTWNO
+  - name: Backup/Mirror Site
+    value: https://beta.tait.tech/
+    label: beta.tait.tech
 - heading: Secure Service Links
   values:
     - name: Signal
