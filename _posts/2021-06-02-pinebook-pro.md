@@ -4,7 +4,7 @@ layout: post
 ---
 
 I recently got my Pinebook Pro.
-It was more expensive than I was expecting, coming in at (including shipping and handling) at C$335.
+It was more expensive than I was expecting, coming in at (including shipping and handling) C$335.
 I always forget the exchange rate and assume it's similar to the U.S. dollar, but it never is, haha!
 Anyway, this is just my first impressions and what I did to fix a few issues.
 

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-06-02T19:36:57-06:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Pinebook Pro, The Ultimate ARM Laptop</title><link href="http://localhost:4000/2021/06/02/pinebook-pro/" rel="alternate" type="text/html" title="Pinebook Pro, The Ultimate ARM Laptop" /><published>2021-06-02T00:00:00-06:00</published><updated>2021-06-02T00:00:00-06:00</updated><id>http://localhost:4000/2021/06/02/pinebook-pro</id><content type="html" xml:base="http://localhost:4000/2021/06/02/pinebook-pro/">&lt;p&gt;I recently got my Pinebook Pro.
-It was more expensive than I was expecting, coming in at (including shipping and handling) at C$335.
-I alwasy forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha!
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-06-02T23:34:47-06:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Pinebook Pro, The Ultimate ARM Laptop</title><link href="http://localhost:4000/2021/06/02/pinebook-pro/" rel="alternate" type="text/html" title="Pinebook Pro, The Ultimate ARM Laptop" /><published>2021-06-02T00:00:00-06:00</published><updated>2021-06-02T00:00:00-06:00</updated><id>http://localhost:4000/2021/06/02/pinebook-pro</id><content type="html" xml:base="http://localhost:4000/2021/06/02/pinebook-pro/">&lt;p&gt;I recently got my Pinebook Pro.
+It was more expensive than I was expecting, coming in at (including shipping and handling) C$335.
+I always forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha!
 Anyway, this is just my first impressions and what I did to fix a few issues.&lt;/p&gt;
 
 &lt;h2 id=&quot;initial-impressions&quot;&gt;Initial Impressions&lt;/h2&gt;
@@ -12,14 +12,14 @@ The shell is aluminium and doesn’t feel &lt;em&gt;too&lt;/em&gt; cheap, but I 
 All in all build quality seems pretty good for a product in this price range.
 I’m actually using it right now to write this article, and I’m actually typing faster than I would on my desktop.&lt;/p&gt;
 
-&lt;p&gt;The screen is bright enough and has anti-glare applied to it. I can use it with moderate light behind me, but not a sunsen. Decent, and I can’t even use my phone with a sunset right on it, so that’s not a huge loss at all as I think my phone costs more than this haha!&lt;/p&gt;
+&lt;p&gt;The screen is bright enough and has anti-glare applied to it. I can use it with moderate light behind me, but not a sunset. Decent, and I can’t even use my phone with a sunset right on it, so that’s not a huge loss at all as I think my phone costs more than this haha!&lt;/p&gt;
 
 &lt;p&gt;The trackpad is fine.
 I don’t use the mouse very often, and if I need it I’m more likely to bring an external one.
 It works for what I need though.
 I can’t seem to get the glossy protector off the trackpad though so maybe it would be better if I did haha!&lt;/p&gt;
 
-&lt;p&gt;The temperatures are ok. I would consider them not ideal.
+&lt;p&gt;The temperatures are okay. I would consider them not ideal.
 The left side closer to the hinge can get quite warm when I push it.
 To be expected in some respects, but the metal case certainly makes the heat come out fast and hot!
 It is also passively cooled, so a bit of heat makes sense and is reasonable.
@@ -64,7 +64,7 @@ I’ve used this on my Raspberry Pi 4, and it is by far my preference among othe
 If you have issues with this, check if any partition is mounted, unmount it, then try again. 
 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fdisk&lt;/code&gt; is well documented elsewhere, so I won’t cover it here.&lt;/p&gt;
 
-&lt;p&gt;Once your .xx file is downloaded, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;unxz&lt;/code&gt; the .unxz file downloaded.&lt;/p&gt;
+&lt;p&gt;Once your .xz file is downloaded, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;unxz&lt;/code&gt; the .xz file downloaded.&lt;/p&gt;
 
 &lt;pre class=&quot;terminal&quot;&gt;
 $ cd ~/Downloads
@@ -124,9 +124,10 @@ Or you can get a display that supports USB type-C.
 I do not have a display that supports USB type-C, so it might be worth it for me to buy an adapter or find a compatible one more locally.
 Shipping from Hong Kong ain’t cheap.&lt;/p&gt;
 
-&lt;h3 id=&quot;replace-the-boot-splash-logo&quot;&gt;Replace the boot splash logo&lt;/h3&gt;
+&lt;h3 id=&quot;replace-the-boot-logo&quot;&gt;Replace the boot logo&lt;/h3&gt;
 
-&lt;p&gt;I wanted to display &lt;a href=&quot;https://bytetools.ca&quot;&gt;my company&lt;/a&gt;’s logo as the splash logo on boot.&lt;/p&gt;
+&lt;p&gt;The boot splash screen can be replaced, but I haven’t figured out how yet.
+I will post an update to the blog when I do find out.&lt;/p&gt;
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
@@ -136,7 +137,7 @@ They do fail in some respects, but they do much better than the mainline distrib
 
 &lt;p&gt;Thanks, Pine64! I’m excited to use your products!&lt;/p&gt;
 
-&lt;p&gt;Happy ARM hacking :)&lt;/p&gt;</content><author><name></name></author><summary type="html">I recently got my Pinebook Pro. It was more expensive than I was expecting, coming in at (including shipping and handling) at C$335. I alwasy forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha! Anyway, this is just my first impressions and what I did to fix a few issues.</summary></entry><entry><title type="html">UEFI Development On x86 With EDK2</title><link href="http://localhost:4000/2021/04/18/uefi-development-environment/" rel="alternate" type="text/html" title="UEFI Development On x86 With EDK2" /><published>2021-04-18T00:00:00-06:00</published><updated>2021-04-18T00:00:00-06:00</updated><id>http://localhost:4000/2021/04/18/uefi-development-environment</id><content type="html" xml:base="http://localhost:4000/2021/04/18/uefi-development-environment/">&lt;p&gt;I made this blog so I could remember how to do stuff that had instructions spread around the internet.
+&lt;p&gt;Happy ARM hacking :)&lt;/p&gt;</content><author><name></name></author><summary type="html">I recently got my Pinebook Pro. It was more expensive than I was expecting, coming in at (including shipping and handling) C$335. I always forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha! Anyway, this is just my first impressions and what I did to fix a few issues.</summary></entry><entry><title type="html">UEFI Development On x86 With EDK2</title><link href="http://localhost:4000/2021/04/18/uefi-development-environment/" rel="alternate" type="text/html" title="UEFI Development On x86 With EDK2" /><published>2021-04-18T00:00:00-06:00</published><updated>2021-04-18T00:00:00-06:00</updated><id>http://localhost:4000/2021/04/18/uefi-development-environment</id><content type="html" xml:base="http://localhost:4000/2021/04/18/uefi-development-environment/">&lt;p&gt;I made this blog so I could remember how to do stuff that had instructions spread around the internet.
 So here is how I setup my environment for developing EFI applications.&lt;/p&gt;
 
 &lt;h2 id=&quot;requirements&quot;&gt;Requirements&lt;/h2&gt;
