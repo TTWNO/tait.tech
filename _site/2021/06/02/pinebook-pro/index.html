@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Pinebook Pro, The Ultimate ARM Laptop | tait.tech</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tait Hoyem">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+	<h1>tait.tech</h1>
+
+        <nav>
+	
+	<a href="/" class="nav-link"  >Home</a>
+	
+	<a href="/blog/" class="nav-link"  >Blog</a>
+	
+	<a href="/ideas/" class="nav-link"  >Ideas</a>
+	
+	<a href="/links/" class="nav-link"  >Links</a>
+	
+	<a href="https://github.com/TTWNO/" class="nav-link"   target="_blank" rel="noopener noreferrer" >Github</a>
+	
+</nav>
+
+      </header>
+      <main>
+        <article>
+  <header>
+    <h1 class="post-title">Pinebook Pro, The Ultimate ARM Laptop</h1>
+    <time datetime="21-06-02" class="post-date">Wednesday, June 02 2021</time>
+  </header>
+  <hr>
+
+  <p>I recently got my Pinebook Pro.
+It was more expensive than I was expecting, coming in at (including shipping and handling) at C$335.
+I alwasy forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha!
+Anyway, this is just my first impressions and what I did to fix a few issues.</p>
+
+<h2 id="initial-impressions">Initial Impressions</h2>
+
+<p>My first impressions of this are quite good.
+I like the keyboard; it is firm and not mushy for the price.
+It actually has a similar keyboard to my school-supplied Dell, which I quite enjoyed typing on.
+The shell is aluminium and doesn’t feel <em>too</em> cheap, but I should note that it sure doesn’t feel like a Macbook if that’s what you’re expecting.
+All in all build quality seems pretty good for a product in this price range.
+I’m actually using it right now to write this article, and I’m actually typing faster than I would on my desktop.</p>
+
+<p>The screen is bright enough and has anti-glare applied to it. I can use it with moderate light behind me, but not a sunsen. Decent, and I can’t even use my phone with a sunset right on it, so that’s not a huge loss at all as I think my phone costs more than this haha!</p>
+
+<p>The trackpad is fine.
+I don’t use the mouse very often, and if I need it I’m more likely to bring an external one.
+It works for what I need though.
+I can’t seem to get the glossy protector off the trackpad though so maybe it would be better if I did haha!</p>
+
+<p>The temperatures are ok. I would consider them not ideal.
+The left side closer to the hinge can get quite warm when I push it.
+To be expected in some respects, but the metal case certainly makes the heat come out fast and hot!
+It is also passively cooled, so a bit of heat makes sense and is reasonable.
+I wonder if I could mod this to have an active low-profile fan?
+A project for later, I suppose.</p>
+
+<p>The keyboard is pretty standard for a 14-inch laptop.
+No numpad (except with function key), has F1-12 and media keys using function+F1-12.
+Screen brightness, sound up, down and mute, and num and scroll lock.
+These seem to work no matter what distribution you have (I’ve used Manjaro KDE and Manjaro Sway).
+Perhaps this would react differently on Arch for ARM with no key bindings.
+I’m not sure if this is implemented in software or hardware.</p>
+
+<p>The speakers and very tin-y and do not sound good at all.
+That said, they look very replaceable, so I’ll look into a mod in the future.
+The Pinebook Pro comes with a headphone port, so you could just use that if the sound bothers you.</p>
+
+<h2 id="some-suggestions">Some suggestions</h2>
+
+<p>I had some issues when it first arrived.</p>
+
+<ol>
+  <li>Reboot did not work. The display would glitch out and show horizontal lines. It would only work after a full shutdown.</li>
+  <li>Booting would sometimes not work at all. My SD card would sometimes boot, sometimes not. eMMC would sometimes work and sometimes now. Sometimes I would even get to the login screen, or fully logged in before it decided to freeze/hang. I could “drop to console” (Ctrl+Alt+Fx), but it only made my mouse stop showing, it would not actually display a console. This problem was worse when not plugged in.</li>
+  <li>Performance was not stellar, even for the RK3399.</li>
+  <li>I don’t like the Manjaro logo that displays during boot.</li>
+</ol>
+
+<h3 id="dont-use-kde">Don’t use KDE</h3>
+
+<p>KDE for me is a bit slow.
+It is not a keyboard-driven desktop.
+To give it some credit though, it does at least have zoom support built in; this is something I wish other desktops would have enabled by default.
+I’m looking at your, Xfce.</p>
+
+<p>I switched to Manjaro Sway, which is a Wayland-based i3-like tiling window manager.
+I’ve used this on my Raspberry Pi 4, and it is by far my preference among other default distro configurations.</p>
+
+<p>This can be done by flashing an SD card with any random Linux distro, then download <a href="">Manjaro Sway ARM for the Pinebook Pro</a>.</p>
+
+<p>Quickly, we should prepare the eMMC. Open <code class="language-plaintext highlighter-rouge">fdisk</code> with your eMMC module and remove all partitions.
+If you have issues with this, check if any partition is mounted, unmount it, then try again. 
+<code class="language-plaintext highlighter-rouge">fdisk</code> is well documented elsewhere, so I won’t cover it here.</p>
+
+<p>Once your .xx file is downloaded, <code class="language-plaintext highlighter-rouge">unxz</code> the .unxz file downloaded.</p>
+
+<pre class="terminal">
+$ cd ~/Downloads
+$ unxz Manjaro-Sway-ARM-pbp-20.10.img.xz
+</pre>
+
+<p>Not exactly those commands, but close.</p>
+
+<p>Once you have that, flash your eMMC by using <code class="language-plaintext highlighter-rouge">dd</code>.</p>
+
+<pre class="terminal">
+# dd if=./Manjaro-Sway-ARM-pbp-20.10.img of=/dev/mmcblkX bs=1M conv=fsync
+</pre>
+
+<p>Now remove your SD card.
+U-Boot will prefer your SD card over your eMMC, so if you leave it in, it <em>will</em> boot to your SD card.</p>
+
+<h3 id="flash-your-u-boot-bsp">Flash Your U-Boot (BSP)</h3>
+
+<p>U-Boot appeared to be the solution to my other two issues.
+I was able to flash a new U-Boot program by using the following commands.
+Be sure to run <code class="language-plaintext highlighter-rouge">lsblk</code> beforehand to know which <code class="language-plaintext highlighter-rouge">/dev/emmcblk</code> to write to.
+Replace <code class="language-plaintext highlighter-rouge">X</code> with the correct number for your system.</p>
+
+<pre class="terminal">
+# pacman -S uboot-pinebookpro-bsp
+# dd if=/boot/idbloader.img of=/dev/mmcblkX seek=64 conv=notrunc
+# dd if=/boot/uboot.img of=/dev/mmcblkX seek=16384 conv=Notrunc
+# dd if=/boot/trust.img of=/dev/mmcblkX seek=24576 conv=notrunc
+</pre>
+
+<p>The <code class="language-plaintext highlighter-rouge">dd</code> instructions are printed out after installing the <code class="language-plaintext highlighter-rouge">uboot-pinebookpro-bsp</code> package, so make sure to follow what is printed there if it is different that what I have provided.</p>
+
+<p>After doing this, not only have I since booted 100% of the time,
+but my display now works correctly after a reboot without a full shutdown.</p>
+
+<p>Whew! Looking good!!!</p>
+
+<h3 id="maybe-get-some-of-the-accessories">Maybe get some of the accessories</h3>
+
+<p>I didn’t buy any accessories from Pine64.
+I regret this somewhat.
+For one thing, without an accessory to read the eMMC over USB, you need to have a working Linux distro on the SD card to get anywhere with it.
+Flashing directly to the eMMC would have saved me a <em>lot</em> of time.</p>
+
+<p>The other accessory I could see the occasional use for is the Ethernet adapter.
+When downloading a big update (1GB+), it could be useful to wire in just temporarily.
+Not a huge deal, but worth mentioning.</p>
+
+<p>I would also be interested in the other batteries they have available.
+Even though it comes with a battery, and I also don’t think you can install a second one, I would be interested to see if I could get more life out of it with an improved battery.
+If this is a standard battery (Pine64 tends to use standard parts), then I would consider getting it from a supplier as well.</p>
+
+<p>The Pinebook Pro does not come with any HDMI ports.
+It comes with a USB type-C port that can be adapted to HDMI.
+Or you can get a display that supports USB type-C.
+I do not have a display that supports USB type-C, so it might be worth it for me to buy an adapter or find a compatible one more locally.
+Shipping from Hong Kong ain’t cheap.</p>
+
+<h3 id="replace-the-boot-splash-logo">Replace the boot splash logo</h3>
+
+<p>I wanted to display <a href="https://bytetools.ca">my company</a>’s logo as the splash logo on boot.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>I really want to use the Pinebook Pro more.
+Pine6t4 do a lot for the open-source community and they do their best to use only open hardware.
+They do fail in some respects, but they do much better than the mainline distributors like Dell, HP or ASUS.</p>
+
+<p>Thanks, Pine64! I’m excited to use your products!</p>
+
+<p>Happy ARM hacking :)</p>
+
+</article>
+
+      </main>
+      <hr>
+      <footer>
+        This page is mirrored on <a href="https://beta.tait.tech/2021/06/02/pinebook-pro/">beta.tait.tech</a>.
+
+      </footer>
+    </div>
+  </body>
+</html>

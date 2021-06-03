@@ -1,4 +1,142 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-05-16T20:43:56-06:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">UEFI Development On x86 With EDK2</title><link href="http://localhost:4000/2021/04/18/uefi-development-environment/" rel="alternate" type="text/html" title="UEFI Development On x86 With EDK2" /><published>2021-04-18T00:00:00-06:00</published><updated>2021-04-18T00:00:00-06:00</updated><id>http://localhost:4000/2021/04/18/uefi-development-environment</id><content type="html" xml:base="http://localhost:4000/2021/04/18/uefi-development-environment/">&lt;p&gt;I made this blog so I could remember how to do stuff that had instructions spread around the internet.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-06-02T19:36:57-06:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Pinebook Pro, The Ultimate ARM Laptop</title><link href="http://localhost:4000/2021/06/02/pinebook-pro/" rel="alternate" type="text/html" title="Pinebook Pro, The Ultimate ARM Laptop" /><published>2021-06-02T00:00:00-06:00</published><updated>2021-06-02T00:00:00-06:00</updated><id>http://localhost:4000/2021/06/02/pinebook-pro</id><content type="html" xml:base="http://localhost:4000/2021/06/02/pinebook-pro/">&lt;p&gt;I recently got my Pinebook Pro.
+It was more expensive than I was expecting, coming in at (including shipping and handling) at C$335.
+I alwasy forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha!
+Anyway, this is just my first impressions and what I did to fix a few issues.&lt;/p&gt;
+
+&lt;h2 id=&quot;initial-impressions&quot;&gt;Initial Impressions&lt;/h2&gt;
+
+&lt;p&gt;My first impressions of this are quite good.
+I like the keyboard; it is firm and not mushy for the price.
+It actually has a similar keyboard to my school-supplied Dell, which I quite enjoyed typing on.
+The shell is aluminium and doesn’t feel &lt;em&gt;too&lt;/em&gt; cheap, but I should note that it sure doesn’t feel like a Macbook if that’s what you’re expecting.
+All in all build quality seems pretty good for a product in this price range.
+I’m actually using it right now to write this article, and I’m actually typing faster than I would on my desktop.&lt;/p&gt;
+
+&lt;p&gt;The screen is bright enough and has anti-glare applied to it. I can use it with moderate light behind me, but not a sunsen. Decent, and I can’t even use my phone with a sunset right on it, so that’s not a huge loss at all as I think my phone costs more than this haha!&lt;/p&gt;
+
+&lt;p&gt;The trackpad is fine.
+I don’t use the mouse very often, and if I need it I’m more likely to bring an external one.
+It works for what I need though.
+I can’t seem to get the glossy protector off the trackpad though so maybe it would be better if I did haha!&lt;/p&gt;
+
+&lt;p&gt;The temperatures are ok. I would consider them not ideal.
+The left side closer to the hinge can get quite warm when I push it.
+To be expected in some respects, but the metal case certainly makes the heat come out fast and hot!
+It is also passively cooled, so a bit of heat makes sense and is reasonable.
+I wonder if I could mod this to have an active low-profile fan?
+A project for later, I suppose.&lt;/p&gt;
+
+&lt;p&gt;The keyboard is pretty standard for a 14-inch laptop.
+No numpad (except with function key), has F1-12 and media keys using function+F1-12.
+Screen brightness, sound up, down and mute, and num and scroll lock.
+These seem to work no matter what distribution you have (I’ve used Manjaro KDE and Manjaro Sway).
+Perhaps this would react differently on Arch for ARM with no key bindings.
+I’m not sure if this is implemented in software or hardware.&lt;/p&gt;
+
+&lt;p&gt;The speakers and very tin-y and do not sound good at all.
+That said, they look very replaceable, so I’ll look into a mod in the future.
+The Pinebook Pro comes with a headphone port, so you could just use that if the sound bothers you.&lt;/p&gt;
+
+&lt;h2 id=&quot;some-suggestions&quot;&gt;Some suggestions&lt;/h2&gt;
+
+&lt;p&gt;I had some issues when it first arrived.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Reboot did not work. The display would glitch out and show horizontal lines. It would only work after a full shutdown.&lt;/li&gt;
+  &lt;li&gt;Booting would sometimes not work at all. My SD card would sometimes boot, sometimes not. eMMC would sometimes work and sometimes now. Sometimes I would even get to the login screen, or fully logged in before it decided to freeze/hang. I could “drop to console” (Ctrl+Alt+Fx), but it only made my mouse stop showing, it would not actually display a console. This problem was worse when not plugged in.&lt;/li&gt;
+  &lt;li&gt;Performance was not stellar, even for the RK3399.&lt;/li&gt;
+  &lt;li&gt;I don’t like the Manjaro logo that displays during boot.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;dont-use-kde&quot;&gt;Don’t use KDE&lt;/h3&gt;
+
+&lt;p&gt;KDE for me is a bit slow.
+It is not a keyboard-driven desktop.
+To give it some credit though, it does at least have zoom support built in; this is something I wish other desktops would have enabled by default.
+I’m looking at your, Xfce.&lt;/p&gt;
+
+&lt;p&gt;I switched to Manjaro Sway, which is a Wayland-based i3-like tiling window manager.
+I’ve used this on my Raspberry Pi 4, and it is by far my preference among other default distro configurations.&lt;/p&gt;
+
+&lt;p&gt;This can be done by flashing an SD card with any random Linux distro, then download &lt;a href=&quot;&quot;&gt;Manjaro Sway ARM for the Pinebook Pro&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Quickly, we should prepare the eMMC. Open &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fdisk&lt;/code&gt; with your eMMC module and remove all partitions.
+If you have issues with this, check if any partition is mounted, unmount it, then try again. 
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fdisk&lt;/code&gt; is well documented elsewhere, so I won’t cover it here.&lt;/p&gt;
+
+&lt;p&gt;Once your .xx file is downloaded, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;unxz&lt;/code&gt; the .unxz file downloaded.&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+$ cd ~/Downloads
+$ unxz Manjaro-Sway-ARM-pbp-20.10.img.xz
+&lt;/pre&gt;
+
+&lt;p&gt;Not exactly those commands, but close.&lt;/p&gt;
+
+&lt;p&gt;Once you have that, flash your eMMC by using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dd&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+# dd if=./Manjaro-Sway-ARM-pbp-20.10.img of=/dev/mmcblkX bs=1M conv=fsync
+&lt;/pre&gt;
+
+&lt;p&gt;Now remove your SD card.
+U-Boot will prefer your SD card over your eMMC, so if you leave it in, it &lt;em&gt;will&lt;/em&gt; boot to your SD card.&lt;/p&gt;
+
+&lt;h3 id=&quot;flash-your-u-boot-bsp&quot;&gt;Flash Your U-Boot (BSP)&lt;/h3&gt;
+
+&lt;p&gt;U-Boot appeared to be the solution to my other two issues.
+I was able to flash a new U-Boot program by using the following commands.
+Be sure to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lsblk&lt;/code&gt; beforehand to know which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/emmcblk&lt;/code&gt; to write to.
+Replace &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;X&lt;/code&gt; with the correct number for your system.&lt;/p&gt;
+
+&lt;pre class=&quot;terminal&quot;&gt;
+# pacman -S uboot-pinebookpro-bsp
+# dd if=/boot/idbloader.img of=/dev/mmcblkX seek=64 conv=notrunc
+# dd if=/boot/uboot.img of=/dev/mmcblkX seek=16384 conv=Notrunc
+# dd if=/boot/trust.img of=/dev/mmcblkX seek=24576 conv=notrunc
+&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dd&lt;/code&gt; instructions are printed out after installing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;uboot-pinebookpro-bsp&lt;/code&gt; package, so make sure to follow what is printed there if it is different that what I have provided.&lt;/p&gt;
+
+&lt;p&gt;After doing this, not only have I since booted 100% of the time,
+but my display now works correctly after a reboot without a full shutdown.&lt;/p&gt;
+
+&lt;p&gt;Whew! Looking good!!!&lt;/p&gt;
+
+&lt;h3 id=&quot;maybe-get-some-of-the-accessories&quot;&gt;Maybe get some of the accessories&lt;/h3&gt;
+
+&lt;p&gt;I didn’t buy any accessories from Pine64.
+I regret this somewhat.
+For one thing, without an accessory to read the eMMC over USB, you need to have a working Linux distro on the SD card to get anywhere with it.
+Flashing directly to the eMMC would have saved me a &lt;em&gt;lot&lt;/em&gt; of time.&lt;/p&gt;
+
+&lt;p&gt;The other accessory I could see the occasional use for is the Ethernet adapter.
+When downloading a big update (1GB+), it could be useful to wire in just temporarily.
+Not a huge deal, but worth mentioning.&lt;/p&gt;
+
+&lt;p&gt;I would also be interested in the other batteries they have available.
+Even though it comes with a battery, and I also don’t think you can install a second one, I would be interested to see if I could get more life out of it with an improved battery.
+If this is a standard battery (Pine64 tends to use standard parts), then I would consider getting it from a supplier as well.&lt;/p&gt;
+
+&lt;p&gt;The Pinebook Pro does not come with any HDMI ports.
+It comes with a USB type-C port that can be adapted to HDMI.
+Or you can get a display that supports USB type-C.
+I do not have a display that supports USB type-C, so it might be worth it for me to buy an adapter or find a compatible one more locally.
+Shipping from Hong Kong ain’t cheap.&lt;/p&gt;
+
+&lt;h3 id=&quot;replace-the-boot-splash-logo&quot;&gt;Replace the boot splash logo&lt;/h3&gt;
+
+&lt;p&gt;I wanted to display &lt;a href=&quot;https://bytetools.ca&quot;&gt;my company&lt;/a&gt;’s logo as the splash logo on boot.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I really want to use the Pinebook Pro more.
+Pine6t4 do a lot for the open-source community and they do their best to use only open hardware.
+They do fail in some respects, but they do much better than the mainline distributors like Dell, HP or ASUS.&lt;/p&gt;
+
+&lt;p&gt;Thanks, Pine64! I’m excited to use your products!&lt;/p&gt;
+
+&lt;p&gt;Happy ARM hacking :)&lt;/p&gt;</content><author><name></name></author><summary type="html">I recently got my Pinebook Pro. It was more expensive than I was expecting, coming in at (including shipping and handling) at C$335. I alwasy forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha! Anyway, this is just my first impressions and what I did to fix a few issues.</summary></entry><entry><title type="html">UEFI Development On x86 With EDK2</title><link href="http://localhost:4000/2021/04/18/uefi-development-environment/" rel="alternate" type="text/html" title="UEFI Development On x86 With EDK2" /><published>2021-04-18T00:00:00-06:00</published><updated>2021-04-18T00:00:00-06:00</updated><id>http://localhost:4000/2021/04/18/uefi-development-environment</id><content type="html" xml:base="http://localhost:4000/2021/04/18/uefi-development-environment/">&lt;p&gt;I made this blog so I could remember how to do stuff that had instructions spread around the internet.
 So here is how I setup my environment for developing EFI applications.&lt;/p&gt;
 
 &lt;h2 id=&quot;requirements&quot;&gt;Requirements&lt;/h2&gt;
@@ -733,124 +871,4 @@ Let me know what you think!&lt;/p&gt;
 &lt;p&gt;Right now, I’ve just got a rock-paper-scissors game.
 A chat function, and a few simple card games to come.&lt;/p&gt;
 
-&lt;p&gt;Check out the repository on my &lt;a href=&quot;https://github.com/TTWNO/lamegames.io&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">This is an announcement for a new project of mine: lamegames.tait.tech.</summary></entry><entry><title type="html">How to Solve The Django Deployment Puzzle</title><link href="http://localhost:4000/2020/08/18/django-deployment/" rel="alternate" type="text/html" title="How to Solve The Django Deployment Puzzle" /><published>2020-08-18T00:00:00-06:00</published><updated>2020-08-18T00:00:00-06:00</updated><id>http://localhost:4000/2020/08/18/django-deployment</id><content type="html" xml:base="http://localhost:4000/2020/08/18/django-deployment/">&lt;p&gt;A few days ago I had a Django project I wanted to put on a real server.
-This project is still in its infancy, but I thought it would be nice to put it on my resume and show my friends.
-Little did I know the headache coming my way.
-Here are some tips to help you not make the same mistakes as me.&lt;/p&gt;
-
-&lt;h3 id=&quot;asgi-servers&quot;&gt;ASGI Servers&lt;/h3&gt;
-
-&lt;p&gt;Because my project used the ASGI (Asynchronous webServer Gateway Interface),
-I needed to find a good production ASGI server to handle all the incoming requests.
-The best thing I found was &lt;a href=&quot;http://www.uvicorn.org/&quot;&gt;uvicorn&lt;/a&gt;.
-It focuses on speed, which is a priority, especially when using the ASGI protocol.&lt;/p&gt;
-
-&lt;p&gt;To run uvicorn on the command line for testing purposes, use something like the following:&lt;/p&gt;
-
-&lt;pre class=&quot;terminal&quot;&gt;
-$ uvicorn --reload myapp.asgi:application
-&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--reload&lt;/code&gt; option says to reload the server if any of the files get updated.
-This is not recommended in production.
-Sadly, I thought this meant I would need to do a hard shutdown of the server process every time I wanted to update.
-This turned out to not be the case.&lt;/p&gt;
-
-&lt;h3 id=&quot;workload-managers&quot;&gt;Workload Managers&lt;/h3&gt;
-
-&lt;p&gt;There is another equine-named program called &lt;a href=&quot;https://gunicorn.org/&quot;&gt;gunicorn&lt;/a&gt;
-which can hold a number of processes under its control.
-An interesting feature of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; is that it will gracefully switch from an old to a new deployment,
-replacing the subprocesses one-by-one and eventually having only the new deployment active on all subprocesses.
-The greatest part? Zero down time.
-The server keeps any old processes open if there is communication with them,
-then shift and new connections to the new deployment.
-This was a very cool feature I wanted to take advantage of.&lt;/p&gt;
-
-&lt;p&gt;“Now hold on!” you might protest.
-“gunicorn is a WSGI server!” … oh you got me there!
-Yes, that’s right, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; is paired with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;uvicorn&lt;/code&gt; to serve my files.&lt;/p&gt;
-
-&lt;h3 id=&quot;systemd&quot;&gt;systemd&lt;/h3&gt;
-
-&lt;p&gt;Love it or hate it, the majority of Linux distributions use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;systemd&lt;/code&gt; init system.
-I decided it would be very convenient to have a .service file for my Django application to run automatically at boot.
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Systemd&lt;/code&gt; allows me to do this with a file like the following one I stored in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/lib/systemd/system/lamegames.service&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre class=&quot;file&quot;&gt;
-[Unit]
-Description=Gunicorn/Uvicorn (lamegames.io)
-
-[Service]
-WorkingDirectory=/home/lame/lamegames.io
-Type=simple
-RemainAfterExit=yes
-ExecStart=/home/lame/lamegames.io/env/bin/gunicorn lamegames.asgi:application -w 2 -k uvicorn.workers.UvicornWorker
-ExecStop=/bin/kill -HUP $MAINPID
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-&lt;/pre&gt;
-
-&lt;h3 id=&quot;nginx&quot;&gt;nginx&lt;/h3&gt;
-
-&lt;p&gt;NGINX (pronounced engine-X) is a performance web server designed for speed and simplicity.
-For the front facing side of the site, I do need a production web server like nginx.
-Gunicorn simply doesn’t need all the features that nginx provides, but I do.
-To configure my nginx installation, I used the following few directives to:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Redirect most traffic towards the gunicorn server.&lt;/li&gt;
-  &lt;li&gt;Redirect statically served files (CSS, JS, images) to the directory specified in the STATIC_ROOT variable of my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;settings.py&lt;/code&gt; file.&lt;/li&gt;
-  &lt;li&gt;Use TLS to enable https://&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Serving the static files from nginx as opposed to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; server is necessary.
-Gunicorn and other production A/WSGI web server will not set the proper MIME type over TLS.
-This will cause your browser to not load the Javascript/CSS.&lt;/p&gt;
-
-&lt;p&gt;This is the important part of my nginx config.&lt;/p&gt;
-
-&lt;pre class=&quot;file&quot;&gt;
-server {
-    location / {
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        # these two lines ensure that WebSocket, and HTTP2 connection are forwarded correctly
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection &quot;Upgrade&quot;;
-        proxy_redirect off;
-        proxy_buffering off;
-        # this forwards all traffic to the local server on port 8000
-        proxy_pass http://localhost:8000;
-    }
-
-    # This forwards all static requests to Django's STATIC_ROOT set in settings.py; it is generated using the collectstatic command.
-    location /static {
-        autoindex on;
-        alias /home/lame/lamegames.io/static_generated;
-    }
-}
-&lt;/pre&gt;
-
-&lt;h3 id=&quot;setup&quot;&gt;Setup&lt;/h3&gt;
-
-&lt;p&gt;After all that, I was able to do the following:&lt;/p&gt;
-
-&lt;pre class=&quot;terminal&quot;&gt;
-# systemctl enable lamegames
-&lt;/pre&gt;
-
-&lt;p&gt;This enabled my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; server to run once the server started.
-NGINX is that way be default.&lt;/p&gt;
-
-&lt;p&gt;And tada! You now have a working Django project on a production server!&lt;/p&gt;
-
-&lt;h4 id=&quot;notes&quot;&gt;Notes&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;If using ws:// websockets, change them to wss:// for secure web sockets.&lt;/li&gt;
-  &lt;li&gt;Make sure to use channels.routing.get_default_application() instead of django.get_asgi_application() if your’re wanting to use channels/redis WebSockets.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><summary type="html">A few days ago I had a Django project I wanted to put on a real server. This project is still in its infancy, but I thought it would be nice to put it on my resume and show my friends. Little did I know the headache coming my way. Here are some tips to help you not make the same mistakes as me.</summary></entry></feed>
+&lt;p&gt;Check out the repository on my &lt;a href=&quot;https://github.com/TTWNO/lamegames.io&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">This is an announcement for a new project of mine: lamegames.tait.tech.</summary></entry></feed>
