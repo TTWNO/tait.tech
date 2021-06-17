@@ -47,7 +47,7 @@ The Pinebook Pro comes with a headphone port, so you could just use that if the 
 I had some issues when it first arrived.
 
 1. Reboot did not work. The display would glitch out and show horizontal lines. It would only work after a full shutdown.
-2. Booting would sometimes not work at all. My SD card would sometimes boot, sometimes not. eMMC would sometimes work and sometimes now. Sometimes I would even get to the login screen, or fully logged in before it decided to freeze/hang. I could "drop to console" (Ctrl+Alt+Fx), but it only made my mouse stop showing, it would not actually display a console. This problem was worse when not plugged in.
+2. Booting would sometimes not work at all. My SD card would sometimes boot, sometimes not. eMMC would sometimes work and sometimes not. Sometimes I would even get to the login screen, or fully logged in before it decided to freeze/hang. I could "drop to console" (Ctrl+Alt+Fx), but it only made my mouse stop showing, it would not actually display a console. This problem was worse when not plugged in.
 3. Performance was not stellar, even for the RK3399.
 4. I don't like the Manjaro logo that displays during boot.
 
@@ -135,7 +135,7 @@ I will post an update to the blog when I do find out.
 ## Conclusion
 
 I really want to use the Pinebook Pro more.
-Pine6t4 do a lot for the open-source community and they do their best to use only open hardware.
+Pine64 do a lot for the open-source community and they do their best to use only open hardware.
 They do fail in some respects, but they do much better than the mainline distributors like Dell, HP or ASUS.
 
 Thanks, Pine64! I'm excited to use your products!

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-06-05T19:47:21-06:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Pinebook Pro, The Ultimate ARM Laptop</title><link href="http://localhost:4000/2021/06/02/pinebook-pro/" rel="alternate" type="text/html" title="Pinebook Pro, The Ultimate ARM Laptop" /><published>2021-06-02T00:00:00-06:00</published><updated>2021-06-02T00:00:00-06:00</updated><id>http://localhost:4000/2021/06/02/pinebook-pro</id><content type="html" xml:base="http://localhost:4000/2021/06/02/pinebook-pro/">&lt;p&gt;I recently got my Pinebook Pro.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-06-17T15:52:35-06:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Pinebook Pro, The Ultimate ARM Laptop</title><link href="http://localhost:4000/2021/06/02/pinebook-pro/" rel="alternate" type="text/html" title="Pinebook Pro, The Ultimate ARM Laptop" /><published>2021-06-02T00:00:00-06:00</published><updated>2021-06-02T00:00:00-06:00</updated><id>http://localhost:4000/2021/06/02/pinebook-pro</id><content type="html" xml:base="http://localhost:4000/2021/06/02/pinebook-pro/">&lt;p&gt;I recently got my Pinebook Pro.
 It was more expensive than I was expecting, coming in at (including shipping and handling) C$335.
 I always forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha!
 Anyway, this is just my first impressions and what I did to fix a few issues.&lt;/p&gt;
@@ -43,7 +43,7 @@ The Pinebook Pro comes with a headphone port, so you could just use that if the 
 
 &lt;ol&gt;
   &lt;li&gt;Reboot did not work. The display would glitch out and show horizontal lines. It would only work after a full shutdown.&lt;/li&gt;
-  &lt;li&gt;Booting would sometimes not work at all. My SD card would sometimes boot, sometimes not. eMMC would sometimes work and sometimes now. Sometimes I would even get to the login screen, or fully logged in before it decided to freeze/hang. I could “drop to console” (Ctrl+Alt+Fx), but it only made my mouse stop showing, it would not actually display a console. This problem was worse when not plugged in.&lt;/li&gt;
+  &lt;li&gt;Booting would sometimes not work at all. My SD card would sometimes boot, sometimes not. eMMC would sometimes work and sometimes not. Sometimes I would even get to the login screen, or fully logged in before it decided to freeze/hang. I could “drop to console” (Ctrl+Alt+Fx), but it only made my mouse stop showing, it would not actually display a console. This problem was worse when not plugged in.&lt;/li&gt;
   &lt;li&gt;Performance was not stellar, even for the RK3399.&lt;/li&gt;
   &lt;li&gt;I don’t like the Manjaro logo that displays during boot.&lt;/li&gt;
 &lt;/ol&gt;
@@ -132,7 +132,7 @@ I will post an update to the blog when I do find out.&lt;/p&gt;
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;I really want to use the Pinebook Pro more.
-Pine6t4 do a lot for the open-source community and they do their best to use only open hardware.
+Pine64 do a lot for the open-source community and they do their best to use only open hardware.
 They do fail in some respects, but they do much better than the mainline distributors like Dell, HP or ASUS.&lt;/p&gt;
 
 &lt;p&gt;Thanks, Pine64! I’m excited to use your products!&lt;/p&gt;
