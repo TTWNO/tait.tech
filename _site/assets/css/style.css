@@ -58,7 +58,7 @@ figcaption { margin-top: 10px; font-style: italic; }
 
 footer { padding-top: 16px; margin-bottom: 100px; }
 
-.terminal, .file { padding: 10px; overflow-x: wrap; }
+.terminal, .file { padding: 10px; overflow-x: scroll; }
 
 .terminal { line-height: 1em; color: #00FF00; background-color: #000000; }
 
