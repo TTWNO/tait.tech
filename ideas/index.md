@@ -33,3 +33,26 @@ I'm thinking of similar key commands to Orca/NVDA but output is send to the term
 Change backend on-the-fly with a page reload. So if a website doesn't work with Webkit, load it in Firefox with a key command.
 
 Just an idea.
+
+## 3. 3d printing of Google Maps/OpenStreetMaps data for the visually impaired.
+
+A larger project, to be sure, but one I think could be of interest.
+Imagine being able to download some data from Google or OpenStrretMaps,
+then put it into a program and have it generate a 3d map which can be printed.
+Unsure what to do, as the braille overlay on top of the streets and important buildings, etc. needs to be of a uniform size (braille cannot be scaled) but the buildings, streets, and parks do need to be scaled in size.
+
+I think for beginning, forget the braille entirely and simply product a map.
+This can be done in the STL file format or some intermediary if that is easier.
+Roads will have a slight border on the side,
+parks will have a diamond texture,
+buildings will have slight rectangular borders (slightly wider than the roads),
+paths will be a thin line, and the label for the path will need to extend the thin line into a (rounded) rectangle with text on it. 
+
+Start with roads.
+Get a road, get it to generate the correct shape.
+Then add a border around the side.
+Then, add 4 more roads and figure out how to intersect them.
+
+If it can be done on a display, it can be done in a file.
+
+Start with that. Wow what a daunting project!

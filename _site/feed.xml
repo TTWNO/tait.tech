@@ -1,4 +1,113 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-06-17T15:52:35-06:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Pinebook Pro, The Ultimate ARM Laptop</title><link href="http://localhost:4000/2021/06/02/pinebook-pro/" rel="alternate" type="text/html" title="Pinebook Pro, The Ultimate ARM Laptop" /><published>2021-06-02T00:00:00-06:00</published><updated>2021-06-02T00:00:00-06:00</updated><id>http://localhost:4000/2021/06/02/pinebook-pro</id><content type="html" xml:base="http://localhost:4000/2021/06/02/pinebook-pro/">&lt;p&gt;I recently got my Pinebook Pro.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-08-22T22:17:19-06:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Idea For A VPN Service</title><link href="http://localhost:4000/2021/08/17/vpns-api/" rel="alternate" type="text/html" title="Idea For A VPN Service" /><published>2021-08-17T00:00:00-06:00</published><updated>2021-08-17T00:00:00-06:00</updated><id>http://localhost:4000/2021/08/17/vpns-api</id><content type="html" xml:base="http://localhost:4000/2021/08/17/vpns-api/">&lt;p&gt;Recently I’ve been thinking about starting a VPN service.
+This service has some interesting requirements that I have never seen a VPN service do before, so I’d liKe to put down my thoughts as to what might be sensible for a centralized by encrypted VPN service.&lt;/p&gt;
+
+&lt;p&gt;I would license all the code and scripts under the AGPLv3.
+This creates an environment where I could allow my company to use this code, and any other company for that matter but no company would be allowed to take it into their own hands and use it without contributing back to the project.&lt;/p&gt;
+
+&lt;h2 id=&quot;e2ee-vpn&quot;&gt;E2EE VPN&lt;/h2&gt;
+
+&lt;p&gt;I want this service in many ways to copy &lt;a href=&quot;https://protonmail.com&quot;&gt;ProtonMail&lt;/a&gt;:
+end-to-end encrypted (E2EE), and with a focus in data security for the user of the service.&lt;/p&gt;
+
+&lt;p&gt;Full encryption, so that even me, the writer and the deployer of the service, cannot view any information about the user: this is the utmost security.
+The bad news is that this is very hard to do in a convenient way.
+I’ve decided for now that the best thing to do is to target the Linux nerd.
+Target the user who is familiar with these advanced security practices, then make them available to the general public as the layers on top of the robust security are refined.&lt;/p&gt;
+
+&lt;h2 id=&quot;why&quot;&gt;Why?&lt;/h2&gt;
+
+&lt;p&gt;End-to-end encryption is necessary in a country like Canada, where I may be sent a subpoena to provide customer data.
+This is the case especially in the &lt;a href=&quot;https://en.wikipedia.org/wiki/Five_Eyes&quot;&gt;Five Eyes&lt;/a&gt; anglophone group of countries, who essentially spy on each others’ citizens for their allies.
+In essence, any data in the hand of one government agency may be shared between the Five, Nine, and 14 Eyes countries.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-we-need&quot;&gt;What We Need&lt;/h2&gt;
+
+&lt;p&gt;A VPN service needs access to some basic information:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Service discontinue time (the amount of time until the customer must renew).&lt;/li&gt;
+  &lt;li&gt;Active connections.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The client needs access to some information from the server as well:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;A list of VPNs able to be connected to (with filters).&lt;/li&gt;
+  &lt;li&gt;For every VPN:
+    &lt;ol&gt;
+      &lt;li&gt;IP Address.&lt;/li&gt;
+      &lt;li&gt;Maximum bandwidth.&lt;/li&gt;
+      &lt;li&gt;Number of connected users or connection saturation percentage.&lt;/li&gt;
+      &lt;li&gt;Supported protocols.&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Can we do this in a end-to-end encrypted fashion?
+I’m honestly not sure. But here are my ideas so far as to how &lt;em&gt;some&lt;/em&gt; of these functions might work.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-do-it&quot;&gt;How To Do It&lt;/h2&gt;
+
+&lt;h3 id=&quot;usernames&quot;&gt;“Usernames”&lt;/h3&gt;
+
+&lt;p&gt;There will be one button to create your account: &lt;em&gt;“Generate username”&lt;/em&gt;
+The username, or unique identifier for a user will be generated for them by a random generator.
+I plan to generate a username from a list of &lt;a href=&quot;https://en.wikipedia.org/wiki/Base64&quot;&gt;Base 64&lt;/a&gt; characters; it will be a guaranteed length of 16.
+This gives a total of: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;79228162514264337593543950336&lt;/code&gt; or &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn&gt;7.9&lt;/mn&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;msup&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;mn&gt;28&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;7.9 \times 10^{28}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.72777em;vertical-align:-0.08333em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mbin&quot;&gt;×&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8141079999999999em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8141079999999999em;&quot;&gt;&lt;span style=&quot;top:-3.063em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;8&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; posibilities.
+This is sufficient for a username.&lt;/p&gt;
+
+&lt;p&gt;The other option is to use a standard “username” field that uses a modern hash function like &lt;a href=&quot;https://en.wikipedia.org/wiki/Secure_Hash_Algorithms&quot;&gt;SHA512&lt;/a&gt; to store it in the database.
+This is less secure as it is vulnerable to a brute-force attack of finding users,
+but this is also a very easy attack to defend against, i.e. IP banning after 10-ish tries of not finding a username.&lt;/p&gt;
+
+&lt;p&gt;A &lt;em&gt;non-unique, universal&lt;/em&gt; salt will also be used on each username to make it more secure.
+This decreases the possibility of an advanced attacker being able to find usernames in a leaked database.
+That said, the fact that it is a fixed salt makes it much more vulnerable to an attack.
+Although it would be known only by the server machine, it would still be somewhat of a vulnerability.
+The operator may also store the salt in an encrypted password store of their own in case the server is erased, broken into, etc.
+It would be fairly easy, if they have access to the active salt, to migrate to a new salt every few days/months, or perhaps every time a server change happens.
+In the end, they would need a backup of this salt, otherwise login times would become linear to the number of users as the database checks every user’s salt to see if it matches the hash made with the username input.&lt;/p&gt;
+
+&lt;p&gt;So, here’s the overview:
+The username will be generated, then stored &lt;em&gt;after&lt;/em&gt; being salted and hashed.
+The salt will be a fixed or rolling salt across all usernames to avoid linear scaling of searching for a user.
+The server will only see the username once, when sending it to the user for them to save for the first time;
+there will be no database entry with the original username in it.&lt;/p&gt;
+
+&lt;p&gt;This does mean that if the username is lost, the account is lost too. There is no way to recover the account.&lt;/p&gt;
+
+&lt;h3 id=&quot;passwords&quot;&gt;“Passwords”&lt;/h3&gt;
+
+&lt;p&gt;There are a few options for passwords/secret keys.&lt;/p&gt;
+
+&lt;p&gt;I think the best is to treat it similarly to the username is above, except it will &lt;em&gt;not&lt;/em&gt; be generated for you.
+When a new account is generated, you will be taken to a password reset screen where you will set your password to whatever your want, using your own secure system to handle it.
+This is ideal for Linux and tech enthusiasts as they generally already have a password management system setup.&lt;/p&gt;
+
+&lt;p&gt;This will also be salted, with its own unique salt, then hashed and stored alongside the username.&lt;/p&gt;
+
+&lt;h3 id=&quot;active-time-remaining&quot;&gt;Active Time Remaining&lt;/h3&gt;
+
+&lt;p&gt;It is easy and ideal to have a field connected to a user with their expiry date for their account.
+When a payment is made, this date will be increased by the number of days, hours and minutes proportional to the payment received.&lt;/p&gt;
+
+&lt;p&gt;This is the second biggest threat to the users’ data privacy, as this, by definition, cannot be encrypted as my server needs access to this data to decide whether a user should be allowed to: view a list of VPN nodes available to them or connect to a VPN.
+The best I can do in this case is make sure the database and root hard disk are fully encrypted with a password on boot so if asked for data I can simply shut it down.&lt;/p&gt;
+
+&lt;p&gt;This is not a fantastic solution, and still has the threat of a service provider snooping in on the database.
+The truth is: a service provider has root access to any machine it hosts.
+This necessitates that the &lt;em&gt;physical&lt;/em&gt; infrastructure hosting the central database server must by physically owned and operated by the VPN operator.
+In addition, it means top security root passwords, tamper resistant cases (in the case of a co-hosting or server room environment), sensors to indicate it has been opened or touched.
+If you thoughts this was bad, wait until the next part.&lt;/p&gt;
+
+&lt;h3 id=&quot;active-connections&quot;&gt;Active Connections&lt;/h3&gt;
+
+&lt;p&gt;In order to stop a user from simply using the entire bandwidth of all my VPN nodes available to them, I need a way to know how many active connections the user has.
+This is &lt;em&gt;by far&lt;/em&gt; the biggest issue in terms of user privacy.
+There are a few options here:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Do not have a limit on the number of connections a user may have. This is dangerous from a DDoS (distributed denial of service) perspective.&lt;/li&gt;
+  &lt;li&gt;Have a list of connected users sent to the central server every 15 to 30 seconds. This is fairly efficient, but more privacy invasive.&lt;/li&gt;
+  &lt;li&gt;???&lt;/li&gt;
+&lt;/ol&gt;</content><author><name></name></author><summary type="html">Recently I’ve been thinking about starting a VPN service. This service has some interesting requirements that I have never seen a VPN service do before, so I’d liKe to put down my thoughts as to what might be sensible for a centralized by encrypted VPN service.</summary></entry><entry><title type="html">Pinebook Pro, The Ultimate ARM Laptop</title><link href="http://localhost:4000/2021/06/02/pinebook-pro/" rel="alternate" type="text/html" title="Pinebook Pro, The Ultimate ARM Laptop" /><published>2021-06-02T00:00:00-06:00</published><updated>2021-06-02T00:00:00-06:00</updated><id>http://localhost:4000/2021/06/02/pinebook-pro</id><content type="html" xml:base="http://localhost:4000/2021/06/02/pinebook-pro/">&lt;p&gt;I recently got my Pinebook Pro.
 It was more expensive than I was expecting, coming in at (including shipping and handling) C$335.
 I always forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha!
 Anyway, this is just my first impressions and what I did to fix a few issues.&lt;/p&gt;
@@ -864,12 +973,4 @@ I hope that this helps you with getting the general idea of a Minesweeper game.
 The completed version of this game is available on my &lt;a href=&quot;https://lamegames.tait.tech/&quot;&gt;lamegames&lt;/a&gt; site.
 Let me know what you think!&lt;/p&gt;
 
-&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">When I was creating a little Minesweeper game, I got confused at some points. My bomb generation didn’t look quite right, and I for sure didn’t quite get the whole cascading tile reveal thing. With a bit of internet research, I found what I was looking for. I’ll explain it all in one place for my own research purposes.</summary></entry><entry><title type="html">lamegames.tait.tech</title><link href="http://localhost:4000/2020/09/09/lamegames/" rel="alternate" type="text/html" title="lamegames.tait.tech" /><published>2020-09-09T00:00:00-06:00</published><updated>2020-09-09T00:00:00-06:00</updated><id>http://localhost:4000/2020/09/09/lamegames</id><content type="html" xml:base="http://localhost:4000/2020/09/09/lamegames/">&lt;p&gt;This is an announcement for a new project of mine:
-&lt;a href=&quot;https://lamegames.tait.tech&quot;&gt;lamegames.tait.tech&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;This is something I’m really excited to work on!&lt;/p&gt;
-
-&lt;p&gt;Right now, I’ve just got a rock-paper-scissors game.
-A chat function, and a few simple card games to come.&lt;/p&gt;
-
-&lt;p&gt;Check out the repository on my &lt;a href=&quot;https://github.com/TTWNO/lamegames.io&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">This is an announcement for a new project of mine: lamegames.tait.tech.</summary></entry></feed>
+&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">When I was creating a little Minesweeper game, I got confused at some points. My bomb generation didn’t look quite right, and I for sure didn’t quite get the whole cascading tile reveal thing. With a bit of internet research, I found what I was looking for. I’ll explain it all in one place for my own research purposes.</summary></entry></feed>
