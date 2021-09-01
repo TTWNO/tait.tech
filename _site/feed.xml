@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-08-22T22:18:18-06:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Idea For A VPN Service</title><link href="http://localhost:4000/2021/08/17/vpns-api/" rel="alternate" type="text/html" title="Idea For A VPN Service" /><published>2021-08-17T00:00:00-06:00</published><updated>2021-08-17T00:00:00-06:00</updated><id>http://localhost:4000/2021/08/17/vpns-api</id><content type="html" xml:base="http://localhost:4000/2021/08/17/vpns-api/">&lt;p&gt;Recently I’ve been thinking about starting a VPN service.
-This service has some interesting requirements that I have never seen a VPN service do before, so I’d liKe to put down my thoughts as to what might be sensible for a centralized by encrypted VPN service.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-08-31T21:19:20-06:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Idea For A VPN Service</title><link href="http://localhost:4000/2021/08/31/vpns-api/" rel="alternate" type="text/html" title="Idea For A VPN Service" /><published>2021-08-31T00:00:00-06:00</published><updated>2021-08-31T00:00:00-06:00</updated><id>http://localhost:4000/2021/08/31/vpns-api</id><content type="html" xml:base="http://localhost:4000/2021/08/31/vpns-api/">&lt;p&gt;Recently I’ve been thinking about starting a VPN service.
+This service has some interesting requirements that I have never seen a VPN service do before, so I’d like to put down my thoughts as to what might be sensible for a centralized yet encrypted* VPN service.&lt;/p&gt;
 
 &lt;p&gt;I would license all the code and scripts under the AGPLv3.
-This creates an environment where I could allow my company to use this code, and any other company for that matter but no company would be allowed to take it into their own hands and use it without contributing back to the project.&lt;/p&gt;
+This creates an environment where I could allow my company to use this code, and any other company for that matter. However, no company would be allowed to take it into their own hands and use it without contributing back to the project.&lt;/p&gt;
 
 &lt;h2 id=&quot;e2ee-vpn&quot;&gt;E2EE VPN&lt;/h2&gt;
 
-&lt;p&gt;I want this service in many ways to copy &lt;a href=&quot;https://protonmail.com&quot;&gt;ProtonMail&lt;/a&gt;:
+&lt;p&gt;I want this service in many ways to be on par with &lt;a href=&quot;https://protonmail.com&quot;&gt;ProtonMail&lt;/a&gt;:
 end-to-end encrypted (E2EE), and with a focus in data security for the user of the service.&lt;/p&gt;
 
 &lt;p&gt;Full encryption, so that even me, the writer and the deployer of the service, cannot view any information about the user: this is the utmost security.
@@ -17,15 +17,27 @@ Target the user who is familiar with these advanced security practices, then mak
 &lt;h2 id=&quot;why&quot;&gt;Why?&lt;/h2&gt;
 
 &lt;p&gt;End-to-end encryption is necessary in a country like Canada, where I may be sent a subpoena to provide customer data.
-This is the case especially in the &lt;a href=&quot;https://en.wikipedia.org/wiki/Five_Eyes&quot;&gt;Five Eyes&lt;/a&gt; anglophone group of countries, who essentially spy on each others’ citizens for their allies.
-In essence, any data in the hand of one government agency may be shared between the Five, Nine, and 14 Eyes countries.&lt;/p&gt;
+This is the case especially in the &lt;a href=&quot;https://en.wikipedia.org/wiki/Five_Eyes&quot;&gt;Five Eyes&lt;/a&gt; anglophone group of countries, who essentially spy on each others’ citizens for eachother.
+In essence, any data in the hand of one government agency in the “Eyes Countries” may be shared between the Five, Nine, and 14 Eyes countries.&lt;/p&gt;
+
+&lt;p&gt;I am not against government surveillance &lt;em&gt;in principle&lt;/em&gt;.
+In theory, the government should be finding bad guys: pedophiles, sex trafficking rings and drug cartels.
+In practice, the U.S. government especially, uses its authority to spy on its own citizens who are simply minding their own business. &lt;del&gt;Bulk data collection&lt;/del&gt; mass surveillance is not a freedom respecting characteristic of modern western democracies.
+I do run the risk of not being able to help much in the case of a genuine warrant against a genuine, evil criminal.
+That is the risk of privacy.&lt;/p&gt;
+
+&lt;p&gt;That said, let’s see what can be built that can do these 2 things:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Maximize privacy for the user.&lt;/li&gt;
+  &lt;li&gt;Allow for (optional) monetization, depending on the provider. This is in some contradiction to premise 1.&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;h2 id=&quot;what-we-need&quot;&gt;What We Need&lt;/h2&gt;
 
 &lt;p&gt;A VPN service needs access to some basic information:&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;Service discontinue time (the amount of time until the customer must renew).&lt;/li&gt;
-  &lt;li&gt;Active connections.&lt;/li&gt;
+  &lt;li&gt;Active connections (a number which can not be exceeded by an individual user).&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;The client needs access to some information from the server as well:&lt;/p&gt;
@@ -58,13 +70,17 @@ This is sufficient for a username.&lt;/p&gt;
 This is less secure as it is vulnerable to a brute-force attack of finding users,
 but this is also a very easy attack to defend against, i.e. IP banning after 10-ish tries of not finding a username.&lt;/p&gt;
 
-&lt;p&gt;A &lt;em&gt;non-unique, universal&lt;/em&gt; salt will also be used on each username to make it more secure.
-This decreases the possibility of an advanced attacker being able to find usernames in a leaked database.
+&lt;p&gt;A &lt;em&gt;non-unique, universal&lt;/em&gt; &lt;a href=&quot;https://en.wikipedia.org/wiki/Salt_(cryptography)&quot;&gt;salt&lt;/a&gt; will also be used on each username before storing it in the database to make it more secure.
+This decreases the possibility of an advanced attacker being able to find usernames in a leaked database using &lt;a href=&quot;https://en.wikipedia.org/wiki/Rainbow_table&quot;&gt;rainbow tables&lt;/a&gt;.
 That said, the fact that it is a fixed salt makes it much more vulnerable to an attack.
 Although it would be known only by the server machine, it would still be somewhat of a vulnerability.
 The operator may also store the salt in an encrypted password store of their own in case the server is erased, broken into, etc.
-It would be fairly easy, if they have access to the active salt, to migrate to a new salt every few days/months, or perhaps every time a server change happens.
-In the end, they would need a backup of this salt, otherwise login times would become linear to the number of users as the database checks every user’s salt to see if it matches the hash made with the username input.&lt;/p&gt;
+It would be fairly easy, if they have access to the active salt, to migrate to a new salt every few days/months, or perhaps every time a server upgrade/maintenance happens.
+This does run the possibility of larger issues if the server is shut down or hangs during a migration and needs to be restarted.
+Many users may end up with accounts they cannot access without manual cleanup.&lt;/p&gt;
+
+&lt;p&gt;In the end, the &lt;em&gt;application&lt;/em&gt; would need a backup of this salt, otherwise login times would become linear to the number of users as the database checks every user’s salt to see if it matches the hash made with the username input.
+Note that the &lt;em&gt;database&lt;/em&gt; does not store the salt, so finding it will be very hard, even in the case of a leaked database.&lt;/p&gt;
 
 &lt;p&gt;So, here’s the overview:
 The username will be generated, then stored &lt;em&gt;after&lt;/em&gt; being salted and hashed.
@@ -72,7 +88,8 @@ The salt will be a fixed or rolling salt across all usernames to avoid linear sc
 The server will only see the username once, when sending it to the user for them to save for the first time;
 there will be no database entry with the original username in it.&lt;/p&gt;
 
-&lt;p&gt;This does mean that if the username is lost, the account is lost too. There is no way to recover the account.&lt;/p&gt;
+&lt;p&gt;This does mean that if the username is lost, the account is lost too. There is no way to recover the account.
+Again, this is ok for now, as my target audience is advanced Linux and privacy enthusiasts.&lt;/p&gt;
 
 &lt;h3 id=&quot;passwords&quot;&gt;“Passwords”&lt;/h3&gt;
 
@@ -89,27 +106,81 @@ This is ideal for Linux and tech enthusiasts as they generally already have a pa
 &lt;p&gt;It is easy and ideal to have a field connected to a user with their expiry date for their account.
 When a payment is made, this date will be increased by the number of days, hours and minutes proportional to the payment received.&lt;/p&gt;
 
-&lt;p&gt;This is the second biggest threat to the users’ data privacy, as this, by definition, cannot be encrypted as my server needs access to this data to decide whether a user should be allowed to: view a list of VPN nodes available to them or connect to a VPN.
-The best I can do in this case is make sure the database and root hard disk are fully encrypted with a password on boot so if asked for data I can simply shut it down.&lt;/p&gt;
+&lt;p&gt;For example: if a “month” (30 days) costs ten dollars, then a payment of fifteen dollars would add 45 days to an account. So essentially 33 cents per day, &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mfrac&gt;&lt;mn&gt;10&lt;/mn&gt;&lt;mrow&gt;&lt;mn&gt;30&lt;/mn&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;mn&gt;24&lt;/mn&gt;&lt;/mrow&gt;&lt;/mfrac&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;0.0138&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt; \frac{10}{30 \times 24}=0.0138&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1.2484389999999999em;vertical-align:-0.403331em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mopen nulldelimiter&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mfrac&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.845108em;&quot;&gt;&lt;span style=&quot;top:-2.655em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mbin mtight&quot;&gt;×&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;4&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.23em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;frac-line&quot; style=&quot;border-bottom-width:0.04em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.394em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.403331em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose nulldelimiter&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.64444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;8&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; cents per hour, or &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mfrac&gt;&lt;mn&gt;10&lt;/mn&gt;&lt;mrow&gt;&lt;mn&gt;30&lt;/mn&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;mn&gt;24&lt;/mn&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;mn&gt;60&lt;/mn&gt;&lt;/mrow&gt;&lt;/mfrac&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;0.00023&lt;/mn&gt;&lt;mover accent=&quot;true&quot;&gt;&lt;mn&gt;148&lt;/mn&gt;&lt;mo stretchy=&quot;true&quot;&gt;‾&lt;/mo&gt;&lt;/mover&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\frac{10}{30 \times 24 \times 60}=0.00023\overline{148}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1.2484389999999999em;vertical-align:-0.403331em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mopen nulldelimiter&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mfrac&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.845108em;&quot;&gt;&lt;span style=&quot;top:-2.655em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mbin mtight&quot;&gt;×&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;mbin mtight&quot;&gt;×&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.23em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;frac-line&quot; style=&quot;border-bottom-width:0.04em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.394em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.403331em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose nulldelimiter&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8444400000000001em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;mord overline&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8444400000000001em;&quot;&gt;&lt;span style=&quot;top:-3em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;8&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.76444em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;overline-line&quot; style=&quot;border-bottom-width:0.04em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; dollars per minute.
+This is the second biggest threat to the users’ data privacy, as this, by definition, cannot be encrypted as my server needs access to this data to decide whether a user should be allowed to: view a list of VPN nodes available to them or connect to a VPN.
+The best I can think of in this case is:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Use a system similar to the username: use a common salt and hash algorithm to store them in the database.&lt;/li&gt;
+  &lt;li&gt;Use full-disk and full-database encryption to keep the data secure to outside attackers.&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;p&gt;This is not a fantastic solution, and still has the threat of a service provider snooping in on the database.
 The truth is: a service provider has root access to any machine it hosts.
-This necessitates that the &lt;em&gt;physical&lt;/em&gt; infrastructure hosting the central database server must by physically owned and operated by the VPN operator.
+This necessitates that the &lt;em&gt;physical&lt;/em&gt; infrastructure hosting the central database server must by physically owned and operated by the VPN operator and not any third party.
 In addition, it means top security root passwords, tamper resistant cases (in the case of a co-hosting or server room environment), sensors to indicate it has been opened or touched.
-If you thoughts this was bad, wait until the next part.&lt;/p&gt;
+If you thought this was bad, wait until the next part.&lt;/p&gt;
 
 &lt;h3 id=&quot;active-connections&quot;&gt;Active Connections&lt;/h3&gt;
 
-&lt;p&gt;In order to stop a user from simply using the entire bandwidth of all my VPN nodes available to them, I need a way to know how many active connections the user has.
+&lt;p&gt;In order to stop a user from simply using the entire bandwidth of all the VPN nodes available to them, there must be a way to know how many active connections the user has.
 This is &lt;em&gt;by far&lt;/em&gt; the biggest issue in terms of user privacy.
 There are a few options here:&lt;/p&gt;
 &lt;ol&gt;
-  &lt;li&gt;Do not have a limit on the number of connections a user may have. This is dangerous from a DDoS (distributed denial of service) perspective.&lt;/li&gt;
+  &lt;li&gt;Do not have a limit on the number of connections a user may have. This is dangerous from a &lt;a href=&quot;https://en.wikipedia.org/wiki/Denial-of-service_attack&quot;&gt;DDoS (distributed denial-of-service)&lt;/a&gt; perspective.
+This also makes the VPN provider vulnerable to be used as a DDoS distribution method by putting all their traffic through the VPN provider, and them not having any logs—the bad guys could use the distributed nature of VPN nodes to attack whoever they see fit.
+This is not a viable option.&lt;/li&gt;
   &lt;li&gt;Have a list of connected users sent to the central server every 15 to 30 seconds. This is fairly efficient, but more privacy invasive.&lt;/li&gt;
-  &lt;li&gt;???&lt;/li&gt;
+  &lt;li&gt;When a user connects, log an explicit “connect” message.
+When a user disconnects, send an explicit “disconnect”.
+Have the VPN server report an &lt;em&gt;implicit&lt;/em&gt; “disconnect” after an amount of time, say 15 minutes, then send an implicit “connect” message once traffic continues. This is all in RAM under temporary storage and is lost upon restart of the server.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;This section is very tough.&lt;/p&gt;</content><author><name></name></author><summary type="html">Recently I’ve been thinking about starting a VPN service. This service has some interesting requirements that I have never seen a VPN service do before, so I’d liKe to put down my thoughts as to what might be sensible for a centralized by encrypted VPN service.</summary></entry><entry><title type="html">Pinebook Pro, The Ultimate ARM Laptop</title><link href="http://localhost:4000/2021/06/02/pinebook-pro/" rel="alternate" type="text/html" title="Pinebook Pro, The Ultimate ARM Laptop" /><published>2021-06-02T00:00:00-06:00</published><updated>2021-06-02T00:00:00-06:00</updated><id>http://localhost:4000/2021/06/02/pinebook-pro</id><content type="html" xml:base="http://localhost:4000/2021/06/02/pinebook-pro/">&lt;p&gt;I recently got my Pinebook Pro.
+&lt;p&gt;The best method (used currently by &lt;a href=&quot;https://mullvad.net&quot;&gt;Mullvad VPN&lt;/a&gt; is 3.&lt;/p&gt;
+
+&lt;h2 id=&quot;panel&quot;&gt;Panel&lt;/h2&gt;
+
+&lt;p&gt;The admin panel will have some broad info about the nodes:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Active connections&lt;/li&gt;
+  &lt;li&gt;Server load (held and reported every minute by the nodes themselves. Not sure how to do this yet.)&lt;/li&gt;
+  &lt;li&gt;Location&lt;/li&gt;
+  &lt;li&gt;IP Address&lt;/li&gt;
+  &lt;li&gt;Failed connections in last X amount of time (i.e. invalid credentials)&lt;/li&gt;
+  &lt;li&gt;Physical server status (i.e. owned by the hoster vs. contracted out to another hosting company in the area)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This panel would also have options to stop, start or soft stop the VPN service on each node for maintenance.
+A soft stop will stop new connections and remove it from the list of available servers for the end-user. Users will disconnect whenever they feel like it—eventually winding down to zero connections.
+This allows maintenance without service disruption.&lt;/p&gt;
+
+&lt;p&gt;I’m not sure how to do this securely.
+Best I can think of right now is have an admin login, then have the server have a key in each node machine.
+This completely compromises the SSH key system though.
+Now every node is secured with nothing but a password. Maybe the console will require connecting to a local instance on a machine through an encrypted connection which will require a key.
+Even then, that does make every machine vulnerable to one point of failure (the key to connect to the local instance).&lt;/p&gt;
+
+&lt;p&gt;Another way to approach this, security-wise is to make a shell script (or locally running flask app) which reads info about the servers from a sqlite database.
+Then, it uses the local computer to connect to the servers—assuming the local machine has all the keys necessary to do so.&lt;/p&gt;
+
+&lt;p&gt;This fixes one problem and creates another.
+It fixes the single point of failure in the cloud. This &lt;em&gt;massively&lt;/em&gt; reduces the attack surface to intentionally stealing physical hardware from trusted parties, or software-hacking these same trusted people.
+But, if the key is lost by the host… The entire service is kaput. No maintenance may be performed, no checks, bans, addition of servers can be done whatsoever.
+This also increases the possibility of sloppy security from trusted parties.
+Perhaps a trusted member leaves his laptop unattended for a few minutes and a hacker is able to steal the simple key file. He’s in!!!
+This is very unlikely, I must say, but it comes down to: should I trust people or machines more to keep the data secure.
+Depending on the person, I might trust them more.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;With all of these ideas in mind, I have realized how difficult it really is to make a VPN service.
+Boy do they deserve every dollar they get!
+If you don’t have a VPN, get one.
+Doesn’t really matter which one, unless you’re a nerd—for your average person you can just pick whatever the best deal is at the time and you’re off to the races.&lt;/p&gt;
+
+&lt;p&gt;Anyway, I think I’ve rambled on long enough about VPNs and my crazy ideas, so I’m going to leave this one for now.&lt;/p&gt;
+
+&lt;p&gt;Happy VPN hacking :D&lt;/p&gt;</content><author><name></name></author><summary type="html">Recently I’ve been thinking about starting a VPN service. This service has some interesting requirements that I have never seen a VPN service do before, so I’d like to put down my thoughts as to what might be sensible for a centralized yet encrypted* VPN service.</summary></entry><entry><title type="html">Pinebook Pro, The Ultimate ARM Laptop</title><link href="http://localhost:4000/2021/06/02/pinebook-pro/" rel="alternate" type="text/html" title="Pinebook Pro, The Ultimate ARM Laptop" /><published>2021-06-02T00:00:00-06:00</published><updated>2021-06-02T00:00:00-06:00</updated><id>http://localhost:4000/2021/06/02/pinebook-pro</id><content type="html" xml:base="http://localhost:4000/2021/06/02/pinebook-pro/">&lt;p&gt;I recently got my Pinebook Pro.
 It was more expensive than I was expecting, coming in at (including shipping and handling) C$335.
 I always forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha!
 Anyway, this is just my first impressions and what I did to fix a few issues.&lt;/p&gt;
