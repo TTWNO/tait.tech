@@ -9,7 +9,7 @@
   description: "A program to add Pinyin above Chinese characters in .epub files to assist those learning Mandarin Chinese."
 - name: "Programming Tutorials For The Visually Impaired"
   link: "/emacspeak-tutorials/"
-  description: "Amateur-level production quality videos with all file buffers, written text, and shell commands read out by <a href=\"http://emacspeak.sourceforge.net/\">Emacspeak</a>, an emacs extention for the blind."
+  description: "Amateur-level production quality videos with all file buffers, written text, and shell commands read out by <a href=\"http://emacspeak.sourceforge.net/\">Emacspeak</a>, an Emacs extention for the blind."
 - name: "lamegames"
   link: "https://github.com/TTWNO/lamegames.io"
   description: "A little games website I made for some demonstrations of Django and websocket functionality. Very, very lame. Would not recommend."
