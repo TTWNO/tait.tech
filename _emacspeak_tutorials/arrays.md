@@ -1,4 +1,6 @@
 ---
+language: "C"
+library: "Standard"
 title: "Arrays in C"
 layout: emacspeak_tutorial
 yt_link: "https://youtu.be/JdOmV2V4dzs"

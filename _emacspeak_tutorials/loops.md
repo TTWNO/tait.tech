@@ -1,4 +1,6 @@
 ---
+language: "C"
+library: "Standard"
 layout: emacspeak_tutorial
 title: "Loops in C"
 zip_link: "/assets/emacspeak-tutorials/loops.zip"
