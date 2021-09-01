@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-08-31T23:07:31-06:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Idea For A VPN Service</title><link href="http://localhost:4000/2021/08/31/vpns-api/" rel="alternate" type="text/html" title="Idea For A VPN Service" /><published>2021-08-31T00:00:00-06:00</published><updated>2021-08-31T00:00:00-06:00</updated><id>http://localhost:4000/2021/08/31/vpns-api</id><content type="html" xml:base="http://localhost:4000/2021/08/31/vpns-api/">&lt;p&gt;Recently I’ve been thinking about starting a VPN service.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-01T08:30:45-06:00</updated><id>/feed.xml</id><entry><title type="html">Idea For A VPN Service</title><link href="/2021/08/31/vpns-api/" rel="alternate" type="text/html" title="Idea For A VPN Service" /><published>2021-08-31T00:00:00-06:00</published><updated>2021-08-31T00:00:00-06:00</updated><id>/2021/08/31/vpns-api</id><content type="html" xml:base="/2021/08/31/vpns-api/">&lt;p&gt;Recently I’ve been thinking about starting a VPN service.
 This service has some interesting requirements that I have never seen a VPN service do before, so I’d like to put down my thoughts as to what might be sensible for a centralized yet encrypted* VPN service.&lt;/p&gt;
 
 &lt;p&gt;I would license all the code and scripts under the AGPLv3.
@@ -180,7 +180,7 @@ Doesn’t really matter which one, unless you’re a nerd—for your average per
 
 &lt;p&gt;Anyway, I think I’ve rambled on long enough about VPNs and my crazy ideas, so I’m going to leave this one for now.&lt;/p&gt;
 
-&lt;p&gt;Happy VPN hacking :D&lt;/p&gt;</content><author><name></name></author><summary type="html">Recently I’ve been thinking about starting a VPN service. This service has some interesting requirements that I have never seen a VPN service do before, so I’d like to put down my thoughts as to what might be sensible for a centralized yet encrypted* VPN service.</summary></entry><entry><title type="html">UEFI Audio Protocol &amp;amp; UEFI BIOS Accessibility</title><link href="http://localhost:4000/2021/06/21/uefi-audio/" rel="alternate" type="text/html" title="UEFI Audio Protocol &amp;amp; UEFI BIOS Accessibility" /><published>2021-06-21T00:00:00-06:00</published><updated>2021-06-21T00:00:00-06:00</updated><id>http://localhost:4000/2021/06/21/uefi-audio</id><content type="html" xml:base="http://localhost:4000/2021/06/21/uefi-audio/">&lt;p&gt;Good news about the state of accessibility in the BIOS!&lt;/p&gt;
+&lt;p&gt;Happy VPN hacking :D&lt;/p&gt;</content><author><name></name></author><summary type="html">Recently I’ve been thinking about starting a VPN service. This service has some interesting requirements that I have never seen a VPN service do before, so I’d like to put down my thoughts as to what might be sensible for a centralized yet encrypted* VPN service.</summary></entry><entry><title type="html">UEFI Audio Protocol &amp;amp; UEFI BIOS Accessibility</title><link href="/2021/06/21/uefi-audio/" rel="alternate" type="text/html" title="UEFI Audio Protocol &amp;amp; UEFI BIOS Accessibility" /><published>2021-06-21T00:00:00-06:00</published><updated>2021-06-21T00:00:00-06:00</updated><id>/2021/06/21/uefi-audio</id><content type="html" xml:base="/2021/06/21/uefi-audio/">&lt;p&gt;Good news about the state of accessibility in the BIOS!&lt;/p&gt;
 
 &lt;h2 id=&quot;preamble&quot;&gt;Preamble&lt;/h2&gt;
 
@@ -210,30 +210,30 @@ I thought I would share the info I understand, and the conversation in full.&lt;
 &lt;p&gt;Here is the log of the IRC chat for anyone who is interested in anything I might have missed:&lt;/p&gt;
 
 &lt;pre class=&quot;terminal&quot;&gt;
-tait_dot_tech: Hello there, I'm new to IRC so just checking my messages are coming through.
-tait_dot_tech: Looks light it's alright. Ok so I have a question: does anyone know of an active project looking at making UEFI accessible to the blind (i.e. speec) [sic] from within the UEFI environment? Main concern is having blind users be able to boot Linux USBs (I know, very niche thing), but depending on how good it is, could potentially be used to allow blind individuals to change their overclocking,
+tait_dot_tech: Hello there, I&apos;m new to IRC so just checking my messages are coming through.
+tait_dot_tech: Looks light it&apos;s alright. Ok so I have a question: does anyone know of an active project looking at making UEFI accessible to the blind (i.e. speec) [sic] from within the UEFI environment? Main concern is having blind users be able to boot Linux USBs (I know, very niche thing), but depending on how good it is, could potentially be used to allow blind individuals to change their overclocking,
 tait_dot_tech: hardware RAID, boot order, RAM timings, etc. all on their own. Just wondering if there is any project doing this? I have tried my best to find anything, and am just trying not to duplicate effort. Thanks :)
 leiflindholm: tait_dot_tech: we have a google summer of code project running this year, prototyping a standard for audio output. To hopefully be added to the UEFI specification in the future.
 leiflindholm: once we have a standard for audio output, we can work on adding support for audio output to the Human Interface Infrastructure
 leiflindholm: which is the thing that lets menus be loaded and displayed independent of specific graphical implementation
 tait_dot_tech: Oh wow! Glad to hear there is progress on this! Is there a link to the Google summer of code project, or anything else where I can keep tabs?
-leiflindholm: tait_dot_tech: there isn't much yet, we're only on week 3 of GSoC.
-leiflindholm: https://summerofcode.withgoogle.com/projects/#6499615798460416 is the link if it's something you want to point others to, but any discussion/reporting is likely to hapen [sic] on our mailing lists
+leiflindholm: tait_dot_tech: there isn&apos;t much yet, we&apos;re only on week 3 of GSoC.
+leiflindholm: https://summerofcode.withgoogle.com/projects/#6499615798460416 is the link if it&apos;s something you want to point others to, but any discussion/reporting is likely to hapen [sic] on our mailing lists
 tait_dot_tech: By &quot;our&quot; mailing list, do you mean GSoC, or Edk2?
 leiflindholm: edk2
 leiflindholm: although, on average, at least 99% of edk2-devel will *not* be about audio support
-leiflindholm: When we have anything interesting to say, we'll also post to edk2-discuss/edk2-announce
-tait_dot_tech: Sweet! I'll join that one just in case! I'd be happy to test anything in beta-ish state and report back with any device I can get my hands on. Is that the right list to watch for hepling test it out?
-leiflindholm: I'd say so.
-leiflindholm: The original plan was to start with wirtio [sic] audio support, so anyone could help out anywhere, but that support is not yet upstream in qemu. So for now we're working on an [sic] USB audio class driver. That will certainly be useful to have more people testing with different equipment once we have something working.
-tait_dot_tech: Ahh! So if I want to test, I should get a USB audio dongle. Gotcha! Thank you so much! You've been super helpful!
+leiflindholm: When we have anything interesting to say, we&apos;ll also post to edk2-discuss/edk2-announce
+tait_dot_tech: Sweet! I&apos;ll join that one just in case! I&apos;d be happy to test anything in beta-ish state and report back with any device I can get my hands on. Is that the right list to watch for hepling test it out?
+leiflindholm: I&apos;d say so.
+leiflindholm: The original plan was to start with wirtio [sic] audio support, so anyone could help out anywhere, but that support is not yet upstream in qemu. So for now we&apos;re working on an [sic] USB audio class driver. That will certainly be useful to have more people testing with different equipment once we have something working.
+tait_dot_tech: Ahh! So if I want to test, I should get a USB audio dongle. Gotcha! Thank you so much! You&apos;ve been super helpful!
 leiflindholm: np :)
 &lt;/pre&gt;
 
 &lt;p&gt;Things are (slowly) looking up for audio (and eventually screen-reader support) in UEFI!
 Phew! Glad I’m not the only one thinking about this!&lt;/p&gt;
 
-&lt;p&gt;Happy UEFI hacking :)&lt;/p&gt;</content><author><name></name></author><summary type="html">Good news about the state of accessibility in the BIOS!</summary></entry><entry><title type="html">Pinebook Pro, The Ultimate ARM Laptop</title><link href="http://localhost:4000/2021/06/02/pinebook-pro/" rel="alternate" type="text/html" title="Pinebook Pro, The Ultimate ARM Laptop" /><published>2021-06-02T00:00:00-06:00</published><updated>2021-06-02T00:00:00-06:00</updated><id>http://localhost:4000/2021/06/02/pinebook-pro</id><content type="html" xml:base="http://localhost:4000/2021/06/02/pinebook-pro/">&lt;p&gt;I recently got my Pinebook Pro.
+&lt;p&gt;Happy UEFI hacking :)&lt;/p&gt;</content><author><name></name></author><summary type="html">Good news about the state of accessibility in the BIOS!</summary></entry><entry><title type="html">Pinebook Pro, The Ultimate ARM Laptop</title><link href="/2021/06/02/pinebook-pro/" rel="alternate" type="text/html" title="Pinebook Pro, The Ultimate ARM Laptop" /><published>2021-06-02T00:00:00-06:00</published><updated>2021-06-02T00:00:00-06:00</updated><id>/2021/06/02/pinebook-pro</id><content type="html" xml:base="/2021/06/02/pinebook-pro/">&lt;p&gt;I recently got my Pinebook Pro.
 It was more expensive than I was expecting, coming in at (including shipping and handling) C$335.
 I always forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha!
 Anyway, this is just my first impressions and what I did to fix a few issues.&lt;/p&gt;
@@ -372,7 +372,7 @@ They do fail in some respects, but they do much better than the mainline distrib
 
 &lt;p&gt;Thanks, Pine64! I’m excited to use your products!&lt;/p&gt;
 
-&lt;p&gt;Happy ARM hacking :)&lt;/p&gt;</content><author><name></name></author><summary type="html">I recently got my Pinebook Pro. It was more expensive than I was expecting, coming in at (including shipping and handling) C$335. I always forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha! Anyway, this is just my first impressions and what I did to fix a few issues.</summary></entry><entry><title type="html">UEFI Development On x86 With EDK2</title><link href="http://localhost:4000/2021/04/18/uefi-development-environment/" rel="alternate" type="text/html" title="UEFI Development On x86 With EDK2" /><published>2021-04-18T00:00:00-06:00</published><updated>2021-04-18T00:00:00-06:00</updated><id>http://localhost:4000/2021/04/18/uefi-development-environment</id><content type="html" xml:base="http://localhost:4000/2021/04/18/uefi-development-environment/">&lt;p&gt;I made this blog so I could remember how to do stuff that had instructions spread around the internet.
+&lt;p&gt;Happy ARM hacking :)&lt;/p&gt;</content><author><name></name></author><summary type="html">I recently got my Pinebook Pro. It was more expensive than I was expecting, coming in at (including shipping and handling) C$335. I always forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha! Anyway, this is just my first impressions and what I did to fix a few issues.</summary></entry><entry><title type="html">UEFI Development On x86 With EDK2</title><link href="/2021/04/18/uefi-development-environment/" rel="alternate" type="text/html" title="UEFI Development On x86 With EDK2" /><published>2021-04-18T00:00:00-06:00</published><updated>2021-04-18T00:00:00-06:00</updated><id>/2021/04/18/uefi-development-environment</id><content type="html" xml:base="/2021/04/18/uefi-development-environment/">&lt;p&gt;I made this blog so I could remember how to do stuff that had instructions spread around the internet.
 So here is how I setup my environment for developing EFI applications.&lt;/p&gt;
 
 &lt;h2 id=&quot;requirements&quot;&gt;Requirements&lt;/h2&gt;
@@ -464,7 +464,7 @@ menuentry &quot;EFI Shell&quot; {
         insmod part_gpt
         insmod chain
         insmod fat
-        set root='(hd4,gpt2)'
+        set root=&apos;(hd4,gpt2)&apos;
         chainloader /EFI/Shell.efi
 }
 &lt;/pre&gt;
@@ -503,7 +503,7 @@ I needed to scrounge resources from around the internet,
 and I had to look at my config files for hours to make sure that I hadn’t missed a step that I did without thinking.
 I hope this will be useful to you and my future self.&lt;/p&gt;
 
-&lt;p&gt;Happy UEFI hacking :)&lt;/p&gt;</content><author><name></name></author><summary type="html">I made this blog so I could remember how to do stuff that had instructions spread around the internet. So here is how I setup my environment for developing EFI applications.</summary></entry><entry><title type="html">The “Quiz Your Friends” XSS Exploit</title><link href="http://localhost:4000/2021/04/04/quiz-your-friends-xss/" rel="alternate" type="text/html" title="The “Quiz Your Friends” XSS Exploit" /><published>2021-04-04T00:00:00-06:00</published><updated>2021-04-04T00:00:00-06:00</updated><id>http://localhost:4000/2021/04/04/quiz-your-friends-xss</id><content type="html" xml:base="http://localhost:4000/2021/04/04/quiz-your-friends-xss/">&lt;p&gt;Note: I have alerted the administrators of this site multiple times about this vulnerability.
+&lt;p&gt;Happy UEFI hacking :)&lt;/p&gt;</content><author><name></name></author><summary type="html">I made this blog so I could remember how to do stuff that had instructions spread around the internet. So here is how I setup my environment for developing EFI applications.</summary></entry><entry><title type="html">The “Quiz Your Friends” XSS Exploit</title><link href="/2021/04/04/quiz-your-friends-xss/" rel="alternate" type="text/html" title="The “Quiz Your Friends” XSS Exploit" /><published>2021-04-04T00:00:00-06:00</published><updated>2021-04-04T00:00:00-06:00</updated><id>/2021/04/04/quiz-your-friends-xss</id><content type="html" xml:base="/2021/04/04/quiz-your-friends-xss/">&lt;p&gt;Note: I have alerted the administrators of this site multiple times about this vulnerability.
 One email was sent many years ago, which is more than enough time for &lt;a href=&quot;https://en.wikipedia.org/wiki/Responsible_disclosure&quot;&gt;responsible disclosure&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Update: They have fixed the vulnerability as of the day of release for this article.&lt;/p&gt;
@@ -585,7 +585,7 @@ Then, I thought that might be mean, so I decided to warn users instead.
 I filled in the name with a script tag and a call to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;alert()&lt;/code&gt; to warn the user about this site.
 I edited the max-length attribute to allow me to type a long string like this:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;script&amp;gt;alert(&quot;Don't use this site. It is not secure!&quot;);&amp;lt;/script&amp;gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;script&amp;gt;alert(&quot;Don&apos;t use this site. It is not secure!&quot;);&amp;lt;/script&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Sure enough, I got a text from my friend saying: “Tait! I know this is you, why would you do that!”
@@ -610,7 +610,7 @@ Always check that you are using an encrypted connection, HTTPS.
 And if you see any messages warning you that a site is not secure and redirecting you to some random site…
 Take their info with a grain of salt.&lt;/p&gt;
 
-&lt;p&gt;Happy Hacking, literally :)&lt;/p&gt;</content><author><name></name></author><summary type="html">Note: I have alerted the administrators of this site multiple times about this vulnerability. One email was sent many years ago, which is more than enough time for responsible disclosure.</summary></entry><entry><title type="html">Lichess Accessibility</title><link href="http://localhost:4000/2021/01/31/lichess/" rel="alternate" type="text/html" title="Lichess Accessibility" /><published>2021-01-31T00:00:00-07:00</published><updated>2021-01-31T00:00:00-07:00</updated><id>http://localhost:4000/2021/01/31/lichess</id><content type="html" xml:base="http://localhost:4000/2021/01/31/lichess/">&lt;p&gt;I wanted to play chess with somebody who used a screen reader, without requiring a screen reader myself;
+&lt;p&gt;Happy Hacking, literally :)&lt;/p&gt;</content><author><name></name></author><summary type="html">Note: I have alerted the administrators of this site multiple times about this vulnerability. One email was sent many years ago, which is more than enough time for responsible disclosure.</summary></entry><entry><title type="html">Lichess Accessibility</title><link href="/2021/01/31/lichess/" rel="alternate" type="text/html" title="Lichess Accessibility" /><published>2021-01-31T00:00:00-07:00</published><updated>2021-01-31T00:00:00-07:00</updated><id>/2021/01/31/lichess</id><content type="html" xml:base="/2021/01/31/lichess/">&lt;p&gt;I wanted to play chess with somebody who used a screen reader, without requiring a screen reader myself;
 some sites, like QuintenC’s Playroom have a rather poor visual interface for anyone who would like the play the game visually.
 &lt;a href=&quot;https://lichess.org&quot;&gt;Lichess&lt;/a&gt; is an free and open-source website for chess players;
 it bridges this gap by having two “modes” on the site:
@@ -674,7 +674,7 @@ Right now it is not accessible whatsoever.&lt;/p&gt;
 &lt;p&gt;If you are a screen reader user or know about accessibility and want to help make Lichess an awesome chess site for sighted and unsighted players alike,
 then send me an email at &lt;a href=&quot;mailto:tait@tait.tech&quot;&gt;tait@tait.tech&lt;/a&gt; and I’ll BCC you once I start testing the analysis board.&lt;/p&gt;
 
-&lt;p&gt;Happy hacking, y’all!&lt;/p&gt;</content><author><name></name></author><summary type="html">I wanted to play chess with somebody who used a screen reader, without requiring a screen reader myself; some sites, like QuintenC’s Playroom have a rather poor visual interface for anyone who would like the play the game visually. Lichess is an free and open-source website for chess players; it bridges this gap by having two “modes” on the site: standard mode and accessibility mode.</summary></entry><entry><title type="html">How to Deploy Lichess’s Lila With Nginx</title><link href="http://localhost:4000/2020/12/20/deploy-lichess/" rel="alternate" type="text/html" title="How to Deploy Lichess’s Lila With Nginx" /><published>2020-12-20T00:00:00-07:00</published><updated>2020-12-20T00:00:00-07:00</updated><id>http://localhost:4000/2020/12/20/deploy-lichess</id><content type="html" xml:base="http://localhost:4000/2020/12/20/deploy-lichess/">&lt;p&gt;I was getting ready to have a public test of some changes I made to &lt;a href=&quot;https://lichess.org&quot;&gt;lichess.org&lt;/a&gt;’s &lt;a href=&quot;https://lichess.org/source&quot;&gt;open source chess platform&lt;/a&gt;.
+&lt;p&gt;Happy hacking, y’all!&lt;/p&gt;</content><author><name></name></author><summary type="html">I wanted to play chess with somebody who used a screen reader, without requiring a screen reader myself; some sites, like QuintenC’s Playroom have a rather poor visual interface for anyone who would like the play the game visually. Lichess is an free and open-source website for chess players; it bridges this gap by having two “modes” on the site: standard mode and accessibility mode.</summary></entry><entry><title type="html">How to Deploy Lichess’s Lila With Nginx</title><link href="/2020/12/20/deploy-lichess/" rel="alternate" type="text/html" title="How to Deploy Lichess’s Lila With Nginx" /><published>2020-12-20T00:00:00-07:00</published><updated>2020-12-20T00:00:00-07:00</updated><id>/2020/12/20/deploy-lichess</id><content type="html" xml:base="/2020/12/20/deploy-lichess/">&lt;p&gt;I was getting ready to have a public test of some changes I made to &lt;a href=&quot;https://lichess.org&quot;&gt;lichess.org&lt;/a&gt;’s &lt;a href=&quot;https://lichess.org/source&quot;&gt;open source chess platform&lt;/a&gt;.
 In preperation, I got my Let’s Encrypt certificates and nginx configurations setup…
 and it wouldn’t work.
 Here are some tips for myself and future Lichess developers.&lt;/p&gt;
@@ -770,7 +770,7 @@ and it also seems that the websocket returns instead of staying in the ‘pendin
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
-&lt;p&gt;This is not a long article, but just some notes for future me and Lila developers.&lt;/p&gt;</content><author><name></name></author><summary type="html">I was getting ready to have a public test of some changes I made to lichess.org’s open source chess platform. In preperation, I got my Let’s Encrypt certificates and nginx configurations setup… and it wouldn’t work. Here are some tips for myself and future Lichess developers.</summary></entry><entry><title type="html">Getting Pacaur Working on a Raspberry Pi 4 with Manjaro ARM or Arch Linux</title><link href="http://localhost:4000/2020/12/01/pacaur-rpi/" rel="alternate" type="text/html" title="Getting Pacaur Working on a Raspberry Pi 4 with Manjaro ARM or Arch Linux" /><published>2020-12-01T00:00:00-07:00</published><updated>2020-12-01T00:00:00-07:00</updated><id>http://localhost:4000/2020/12/01/pacaur-rpi</id><content type="html" xml:base="http://localhost:4000/2020/12/01/pacaur-rpi/">&lt;p&gt;I recently installed Manjaro ARM (based on Arch Linux ARM) on a Raspberry Pi 4.
+&lt;p&gt;This is not a long article, but just some notes for future me and Lila developers.&lt;/p&gt;</content><author><name></name></author><summary type="html">I was getting ready to have a public test of some changes I made to lichess.org’s open source chess platform. In preperation, I got my Let’s Encrypt certificates and nginx configurations setup… and it wouldn’t work. Here are some tips for myself and future Lichess developers.</summary></entry><entry><title type="html">Getting Pacaur Working on a Raspberry Pi 4 with Manjaro ARM or Arch Linux</title><link href="/2020/12/01/pacaur-rpi/" rel="alternate" type="text/html" title="Getting Pacaur Working on a Raspberry Pi 4 with Manjaro ARM or Arch Linux" /><published>2020-12-01T00:00:00-07:00</published><updated>2020-12-01T00:00:00-07:00</updated><id>/2020/12/01/pacaur-rpi</id><content type="html" xml:base="/2020/12/01/pacaur-rpi/">&lt;p&gt;I recently installed Manjaro ARM (based on Arch Linux ARM) on a Raspberry Pi 4.
 I used some standard commands to start to add the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pacaur&lt;/code&gt; package so I can easily retrieve &lt;a href=&quot;https://wiki.archlinux.org/index.php/Arch_User_Repository&quot;&gt;AUR packages&lt;/a&gt; without needing to do it manually.
 Unfortunately, there is a small problem with compiling this on ARM.&lt;/p&gt;
 
@@ -791,8 +791,8 @@ The full error is below, hopefully that helps my chances on the search engines.&
 
 &lt;pre class=&quot;terminal&quot;&gt;
 In file included from ../subprojects/abseil-cpp-20200225.2/absl/random/internal/randen_hwaes.cc:225:
-/usr/lib/gcc/aarch64-unknown-linux-gnu/9.3.0/include/arm_neon.h: In function 'Vector128 {anonymous}::AesRound(const Vector128&amp;amp;, const Vector128&amp;amp;)':
-/usr/lib/gcc/aarch64-unknown-linux-gnu/9.3.0/include/arm_neon.h:12452:1: error: inlining failed in call to always_inline 'uint8x16_t vaesmcq_u8(uint8x16_t)': target specific option mismatch
+/usr/lib/gcc/aarch64-unknown-linux-gnu/9.3.0/include/arm_neon.h: In function &apos;Vector128 {anonymous}::AesRound(const Vector128&amp;amp;, const Vector128&amp;amp;)&apos;:
+/usr/lib/gcc/aarch64-unknown-linux-gnu/9.3.0/include/arm_neon.h:12452:1: error: inlining failed in call to always_inline &apos;uint8x16_t vaesmcq_u8(uint8x16_t)&apos;: target specific option mismatch
 12452 | vaesmcq_u8 (uint8x16_t data)
 &lt;/pre&gt;
 
@@ -845,7 +845,7 @@ In fact, it is very likely I would have never figured that one out.&lt;/p&gt;
 &lt;p&gt;After this issue is resolved, the installation of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pacaur&lt;/code&gt; goes as expected. Nice and easy!
 Pacuar will compile on any architecture so it’s smooth sailing from here.&lt;/p&gt;
 
-&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">I recently installed Manjaro ARM (based on Arch Linux ARM) on a Raspberry Pi 4. I used some standard commands to start to add the pacaur package so I can easily retrieve AUR packages without needing to do it manually. Unfortunately, there is a small problem with compiling this on ARM.</summary></entry><entry><title type="html">ZFS NAS Box, Part 2</title><link href="http://localhost:4000/2020/11/15/nas2/" rel="alternate" type="text/html" title="ZFS NAS Box, Part 2" /><published>2020-11-15T00:00:00-07:00</published><updated>2020-11-15T00:00:00-07:00</updated><id>http://localhost:4000/2020/11/15/nas2</id><content type="html" xml:base="http://localhost:4000/2020/11/15/nas2/">&lt;p&gt;Back in &lt;a href=&quot;/2020/04/12/nas1/&quot;&gt;part one of my NAS project&lt;/a&gt; I discussed how I wanted to set up my hardware.
+&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">I recently installed Manjaro ARM (based on Arch Linux ARM) on a Raspberry Pi 4. I used some standard commands to start to add the pacaur package so I can easily retrieve AUR packages without needing to do it manually. Unfortunately, there is a small problem with compiling this on ARM.</summary></entry><entry><title type="html">ZFS NAS Box, Part 2</title><link href="/2020/11/15/nas2/" rel="alternate" type="text/html" title="ZFS NAS Box, Part 2" /><published>2020-11-15T00:00:00-07:00</published><updated>2020-11-15T00:00:00-07:00</updated><id>/2020/11/15/nas2</id><content type="html" xml:base="/2020/11/15/nas2/">&lt;p&gt;Back in &lt;a href=&quot;/2020/04/12/nas1/&quot;&gt;part one of my NAS project&lt;/a&gt; I discussed how I wanted to set up my hardware.
 Today, I set up the NAS (almost).&lt;/p&gt;
 
 &lt;p&gt;There were some hiccup along the way, like learning that M.2 slots can disable some of your SATA ports or waiting a month for a host bus adapter to come in from China.&lt;/p&gt;
@@ -938,7 +938,7 @@ I found this out form my motherboard documentation, which I read only after a we
 &lt;p&gt;I like having all this space. I plan on using it up pretty fast, so I’m already looking at how to expand.
 Hopefully that gives a decent overview of how I set up my drives.&lt;/p&gt;
 
-&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">Back in part one of my NAS project I discussed how I wanted to set up my hardware. Today, I set up the NAS (almost).</summary></entry><entry><title type="html">Curiosity</title><link href="http://localhost:4000/2020/10/26/curiosity/" rel="alternate" type="text/html" title="Curiosity" /><published>2020-10-26T00:00:00-06:00</published><updated>2020-10-26T00:00:00-06:00</updated><id>http://localhost:4000/2020/10/26/curiosity</id><content type="html" xml:base="http://localhost:4000/2020/10/26/curiosity/">&lt;p&gt;Curiosity is fundamental to a deep understanding of any subject.
+&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">Back in part one of my NAS project I discussed how I wanted to set up my hardware. Today, I set up the NAS (almost).</summary></entry><entry><title type="html">Curiosity</title><link href="/2020/10/26/curiosity/" rel="alternate" type="text/html" title="Curiosity" /><published>2020-10-26T00:00:00-06:00</published><updated>2020-10-26T00:00:00-06:00</updated><id>/2020/10/26/curiosity</id><content type="html" xml:base="/2020/10/26/curiosity/">&lt;p&gt;Curiosity is fundamental to a deep understanding of any subject.
 Masters, Ph.Ds, and other fancy name suffixes will never help you
 if you don’t have the spirit of curiosity burning inside of you.&lt;/p&gt;
 
