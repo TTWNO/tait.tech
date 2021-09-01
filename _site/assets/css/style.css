@@ -8,7 +8,7 @@ body { background-color: #222222; padding: 16px; font-family: -apple-system, hel
 
 .clear-list li { margin: 0; padding: 0; }
 
-.projects a { font-weight: bold; }
+.projects .namelink { font-weight: bold; }
 
 h1, h2, h3, h4, h5, h6 { line-height: 1em; }
 
