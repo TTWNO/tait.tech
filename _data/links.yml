@@ -12,6 +12,9 @@
   - name: Github
     label: github.com/TTWNO
     value: https://github.com/TTWNO
+  - name: RSS Feed
+    label: feed.xml
+    value: /feed.xml
   - name: Backup/Mirror Site
     value: https://beta.tait.tech/
     label: beta.tait.tech

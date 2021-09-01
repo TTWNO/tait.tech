@@ -15,6 +15,3 @@
 - name: Github
   new_tab: true 
   link: https://github.com/TTWNO/
-- name: "RSS Feed"
-  new_tab: true
-  link: /feed.xml
