@@ -6,6 +6,9 @@ title: "Ideas"
 
 ## 1. Accessible BIOS
 
+Update:
+See my blog post with the guy who's writing the [new audio driver into EDK2](/2021/06/21/uefi-audio/).
+
 Some server motherboards include serial UART/I<sup>2</sup>C ports which can be used to manage a BIOS via serial.
 If this is possible, would it be able to attach to a braille display via an intermediary like a Rockchip/Pi SBC or Arduino compatible chip using [BRLTTY](https://brltty.app) and serial input from the motherboard?
 Maybe not as it [appears to require](https://tldp.org/HOWTO/Remote-Serial-Console-HOWTO/rhl-biosserial.html) a full Unicode terminal, which I have the suspicion that BRLTTY will not be able to automatically filter out the formatting characters.
@@ -22,6 +25,7 @@ I have downloaded and played around with his Github project but to no avail.
 Either I am not setting it up correctly, or I do not have the proper sound setup, but in any case no sound plays from either my laptop or desktop.
 
 This requires more research and investment to understand UEFI, HDA audio, what systems have it and how to work with words and other sounds.
+
 
 ## 2. Terminal-oriented browser
 
@@ -56,3 +60,6 @@ Then, add 4 more roads and figure out how to intersect them.
 If it can be done on a display, it can be done in a file.
 
 Start with that. Wow what a daunting project!
+
+This is being worked on through the [touch-mapper](https://github.com/skarkkai/touch-mapper) project.
+They do not, however, have labels yet.

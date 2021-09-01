@@ -34,6 +34,9 @@
 
 <h2 id="1-accessible-bios">1. Accessible BIOS</h2>
 
+<p>Update:
+See my blog post with the guy who’s writing the <a href="/2021/06/21/uefi-audio/">new audio driver into EDK2</a>.</p>
+
 <p>Some server motherboards include serial UART/I<sup>2</sup>C ports which can be used to manage a BIOS via serial.
 If this is possible, would it be able to attach to a braille display via an intermediary like a Rockchip/Pi SBC or Arduino compatible chip using <a href="https://brltty.app">BRLTTY</a> and serial input from the motherboard?
 Maybe not as it <a href="https://tldp.org/HOWTO/Remote-Serial-Console-HOWTO/rhl-biosserial.html">appears to require</a> a full Unicode terminal, which I have the suspicion that BRLTTY will not be able to automatically filter out the formatting characters.</p>
@@ -84,6 +87,9 @@ Then, add 4 more roads and figure out how to intersect them.</p>
 <p>If it can be done on a display, it can be done in a file.</p>
 
 <p>Start with that. Wow what a daunting project!</p>
+
+<p>This is being worked on through the <a href="https://github.com/skarkkai/touch-mapper">touch-mapper</a> project.
+They do not, however, have labels yet.</p>
 
       </main>
       <hr>
