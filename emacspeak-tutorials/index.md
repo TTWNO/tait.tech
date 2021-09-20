@@ -13,7 +13,7 @@ The lack of sorting is intentional.
 See Luke Smith's video on [why to ramble and not be sequential](https://www.youtube.com/watch?v=ent5g6_gnik).
 
 <!--
-TODO: add transcript of me and Emacspeak output, and host on at least one alternate and one self-hosted platform.
+TODO: host on at least one alternate and one self-hosted platform.
 MUST be done before making new videos.
 -->
 
