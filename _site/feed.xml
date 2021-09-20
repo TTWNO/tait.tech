@@ -1,4 +1,286 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-02T16:12:38-06:00</updated><id>/feed.xml</id><entry><title type="html">Idea For A VPN Service</title><link href="/2021/08/31/vpns-api/" rel="alternate" type="text/html" title="Idea For A VPN Service" /><published>2021-08-31T00:00:00-06:00</published><updated>2021-08-31T00:00:00-06:00</updated><id>/2021/08/31/vpns-api</id><content type="html" xml:base="/2021/08/31/vpns-api/">&lt;p&gt;Recently I’ve been thinking about starting a VPN service.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-19T18:43:11-06:00</updated><id>/feed.xml</id><entry><title type="html">How To Produce Semantically Correct MathML From XaTeX/LaTeX (and other accessibility ideas)</title><link href="/2021/09/18/how-to-generate-proper-content-mathml-from-katex-or-latex/" rel="alternate" type="text/html" title="How To Produce Semantically Correct MathML From XaTeX/LaTeX (and other accessibility ideas)" /><published>2021-09-18T00:00:00-06:00</published><updated>2021-09-18T00:00:00-06:00</updated><id>/2021/09/18/how-to-generate-proper-content-mathml-from-katex-or-latex</id><content type="html" xml:base="/2021/09/18/how-to-generate-proper-content-mathml-from-katex-or-latex/">&lt;p&gt;During a recent run-in with the Simon Fraser Fraser University accessibility department,
+I learned that they’re writers are so well-trained as to write “image” where a simple diagram is shown,
+and “print out picture of output” where a piece of code lies.
+I figure the geniuses over there could use some help creating files for the visually impaired.
+Here’s a quick guide!&lt;/p&gt;
+
+&lt;h2 id=&quot;diagrams&quot;&gt;Diagrams&lt;/h2&gt;
+
+&lt;p&gt;Most unexplained diagrams I saw were ones which mirrored classic computer-science imagery;
+these diagrams, for the most part, were not complex nor exotic;
+they are straight-forward to explain in writing,
+or easy to turn into a table.
+I’ll show two examples here,
+one will show a visual aide in relation to stacks and queues,
+and the other will show a memory representation of a stack.
+Both of these were explained as “image” to the student.&lt;/p&gt;
+
+&lt;h2 id=&quot;stacks&quot;&gt;Stacks&lt;/h2&gt;
+
+&lt;p&gt;Diagram 1:&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;/assets/img/access1/stack.png&quot; alt=&quot;image...lol! Just kidding, will explain it below w/ table&quot; /&gt;
+  &lt;figcaption&gt;Simple diagram explaining the push/pop process. Source: &lt;a href=&quot;https://stackoverflow.com/questions/32151392/stacks-queues-and-linked-lists&quot;&gt;Stackoverflow&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Ok, so here we have a diagram showing the pushing and popping process of a stack.
+Now, “image” is hardly sufficient to explain this, so let’s try it with text.
+I won’t finish it because it gets unwieldy very fast:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A diagram showing a stack. It starts with the operation “Push A”, and now the stack contains the variable “A”; now the stack pushes “B”, which displays now “B” on top of “A”…&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is no solution.
+It is hard to explain this correctly and accurately without being extremely verbose and frankly, confusing—this defeats the whole purpose of describing the image.
+The good news, is that computer science diagrams especially tend to lean towards being tabular data.
+Now to be clear, something does not need to look like a table to be tabular data;
+this image happens to look almost like a table if you squinted hard enough,
+but many data not written down in a table, are still “tabular data”.
+I will show an example of that next!
+For now though, here is the same idea, same data without words:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Operator&lt;/th&gt;
+      &lt;th&gt;Stack Values&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Push A&lt;/td&gt;
+      &lt;td&gt;[A]&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Push B&lt;/td&gt;
+      &lt;td&gt;{B, A]&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Push C&lt;/td&gt;
+      &lt;td&gt;[C, B, A]&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Push D&lt;/td&gt;
+      &lt;td&gt;[D, C, B, A]&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Pop D&lt;/td&gt;
+      &lt;td&gt;[C, B, A]&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Now this diagram does imply you can pop other items, like “Pop A”, which is just not true.
+But that’s the fault of the diagram, not the representation of it.&lt;/p&gt;
+
+&lt;p&gt;Here is the raw text equivalent (in Markdown):&lt;/p&gt;
+
+&lt;pre&gt;
+Operator|Stack Values
+---|---
+Push A|[A]
+Push B|{B, A]
+Push C|[C, B, A]
+Push D|[D, C, B, A]
+Pop (D)|[C, B, A]
+&lt;/pre&gt;
+
+&lt;h2 id=&quot;stacks-in-memory&quot;&gt;Stacks in Memory&lt;/h2&gt;
+
+&lt;p&gt;So I couldn’t find a good non-copyright image of a stack in memory, but I’ll write it down here in plain text, and you should get the idea.
+Now again, remember this is still labeled “image” to the student,
+they do not have access to a text version of this.&lt;/p&gt;
+
+&lt;pre&gt;
+( ) ( ( ( ) ) ) ( ) ( ( ) ( ( )
+1 0 1 2 3 2 1 0 1 0 1 2 1 2 3 2
+&lt;/pre&gt;
+
+&lt;p&gt;Now, someone who looks at this can probably see that the number goes up for a left parenthesis, and down for a right parenthesis.
+“Image”, however, does not handle the detail.
+The issue here is a transcriber is likely to want to transcribe this as &lt;em&gt;text&lt;/em&gt;.
+But it’s really not.
+This is again, tabular data, which is best represented in a table.&lt;/p&gt;
+
+&lt;p&gt;Table of this:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Character&lt;/th&gt;
+      &lt;th&gt;Counter&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;(&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;)&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;(&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;(&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;(&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;)&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;)&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;)&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;(&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;)&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;(&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;(&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;)&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;(&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;(&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;)&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Raw text in markdown:&lt;/p&gt;
+
+&lt;pre&gt;
+Character|Counter
+---|---
+(|1
+)|0
+(|1
+(|2
+(|3
+)|2
+)|1
+)|0
+(|1
+)|0
+(|1
+(|2
+)|1
+(|2
+(|3
+)|2
+&lt;/pre&gt;
+
+&lt;p&gt;Insanely simple!
+Look for clues of tabular data.
+Things which have a one to one correspondence of any kind can usually be represented as a table, even if it’s only “aligned” on the slide or note.&lt;/p&gt;
+
+&lt;h2 id=&quot;math-expressions--mathml&quot;&gt;Math Expressions &amp;amp; MathML&lt;/h2&gt;
+
+&lt;p&gt;Here is a more complex example:
+using math within a presentation.&lt;/p&gt;
+
+&lt;p&gt;Let’s take for example the mathematical expression &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn&gt;16&lt;/mn&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;4&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;16 = 2^{4}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.64444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8141079999999999em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8141079999999999em;&quot;&gt;&lt;span style=&quot;top:-3.063em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;4&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. This is a very simple math expression that completely breaks in some cases.
+When converting some math expressions to text, it will convert that expression as &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn&gt;16&lt;/mn&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;24&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;16 = 24&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.64444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.64444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;24&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;, erasing the superscript to denote the exponent.&lt;/p&gt;
+
+&lt;p&gt;This gets even worse with large mathematical expressions like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mtext&gt;B2U&lt;/mtext&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;X&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;munderover&gt;&lt;mo&gt;∑&lt;/mo&gt;&lt;mrow&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;/mrow&gt;&lt;mrow&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;/munderover&gt;&lt;msub&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;
+\text{B2U}(X) = \sum_{i=0}^{w-1} x_{i} \times 2^{i}
+&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord text&quot;&gt;&lt;span class=&quot;mord&quot;&gt;B2U&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord mathdefault&quot; style=&quot;margin-right:0.07847em;&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:3.0787820000000004em;vertical-align:-1.277669em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mop op-limits&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:1.8011130000000004em;&quot;&gt;&lt;span style=&quot;top:-1.872331em;margin-left:0em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3.05em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;mrel mtight&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.050005em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3.05em;&quot;&gt;&lt;/span&gt;&lt;span&gt;&lt;span class=&quot;mop op-symbol large-op&quot;&gt;∑&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-4.300005em;margin-left:0em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3.05em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathdefault mtight&quot; style=&quot;margin-right:0.02691em;&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;mbin mtight&quot;&gt;−&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:1.277669em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.16666666666666666em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathdefault&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.31166399999999994em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mbin&quot;&gt;×&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8746639999999999em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8746639999999999em;&quot;&gt;&lt;span style=&quot;top:-3.113em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Here is what I get by extracting the text from the PDF:&lt;/p&gt;
+
+&lt;pre&gt;
+B2U(X ) =
+
+w-1
+
+Σ xi •2
+i=0
+
+i
+&lt;/pre&gt;
+
+&lt;p&gt;And this is generous, as the sigma sign, bullet point, equal sign and minus sign were for some reason not UTF-8 encoded so it displayed as a chat sign emoji, down arrow, video camera and book sign respectively.
+Not sure about you, but I certainly can’t get the equation out of that mess.&lt;/p&gt;
+
+&lt;p&gt;These can be written in LaTeX, then converted to MathML (an accessible math format) using &lt;a href=&quot;https://katex.org&quot;&gt;KaTeX&lt;/a&gt;.
+Here’s an example of what to write to product the function above:&lt;/p&gt;
+
+&lt;pre&gt;
+\text{B2U}(X) = \sum_{i=0}^{w-1} x_{i} \times 2^{i}
+&lt;/pre&gt;
+
+&lt;p&gt;For someone who is doing transcription as a &lt;em&gt;job&lt;/em&gt; for visually impaired students,
+I would go so far as to say to learn this is a necessity.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;It’s not difficult. You can learn the vast majority of LaTeX math syntax in an afternoon.&lt;/li&gt;
+  &lt;li&gt;It’s easier for &lt;em&gt;everyone&lt;/em&gt; to read. Especially with KaTeX. KaTeX is able to convert the formula to both MathML for screenreader users and HTML markup for people who just want to see those fancy math expressions.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Likely, the teacher is already using some LaTeX derivative to create the math in the first place,
+they might as well use a program like KaTeX, MathJax or likewise to convert it to MathML.&lt;/p&gt;
+
+&lt;h2 id=&quot;code--output&quot;&gt;Code &amp;amp; Output&lt;/h2&gt;
+
+&lt;p&gt;How did it even happen that entire programs and outputs were just ignored with the label “picture of output” is beyond me.
+Everything should be transcribed.
+Whoever transcribed that document should be fired.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;To teachers:&lt;/p&gt;
+
+&lt;p&gt;Presenting information in plain text, or at least having alternates forms of images, diagrams and math formulas makes education better for everyone, not just blind students.
+It makes it better for people running on cheaper devices which may not handle running heavy software like Microsoft PowerPoint;
+it makes it better for people who use operating systems other than MacOS and Windows (this is especially important in the technology sector, where Linux/BSD users make up a sizeable minority of users);
+and finally, it makes it easier to search through the content of all notes at once using simple text-manipulation tools.&lt;/p&gt;
+
+&lt;p&gt;To accessibility departments:&lt;/p&gt;
+
+&lt;p&gt;Running a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pdftotext&lt;/code&gt; program, or simply transcribing handwritten notes is not enough to properly describe slides and notes—handwritten or not.
+Every diagram, math equation, annotation, piece of code or output—every single thing must be transcribed to plain text, or some alternate format like MathML.&lt;/p&gt;
+
+&lt;p&gt;I find it sad that a student (with their own full-time job) can product better work than someone who has this job exclusively at a major university.
+Perhaps I am mistaken and the university has volunteers do this work.
+In that case I guess you can’t ask for too much, but somehow I feel like this is probably not the case.&lt;/p&gt;
+
+&lt;p&gt;Big sad.&lt;/p&gt;</content><author><name></name></author><summary type="html">During a recent run-in with the Simon Fraser Fraser University accessibility department, I learned that they’re writers are so well-trained as to write “image” where a simple diagram is shown, and “print out picture of output” where a piece of code lies. I figure the geniuses over there could use some help creating files for the visually impaired. Here’s a quick guide!</summary></entry><entry><title type="html">Idea For A VPN Service</title><link href="/2021/08/31/vpns-api/" rel="alternate" type="text/html" title="Idea For A VPN Service" /><published>2021-08-31T00:00:00-06:00</published><updated>2021-08-31T00:00:00-06:00</updated><id>/2021/08/31/vpns-api</id><content type="html" xml:base="/2021/08/31/vpns-api/">&lt;p&gt;Recently I’ve been thinking about starting a VPN service.
 This service has some interesting requirements that I have never seen a VPN service do before, so I’d like to put down my thoughts as to what might be sensible for a centralized yet encrypted* VPN service.&lt;/p&gt;
 
 &lt;p&gt;I would license all the code and scripts under the AGPLv3.
@@ -938,75 +1220,4 @@ I found this out form my motherboard documentation, which I read only after a we
 &lt;p&gt;I like having all this space. I plan on using it up pretty fast, so I’m already looking at how to expand.
 Hopefully that gives a decent overview of how I set up my drives.&lt;/p&gt;
 
-&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">Back in part one of my NAS project I discussed how I wanted to set up my hardware. Today, I set up the NAS (almost).</summary></entry><entry><title type="html">Curiosity</title><link href="/2020/10/26/curiosity/" rel="alternate" type="text/html" title="Curiosity" /><published>2020-10-26T00:00:00-06:00</published><updated>2020-10-26T00:00:00-06:00</updated><id>/2020/10/26/curiosity</id><content type="html" xml:base="/2020/10/26/curiosity/">&lt;p&gt;Curiosity is fundamental to a deep understanding of any subject.
-Masters, Ph.Ds, and other fancy name suffixes will never help you
-if you don’t have the spirit of curiosity burning inside of you.&lt;/p&gt;
-
-&lt;p&gt;I was speaking to someone from a journalism major at my school when the subject of hacking arose.
-I expected her to know nothing about it, being a journalism student and all, but surprisingly she had something to say about it:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“The best hackers are the ones who are curious.”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;That struck a cord with me.
-It seems to me she has nailed down the difference between the students who care about grades,
-and those who want to learn.
-These are not necessarily mutually exclusive, but in my experience they often are due to the way education is structured.&lt;/p&gt;
-
-&lt;h2 id=&quot;my-anecdote&quot;&gt;My Anecdote&lt;/h2&gt;
-
-&lt;p&gt;In my second semester at SAIT Polytechnic, I took a class entitled &lt;em&gt;Emerging Trends In Technology&lt;/em&gt;.
-This class was probably the best class I have ever taken.
-We had to combine two things:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Hard skills&lt;/strong&gt;: learning a new hard skill like Angular, Django, or GPG encryption.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Soft skills&lt;/strong&gt;: public speaking and presentation of our ideas.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Soft skills are not usually my area, but I can do public speaking.
-I grew up quite religious, so public speaking was drilled into me young.
-I liked to go off script and talk about interesting things I found along the way to the actual point.
-My creativity was not usually encouraged.
-That said, going off script is useful when teaching and presenting ideas;
-it gives a natural air to your breath and an unquestionable confidence in your speech.&lt;/p&gt;
-
-&lt;p&gt;This is how we learn: in relationships.
-Try explaining ancient Japanese history to a computer science major, or UNIX sockets to an English major and you’ll see what I mean.
-If there is nothing for us to connect the knowledge to, it dissipates.&lt;/p&gt;
-
-&lt;p&gt;So why did I do so well in this class?&lt;/p&gt;
-
-&lt;p&gt;Our task for the semester was as follows:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Learn a new subject (any &lt;em&gt;emerging trend in technology&lt;/em&gt;) which you find fascinating.&lt;/li&gt;
-  &lt;li&gt;Give a one minute introduction by week three.&lt;/li&gt;
-  &lt;li&gt;Give a 10 minute non-technical overview by week 8.&lt;/li&gt;
-  &lt;li&gt;Give a 20 minute technical explaination and demo by week 13.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;This is the only course I have ever taken which lets students’ imagination run wild.
-Their presentation, their rules.
-They treated the students like adults who know what they are doing.
-What happened? Everyone stopped coming because “Oh no! Presentations!”?&lt;/p&gt;
-
-&lt;p&gt;No, exactly the opposite.
-There was never more than one student missing.
-Every single presentation was at least moderately interesting,
-and most students were excited to come to that class.
-You could see it in their faces, the way they carried themselves.
-Every student picked something unique to their tastes, leaving every student more educated than before.&lt;/p&gt;
-
-&lt;p&gt;This class, unlike many others, encouraged the curiosity of the students.
-It rewarded those who had unique interests and an ability to sell others on their ideas.&lt;/p&gt;
-
-&lt;p&gt;The curiosity and the grades were one.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;Although it’s nice to have a course where these goals align here and there, anyone who has been to collage or university can tell you that is far from the norm.&lt;/p&gt;
-
-&lt;p&gt;On the other hand, I never would have started this site if it wasn’t for that class alone.
-So I thank you, Kitty Wong, for getting me started running my own “research blog” (?)&lt;/p&gt;</content><author><name></name></author><summary type="html">Curiosity is fundamental to a deep understanding of any subject. Masters, Ph.Ds, and other fancy name suffixes will never help you if you don’t have the spirit of curiosity burning inside of you.</summary></entry></feed>
+&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">Back in part one of my NAS project I discussed how I wanted to set up my hardware. Today, I set up the NAS (almost).</summary></entry></feed>
