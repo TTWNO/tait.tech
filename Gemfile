@@ -7,6 +7,10 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 gem "webrick"
 gem "jekyll"
 gem "rack", ">= 2.2.3"
+gem "kramdown"
+gem "kramdown-math-katex"
+gem "execjs"
+gem "duktape"
 
 group :jekyll_plugins do
 	gem 'jekyll-katex'

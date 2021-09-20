@@ -1,6 +1,7 @@
 plugins:
   - jekyll-katex
   - jekyll-minifier
+  - kramdown-math-katex
 
 highlihger: rouge
 
@@ -10,3 +11,7 @@ collections:
   emacspeak_tutorials:
     output: true
     permalink: /emacspeak-tutorials/:name/
+
+markdown: kramdown
+kramdown:
+  math_engine: katex

@@ -6,6 +6,7 @@ GEM
     colorator (1.1.0)
     concurrent-ruby (1.1.9)
     cssminify2 (2.0.1)
+    duktape (2.6.0.0)
     em-websocket (0.5.2)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
@@ -54,8 +55,13 @@ GEM
     json (2.5.1)
     json-minify (0.0.3)
       json (> 0)
+    katex (0.8.0)
+      execjs (~> 2.7)
     kramdown (2.3.1)
       rexml
+    kramdown-math-katex (1.0.1)
+      katex (~> 0.4)
+      kramdown (~> 2.0)
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
     liquid (4.0.3)
@@ -86,12 +92,16 @@ PLATFORMS
   aarch64-linux
 
 DEPENDENCIES
+  duktape
+  execjs
   jekyll
   jekyll-feed
   jekyll-katex
   jekyll-minifier
   jekyll-seo-tag
   jekyll-sitemap
+  kramdown
+  kramdown-math-katex
   rack (>= 2.2.3)
   webrick
 
