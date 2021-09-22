@@ -48,7 +48,7 @@ For now though, here is the same idea, same data without words:
 Operator|Stack Values
 ---|---
 Push A|[A]
-Push B|{B, A]
+Push B|[B, A]
 Push C|[C, B, A]
 Push D|[D, C, B, A]
 Pop D|[C, B, A]
