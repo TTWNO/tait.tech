@@ -1,81 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-22T11:33:06-06:00</updated><id>/feed.xml</id><entry><title type="html">How To Produce Semantically Correct MathML From XaTeX/LaTeX (and other accessibility ideas)</title><link href="/2021/09/18/how-to-generate-proper-content-mathml-from-katex-or-latex/" rel="alternate" type="text/html" title="How To Produce Semantically Correct MathML From XaTeX/LaTeX (and other accessibility ideas)" /><published>2021-09-18T00:00:00-06:00</published><updated>2021-09-18T00:00:00-06:00</updated><id>/2021/09/18/how-to-generate-proper-content-mathml-from-katex-or-latex</id><content type="html" xml:base="/2021/09/18/how-to-generate-proper-content-mathml-from-katex-or-latex/">&lt;p&gt;During a recent run-in with the Simon Fraser Fraser University accessibility department,
-I learned that they’re writers are so well-trained as to write “image” where a simple diagram is shown,
-and “print out picture of output” where a piece of code lies.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-10-04T19:49:51-06:00</updated><id>/feed.xml</id><entry><title type="html">How To Produce Semantically Correct MathML From XaTeX/LaTeX (and other accessibility ideas)</title><link href="/2021/09/18/how-to-generate-proper-content-mathml-from-katex-or-latex/" rel="alternate" type="text/html" title="How To Produce Semantically Correct MathML From XaTeX/LaTeX (and other accessibility ideas)" /><published>2021-09-18T00:00:00-06:00</published><updated>2021-09-18T00:00:00-06:00</updated><id>/2021/09/18/how-to-generate-proper-content-mathml-from-katex-or-latex</id><content type="html" xml:base="/2021/09/18/how-to-generate-proper-content-mathml-from-katex-or-latex/">During a recent run-in with the Simon Fraser Fraser University accessibility department,
+I learned that they&apos;re writers are so well-trained as to write &quot;image&quot; where a simple diagram is shown,
+and &quot;print out picture of output&quot; where a piece of code lies.
 I figure the geniuses over there could use some help creating files for the visually impaired.
-Here’s a quick guide!&lt;/p&gt;
+Here&apos;s a quick guide!
 
-&lt;h2 id=&quot;diagrams&quot;&gt;Diagrams&lt;/h2&gt;
+## Diagrams
 
-&lt;p&gt;Most unexplained diagrams I saw were ones which mirrored classic computer-science imagery;
+Most unexplained diagrams I saw were ones which mirrored classic computer-science imagery;
 these diagrams, for the most part, were not complex nor exotic;
 they are straight-forward to explain in writing,
 or easy to turn into a table.
-I’ll show two examples here,
+I&apos;ll show two examples here,
 one will show a visual aide in relation to stacks and queues,
 and the other will show a memory representation of a stack.
-Both of these were explained as “image” to the student.&lt;/p&gt;
+Both of these were explained as &quot;image&quot; to the student.
 
-&lt;h2 id=&quot;stacks&quot;&gt;Stacks&lt;/h2&gt;
+## Stacks
 
-&lt;p&gt;Diagram 1:&lt;/p&gt;
+Diagram 1:
 
 &lt;figure&gt;
-  &lt;img src=&quot;/assets/img/access1/stack.png&quot; alt=&quot;image...lol! Just kidding, will explain it below w/ table&quot; /&gt;
+  &lt;img src=&quot;/assets/img/access1/stack.png&quot; alt=&quot;image...lol! Just kidding, will explain it below w/ table&quot;&gt;
   &lt;figcaption&gt;Simple diagram explaining the push/pop process. Source: &lt;a href=&quot;https://stackoverflow.com/questions/32151392/stacks-queues-and-linked-lists&quot;&gt;Stackoverflow&lt;/a&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;p&gt;Ok, so here we have a diagram showing the pushing and popping process of a stack.
-Now, “image” is hardly sufficient to explain this, so let’s try it with text.
-I won’t finish it because it gets unwieldy very fast:&lt;/p&gt;
+Ok, so here we have a diagram showing the pushing and popping process of a stack.
+Now, &quot;image&quot; is hardly sufficient to explain this, so let&apos;s try it with text.
+I won&apos;t finish it because it gets unwieldy very fast:
 
-&lt;blockquote&gt;
-  &lt;p&gt;A diagram showing a stack. It starts with the operation “Push A”, and now the stack contains the variable “A”; now the stack pushes “B”, which displays now “B” on top of “A”…&lt;/p&gt;
-&lt;/blockquote&gt;
+&gt; A diagram showing a stack. It starts with the operation &quot;Push A&quot;, and now the stack contains the variable &quot;A&quot;; now the stack pushes &quot;B&quot;, which displays now &quot;B&quot; on top of &quot;A&quot;...
 
-&lt;p&gt;This is no solution.
-It is hard to explain this correctly and accurately without being extremely verbose and frankly, confusing—this defeats the whole purpose of describing the image.
+This is no solution.
+It is hard to explain this correctly and accurately without being extremely verbose and frankly, confusing---this defeats the whole purpose of describing the image.
 The good news, is that computer science diagrams especially tend to lean towards being tabular data.
 Now to be clear, something does not need to look like a table to be tabular data;
 this image happens to look almost like a table if you squinted hard enough,
-but many data not written down in a table, are still “tabular data”.
+but many data not written down in a table, are still &quot;tabular data&quot;.
 I will show an example of that next!
-For now though, here is the same idea, same data without words:&lt;/p&gt;
+For now though, here is the same idea, same data without words:
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Operator&lt;/th&gt;
-      &lt;th&gt;Stack Values&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Push A&lt;/td&gt;
-      &lt;td&gt;[A]&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Push B&lt;/td&gt;
-      &lt;td&gt;[B, A]&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Push C&lt;/td&gt;
-      &lt;td&gt;[C, B, A]&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Push D&lt;/td&gt;
-      &lt;td&gt;[D, C, B, A]&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Pop D&lt;/td&gt;
-      &lt;td&gt;[C, B, A]&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+Operator|Stack Values
+---|---
+Push A|[A]
+Push B|[B, A]
+Push C|[C, B, A]
+Push D|[D, C, B, A]
+Pop D|[C, B, A]
 
-&lt;p&gt;Now this diagram does imply you can pop other items, like “Pop A”, which is just not true.
-But that’s the fault of the diagram, not the representation of it.&lt;/p&gt;
+Now this diagram does imply you can pop other items, like &quot;Pop A&quot;, which is just not true.
+But that&apos;s the fault of the diagram, not the representation of it.
 
-&lt;p&gt;Here is the raw text equivalent (in Markdown):&lt;/p&gt;
+Here is the raw text equivalent (in Markdown):
 
 &lt;pre&gt;
 Operator|Stack Values
@@ -87,101 +62,45 @@ Push D|[D, C, B, A]
 Pop (D)|[C, B, A]
 &lt;/pre&gt;
 
-&lt;h2 id=&quot;stacks-in-memory&quot;&gt;Stacks in Memory&lt;/h2&gt;
+## Stacks in Memory
 
-&lt;p&gt;So I couldn’t find a good non-copyright image of a stack in memory, but I’ll write it down here in plain text, and you should get the idea.
-Now again, remember this is still labeled “image” to the student,
-they do not have access to a text version of this.&lt;/p&gt;
+So I couldn&apos;t find a good non-copyright image of a stack in memory, but I&apos;ll write it down here in plain text, and you should get the idea.
+Now again, remember this is still labeled &quot;image&quot; to the student,
+they do not have access to a text version of this.
 
 &lt;pre&gt;
 ( ) ( ( ( ) ) ) ( ) ( ( ) ( ( )
 1 0 1 2 3 2 1 0 1 0 1 2 1 2 3 2
 &lt;/pre&gt;
 
-&lt;p&gt;Now, someone who looks at this can probably see that the number goes up for a left parenthesis, and down for a right parenthesis.
-“Image”, however, does not handle the detail.
-The issue here is a transcriber is likely to want to transcribe this as &lt;em&gt;text&lt;/em&gt;.
-But it’s really not.
-This is again, tabular data, which is best represented in a table.&lt;/p&gt;
+Now, someone who looks at this can probably see that the number goes up for a left parenthesis, and down for a right parenthesis.
+&quot;Image&quot;, however, does not handle the detail.
+The issue here is a transcriber is likely to want to transcribe this as *text*.
+But it&apos;s really not.
+This is again, tabular data, which is best represented in a table.
 
-&lt;p&gt;Table of this:&lt;/p&gt;
+Table of this:
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Character&lt;/th&gt;
-      &lt;th&gt;Counter&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;(&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;)&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;(&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;(&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;(&lt;/td&gt;
-      &lt;td&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;)&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;)&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;)&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;(&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;)&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;(&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;(&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;)&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;(&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;(&lt;/td&gt;
-      &lt;td&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;)&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+Character|Counter
+---|---
+(|1
+)|0
+(|1
+(|2
+(|3
+)|2
+)|1
+)|0
+(|1
+)|0
+(|1
+(|2
+)|1
+(|2
+(|3
+)|2
 
-&lt;p&gt;Raw text in markdown:&lt;/p&gt;
+Raw text in markdown:
 
 &lt;pre&gt;
 Character|Counter
@@ -204,25 +123,25 @@ Character|Counter
 )|2
 &lt;/pre&gt;
 
-&lt;p&gt;Insanely simple!
+Insanely simple!
 Look for clues of tabular data.
-Things which have a one to one correspondence of any kind can usually be represented as a table, even if it’s only “aligned” on the slide or note.&lt;/p&gt;
+Things which have a one to one correspondence of any kind can usually be represented as a table, even if it&apos;s only &quot;aligned&quot; on the slide or note.
 
-&lt;h2 id=&quot;math-expressions--mathml&quot;&gt;Math Expressions &amp;amp; MathML&lt;/h2&gt;
+## Math Expressions &amp; MathML
 
-&lt;p&gt;Here is a more complex example:
-using math within a presentation.&lt;/p&gt;
+Here is a more complex example:
+using math within a presentation.
 
-&lt;p&gt;Let’s take for example the mathematical expression &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn&gt;16&lt;/mn&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;4&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;16 = 2^{4}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.64444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8141079999999999em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8141079999999999em;&quot;&gt;&lt;span style=&quot;top:-3.063em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;4&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. This is a very simple math expression that completely breaks in some cases.
-When converting some math expressions to text, it will convert that expression as &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn&gt;16&lt;/mn&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;24&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;16 = 24&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.64444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.64444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;24&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;, erasing the superscript to denote the exponent.&lt;/p&gt;
+Let&apos;s take for example the mathematical expression $$16 = 2^{4}$$. This is a very simple math expression that completely breaks in some cases.
+When converting some math expressions to text, it will convert that expression as $$16 = 24$$, erasing the superscript to denote the exponent.
 
-&lt;p&gt;This gets even worse with large mathematical expressions like this:&lt;/p&gt;
+This gets even worse with large mathematical expressions like this:
 
-&lt;p&gt;&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mtext&gt;B2U&lt;/mtext&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;X&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;munderover&gt;&lt;mo&gt;∑&lt;/mo&gt;&lt;mrow&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;/mrow&gt;&lt;mrow&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;/munderover&gt;&lt;msub&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;
+{% katex display %}
 \text{B2U}(X) = \sum_{i=0}^{w-1} x_{i} \times 2^{i}
-&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord text&quot;&gt;&lt;span class=&quot;mord&quot;&gt;B2U&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord mathdefault&quot; style=&quot;margin-right:0.07847em;&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:3.0787820000000004em;vertical-align:-1.277669em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mop op-limits&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:1.8011130000000004em;&quot;&gt;&lt;span style=&quot;top:-1.872331em;margin-left:0em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3.05em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;mrel mtight&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.050005em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3.05em;&quot;&gt;&lt;/span&gt;&lt;span&gt;&lt;span class=&quot;mop op-symbol large-op&quot;&gt;∑&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-4.300005em;margin-left:0em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3.05em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathdefault mtight&quot; style=&quot;margin-right:0.02691em;&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;mbin mtight&quot;&gt;−&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:1.277669em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.16666666666666666em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathdefault&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.31166399999999994em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mbin&quot;&gt;×&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8746639999999999em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8746639999999999em;&quot;&gt;&lt;span style=&quot;top:-3.113em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+{% endkatex %}
 
-&lt;p&gt;Here is what I get by extracting the text from the PDF:&lt;/p&gt;
+Here is what I get by extracting the text from the PDF:
 
 &lt;pre&gt;
 B2U(X ) =
@@ -235,261 +154,244 @@ i=0
 i
 &lt;/pre&gt;
 
-&lt;p&gt;And this is generous, as the sigma sign, bullet point, equal sign and minus sign were for some reason not UTF-8 encoded so it displayed as a chat sign emoji, down arrow, video camera and book sign respectively.
-Not sure about you, but I certainly can’t get the equation out of that mess.&lt;/p&gt;
+And this is generous, as the sigma sign, bullet point, equal sign and minus sign were for some reason not UTF-8 encoded so it displayed as a chat sign emoji, down arrow, video camera and book sign respectively.
+Not sure about you, but I certainly can&apos;t get the equation out of that mess.
 
-&lt;p&gt;These can be written in LaTeX, then converted to MathML (an accessible math format) using &lt;a href=&quot;https://katex.org&quot;&gt;KaTeX&lt;/a&gt;.
-Here’s an example of what to write to product the function above:&lt;/p&gt;
+These can be written in LaTeX, then converted to MathML (an accessible math format) using [KaTeX](https://katex.org).
+Here&apos;s an example of what to write to product the function above:
 
 &lt;pre&gt;
 \text{B2U}(X) = \sum_{i=0}^{w-1} x_{i} \times 2^{i}
 &lt;/pre&gt;
 
-&lt;p&gt;For someone who is doing transcription as a &lt;em&gt;job&lt;/em&gt; for visually impaired students,
-I would go so far as to say to learn this is a necessity.&lt;/p&gt;
+For someone who is doing transcription as a *job* for visually impaired students,
+I would go so far as to say to learn this is a necessity.
 
-&lt;ol&gt;
-  &lt;li&gt;It’s not difficult. You can learn the vast majority of LaTeX math syntax in an afternoon.&lt;/li&gt;
-  &lt;li&gt;It’s easier for &lt;em&gt;everyone&lt;/em&gt; to read. Especially with KaTeX. KaTeX is able to convert the formula to both MathML for screenreader users and HTML markup for people who just want to see those fancy math expressions.&lt;/li&gt;
-&lt;/ol&gt;
+1. It&apos;s not difficult. You can learn the vast majority of LaTeX math syntax in an afternoon.
+2. It&apos;s easier for *everyone* to read. Especially with KaTeX. KaTeX is able to convert the formula to both MathML for screenreader users and HTML markup for people who just want to see those fancy math expressions.
 
-&lt;p&gt;Likely, the teacher is already using some LaTeX derivative to create the math in the first place,
-they might as well use a program like KaTeX, MathJax or likewise to convert it to MathML.&lt;/p&gt;
+Likely, the teacher is already using some LaTeX derivative to create the math in the first place,
+they might as well use a program like KaTeX, MathJax or likewise to convert it to MathML.
 
-&lt;h2 id=&quot;code--output&quot;&gt;Code &amp;amp; Output&lt;/h2&gt;
+## Code &amp; Output
 
-&lt;p&gt;How did it even happen that entire programs and outputs were just ignored with the label “picture of output” is beyond me.
+How did it even happen that entire programs and outputs were just ignored with the label &quot;picture of output&quot; is beyond me.
 Everything should be transcribed.
-Whoever transcribed that document should be fired.&lt;/p&gt;
+Whoever transcribed that document should be fired.
 
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+## Conclusion
 
-&lt;p&gt;To teachers:&lt;/p&gt;
+To teachers:
 
-&lt;p&gt;Presenting information in plain text, or at least having alternates forms of images, diagrams and math formulas makes education better for everyone, not just blind students.
+Presenting information in plain text, or at least having alternates forms of images, diagrams and math formulas makes education better for everyone, not just blind students.
 It makes it better for people running on cheaper devices which may not handle running heavy software like Microsoft PowerPoint;
 it makes it better for people who use operating systems other than MacOS and Windows (this is especially important in the technology sector, where Linux/BSD users make up a sizeable minority of users);
-and finally, it makes it easier to search through the content of all notes at once using simple text-manipulation tools.&lt;/p&gt;
+and finally, it makes it easier to search through the content of all notes at once using simple text-manipulation tools.
 
-&lt;p&gt;To accessibility departments:&lt;/p&gt;
+To accessibility departments:
 
-&lt;p&gt;Running a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pdftotext&lt;/code&gt; program, or simply transcribing handwritten notes is not enough to properly describe slides and notes—handwritten or not.
-Every diagram, math equation, annotation, piece of code or output—every single thing must be transcribed to plain text, or some alternate format like MathML.&lt;/p&gt;
+Running a `pdftotext` program, or simply transcribing handwritten notes is not enough to properly describe slides and notes---handwritten or not.
+Every diagram, math equation, annotation, piece of code or output---every single thing must be transcribed to plain text, or some alternate format like MathML.
 
-&lt;p&gt;I find it sad that a student (with their own full-time job) can product better work than someone who has this job exclusively at a major university.
+I find it sad that a student (with their own full-time job) can product better work than someone who has this job exclusively at a major university.
 Perhaps I am mistaken and the university has volunteers do this work.
-In that case I guess you can’t ask for too much, but somehow I feel like this is probably not the case.&lt;/p&gt;
+In that case I guess you can&apos;t ask for too much, but somehow I feel like this is probably not the case.
 
-&lt;p&gt;Big sad.&lt;/p&gt;</content><author><name></name></author><summary type="html">During a recent run-in with the Simon Fraser Fraser University accessibility department, I learned that they’re writers are so well-trained as to write “image” where a simple diagram is shown, and “print out picture of output” where a piece of code lies. I figure the geniuses over there could use some help creating files for the visually impaired. Here’s a quick guide!</summary></entry><entry><title type="html">Idea For A VPN Service</title><link href="/2021/08/31/vpns-api/" rel="alternate" type="text/html" title="Idea For A VPN Service" /><published>2021-08-31T00:00:00-06:00</published><updated>2021-08-31T00:00:00-06:00</updated><id>/2021/08/31/vpns-api</id><content type="html" xml:base="/2021/08/31/vpns-api/">&lt;p&gt;Recently I’ve been thinking about starting a VPN service.
-This service has some interesting requirements that I have never seen a VPN service do before, so I’d like to put down my thoughts as to what might be sensible for a centralized yet encrypted* VPN service.&lt;/p&gt;
+Big sad.</content><author><name></name></author><summary type="html">During a recent run-in with the Simon Fraser Fraser University accessibility department, I learned that they’re writers are so well-trained as to write “image” where a simple diagram is shown, and “print out picture of output” where a piece of code lies. I figure the geniuses over there could use some help creating files for the visually impaired. Here’s a quick guide!</summary></entry><entry><title type="html">Idea For A VPN Service</title><link href="/2021/08/31/vpns-api/" rel="alternate" type="text/html" title="Idea For A VPN Service" /><published>2021-08-31T00:00:00-06:00</published><updated>2021-08-31T00:00:00-06:00</updated><id>/2021/08/31/vpns-api</id><content type="html" xml:base="/2021/08/31/vpns-api/">Recently I&apos;ve been thinking about starting a VPN service.
+This service has some interesting requirements that I have never seen a VPN service do before, so I&apos;d like to put down my thoughts as to what might be sensible for a centralized yet encrypted\* VPN service.
 
-&lt;p&gt;I would license all the code and scripts under the AGPLv3.
-This creates an environment where I could allow my company to use this code, and any other company for that matter. However, no company would be allowed to take it into their own hands and use it without contributing back to the project.&lt;/p&gt;
+I would license all the code and scripts under the AGPLv3.
+This creates an environment where I could allow my company to use this code, and any other company for that matter. However, no company would be allowed to take it into their own hands and use it without contributing back to the project.
 
-&lt;h2 id=&quot;e2ee-vpn&quot;&gt;E2EE VPN&lt;/h2&gt;
+## E2EE VPN
 
-&lt;p&gt;I want this service in many ways to be on par with &lt;a href=&quot;https://protonmail.com&quot;&gt;ProtonMail&lt;/a&gt;:
-end-to-end encrypted (E2EE), and with a focus in data security for the user of the service.&lt;/p&gt;
+I want this service in many ways to be on par with [ProtonMail](https://protonmail.com):
+end-to-end encrypted (E2EE), and with a focus in data security for the user of the service.
 
-&lt;p&gt;Full encryption, so that even me, the writer and the deployer of the service, cannot view any information about the user: this is the utmost security.
+Full encryption, so that even me, the writer and the deployer of the service, cannot view any information about the user: this is the utmost security.
 The bad news is that this is very hard to do in a convenient way.
-I’ve decided for now that the best thing to do is to target the Linux nerd.
-Target the user who is familiar with these advanced security practices, then make them available to the general public as the layers on top of the robust security are refined.&lt;/p&gt;
+I&apos;ve decided for now that the best thing to do is to target the Linux nerd.
+Target the user who is familiar with these advanced security practices, then make them available to the general public as the layers on top of the robust security are refined.
 
-&lt;h2 id=&quot;why&quot;&gt;Why?&lt;/h2&gt;
+## Why?
 
-&lt;p&gt;End-to-end encryption is necessary in a country like Canada, where I may be sent a subpoena to provide customer data.
-This is the case especially in the &lt;a href=&quot;https://en.wikipedia.org/wiki/Five_Eyes&quot;&gt;Five Eyes&lt;/a&gt; anglophone group of countries, who essentially spy on each others’ citizens for eachother.
-In essence, any data in the hand of one government agency in the “Eyes Countries” may be shared between the Five, Nine, and 14 Eyes countries.&lt;/p&gt;
+End-to-end encryption is necessary in a country like Canada, where I may be sent a subpoena to provide customer data.
+This is the case especially in the [Five Eyes](https://en.wikipedia.org/wiki/Five_Eyes) anglophone group of countries, who essentially spy on each others&apos; citizens for eachother.
+In essence, any data in the hand of one government agency in the &quot;Eyes Countries&quot; may be shared between the Five, Nine, and 14 Eyes countries.
 
-&lt;p&gt;I am not against government surveillance &lt;em&gt;in principle&lt;/em&gt;.
+I am not against government surveillance *in principle*.
 In theory, the government should be finding bad guys: pedophiles, sex trafficking rings and drug cartels.
-In practice, the U.S. government especially, uses its authority to spy on its own citizens who are simply minding their own business. &lt;del&gt;Bulk data collection&lt;/del&gt; mass surveillance is not a freedom respecting characteristic of modern western democracies.
+In practice, the U.S. government especially, uses its authority to spy on its own citizens who are simply minding their own business. ~~Bulk data collection~~ mass surveillance is not a freedom respecting characteristic of modern western democracies.
 I do run the risk of not being able to help much in the case of a genuine warrant against a genuine, evil criminal.
-That is the risk of privacy.&lt;/p&gt;
+That is the risk of privacy.
 
-&lt;p&gt;That said, let’s see what can be built that can do these 2 things:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Maximize privacy for the user.&lt;/li&gt;
-  &lt;li&gt;Allow for (optional) monetization, depending on the provider. This is in some contradiction to premise 1.&lt;/li&gt;
-&lt;/ol&gt;
+That said, let&apos;s see what can be built that can do these 2 things:
+1. Maximize privacy for the user.
+2. Allow for (optional) monetization, depending on the provider. This is in some contradiction to premise 1.
 
-&lt;h2 id=&quot;what-we-need&quot;&gt;What We Need&lt;/h2&gt;
+## What We Need
 
-&lt;p&gt;A VPN service needs access to some basic information:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Service discontinue time (the amount of time until the customer must renew).&lt;/li&gt;
-  &lt;li&gt;Active connections (a number which can not be exceeded by an individual user).&lt;/li&gt;
-&lt;/ol&gt;
+A VPN service needs access to some basic information:
+1. Service discontinue time (the amount of time until the customer must renew).
+2. Active connections (a number which can not be exceeded by an individual user).
 
-&lt;p&gt;The client needs access to some information from the server as well:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;A list of VPNs able to be connected to (with filters).&lt;/li&gt;
-  &lt;li&gt;For every VPN:
-    &lt;ol&gt;
-      &lt;li&gt;IP Address.&lt;/li&gt;
-      &lt;li&gt;Maximum bandwidth.&lt;/li&gt;
-      &lt;li&gt;Number of connected users or connection saturation percentage.&lt;/li&gt;
-      &lt;li&gt;Supported protocols.&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+The client needs access to some information from the server as well:
+1. A list of VPNs able to be connected to (with filters).
+2. For every VPN:
+   1. IP Address.
+   2. Maximum bandwidth.
+   3. Number of connected users or connection saturation percentage.
+   4. Supported protocols.
 
-&lt;p&gt;Can we do this in a end-to-end encrypted fashion?
-I’m honestly not sure. But here are my ideas so far as to how &lt;em&gt;some&lt;/em&gt; of these functions might work.&lt;/p&gt;
+Can we do this in a end-to-end encrypted fashion?
+I&apos;m honestly not sure. But here are my ideas so far as to how *some* of these functions might work.
 
-&lt;h2 id=&quot;how-to-do-it&quot;&gt;How To Do It&lt;/h2&gt;
+## How To Do It
 
-&lt;h3 id=&quot;usernames&quot;&gt;“Usernames”&lt;/h3&gt;
+### &quot;Usernames&quot;
 
-&lt;p&gt;There will be one button to create your account: &lt;em&gt;“Generate username”&lt;/em&gt;
+There will be one button to create your account: *&quot;Generate username&quot;*
 The username, or unique identifier for a user will be generated for them by a random generator.
-I plan to generate a username from a list of &lt;a href=&quot;https://en.wikipedia.org/wiki/Base64&quot;&gt;Base 64&lt;/a&gt; characters; it will be a guaranteed length of 16.
-This gives a total of: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;79228162514264337593543950336&lt;/code&gt; or &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn&gt;7.9&lt;/mn&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;msup&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;mn&gt;28&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;7.9 \times 10^{28}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.72777em;vertical-align:-0.08333em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mbin&quot;&gt;×&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8141079999999999em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8141079999999999em;&quot;&gt;&lt;span style=&quot;top:-3.063em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;8&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; posibilities.
-This is sufficient for a username.&lt;/p&gt;
+I plan to generate a username from a list of [Base 64](https://en.wikipedia.org/wiki/Base64) characters; it will be a guaranteed length of 16.
+This gives a total of: `79228162514264337593543950336` or {% katex %}7.9 \times 10^{28}{% endkatex %} posibilities.
+This is sufficient for a username.
 
-&lt;p&gt;The other option is to use a standard “username” field that uses a modern hash function like &lt;a href=&quot;https://en.wikipedia.org/wiki/Secure_Hash_Algorithms&quot;&gt;SHA512&lt;/a&gt; to store it in the database.
+The other option is to use a standard &quot;username&quot; field that uses a modern hash function like [SHA512](https://en.wikipedia.org/wiki/Secure_Hash_Algorithms) to store it in the database.
 This is less secure as it is vulnerable to a brute-force attack of finding users,
-but this is also a very easy attack to defend against, i.e. IP banning after 10-ish tries of not finding a username.&lt;/p&gt;
+but this is also a very easy attack to defend against, i.e. IP banning after 10-ish tries of not finding a username.
 
-&lt;p&gt;A &lt;em&gt;non-unique, universal&lt;/em&gt; &lt;a href=&quot;https://en.wikipedia.org/wiki/Salt_(cryptography)&quot;&gt;salt&lt;/a&gt; will also be used on each username before storing it in the database to make it more secure.
-This decreases the possibility of an advanced attacker being able to find usernames in a leaked database using &lt;a href=&quot;https://en.wikipedia.org/wiki/Rainbow_table&quot;&gt;rainbow tables&lt;/a&gt;.
+A *non-unique, universal* [salt](https://en.wikipedia.org/wiki/Salt_(cryptography)) will also be used on each username before storing it in the database to make it more secure.
+This decreases the possibility of an advanced attacker being able to find usernames in a leaked database using [rainbow tables](https://en.wikipedia.org/wiki/Rainbow_table).
 That said, the fact that it is a fixed salt makes it much more vulnerable to an attack.
 Although it would be known only by the server machine, it would still be somewhat of a vulnerability.
 The operator may also store the salt in an encrypted password store of their own in case the server is erased, broken into, etc.
 It would be fairly easy, if they have access to the active salt, to migrate to a new salt every few days/months, or perhaps every time a server upgrade/maintenance happens.
 This does run the possibility of larger issues if the server is shut down or hangs during a migration and needs to be restarted.
-Many users may end up with accounts they cannot access without manual cleanup.&lt;/p&gt;
+Many users may end up with accounts they cannot access without manual cleanup.
 
-&lt;p&gt;In the end, the &lt;em&gt;application&lt;/em&gt; would need a backup of this salt, otherwise login times would become linear to the number of users as the database checks every user’s salt to see if it matches the hash made with the username input.
-Note that the &lt;em&gt;database&lt;/em&gt; does not store the salt, so finding it will be very hard, even in the case of a leaked database.&lt;/p&gt;
+In the end, the *application* would need a backup of this salt, otherwise login times would become linear to the number of users as the database checks every user&apos;s salt to see if it matches the hash made with the username input.
+Note that the *database* does not store the salt, so finding it will be very hard, even in the case of a leaked database.
 
-&lt;p&gt;So, here’s the overview:
-The username will be generated, then stored &lt;em&gt;after&lt;/em&gt; being salted and hashed.
+So, here&apos;s the overview:
+The username will be generated, then stored *after* being salted and hashed.
 The salt will be a fixed or rolling salt across all usernames to avoid linear scaling of searching for a user.
 The server will only see the username once, when sending it to the user for them to save for the first time;
-there will be no database entry with the original username in it.&lt;/p&gt;
+there will be no database entry with the original username in it.
 
-&lt;p&gt;This does mean that if the username is lost, the account is lost too. There is no way to recover the account.
-Again, this is ok for now, as my target audience is advanced Linux and privacy enthusiasts.&lt;/p&gt;
+This does mean that if the username is lost, the account is lost too. There is no way to recover the account.
+Again, this is ok for now, as my target audience is advanced Linux and privacy enthusiasts.
 
-&lt;h3 id=&quot;passwords&quot;&gt;“Passwords”&lt;/h3&gt;
+### &quot;Passwords&quot;
 
-&lt;p&gt;There are a few options for passwords/secret keys.&lt;/p&gt;
+There are a few options for passwords/secret keys.
 
-&lt;p&gt;I think the best is to treat it similarly to the username is above, except it will &lt;em&gt;not&lt;/em&gt; be generated for you.
+I think the best is to treat it similarly to the username is above, except it will *not* be generated for you.
 When a new account is generated, you will be taken to a password reset screen where you will set your password to whatever your want, using your own secure system to handle it.
-This is ideal for Linux and tech enthusiasts as they generally already have a password management system setup.&lt;/p&gt;
+This is ideal for Linux and tech enthusiasts as they generally already have a password management system setup.
 
-&lt;p&gt;This will also be salted, with its own unique salt, then hashed and stored alongside the username.&lt;/p&gt;
+This will also be salted, with its own unique salt, then hashed and stored alongside the username.
 
-&lt;h3 id=&quot;active-time-remaining&quot;&gt;Active Time Remaining&lt;/h3&gt;
+### Active Time Remaining
 
-&lt;p&gt;It is easy and ideal to have a field connected to a user with their expiry date for their account.
-When a payment is made, this date will be increased by the number of days, hours and minutes proportional to the payment received.&lt;/p&gt;
+It is easy and ideal to have a field connected to a user with their expiry date for their account.
+When a payment is made, this date will be increased by the number of days, hours and minutes proportional to the payment received.
 
-&lt;p&gt;For example: if a “month” (30 days) costs ten dollars, then a payment of fifteen dollars would add 45 days to an account. So essentially 33 cents per day, &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mfrac&gt;&lt;mn&gt;10&lt;/mn&gt;&lt;mrow&gt;&lt;mn&gt;30&lt;/mn&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;mn&gt;24&lt;/mn&gt;&lt;/mrow&gt;&lt;/mfrac&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;0.0138&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt; \frac{10}{30 \times 24}=0.0138&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1.2484389999999999em;vertical-align:-0.403331em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mopen nulldelimiter&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mfrac&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.845108em;&quot;&gt;&lt;span style=&quot;top:-2.655em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mbin mtight&quot;&gt;×&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;4&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.23em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;frac-line&quot; style=&quot;border-bottom-width:0.04em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.394em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.403331em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose nulldelimiter&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.64444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;8&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; dollars per hour, or &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mfrac&gt;&lt;mn&gt;10&lt;/mn&gt;&lt;mrow&gt;&lt;mn&gt;30&lt;/mn&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;mn&gt;24&lt;/mn&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;mn&gt;60&lt;/mn&gt;&lt;/mrow&gt;&lt;/mfrac&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;0.00023&lt;/mn&gt;&lt;mover accent=&quot;true&quot;&gt;&lt;mn&gt;148&lt;/mn&gt;&lt;mo stretchy=&quot;true&quot;&gt;‾&lt;/mo&gt;&lt;/mover&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\frac{10}{30 \times 24 \times 60}=0.00023\overline{148}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1.2484389999999999em;vertical-align:-0.403331em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mopen nulldelimiter&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mfrac&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.845108em;&quot;&gt;&lt;span style=&quot;top:-2.655em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mbin mtight&quot;&gt;×&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;mbin mtight&quot;&gt;×&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.23em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;frac-line&quot; style=&quot;border-bottom-width:0.04em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.394em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;mord mtight&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.403331em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose nulldelimiter&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8444400000000001em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;mord overline&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8444400000000001em;&quot;&gt;&lt;span style=&quot;top:-3em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;8&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.76444em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;overline-line&quot; style=&quot;border-bottom-width:0.04em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; dollars per minute.
-This is the second biggest threat to the users’ data privacy, as this, by definition, cannot be encrypted as my server needs access to this data to decide whether a user should be allowed to: view a list of VPN nodes available to them or connect to a VPN.
-The best I can think of in this case is:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Use a system similar to the username: use a common salt and hash algorithm to store them in the database.&lt;/li&gt;
-  &lt;li&gt;Use full-disk and full-database encryption to keep the data secure to outside attackers.&lt;/li&gt;
-&lt;/ol&gt;
+For example: if a &quot;month&quot; (30 days) costs ten dollars, then a payment of fifteen dollars would add 45 days to an account. So essentially 33 cents per day, {% katex %} \frac{10}{30 \times 24}=0.0138{% endkatex %} dollars per hour, or {% katex %}\frac{10}{30 \times 24 \times 60}=0.00023\overline{148}{% endkatex %} dollars per minute.
+This is the second biggest threat to the users&apos; data privacy, as this, by definition, cannot be encrypted as my server needs access to this data to decide whether a user should be allowed to: view a list of VPN nodes available to them or connect to a VPN.
+The best I can think of in this case is:
+1. Use a system similar to the username: use a common salt and hash algorithm to store them in the database.
+2. Use full-disk and full-database encryption to keep the data secure to outside attackers.
 
-&lt;p&gt;This is not a fantastic solution, and still has the threat of a service provider snooping in on the database.
+This is not a fantastic solution, and still has the threat of a service provider snooping in on the database.
 The truth is: a service provider has root access to any machine it hosts.
-This necessitates that the &lt;em&gt;physical&lt;/em&gt; infrastructure hosting the central database server must by physically owned and operated by the VPN operator and not any third party.
+This necessitates that the *physical* infrastructure hosting the central database server must by physically owned and operated by the VPN operator and not any third party.
 In addition, it means top security root passwords, tamper resistant cases (in the case of a co-hosting or server room environment), sensors to indicate it has been opened or touched.
-If you thought this was bad, wait until the next part.&lt;/p&gt;
+If you thought this was bad, wait until the next part.
 
-&lt;h3 id=&quot;active-connections&quot;&gt;Active Connections&lt;/h3&gt;
+### Active Connections
 
-&lt;p&gt;In order to stop a user from simply using the entire bandwidth of all the VPN nodes available to them, there must be a way to know how many active connections the user has.
-This is &lt;em&gt;by far&lt;/em&gt; the biggest issue in terms of user privacy.
-There are a few options here:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Do not have a limit on the number of connections a user may have. This is dangerous from a &lt;a href=&quot;https://en.wikipedia.org/wiki/Denial-of-service_attack&quot;&gt;DDoS (distributed denial-of-service)&lt;/a&gt; perspective.
-This also makes the VPN provider vulnerable to be used as a DDoS distribution method by putting all their traffic through the VPN provider, and them not having any logs—the bad guys could use the distributed nature of VPN nodes to attack whoever they see fit.
-This is not a viable option.&lt;/li&gt;
-  &lt;li&gt;Have a list of connected users sent to the central server every 15 to 30 seconds. This is fairly efficient, but more privacy invasive.&lt;/li&gt;
-  &lt;li&gt;When a user connects, log an explicit “connect” message.
-When a user disconnects, send an explicit “disconnect”.
-Have the VPN server report an &lt;em&gt;implicit&lt;/em&gt; “disconnect” after an amount of time, say 15 minutes, then send an implicit “connect” message once traffic continues. This is all in RAM under temporary storage and is lost upon restart of the server.&lt;/li&gt;
-&lt;/ol&gt;
+In order to stop a user from simply using the entire bandwidth of all the VPN nodes available to them, there must be a way to know how many active connections the user has.
+This is *by far* the biggest issue in terms of user privacy.
+There are a few options here:
+1. Do not have a limit on the number of connections a user may have. This is dangerous from a [DDoS (distributed denial-of-service)](https://en.wikipedia.org/wiki/Denial-of-service_attack) perspective.
+This also makes the VPN provider vulnerable to be used as a DDoS distribution method by putting all their traffic through the VPN provider, and them not having any logs---the bad guys could use the distributed nature of VPN nodes to attack whoever they see fit.
+This is not a viable option.
+2. Have a list of connected users sent to the central server every 15 to 30 seconds. This is fairly efficient, but more privacy invasive.
+3. When a user connects, log an explicit &quot;connect&quot; message.
+When a user disconnects, send an explicit &quot;disconnect&quot;.
+Have the VPN server report an *implicit* &quot;disconnect&quot; after an amount of time, say 15 minutes, then send an implicit &quot;connect&quot; message once traffic continues. This is all in RAM under temporary storage and is lost upon restart of the server.
 
-&lt;p&gt;The best method (used currently by &lt;a href=&quot;https://mullvad.net&quot;&gt;Mullvad VPN&lt;/a&gt;) is number 3.&lt;/p&gt;
+The best method (used currently by [Mullvad VPN](https://mullvad.net)) is number 3.
 
-&lt;h2 id=&quot;panel&quot;&gt;Panel&lt;/h2&gt;
+## Panel
 
-&lt;p&gt;The admin panel will have some broad info about the nodes:&lt;/p&gt;
+The admin panel will have some broad info about the nodes:
 
-&lt;ul&gt;
-  &lt;li&gt;Active connections&lt;/li&gt;
-  &lt;li&gt;Server load (held and reported every minute by the nodes themselves. Not sure how to do this yet.)&lt;/li&gt;
-  &lt;li&gt;Location&lt;/li&gt;
-  &lt;li&gt;IP Address&lt;/li&gt;
-  &lt;li&gt;Failed connections in last X amount of time (i.e. invalid credentials)&lt;/li&gt;
-  &lt;li&gt;Physical server status (i.e. owned by the hoster vs. contracted out to another hosting company in the area)&lt;/li&gt;
-&lt;/ul&gt;
+* Active connections
+* Server load (held and reported every minute by the nodes themselves. Not sure how to do this yet.)
+* Location
+* IP Address
+* Failed connections in last X amount of time (i.e. invalid credentials)
+* Physical server status (i.e. owned by the hoster vs. contracted out to another hosting company in the area)
 
-&lt;p&gt;This panel would also have options to stop, start or soft stop the VPN service on each node for maintenance.
-A soft stop will stop new connections and remove it from the list of available servers for the end-user. Users will disconnect whenever they feel like it—eventually winding down to zero connections.
-This allows maintenance without service disruption.&lt;/p&gt;
+This panel would also have options to stop, start or soft stop the VPN service on each node for maintenance.
+A soft stop will stop new connections and remove it from the list of available servers for the end-user. Users will disconnect whenever they feel like it---eventually winding down to zero connections.
+This allows maintenance without service disruption.
 
-&lt;p&gt;I’m not sure how to do this securely.
+I&apos;m not sure how to do this securely.
 Best I can think of right now is have an admin login, then have the server have a key in each node machine.
 This completely compromises the SSH key system though.
 Now every node is secured with nothing but a password. Maybe the console will require connecting to a local instance on a machine through an encrypted connection which will require a key.
-Even then, that does make every machine vulnerable to one point of failure (the key to connect to the local instance).&lt;/p&gt;
+Even then, that does make every machine vulnerable to one point of failure (the key to connect to the local instance).
 
-&lt;p&gt;Another way to approach this, security-wise is to make a shell script (or locally running flask app) which reads info about the servers from a sqlite database.
-Then, it uses the local computer to connect to the servers—assuming the local machine has all the keys necessary to do so.&lt;/p&gt;
+Another way to approach this, security-wise is to make a shell script (or locally running flask app) which reads info about the servers from a sqlite database.
+Then, it uses the local computer to connect to the servers---assuming the local machine has all the keys necessary to do so.
 
-&lt;p&gt;This fixes one problem and creates another.
-It fixes the single point of failure in the cloud. This &lt;em&gt;massively&lt;/em&gt; reduces the attack surface to intentionally stealing physical hardware from trusted parties, or software-hacking these same trusted people.
-But, if the key is lost by the host… The entire service is kaput. No maintenance may be performed, no checks, bans, addition of servers can be done whatsoever.
+This fixes one problem and creates another.
+It fixes the single point of failure in the cloud. This *massively* reduces the attack surface to intentionally stealing physical hardware from trusted parties, or software-hacking these same trusted people.
+But, if the key is lost by the host... The entire service is kaput. No maintenance may be performed, no checks, bans, addition of servers can be done whatsoever.
 This also increases the possibility of sloppy security from trusted parties.
-Perhaps a trusted member leaves his laptop unattended for a few minutes and a hacker is able to steal the simple key file. He’s in!!!
+Perhaps a trusted member leaves his laptop unattended for a few minutes and a hacker is able to steal the simple key file. He&apos;s in!!!
 This is very unlikely, I must say, but it comes down to: should I trust people or machines more to keep the data secure.
-Depending on the person, I might trust them more.&lt;/p&gt;
+Depending on the person, I might trust them more.
 
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+## Conclusion
 
-&lt;p&gt;With all of these ideas in mind, I have realized how difficult it really is to make a VPN service.
+With all of these ideas in mind, I have realized how difficult it really is to make a VPN service.
 Boy do they deserve every dollar they get!
-If you don’t have a VPN, get one.
-Doesn’t really matter which one, unless you’re a nerd—for your average person you can just pick whatever the best deal is at the time and you’re off to the races.&lt;/p&gt;
+If you don&apos;t have a VPN, get one.
+Doesn&apos;t really matter which one, unless you&apos;re a nerd---for your average person you can just pick whatever the best deal is at the time and you&apos;re off to the races.
 
-&lt;p&gt;Anyway, I think I’ve rambled on long enough about VPNs and my crazy ideas, so I’m going to leave this one for now.&lt;/p&gt;
+Anyway, I think I&apos;ve rambled on long enough about VPNs and my crazy ideas, so I&apos;m going to leave this one for now.
 
-&lt;p&gt;Happy VPN hacking :D&lt;/p&gt;</content><author><name></name></author><summary type="html">Recently I’ve been thinking about starting a VPN service. This service has some interesting requirements that I have never seen a VPN service do before, so I’d like to put down my thoughts as to what might be sensible for a centralized yet encrypted* VPN service.</summary></entry><entry><title type="html">UEFI Audio Protocol &amp;amp; UEFI BIOS Accessibility</title><link href="/2021/06/21/uefi-audio/" rel="alternate" type="text/html" title="UEFI Audio Protocol &amp;amp; UEFI BIOS Accessibility" /><published>2021-06-21T00:00:00-06:00</published><updated>2021-06-21T00:00:00-06:00</updated><id>/2021/06/21/uefi-audio</id><content type="html" xml:base="/2021/06/21/uefi-audio/">&lt;p&gt;Good news about the state of accessibility in the BIOS!&lt;/p&gt;
+Happy VPN hacking :D</content><author><name></name></author><summary type="html">Recently I’ve been thinking about starting a VPN service. This service has some interesting requirements that I have never seen a VPN service do before, so I’d like to put down my thoughts as to what might be sensible for a centralized yet encrypted* VPN service.</summary></entry><entry><title type="html">UEFI Audio Protocol &amp;amp; UEFI BIOS Accessibility</title><link href="/2021/06/21/uefi-audio/" rel="alternate" type="text/html" title="UEFI Audio Protocol &amp;amp; UEFI BIOS Accessibility" /><published>2021-06-21T00:00:00-06:00</published><updated>2021-06-21T00:00:00-06:00</updated><id>/2021/06/21/uefi-audio</id><content type="html" xml:base="/2021/06/21/uefi-audio/">Good news about the state of accessibility in the BIOS!
 
-&lt;h2 id=&quot;preamble&quot;&gt;Preamble&lt;/h2&gt;
+## Preamble
 
-&lt;p&gt;On my &lt;a href=&quot;/ideas/&quot;&gt;ideas page&lt;/a&gt;, I have always had up the idea of an accessibility layer for blind people to be able to use their BIOS.
+On my [ideas page](/ideas/), I have always had up the idea of an accessibility layer for blind people to be able to use their BIOS.
 Although it targets a very small percentage of the population,
 computer programming is often at least a hobby of visually imapired individuals as it is (mostly) a text-based job:
 You write code in plain text, then run it to get either plain text or some kind of HTML output.
 Mostly an accessible career for those who cannot see.
 That said, there has always been an issue with low-level computer infrastructure (i.e. the BIOS/UEFI).
-These menus—which let you edit your boot order, RAM timings, CPU and GPU overclocking and sometimes even fan speed—they were completely inaccessible to those who could not see them.
-Well, until… soon. I had a talk with one of the big bois working on EDK2, the UEFI implementation which is used by most motherboard vendors to create their firmware.
-I thought I would share the info I understand, and the conversation in full.&lt;/p&gt;
+These menus---which let you edit your boot order, RAM timings, CPU and GPU overclocking and sometimes even fan speed---they were completely inaccessible to those who could not see them.
+Well, until... soon. I had a talk with one of the big bois working on EDK2, the UEFI implementation which is used by most motherboard vendors to create their firmware.
+I thought I would share the info I understand, and the conversation in full.
 
-&lt;h2 id=&quot;news&quot;&gt;News&lt;/h2&gt;
 
-&lt;p&gt;Here is what I know:&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;This year, the GSoC (Google Summer of Code) project had &lt;a href=&quot;https://summerofcode.withgoogle.com/projects/#6499615798460416&quot;&gt;a submission of Ethin Probst&lt;/a&gt; to implement VirtIO audio drivers for EDK2.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://qemu.org&quot;&gt;QEMU&lt;/a&gt;, the emulator that was chosen to test for this project does not have VirtIO support (yet). I haven’t found info on when this will be done.&lt;/li&gt;
-  &lt;li&gt;Because of 2, Ethin and his mentors for his project, Ray Ni and Leif Lindholm decided to first implement USB-dongle audio support first, as this is a) supported in QEMU, and b) is good enough to start squashing bugs at the audio level.&lt;/li&gt;
-  &lt;li&gt;Because GSoC is usually over around September, there will likely be some more news coming soon!&lt;/li&gt;
-&lt;/ol&gt;
+## News
 
-&lt;h2 id=&quot;the-irc-chat&quot;&gt;The IRC Chat&lt;/h2&gt;
+Here is what I know:
 
-&lt;p&gt;Here is the log of the IRC chat for anyone who is interested in anything I might have missed:&lt;/p&gt;
+1. This year, the GSoC (Google Summer of Code) project had [a submission of Ethin Probst](https://summerofcode.withgoogle.com/projects/#6499615798460416) to implement VirtIO audio drivers for EDK2.
+2. [QEMU](https://qemu.org), the emulator that was chosen to test for this project does not have VirtIO support (yet). I haven&apos;t found info on when this will be done.
+3. Because of 2, Ethin and his mentors for his project, Ray Ni and Leif Lindholm decided to first implement USB-dongle audio support first, as this is a) supported in QEMU, and b) is good enough to start squashing bugs at the audio level.
+4. Because GSoC is usually over around September, there will likely be some more news coming soon!
+
+## The IRC Chat
+
+Here is the log of the IRC chat for anyone who is interested in anything I might have missed:
 
 &lt;pre class=&quot;terminal&quot;&gt;
 tait_dot_tech: Hello there, I&apos;m new to IRC so just checking my messages are coming through.
@@ -512,99 +414,97 @@ tait_dot_tech: Ahh! So if I want to test, I should get a USB audio dongle. Gotch
 leiflindholm: np :)
 &lt;/pre&gt;
 
-&lt;p&gt;Things are (slowly) looking up for audio (and eventually screen-reader support) in UEFI!
-Phew! Glad I’m not the only one thinking about this!&lt;/p&gt;
+Things are (slowly) looking up for audio (and eventually screen-reader support) in UEFI!
+Phew! Glad I&apos;m not the only one thinking about this!
 
-&lt;p&gt;Happy UEFI hacking :)&lt;/p&gt;</content><author><name></name></author><summary type="html">Good news about the state of accessibility in the BIOS!</summary></entry><entry><title type="html">Pinebook Pro, The Ultimate ARM Laptop</title><link href="/2021/06/02/pinebook-pro/" rel="alternate" type="text/html" title="Pinebook Pro, The Ultimate ARM Laptop" /><published>2021-06-02T00:00:00-06:00</published><updated>2021-06-02T00:00:00-06:00</updated><id>/2021/06/02/pinebook-pro</id><content type="html" xml:base="/2021/06/02/pinebook-pro/">&lt;p&gt;I recently got my Pinebook Pro.
+Happy UEFI hacking :)</content><author><name></name></author><summary type="html">Good news about the state of accessibility in the BIOS!</summary></entry><entry><title type="html">Pinebook Pro, The Ultimate ARM Laptop</title><link href="/2021/06/02/pinebook-pro/" rel="alternate" type="text/html" title="Pinebook Pro, The Ultimate ARM Laptop" /><published>2021-06-02T00:00:00-06:00</published><updated>2021-06-02T00:00:00-06:00</updated><id>/2021/06/02/pinebook-pro</id><content type="html" xml:base="/2021/06/02/pinebook-pro/">I recently got my Pinebook Pro.
 It was more expensive than I was expecting, coming in at (including shipping and handling) C$335.
-I always forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha!
-Anyway, this is just my first impressions and what I did to fix a few issues.&lt;/p&gt;
+I always forget the exchange rate and assume it&apos;s similar to the U.S. dollar, but it never is, haha!
+Anyway, this is just my first impressions and what I did to fix a few issues.
 
-&lt;h2 id=&quot;initial-impressions&quot;&gt;Initial Impressions&lt;/h2&gt;
+## Initial Impressions
 
-&lt;p&gt;My first impressions of this are quite good.
+My first impressions of this are quite good.
 I like the keyboard; it is firm and not mushy for the price.
 It actually has a similar keyboard to my school-supplied Dell, which I quite enjoyed typing on.
-The shell is aluminium and doesn’t feel &lt;em&gt;too&lt;/em&gt; cheap, but I should note that it sure doesn’t feel like a Macbook if that’s what you’re expecting.
+The shell is aluminium and doesn&apos;t feel *too* cheap, but I should note that it sure doesn&apos;t feel like a Macbook if that&apos;s what you&apos;re expecting.
 All in all build quality seems pretty good for a product in this price range.
-I’m actually using it right now to write this article, and I’m actually typing faster than I would on my desktop.&lt;/p&gt;
+I&apos;m actually using it right now to write this article, and I&apos;m actually typing faster than I would on my desktop.
 
-&lt;p&gt;The screen is bright enough and has anti-glare applied to it. I can use it with moderate light behind me, but not a sunset. Decent, and I can’t even use my phone with a sunset right on it, so that’s not a huge loss at all as I think my phone costs more than this haha!&lt;/p&gt;
+The screen is bright enough and has anti-glare applied to it. I can use it with moderate light behind me, but not a sunset. Decent, and I can&apos;t even use my phone with a sunset right on it, so that&apos;s not a huge loss at all as I think my phone costs more than this haha!
 
-&lt;p&gt;The trackpad is fine.
-I don’t use the mouse very often, and if I need it I’m more likely to bring an external one.
+The trackpad is fine.
+I don&apos;t use the mouse very often, and if I need it I&apos;m more likely to bring an external one.
 It works for what I need though.
-I can’t seem to get the glossy protector off the trackpad though so maybe it would be better if I did haha!&lt;/p&gt;
+I can&apos;t seem to get the glossy protector off the trackpad though so maybe it would be better if I did haha!
 
-&lt;p&gt;The temperatures are okay. I would consider them not ideal.
+The temperatures are okay. I would consider them not ideal.
 The left side closer to the hinge can get quite warm when I push it.
 To be expected in some respects, but the metal case certainly makes the heat come out fast and hot!
 It is also passively cooled, so a bit of heat makes sense and is reasonable.
 I wonder if I could mod this to have an active low-profile fan?
-A project for later, I suppose.&lt;/p&gt;
+A project for later, I suppose.
 
-&lt;p&gt;The keyboard is pretty standard for a 14-inch laptop.
+The keyboard is pretty standard for a 14-inch laptop.
 No numpad (except with function key), has F1-12 and media keys using function+F1-12.
 Screen brightness, sound up, down and mute, and num and scroll lock.
-These seem to work no matter what distribution you have (I’ve used Manjaro KDE and Manjaro Sway).
+These seem to work no matter what distribution you have (I&apos;ve used Manjaro KDE and Manjaro Sway).
 Perhaps this would react differently on Arch for ARM with no key bindings.
-I’m not sure if this is implemented in software or hardware.&lt;/p&gt;
+I&apos;m not sure if this is implemented in software or hardware.
 
-&lt;p&gt;The speakers and very tin-y and do not sound good at all.
-That said, they look very replaceable, so I’ll look into a mod in the future.
-The Pinebook Pro comes with a headphone port, so you could just use that if the sound bothers you.&lt;/p&gt;
+The speakers and very tin-y and do not sound good at all.
+That said, they look very replaceable, so I&apos;ll look into a mod in the future.
+The Pinebook Pro comes with a headphone port, so you could just use that if the sound bothers you.
 
-&lt;h2 id=&quot;some-suggestions&quot;&gt;Some suggestions&lt;/h2&gt;
+## Some suggestions
 
-&lt;p&gt;I had some issues when it first arrived.&lt;/p&gt;
+I had some issues when it first arrived.
 
-&lt;ol&gt;
-  &lt;li&gt;Reboot did not work. The display would glitch out and show horizontal lines. It would only work after a full shutdown.&lt;/li&gt;
-  &lt;li&gt;Booting would sometimes not work at all. My SD card would sometimes boot, sometimes not. eMMC would sometimes work and sometimes not. Sometimes I would even get to the login screen, or fully logged in before it decided to freeze/hang. I could “drop to console” (Ctrl+Alt+Fx), but it only made my mouse stop showing, it would not actually display a console. This problem was worse when not plugged in.&lt;/li&gt;
-  &lt;li&gt;Performance was not stellar, even for the RK3399.&lt;/li&gt;
-  &lt;li&gt;I don’t like the Manjaro logo that displays during boot.&lt;/li&gt;
-&lt;/ol&gt;
+1. Reboot did not work. The display would glitch out and show horizontal lines. It would only work after a full shutdown.
+2. Booting would sometimes not work at all. My SD card would sometimes boot, sometimes not. eMMC would sometimes work and sometimes not. Sometimes I would even get to the login screen, or fully logged in before it decided to freeze/hang. I could &quot;drop to console&quot; (Ctrl+Alt+Fx), but it only made my mouse stop showing, it would not actually display a console. This problem was worse when not plugged in.
+3. Performance was not stellar, even for the RK3399.
+4. I don&apos;t like the Manjaro logo that displays during boot.
 
-&lt;h3 id=&quot;dont-use-kde&quot;&gt;Don’t use KDE&lt;/h3&gt;
+### Don&apos;t use KDE
 
-&lt;p&gt;KDE for me is a bit slow.
+KDE for me is a bit slow.
 It is not a keyboard-driven desktop.
 To give it some credit though, it does at least have zoom support built in; this is something I wish other desktops would have enabled by default.
-I’m looking at your, Xfce.&lt;/p&gt;
+I&apos;m looking at your, Xfce.
 
-&lt;p&gt;I switched to Manjaro Sway, which is a Wayland-based i3-like tiling window manager.
-I’ve used this on my Raspberry Pi 4, and it is by far my preference among other default distro configurations.&lt;/p&gt;
+I switched to Manjaro Sway, which is a Wayland-based i3-like tiling window manager.
+I&apos;ve used this on my Raspberry Pi 4, and it is by far my preference among other default distro configurations.
 
-&lt;p&gt;This can be done by flashing an SD card with any random Linux distro, then download &lt;a href=&quot;&quot;&gt;Manjaro Sway ARM for the Pinebook Pro&lt;/a&gt;.&lt;/p&gt;
+This can be done by flashing an SD card with any random Linux distro, then download [Manjaro Sway ARM for the Pinebook Pro]().
 
-&lt;p&gt;Quickly, we should prepare the eMMC. Open &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fdisk&lt;/code&gt; with your eMMC module and remove all partitions.
+Quickly, we should prepare the eMMC. Open `fdisk` with your eMMC module and remove all partitions.
 If you have issues with this, check if any partition is mounted, unmount it, then try again. 
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fdisk&lt;/code&gt; is well documented elsewhere, so I won’t cover it here.&lt;/p&gt;
+`fdisk` is well documented elsewhere, so I won&apos;t cover it here.
 
-&lt;p&gt;Once your .xz file is downloaded, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;unxz&lt;/code&gt; the .xz file downloaded.&lt;/p&gt;
+Once your .xz file is downloaded, `unxz` the .xz file downloaded.
 
 &lt;pre class=&quot;terminal&quot;&gt;
 $ cd ~/Downloads
 $ unxz Manjaro-Sway-ARM-pbp-20.10.img.xz
 &lt;/pre&gt;
 
-&lt;p&gt;Not exactly those commands, but close.&lt;/p&gt;
+Not exactly those commands, but close.
 
-&lt;p&gt;Once you have that, flash your eMMC by using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dd&lt;/code&gt;.&lt;/p&gt;
+Once you have that, flash your eMMC by using `dd`.
 
 &lt;pre class=&quot;terminal&quot;&gt;
 # dd if=./Manjaro-Sway-ARM-pbp-20.10.img of=/dev/mmcblkX bs=1M conv=fsync
 &lt;/pre&gt;
 
-&lt;p&gt;Now remove your SD card.
-U-Boot will prefer your SD card over your eMMC, so if you leave it in, it &lt;em&gt;will&lt;/em&gt; boot to your SD card.&lt;/p&gt;
+Now remove your SD card.
+U-Boot will prefer your SD card over your eMMC, so if you leave it in, it *will* boot to your SD card.
 
-&lt;h3 id=&quot;flash-your-u-boot-bsp&quot;&gt;Flash Your U-Boot (BSP)&lt;/h3&gt;
+### Flash Your U-Boot (BSP)
 
-&lt;p&gt;U-Boot appeared to be the solution to my other two issues.
+U-Boot appeared to be the solution to my other two issues.
 I was able to flash a new U-Boot program by using the following commands.
-Be sure to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lsblk&lt;/code&gt; beforehand to know which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/emmcblk&lt;/code&gt; to write to.
-Replace &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;X&lt;/code&gt; with the correct number for your system.&lt;/p&gt;
+Be sure to run `lsblk` beforehand to know which `/dev/emmcblk` to write to.
+Replace `X` with the correct number for your system.
 
 &lt;pre class=&quot;terminal&quot;&gt;
 # pacman -S uboot-pinebookpro-bsp
@@ -613,92 +513,92 @@ Replace &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;X&lt;
 # dd if=/boot/trust.img of=/dev/mmcblkX seek=24576 conv=notrunc
 &lt;/pre&gt;
 
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dd&lt;/code&gt; instructions are printed out after installing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;uboot-pinebookpro-bsp&lt;/code&gt; package, so make sure to follow what is printed there if it is different that what I have provided.&lt;/p&gt;
+The `dd` instructions are printed out after installing the `uboot-pinebookpro-bsp` package, so make sure to follow what is printed there if it is different that what I have provided.
 
-&lt;p&gt;After doing this, not only have I since booted 100% of the time,
-but my display now works correctly after a reboot without a full shutdown.&lt;/p&gt;
+After doing this, not only have I since booted 100% of the time,
+but my display now works correctly after a reboot without a full shutdown.
 
-&lt;p&gt;Whew! Looking good!!!&lt;/p&gt;
+Whew! Looking good!!!
 
-&lt;h3 id=&quot;maybe-get-some-of-the-accessories&quot;&gt;Maybe get some of the accessories&lt;/h3&gt;
+### Maybe get some of the accessories
 
-&lt;p&gt;I didn’t buy any accessories from Pine64.
+I didn&apos;t buy any accessories from Pine64.
 I regret this somewhat.
 For one thing, without an accessory to read the eMMC over USB, you need to have a working Linux distro on the SD card to get anywhere with it.
-Flashing directly to the eMMC would have saved me a &lt;em&gt;lot&lt;/em&gt; of time.&lt;/p&gt;
+Flashing directly to the eMMC would have saved me a *lot* of time.
 
-&lt;p&gt;The other accessory I could see the occasional use for is the Ethernet adapter.
+The other accessory I could see the occasional use for is the Ethernet adapter.
 When downloading a big update (1GB+), it could be useful to wire in just temporarily.
-Not a huge deal, but worth mentioning.&lt;/p&gt;
+Not a huge deal, but worth mentioning.
 
-&lt;p&gt;I would also be interested in the other batteries they have available.
-Even though it comes with a battery, and I also don’t think you can install a second one, I would be interested to see if I could get more life out of it with an improved battery.
-If this is a standard battery (Pine64 tends to use standard parts), then I would consider getting it from a supplier as well.&lt;/p&gt;
+I would also be interested in the other batteries they have available.
+Even though it comes with a battery, and I also don&apos;t think you can install a second one, I would be interested to see if I could get more life out of it with an improved battery.
+If this is a standard battery (Pine64 tends to use standard parts), then I would consider getting it from a supplier as well.
 
-&lt;p&gt;The Pinebook Pro does not come with any HDMI ports.
+The Pinebook Pro does not come with any HDMI ports.
 It comes with a USB type-C port that can be adapted to HDMI.
 Or you can get a display that supports USB type-C.
 I do not have a display that supports USB type-C, so it might be worth it for me to buy an adapter or find a compatible one more locally.
-Shipping from Hong Kong ain’t cheap.&lt;/p&gt;
+Shipping from Hong Kong ain&apos;t cheap.
 
-&lt;h3 id=&quot;replace-the-boot-logo&quot;&gt;Replace the boot logo&lt;/h3&gt;
+### Replace the boot logo
 
-&lt;p&gt;The boot splash screen can be replaced, but I haven’t figured out how yet.
-I will post an update to the blog when I do find out.&lt;/p&gt;
+The boot splash screen can be replaced, but I haven&apos;t figured out how yet.
+I will post an update to the blog when I do find out.
 
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+## Conclusion
 
-&lt;p&gt;I really want to use the Pinebook Pro more.
+I really want to use the Pinebook Pro more.
 Pine64 do a lot for the open-source community and they do their best to use only open hardware.
-They do fail in some respects, but they do much better than the mainline distributors like Dell, HP or ASUS.&lt;/p&gt;
+They do fail in some respects, but they do much better than the mainline distributors like Dell, HP or ASUS.
 
-&lt;p&gt;Thanks, Pine64! I’m excited to use your products!&lt;/p&gt;
+Thanks, Pine64! I&apos;m excited to use your products!
 
-&lt;p&gt;Happy ARM hacking :)&lt;/p&gt;</content><author><name></name></author><summary type="html">I recently got my Pinebook Pro. It was more expensive than I was expecting, coming in at (including shipping and handling) C$335. I always forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha! Anyway, this is just my first impressions and what I did to fix a few issues.</summary></entry><entry><title type="html">UEFI Development On x86 With EDK2</title><link href="/2021/04/18/uefi-development-environment/" rel="alternate" type="text/html" title="UEFI Development On x86 With EDK2" /><published>2021-04-18T00:00:00-06:00</published><updated>2021-04-18T00:00:00-06:00</updated><id>/2021/04/18/uefi-development-environment</id><content type="html" xml:base="/2021/04/18/uefi-development-environment/">&lt;p&gt;I made this blog so I could remember how to do stuff that had instructions spread around the internet.
-So here is how I setup my environment for developing EFI applications.&lt;/p&gt;
+Happy ARM hacking :)</content><author><name></name></author><summary type="html">I recently got my Pinebook Pro. It was more expensive than I was expecting, coming in at (including shipping and handling) C$335. I always forget the exchange rate and assume it’s similar to the U.S. dollar, but it never is, haha! Anyway, this is just my first impressions and what I did to fix a few issues.</summary></entry><entry><title type="html">UEFI Development On x86 With EDK2</title><link href="/2021/04/18/uefi-development-environment/" rel="alternate" type="text/html" title="UEFI Development On x86 With EDK2" /><published>2021-04-18T00:00:00-06:00</published><updated>2021-04-18T00:00:00-06:00</updated><id>/2021/04/18/uefi-development-environment</id><content type="html" xml:base="/2021/04/18/uefi-development-environment/">I made this blog so I could remember how to do stuff that had instructions spread around the internet.
+So here is how I setup my environment for developing EFI applications.
 
-&lt;h2 id=&quot;requirements&quot;&gt;Requirements&lt;/h2&gt;
+## Requirements
 
-&lt;p&gt;On Artix or other Arch-based distros like Manjaro I installed the following packages: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gcc nasm iasl&lt;/code&gt;&lt;/p&gt;
+On Artix or other Arch-based distros like Manjaro I installed the following packages: `gcc nasm iasl`
 
-&lt;p&gt;Here is what the packages do:&lt;/p&gt;
+Here is what the packages do:
 
-&lt;ul&gt;
-  &lt;li&gt;GCC is obviously the GNU Compiler Collection and it allows us to compile C code to machine code.&lt;/li&gt;
-  &lt;li&gt;NASM stands for Netwide Assembler. It is an assembler and disassembler for 32 and 64 bit Intel x86 platforms.&lt;/li&gt;
-  &lt;li&gt;IASL stands for the ACPI Source Language Compiler/Decompiler. This will compile any ACPI calls to our local machine’s code.&lt;/li&gt;
-&lt;/ul&gt;
+* GCC is obviously the GNU Compiler Collection and it allows us to compile C code to machine code.
+* NASM stands for Netwide Assembler. It is an assembler and disassembler for 32 and 64 bit Intel x86 platforms.
+* IASL stands for the ACPI Source Language Compiler/Decompiler. This will compile any ACPI calls to our local machine&apos;s code.
 
-&lt;p&gt;We need all these packages to start our (U)EFI journey.
-Now that these are installed, let’s setup our environment.&lt;/p&gt;
+We need all these packages to start our (U)EFI journey.
+Now that these are installed, let&apos;s setup our environment.
 
-&lt;h2 id=&quot;building-edk2&quot;&gt;Building EDK2&lt;/h2&gt;
+## Building EDK2
 
-&lt;p&gt;I used the stable/202011 branch as that is latest stable version of the EDK2 project.&lt;/p&gt;
+I used the stable/202011 branch as that is latest stable version of the EDK2 project.
 
-&lt;p&gt;So first let’s pull the project:&lt;/p&gt;
+So first let&apos;s pull the project:
 
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git clone https://github.com/tianocore/edk2.git&lt;/code&gt;&lt;/p&gt;
+`git clone https://github.com/tianocore/edk2.git`
 
-&lt;p&gt;Now, let’s fetch the tags and switch to the latest stable version:&lt;/p&gt;
+Now, let&apos;s fetch the tags and switch to the latest stable version:
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd edk2
+```
+cd edk2
 git fetch
 git checkout stable/202011
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+```
 
-&lt;p&gt;Perfect! We’re on stable now! Let’s grab all our submodules: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git submodule update --init&lt;/code&gt;&lt;/p&gt;
+Perfect! We&apos;re on stable now! Let&apos;s grab all our submodules: `git submodule update --init`
 
-&lt;p&gt;This will take a bit the first time you do it. But no fear, once that’s done, we can finally build the base tools.&lt;/p&gt;
+This will take a bit the first time you do it. But no fear, once that&apos;s done, we can finally build the base tools.
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;make -C BaseTools
+```
+make -C BaseTools
 export EDK_TOOLS_PATH=$HOME/Documents/edk2/BaseTools
 . edksetup.sh BaseTools
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+```
 
-&lt;p&gt;Notice we source a file with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.&lt;/code&gt; before continuing. This is needed to load some tools and options into our shell for later. The environment variable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;EDK_TOOLS_PATH&lt;/code&gt; is set so that EDK knows where to find itself later. Now that everything is loaded up, we can modify a config file located at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Conf/target.txt&lt;/code&gt;.&lt;/p&gt;
+Notice we source a file with `.` before continuing. This is needed to load some tools and options into our shell for later. The environment variable `EDK_TOOLS_PATH` is set so that EDK knows where to find itself later. Now that everything is loaded up, we can modify a config file located at `Conf/target.txt`.
 
-&lt;p&gt;The most important options are these, feel free to append them to the end of the file; there is no default value for them.&lt;/p&gt;
+The most important options are these, feel free to append them to the end of the file; there is no default value for them.
 
 &lt;pre class=&quot;file&quot;&gt;
 ACTIVE_PLATFORM = MdeModulePkg/MdeModulePkg.dsc
@@ -714,33 +614,34 @@ TARGET_ARCH = IA32 X64
 MAX_CONCURRENT_THREAD_NUMBER = 9
 &lt;/pre&gt;
 
-&lt;p&gt;There are other options, but I don’t know about them much, so I’m just sticking with this for now.&lt;/p&gt;
+There are other options, but I don&apos;t know about them much, so I&apos;m just sticking with this for now.
 
-&lt;p&gt;Finally, after all this work, we can build some .efi files. Let’s compile the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Helloworld.efi&lt;/code&gt; file!
-Simply run the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;build&lt;/code&gt; command in the terminal.
-You can find your compiled EFI files by running this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ls&lt;/code&gt; command:&lt;/p&gt;
+Finally, after all this work, we can build some .efi files. Let&apos;s compile the `Helloworld.efi` file!
+Simply run the `build` command in the terminal.
+You can find your compiled EFI files by running this `ls` command:
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ls Build/MdeModule/DEBUG_*/*/HelloWorld.efi
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+```
+ls Build/MdeModule/DEBUG_*/*/HelloWorld.efi
+```
 
-&lt;p&gt;This will show all HelloWorld.efi files for all architectures and toolchains (if you decide to change them).&lt;/p&gt;
+This will show all HelloWorld.efi files for all architectures and toolchains (if you decide to change them).
 
-&lt;h2 id=&quot;running-in-uefi-shell&quot;&gt;Running In UEFI Shell&lt;/h2&gt;
+## Running In UEFI Shell
 
-&lt;p&gt;Once all this is complete, you will want to run your EFI files.
-To do so, let’s first add an EFI shell to use at boot.
-This will appear as an option in your bootloader, like GRUB, which is what I will show documentation for in this article.&lt;/p&gt;
+Once all this is complete, you will want to run your EFI files.
+To do so, let&apos;s first add an EFI shell to use at boot.
+This will appear as an option in your bootloader, like GRUB, which is what I will show documentation for in this article.
 
-&lt;p&gt;So, first thing is first,
-&lt;a href=&quot;https://github.com/tianocore/edk2/blob/UDK2018/ShellBinPkg/UefiShell/X64/Shell.efi?raw=true&quot;&gt;download and EFI shell file&lt;/a&gt;.
+So, first thing is first,
+[download and EFI shell file](https://github.com/tianocore/edk2/blob/UDK2018/ShellBinPkg/UefiShell/X64/Shell.efi?raw=true).
 Second, move it to a partition (FAT formatted) which can be used for the UEFI.
 On my Linux system, this is /boot. On others there may be no FAT filesystem so attach a USB and format it as FAT.
-Third, add the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;EFI Shell&lt;/code&gt; option to your grub boot file.
-Substitute hdX with the right hard drive (I did it with trial and error) as when it doesn’t work I would hit ‘e’ on grub and add the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ls&lt;/code&gt; GRUB command.
+Third, add the `EFI Shell` option to your grub boot file.
+Substitute hdX with the right hard drive (I did it with trial and error) as when it doesn&apos;t work I would hit &apos;e&apos; on grub and add the `ls` GRUB command.
 Substitute the gptX with the correct partition, or msdosX if it is a DOS formatted partition table.
-My &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Shell.efi&lt;/code&gt; was placed in /boot/EFI/.&lt;/p&gt;
+My `Shell.efi` was placed in /boot/EFI/.
 
-&lt;p&gt;&lt;label&gt;/etc/grub.d/40_custom&lt;/label&gt;&lt;/p&gt;
+&lt;label&gt;/etc/grub.d/40_custom&lt;/label&gt;
 &lt;pre class=&quot;file&quot;&gt;
 menuentry &quot;EFI Shell&quot; {
         insmod part_gpt
@@ -751,9 +652,9 @@ menuentry &quot;EFI Shell&quot; {
 }
 &lt;/pre&gt;
 
-&lt;p&gt;Now regenerate your grub configuration file with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grub-update&lt;/code&gt; (Debian-based) or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grub-mkconfig -o /boot/grub/grub.cfg&lt;/code&gt; (Other).&lt;/p&gt;
+Now regenerate your grub configuration file with `grub-update` (Debian-based) or `grub-mkconfig -o /boot/grub/grub.cfg` (Other).
 
-&lt;p&gt;You’ll know if your shell is working if you see the following text on boot into the EFI shell:&lt;/p&gt;
+You&apos;ll know if your shell is working if you see the following text on boot into the EFI shell:
 
 &lt;pre class=&quot;terminal&quot;&gt;
 UEFI Interactive Shell v2.1
@@ -761,233 +662,237 @@ EDK II
 UEFI v2.4 (EDI II, 0x000100000)
 Mapping table:
 	...
-Shell&amp;gt; 
+Shell&gt; 
 &lt;/pre&gt;
 
-&lt;h2 id=&quot;running-hello-world&quot;&gt;Running Hello World&lt;/h2&gt;
+## Running Hello World
 
-&lt;p&gt;When we run our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ls&lt;/code&gt; command from earlier, remember we saw our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HelloWorld.efi&lt;/code&gt; file.
-Let’s move this file somewhere useful, like for me, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/boot&lt;/code&gt;.
-Then, once we’re in our UEFI shell we can run commands:&lt;/p&gt;
+When we run our `ls` command from earlier, remember we saw our `HelloWorld.efi` file.
+Let&apos;s move this file somewhere useful, like for me, `/boot`.
+Then, once we&apos;re in our UEFI shell we can run commands:
 
 &lt;pre class=&quot;terminal&quot;&gt;
-Shell&amp;gt; .\HelloWorld.efi
+Shell&gt; .\HelloWorld.efi
 UEFI Hello World!
-Shell&amp;gt; 
+Shell&gt; 
 &lt;/pre&gt;
 
-&lt;p&gt;And that… All that is how you set up a UEFI development environment.&lt;/p&gt;
+And that... All that is how you set up a UEFI development environment.
 
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+## Conclusion
 
-&lt;p&gt;This took me a long time to figure out.
+This took me a long time to figure out.
 I needed to scrounge resources from around the internet,
-and I had to look at my config files for hours to make sure that I hadn’t missed a step that I did without thinking.
-I hope this will be useful to you and my future self.&lt;/p&gt;
+and I had to look at my config files for hours to make sure that I hadn&apos;t missed a step that I did without thinking.
+I hope this will be useful to you and my future self.
 
-&lt;p&gt;Happy UEFI hacking :)&lt;/p&gt;</content><author><name></name></author><summary type="html">I made this blog so I could remember how to do stuff that had instructions spread around the internet. So here is how I setup my environment for developing EFI applications.</summary></entry><entry><title type="html">The “Quiz Your Friends” XSS Exploit</title><link href="/2021/04/04/quiz-your-friends-xss/" rel="alternate" type="text/html" title="The “Quiz Your Friends” XSS Exploit" /><published>2021-04-04T00:00:00-06:00</published><updated>2021-04-04T00:00:00-06:00</updated><id>/2021/04/04/quiz-your-friends-xss</id><content type="html" xml:base="/2021/04/04/quiz-your-friends-xss/">&lt;p&gt;Note: I have alerted the administrators of this site multiple times about this vulnerability.
-One email was sent many years ago, which is more than enough time for &lt;a href=&quot;https://en.wikipedia.org/wiki/Responsible_disclosure&quot;&gt;responsible disclosure&lt;/a&gt;.&lt;/p&gt;
+Happy UEFI hacking :)</content><author><name></name></author><summary type="html">I made this blog so I could remember how to do stuff that had instructions spread around the internet. So here is how I setup my environment for developing EFI applications.</summary></entry><entry><title type="html">The “Quiz Your Friends” XSS Exploit</title><link href="/2021/04/04/quiz-your-friends-xss/" rel="alternate" type="text/html" title="The “Quiz Your Friends” XSS Exploit" /><published>2021-04-04T00:00:00-06:00</published><updated>2021-04-04T00:00:00-06:00</updated><id>/2021/04/04/quiz-your-friends-xss</id><content type="html" xml:base="/2021/04/04/quiz-your-friends-xss/">Note: I have alerted the administrators of this site multiple times about this vulnerability.
+One email was sent many years ago, which is more than enough time for [responsible disclosure](https://en.wikipedia.org/wiki/Responsible_disclosure).
 
-&lt;p&gt;Update: They have fixed the vulnerability as of the day of release for this article.&lt;/p&gt;
+Update: They have fixed the vulnerability as of the day of release for this article.
 
-&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+## Background
 
-&lt;p&gt;In early 2014, when my “programming” skills consisted of editing web pages with inspect element, I was sent a link from an old friend in a town about 3 hours away.
+In early 2014, when my &quot;programming&quot; skills consisted of editing web pages with inspect element, I was sent a link from an old friend in a town about 3 hours away.
 This was a link to a quiz about them.
 I had to answer as many questions right as I could about them and I got a score at the end based on my answers.
 It seemed fun enough, so I went for it.
-In the following weeks this quiz website became quite a trend amongst my friend group as we all started making quizes to see how well we all knew eachother.&lt;/p&gt;
+In the following weeks this quiz website became quite a trend amongst my friend group as we all started making quizes to see how well we all knew eachother.
 
-&lt;p&gt;A few weeks into this trend, I was staying at a friends’ place and told him about this site,
-so he goes and creates his own quiz and sends it to all his friends, group chats, Google Plus groups, et cetera.&lt;/p&gt;
+A few weeks into this trend, I was staying at a friends&apos; place and told him about this site,
+so he goes and creates his own quiz and sends it to all his friends, group chats, Google Plus groups, et cetera.
 
-&lt;h2 id=&quot;hackerman&quot;&gt;Hackerman&lt;/h2&gt;
+## Hackerman
 
-&lt;p&gt;While filling in my friend’s survey I thought it would be
+
+While filling in my friend&apos;s survey I thought it would be
 funny for them to know it is me without anyone else knowing.
-We were young and had &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Inspect Element&lt;/code&gt;ed a few things together,
-so it was a safe bet that an HTML joke would let them know.&lt;/p&gt;
+We were young and had `Inspect Element`ed a few things together,
+so it was a safe bet that an HTML joke would let them know.
 
-&lt;p&gt;I decided to write my name like so: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;b&amp;gt;Steve&amp;lt;/b&amp;gt;&lt;/code&gt;.
-Steve is in reference to the &lt;a href=&quot;https://minecraft.gamepedia.com/Player&quot;&gt;main character&lt;/a&gt; in the video game Minecraft.&lt;/p&gt;
+I decided to write my name like so: `&lt;b&gt;Steve&lt;/b&gt;`.
+Steve is in reference to the [main character](https://minecraft.gamepedia.com/Player) in the video game Minecraft.
 
 &lt;figure&gt;
-  &lt;img src=&quot;/assets/img/qyf-xss/2-bold.png&quot; /&gt;
+  &lt;img src=&quot;/assets/img/qyf-xss/2-bold.png&quot;&gt;
   &lt;figcaption&gt;
     &lt;p&gt;Me typing in my name as &lt;span class=&quot;mono&quot;&gt;&amp;lt;b&amp;gt;Steve&amp;lt;/b&amp;gt;&lt;/span&gt;.&lt;/p&gt;
   &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;p&gt;Now in theory this should have shown in in the leaderboard as: “&amp;lt;b&amp;gt;Steve&amp;lt;/b&amp;gt;”
-However, to my horror and excitement, I saw this in the leaderboard:&lt;/p&gt;
+Now in theory this should have shown in in the leaderboard as: &quot;&amp;lt;b&amp;gt;Steve&amp;lt;/b&amp;gt;&quot;
+However, to my horror and excitement, I saw this in the leaderboard:
 
 &lt;figure&gt;
-  &lt;img src=&quot;/assets/img/qyf-xss/3-steve-board.png&quot; /&gt;
+  &lt;img src=&quot;/assets/img/qyf-xss/3-steve-board.png&quot;&gt;
   &lt;figcaption&gt;
     &lt;p&gt;&lt;span class=&quot;mono&quot;&gt;&amp;lt;b&amp;gt;Steve&amp;lt;/b&amp;gt;&lt;/span&gt; displaying in the leaderboard as bold text: &lt;b&gt;Steve&lt;/b&gt;&lt;/p&gt;
   &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;p&gt;The text “Steve” showed up &lt;strong&gt;in bold&lt;/strong&gt; on the leaderboard.
+The text &quot;Steve&quot; showed up **in bold** on the leaderboard.
 This told me all I needed to know.
-How did this happen? You might wonder.&lt;/p&gt;
+How did this happen? You might wonder.
 
-&lt;h3 id=&quot;server-side-validation&quot;&gt;Server-Side Validation&lt;/h3&gt;
+### Server-Side Validation
 
-&lt;p&gt;Here is a great demonstration why you should do most of your validation on the server side.
-As a user, I can edit any of the HTML, CSS, or Javascript your server serves to me.&lt;/p&gt;
+Here is a great demonstration why you should do most of your validation on the server side.
+As a user, I can edit any of the HTML, CSS, or Javascript your server serves to me.
 
-&lt;p&gt;Quiz your friends uses the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;maxlength=20&lt;/code&gt; HTML attribute on the name input field.
-Imagine trying to fit in a script tag doing anything useful with 20 characters! Don’t forget that includes the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&lt;/code&gt; tag.
+Quiz your friends uses the `maxlength=20` HTML attribute on the name input field.
+Imagine trying to fit in a script tag doing anything useful with 20 characters! Don&apos;t forget that includes the `&lt;script&gt;` tag.
 That would leave 13 characters for Javascript.
-Although I’m sure a genius would be able to &lt;a href=&quot;https://code.golf/&quot;&gt;code golf&lt;/a&gt; that, I know I couldn’t.&lt;/p&gt;
+Although I&apos;m sure a genius would be able to [code golf](https://code.golf/) that, I know I couldn&apos;t.
 
-&lt;p&gt;Now obviously I can edit any HTML that a server has sent to me.
-If I open up my inspect element window, I can go ahead and change that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;maxlength&lt;/code&gt; attribute to anything I want.
-Let’s change it to 100!&lt;/p&gt;
+Now obviously I can edit any HTML that a server has sent to me.
+If I open up my inspect element window, I can go ahead and change that `maxlength` attribute to anything I want.
+Let&apos;s change it to 100!
 
 &lt;figure&gt;
-  &lt;img src=&quot;/assets/img/qyf-xss/5-maxlength.png&quot; alt=&quot;An image of the Quiz Your Friends name input field with inspect element. THe code reads: &amp;lt;font class=&amp;quot;style6&amp;quot;&amp;gt;&amp;lt;input class=&amp;quot;inputbutton&amp;quot; name=&amp;quot;takername&amp;quot; type=&amp;quot;text&amp;quot; id=&amp;quot;takername&amp;quot; maxlength=&amp;quot;20&amp;quot; width=&amp;quot;425&amp;quot; placeholder=&amp;quot;Your First Name&amp;quot; style=&amp;quot;text-align: center; text-decoration:inherit; font-size:38px;&amp;quot; tabindex=&amp;quot;-1&amp;quot;&amp;gt;&amp;lt;/font&amp;gt;&quot; /&gt;
+  &lt;img src=&quot;/assets/img/qyf-xss/5-maxlength.png&quot; alt=&apos;An image of the Quiz Your Friends name input field with inspect element. THe code reads: &lt;font class=&quot;style6&quot;&gt;&lt;input class=&quot;inputbutton&quot; name=&quot;takername&quot; type=&quot;text&quot; id=&quot;takername&quot; maxlength=&quot;20&quot; width=&quot;425&quot; placeholder=&quot;Your First Name&quot; style=&quot;text-align: center; text-decoration:inherit; font-size:38px;&quot; tabindex=&quot;-1&quot;&gt;&lt;/font&gt;&apos;&gt;
   &lt;figcaption&gt;
     Manually changing the maxlength attribute. 
   &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;p&gt;In theory, there is a way that a site can stop people from just putting in their name of any length: server-side validation.
-The server &lt;em&gt;could&lt;/em&gt; check to see if the input is too long and reject it if it is.
-The Quiz My Friends server has &lt;em&gt;no such checks in place&lt;/em&gt;.
+In theory, there is a way that a site can stop people from just putting in their name of any length: server-side validation.
+The server *could* check to see if the input is too long and reject it if it is.
+The Quiz My Friends server has *no such checks in place*.
 Therefore, I can send an almost arbitrary load to them.
 Being able to send something potentially very large (more than a few megabytes) is a vulnerability of its own.
-Imagine being able to send entire executable programs as your “name” in one of these quizzes?&lt;/p&gt;
+Imagine being able to send entire executable programs as your &quot;name&quot; in one of these quizzes?
 
-&lt;h2 id=&quot;javascript&quot;&gt;Javascript&lt;/h2&gt;
 
-&lt;p&gt;So I went on my merry way thinking about ways to use malicious javascript.
+## Javascript
+
+So I went on my merry way thinking about ways to use malicious javascript.
 Then, I thought that might be mean, so I decided to warn users instead.
-I filled in the name with a script tag and a call to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;alert()&lt;/code&gt; to warn the user about this site.
-I edited the max-length attribute to allow me to type a long string like this:&lt;/p&gt;
+I filled in the name with a script tag and a call to `alert()` to warn the user about this site.
+I edited the max-length attribute to allow me to type a long string like this:
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;script&amp;gt;alert(&quot;Don&apos;t use this site. It is not secure!&quot;);&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+```
+&lt;script&gt;alert(&quot;Don&apos;t use this site. It is not secure!&quot;);&lt;/script&gt;
+```
 
-&lt;p&gt;Sure enough, I got a text from my friend saying: “Tait! I know this is you, why would you do that!”
-A bit salty, but who wouldn’t be.&lt;/p&gt;
+Sure enough, I got a text from my friend saying: &quot;Tait! I know this is you, why would you do that!&quot;
+A bit salty, but who wouldn&apos;t be.
 
-&lt;h2 id=&quot;cross-site-scripting-xss&quot;&gt;Cross-Site Scripting (XSS)&lt;/h2&gt;
+## Cross-Site Scripting (XSS)
 
-&lt;p&gt;As my final act, I decided to use a cross-site script that I could edit and have it load with new changes at any time.&lt;/p&gt;
+As my final act, I decided to use a cross-site script that I could edit and have it load with new changes at any time.
 
-&lt;p&gt;I set this as my name:&lt;/p&gt;
+I set this as my name:
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;script src=&quot;https://tait.tech/assets/js/hacked.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+```
+&lt;script src=&quot;https://tait.tech/assets/js/hacked.js&quot;&gt;&lt;/script&gt;
+```
 
-&lt;p&gt;This script pops up a warning, telling the user that the site is insecure and it is now redirecting to an article about the attack.
-This script redirects to an &lt;a href=&quot;https://tait.tech/2020/04/25/xss/&quot;&gt;older post I made&lt;/a&gt; about how XSS works.&lt;/p&gt;
+This script pops up a warning, telling the user that the site is insecure and it is now redirecting to an article about the attack.
+This script redirects to an [older post I made](https://tait.tech/2020/04/25/xss/) about how XSS works.
 
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+## Conclusion
 
-&lt;p&gt;Watch out for sketchy websites that may be vulnerable to malicious or insecure sites which are ripe for abuse.
+Watch out for sketchy websites that may be vulnerable to malicious or insecure sites which are ripe for abuse.
 Always check that you are using an encrypted connection, HTTPS.
-And if you see any messages warning you that a site is not secure and redirecting you to some random site…
-Take their info with a grain of salt.&lt;/p&gt;
+And if you see any messages warning you that a site is not secure and redirecting you to some random site...
+Take their info with a grain of salt.
 
-&lt;p&gt;Happy Hacking, literally :)&lt;/p&gt;</content><author><name></name></author><summary type="html">Note: I have alerted the administrators of this site multiple times about this vulnerability. One email was sent many years ago, which is more than enough time for responsible disclosure.</summary></entry><entry><title type="html">Lichess Accessibility</title><link href="/2021/01/31/lichess/" rel="alternate" type="text/html" title="Lichess Accessibility" /><published>2021-01-31T00:00:00-07:00</published><updated>2021-01-31T00:00:00-07:00</updated><id>/2021/01/31/lichess</id><content type="html" xml:base="/2021/01/31/lichess/">&lt;p&gt;I wanted to play chess with somebody who used a screen reader, without requiring a screen reader myself;
-some sites, like QuintenC’s Playroom have a rather poor visual interface for anyone who would like the play the game visually.
-&lt;a href=&quot;https://lichess.org&quot;&gt;Lichess&lt;/a&gt; is an free and open-source website for chess players;
-it bridges this gap by having two “modes” on the site:
-standard mode and accessibility mode.&lt;/p&gt;
+Happy Hacking, literally :)</content><author><name></name></author><summary type="html">Note: I have alerted the administrators of this site multiple times about this vulnerability. One email was sent many years ago, which is more than enough time for responsible disclosure.</summary></entry><entry><title type="html">Lichess Accessibility</title><link href="/2021/01/31/lichess/" rel="alternate" type="text/html" title="Lichess Accessibility" /><published>2021-01-31T00:00:00-07:00</published><updated>2021-01-31T00:00:00-07:00</updated><id>/2021/01/31/lichess</id><content type="html" xml:base="/2021/01/31/lichess/">I wanted to play chess with somebody who used a screen reader, without requiring a screen reader myself;
+some sites, like QuintenC&apos;s Playroom have a rather poor visual interface for anyone who would like the play the game visually.
+[Lichess](https://lichess.org) is an free and open-source website for chess players;
+it bridges this gap by having two &quot;modes&quot; on the site:
+standard mode and accessibility mode.
 
-&lt;h2 id=&quot;accessibility-mode&quot;&gt;Accessibility Mode&lt;/h2&gt;
+## Accessibility Mode
 
-&lt;p&gt;Accessibility mode is far from perfect on lichess.org.
+Accessibility mode is far from perfect on lichess.org.
 That said, the idea to separate the sites into different modes was a good call.
-It stops the inevitable “this would work well for screen readers but cause visual issues” shenanigans,
-or, vice-verse “this looks great but it might be weird with a screen reader”.
+It stops the inevitable &quot;this would work well for screen readers but cause visual issues&quot; shenanigans,
+or, vice-verse &quot;this looks great but it might be weird with a screen reader&quot;.
 This way all the things which affect the visual interface are in one place,
-and all things which affect the non-visual user interface (NVUI) are written in another.&lt;/p&gt;
+and all things which affect the non-visual user interface (NVUI) are written in another.
 
-&lt;p&gt;In my quest to play chess with visual and non-visual players with both having optimal experiences, I tried Lichess with my friend from &lt;a href=&quot;https://melly.tech/&quot;&gt;melly.tech&lt;/a&gt;.
+In my quest to play chess with visual and non-visual players with both having optimal experiences, I tried Lichess with my friend from [melly.tech](https://melly.tech/).
 She pointed out that the method to interface with the board previously was rather poor.
-This is because it required an “enter” at the end of each command and the commands tended to read out a row or column of a chessboard not just an individual square.&lt;/p&gt;
+This is because it required an &quot;enter&quot; at the end of each command and the commands tended to read out a row or column of a chessboard not just an individual square.
 
-&lt;p&gt;For example, to list all pieces (or lack thereof) on the e file, I would type the command:&lt;/p&gt;
+For example, to list all pieces (or lack thereof) on the e file, I would type the command:
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;s e
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+```
+s e
+```
 
-&lt;p&gt;Although this seems good in theory, and it’s great when you need an entire file, there was no way to get only one square.
-In addition, imagine typing to navigate around the board:&lt;/p&gt;
+Although this seems good in theory, and it&apos;s great when you need an entire file, there was no way to get only one square.
+In addition, imagine typing to navigate around the board:
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;s e1
+```
+s e1
 s f1
 s e2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+```
 
-&lt;p&gt;For the inexperienced player, it seems to be more convenient to bind some keys and have the user bounce to various buttons, which they can push to say “I want to move this piece”.
+For the inexperienced player, it seems to be more convenient to bind some keys and have the user bounce to various buttons, which they can push to say &quot;I want to move this piece&quot;.
 This is what I was told anyway.
-So I want to work making a system so you could use the following basic keys:&lt;/p&gt;
+So I want to work making a system so you could use the following basic keys:
 
-&lt;ul&gt;
-  &lt;li&gt;left/right/up/down arrow: move on the board.&lt;/li&gt;
-  &lt;li&gt;k/q/r/b/n/p: move to next piece represented by its character in chess notation.&lt;/li&gt;
-  &lt;li&gt;shift + k/q/r/b/n/p: move back to the last piece represented by its character in chess notation.&lt;/li&gt;
-  &lt;li&gt;click/enter/space: select piece to move.&lt;/li&gt;
-  &lt;li&gt;click/enter/space again: move piece here.&lt;/li&gt;
-  &lt;li&gt;m: show where I can move with this piece.&lt;/li&gt;
-  &lt;li&gt;shift+m: show where I can capture with this piece.&lt;/li&gt;
-  &lt;li&gt;1-8: move to rank 1-8; stay on same file.&lt;/li&gt;
-  &lt;li&gt;shift + 1-8: move to file a-h; stay on same rank.&lt;/li&gt;
-&lt;/ul&gt;
+* left/right/up/down arrow: move on the board.
+* k/q/r/b/n/p: move to next piece represented by its character in chess notation.
+* shift + k/q/r/b/n/p: move back to the last piece represented by its character in chess notation.
+* click/enter/space: select piece to move.
+* click/enter/space again: move piece here.
+* m: show where I can move with this piece.
+* shift+m: show where I can capture with this piece.
+* 1-8: move to rank 1-8; stay on same file.
+* shift + 1-8: move to file a-h; stay on same rank.
 
-&lt;p&gt;This gives a pretty solid basis for playing the game.
+This gives a pretty solid basis for playing the game.
 One caveat is after you have moved a pawn all the way to the farthest rank, only the destination tile will accept your promotion choice.
-Therefore, all the other keys still work on other square, but if you are on the destination square of a promotion q/r/b/n will promote your piece, not jump you to the next/previous one.&lt;/p&gt;
+Therefore, all the other keys still work on other square, but if you are on the destination square of a promotion q/r/b/n will promote your piece, not jump you to the next/previous one.
 
-&lt;p&gt;This pull request was merged earlier this month:&lt;/p&gt;
+This pull request was merged earlier this month: 
 
-&lt;h2 id=&quot;more-to-come&quot;&gt;More To Come&lt;/h2&gt;
+## More To Come
 
-&lt;p&gt;Next thing I want to do is implement the analysis board.
-Right now it is not accessible whatsoever.&lt;/p&gt;
+Next thing I want to do is implement the analysis board.
+Right now it is not accessible whatsoever.
 
-&lt;h2 id=&quot;help-me&quot;&gt;Help Me&lt;/h2&gt;
+## Help Me
 
-&lt;p&gt;If you are a screen reader user or know about accessibility and want to help make Lichess an awesome chess site for sighted and unsighted players alike,
-then send me an email at &lt;a href=&quot;mailto:tait@tait.tech&quot;&gt;tait@tait.tech&lt;/a&gt; and I’ll BCC you once I start testing the analysis board.&lt;/p&gt;
+If you are a screen reader user or know about accessibility and want to help make Lichess an awesome chess site for sighted and unsighted players alike,
+then send me an email at &lt;a href=&quot;mailto:tait@tait.tech&quot;&gt;tait@tait.tech&lt;/a&gt; and I&apos;ll BCC you once I start testing the analysis board.
 
-&lt;p&gt;Happy hacking, y’all!&lt;/p&gt;</content><author><name></name></author><summary type="html">I wanted to play chess with somebody who used a screen reader, without requiring a screen reader myself; some sites, like QuintenC’s Playroom have a rather poor visual interface for anyone who would like the play the game visually. Lichess is an free and open-source website for chess players; it bridges this gap by having two “modes” on the site: standard mode and accessibility mode.</summary></entry><entry><title type="html">How to Deploy Lichess’s Lila With Nginx</title><link href="/2020/12/20/deploy-lichess/" rel="alternate" type="text/html" title="How to Deploy Lichess’s Lila With Nginx" /><published>2020-12-20T00:00:00-07:00</published><updated>2020-12-20T00:00:00-07:00</updated><id>/2020/12/20/deploy-lichess</id><content type="html" xml:base="/2020/12/20/deploy-lichess/">&lt;p&gt;I was getting ready to have a public test of some changes I made to &lt;a href=&quot;https://lichess.org&quot;&gt;lichess.org&lt;/a&gt;’s &lt;a href=&quot;https://lichess.org/source&quot;&gt;open source chess platform&lt;/a&gt;.
-In preperation, I got my Let’s Encrypt certificates and nginx configurations setup…
-and it wouldn’t work.
-Here are some tips for myself and future Lichess developers.&lt;/p&gt;
+Happy hacking, y&apos;all!</content><author><name></name></author><summary type="html">I wanted to play chess with somebody who used a screen reader, without requiring a screen reader myself; some sites, like QuintenC’s Playroom have a rather poor visual interface for anyone who would like the play the game visually. Lichess is an free and open-source website for chess players; it bridges this gap by having two “modes” on the site: standard mode and accessibility mode.</summary></entry><entry><title type="html">How to Deploy Lichess’s Lila With Nginx</title><link href="/2020/12/20/deploy-lichess/" rel="alternate" type="text/html" title="How to Deploy Lichess’s Lila With Nginx" /><published>2020-12-20T00:00:00-07:00</published><updated>2020-12-20T00:00:00-07:00</updated><id>/2020/12/20/deploy-lichess</id><content type="html" xml:base="/2020/12/20/deploy-lichess/">I was getting ready to have a public test of some changes I made to [lichess.org](https://lichess.org)&apos;s [open source chess platform](https://lichess.org/source).
+In preperation, I got my Let&apos;s Encrypt certificates and nginx configurations setup...
+and it wouldn&apos;t work.
+Here are some tips for myself and future Lichess developers.
 
-&lt;h2 id=&quot;reasoning&quot;&gt;Reasoning&lt;/h2&gt;
+## Reasoning
 
-&lt;p&gt;My pull request involves accessibility.
-It will extend Lichess’s NVUI (Non-Visual User Interface) to be more accessible to beginner level chess players.
-At the time of writing this, Lichess’s NVUI only supports searching pieces by type, rank and file.
-It does not support any kind of interactive board.&lt;/p&gt;
+My pull request involves accessibility.
+It will extend Lichess&apos;s NVUI (Non-Visual User Interface) to be more accessible to beginner level chess players.
+At the time of writing this, Lichess&apos;s NVUI only supports searching pieces by type, rank and file.
+It does not support any kind of interactive board.
 
-&lt;p&gt;I wanted to play chess with a friend of mine who uses a screen reader.
+I wanted to play chess with a friend of mine who uses a screen reader.
 Even though Lichess does indeed have a separate rendering of the page for visually impaired users,
-I have heard from a few people that it is not the best.&lt;/p&gt;
+I have heard from a few people that it is not the best.
 
-&lt;p&gt;I don’t use a screen reader myself, so I thought having a public latest changes deployed server would work better for testing.
-It would certainly work better than getting some of my less computer literate friends to connect to me via VSCode/VPN and view my local repository.&lt;/p&gt;
+I don&apos;t use a screen reader myself, so I thought having a public latest changes deployed server would work better for testing.
+It would certainly work better than getting some of my less computer literate friends to connect to me via VSCode/VPN and view my local repository.
 
-&lt;p&gt;So here is how to deploy it:&lt;/p&gt;
+So here is how to deploy it:
 
-&lt;h2 id=&quot;setup-a-development-environment&quot;&gt;Setup a development environment&lt;/h2&gt;
+## Setup a development environment
 
-&lt;p&gt;This is described &lt;a href=&quot;https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding&quot;&gt;in Lichess’s documentation itself&lt;/a&gt;.
-I will not elaborate further as it is not necessary.&lt;/p&gt;
+This is described [in Lichess&apos;s documentation itself](https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding).
+I will not elaborate further as it is not necessary.
 
-&lt;h2 id=&quot;setup-nginx&quot;&gt;Setup nginx&lt;/h2&gt;
+## Setup nginx
 
-&lt;p&gt;This is the part that stumps most people.
-Getting a local development server usually works alright, but once you want to reverse proxy it for security and professionalism purposes, it get more interesting.&lt;/p&gt;
+This is the part that stumps most people.
+Getting a local development server usually works alright, but once you want to reverse proxy it for security and professionalism purposes, it get more interesting.
 
-&lt;p&gt;Here is the relevant portion of my nginx configuration for lila:&lt;/p&gt;
+Here is the relevant portion of my nginx configuration for lila:
 
 &lt;pre class=&quot;file&quot;&gt;
 server_name chess.tait.tech;
@@ -1001,7 +906,7 @@ location / {
 }
 &lt;/pre&gt;
 
-&lt;p&gt;This is the config for the lila-ws websocket subdomain:&lt;/p&gt;
+This is the config for the lila-ws websocket subdomain:
 
 &lt;pre class=&quot;file&quot;&gt;
 server_name ws.chess.tait.tech;
@@ -1014,11 +919,11 @@ location / {
 }
 &lt;/pre&gt;
 
-&lt;p&gt;You will need to deploy these on two virtual hosts.&lt;/p&gt;
+You will need to deploy these on two virtual hosts.
 
-&lt;h2 id=&quot;lila&quot;&gt;Lila&lt;/h2&gt;
+## Lila
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/ornicar/lila/&quot;&gt;Lila&lt;/a&gt; is the name for the main chess server, we need to change a few settings. Here is my git diff for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;conf/base.conf&lt;/code&gt; file:&lt;/p&gt;
+[Lila](https://github.com/ornicar/lila/) is the name for the main chess server, we need to change a few settings. Here is my git diff for the `conf/base.conf` file:
 
 &lt;pre class=&quot;file&quot;&gt;
 -  domain = &quot;localhost:9663&quot;
@@ -1033,131 +938,126 @@ location / {
 +  base_url = &quot;https://&quot;${net.domain}
 &lt;/pre&gt;
 
-&lt;h3 id=&quot;lila-ws&quot;&gt;Lila-ws&lt;/h3&gt;
+### Lila-ws
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/ornicar/lila-ws/&quot;&gt;Lila-ws&lt;/a&gt; is the websocket component of Lila.&lt;/p&gt;
+[Lila-ws](https://github.com/ornicar/lila-ws/) is the websocket component of Lila.
 
-&lt;p&gt;The most common complaint amongst aspiring Lichess developers is websockets not working.
-They constantly get these ‘101’ responses from the websocket,
-and it also seems that the websocket returns instead of staying in the ‘pending’ state as it should be.&lt;/p&gt;
+The most common complaint amongst aspiring Lichess developers is websockets not working.
+They constantly get these &apos;101&apos; responses from the websocket,
+and it also seems that the websocket returns instead of staying in the &apos;pending&apos; state as it should be.
 
-&lt;p&gt;Here is how to fix that (in diff format):&lt;/p&gt;
+Here is how to fix that (in diff format):
 
 &lt;pre class=&quot;file&quot;&gt;
 -csrf.origin = &quot;http://127.0.0.1:9000&quot;
 +csrf.origin = &quot;https://chess.tait.tech&quot;
 &lt;/pre&gt;
 
-&lt;p&gt;You need to tell lila-ws where the websocket requests will be coming from. This is how to do that.&lt;/p&gt;
+You need to tell lila-ws where the websocket requests will be coming from. This is how to do that.
 
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+## Conclusion
 
-&lt;p&gt;This is not a long article, but just some notes for future me and Lila developers.&lt;/p&gt;</content><author><name></name></author><summary type="html">I was getting ready to have a public test of some changes I made to lichess.org’s open source chess platform. In preperation, I got my Let’s Encrypt certificates and nginx configurations setup… and it wouldn’t work. Here are some tips for myself and future Lichess developers.</summary></entry><entry><title type="html">Getting Pacaur Working on a Raspberry Pi 4 with Manjaro ARM or Arch Linux</title><link href="/2020/12/01/pacaur-rpi/" rel="alternate" type="text/html" title="Getting Pacaur Working on a Raspberry Pi 4 with Manjaro ARM or Arch Linux" /><published>2020-12-01T00:00:00-07:00</published><updated>2020-12-01T00:00:00-07:00</updated><id>/2020/12/01/pacaur-rpi</id><content type="html" xml:base="/2020/12/01/pacaur-rpi/">&lt;p&gt;I recently installed Manjaro ARM (based on Arch Linux ARM) on a Raspberry Pi 4.
-I used some standard commands to start to add the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pacaur&lt;/code&gt; package so I can easily retrieve &lt;a href=&quot;https://wiki.archlinux.org/index.php/Arch_User_Repository&quot;&gt;AUR packages&lt;/a&gt; without needing to do it manually.
-Unfortunately, there is a small problem with compiling this on ARM.&lt;/p&gt;
+This is not a long article, but just some notes for future me and Lila developers.</content><author><name></name></author><summary type="html">I was getting ready to have a public test of some changes I made to lichess.org’s open source chess platform. In preperation, I got my Let’s Encrypt certificates and nginx configurations setup… and it wouldn’t work. Here are some tips for myself and future Lichess developers.</summary></entry><entry><title type="html">Getting Pacaur Working on a Raspberry Pi 4 with Manjaro ARM or Arch Linux</title><link href="/2020/12/01/pacaur-rpi/" rel="alternate" type="text/html" title="Getting Pacaur Working on a Raspberry Pi 4 with Manjaro ARM or Arch Linux" /><published>2020-12-01T00:00:00-07:00</published><updated>2020-12-01T00:00:00-07:00</updated><id>/2020/12/01/pacaur-rpi</id><content type="html" xml:base="/2020/12/01/pacaur-rpi/">I recently installed Manjaro ARM (based on Arch Linux ARM) on a Raspberry Pi 4.
+I used some standard commands to start to add the `pacaur` package so I can easily retrieve [AUR packages](https://wiki.archlinux.org/index.php/Arch_User_Repository) without needing to do it manually.
+Unfortunately, there is a small problem with compiling this on ARM.
 
-&lt;h2 id=&quot;always_inline&quot;&gt;always_inline&lt;/h2&gt;
+## always_inline 
 
-&lt;p&gt;To setup the install for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pacaur&lt;/code&gt;, I first needed to download &lt;a href=&quot;https://aur.archlinux.org/packages/auracle-git&quot;&gt;auracle-git&lt;/a&gt; AUR package manually.
-I ran into an error when compiling this package.&lt;/p&gt;
+To setup the install for `pacaur`, I first needed to download [auracle-git](https://aur.archlinux.org/packages/auracle-git) AUR package manually.
+I ran into an error when compiling this package.
 
-&lt;p&gt;But first, my setup:&lt;/p&gt;
+But first, my setup:
 &lt;pre class=&quot;terminal&quot;&gt;
 $ git clone https://aur.archlinux.org/auracle-git
 $ cd auracle-git
 $ makepkg -sri
 &lt;/pre&gt;
 
-&lt;p&gt;Around half way through compiling this project, I got this cryptic message telling me there was a “target specific option mismatch”…Whatever that means.
-The full error is below, hopefully that helps my chances on the search engines.&lt;/p&gt;
+Around half way through compiling this project, I got this cryptic message telling me there was a &quot;target specific option mismatch&quot;...Whatever that means.
+The full error is below, hopefully that helps my chances on the search engines.
 
 &lt;pre class=&quot;terminal&quot;&gt;
 In file included from ../subprojects/abseil-cpp-20200225.2/absl/random/internal/randen_hwaes.cc:225:
-/usr/lib/gcc/aarch64-unknown-linux-gnu/9.3.0/include/arm_neon.h: In function &apos;Vector128 {anonymous}::AesRound(const Vector128&amp;amp;, const Vector128&amp;amp;)&apos;:
+/usr/lib/gcc/aarch64-unknown-linux-gnu/9.3.0/include/arm_neon.h: In function &apos;Vector128 {anonymous}::AesRound(const Vector128&amp;, const Vector128&amp;)&apos;:
 /usr/lib/gcc/aarch64-unknown-linux-gnu/9.3.0/include/arm_neon.h:12452:1: error: inlining failed in call to always_inline &apos;uint8x16_t vaesmcq_u8(uint8x16_t)&apos;: target specific option mismatch
 12452 | vaesmcq_u8 (uint8x16_t data)
 &lt;/pre&gt;
 
-&lt;p&gt;Luckily, there is a very easy fix for this.
-The user redfish &lt;a href=&quot;https://aur.archlinux.org/packages/auracle-git#comment-762117&quot;&gt;helpfully pointed out&lt;/a&gt;
-on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;auracle-git&lt;/code&gt; package page that you need to add a special make option to your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/make.conf&lt;/code&gt; file to make this work.&lt;/p&gt;
+Luckily, there is a very easy fix for this.
+The user redfish [helpfully pointed out](https://aur.archlinux.org/packages/auracle-git#comment-762117)
+on the `auracle-git` package page that you need to add a special make option to your `/etc/make.conf` file to make this work.
 
-&lt;p&gt;His solution, as commented is like so:&lt;/p&gt;
+His solution, as commented is like so:
 
-&lt;blockquote&gt;
-  &lt;p&gt;If you get this error when building for ARM aarch64:&lt;/p&gt;
+&gt; If you get this error when building for ARM aarch64:
+&gt;
+&gt; (insert error message from before)
+&gt;
+&gt; Then check that in /etc/makepkg.conf CFLAGS and CXXFLAGS have the +crypto suffix in -march flag, like -march=armv8-a+crypto (the base identifier may very depending on your hardware)
 
-  &lt;p&gt;(insert error message from before)&lt;/p&gt;
-
-  &lt;p&gt;Then check that in /etc/makepkg.conf CFLAGS and CXXFLAGS have the +crypto suffix in -march flag, like -march=armv8-a+crypto (the base identifier may very depending on your hardware)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Basically, there is a file on Linux: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/makepkg.conf&lt;/code&gt; which tells your computer how to compile &lt;em&gt;all&lt;/em&gt; programs on the system.
-By default the Manjaro ARM (RPi4) edition has the following relevant lines in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;makepkg.conf&lt;/code&gt;.&lt;/p&gt;
+Basically, there is a file on Linux: `/etc/makepkg.conf` which tells your computer how to compile *all* programs on the system.
+By default the Manjaro ARM (RPi4) edition has the following relevant lines in `makepkg.conf`.
 
 &lt;pre class=&quot;file&quot;&gt;
 CFLAGS=&quot;-march=armv8-a -O2 -pipe -fstack-protector-strong -fno-plt&quot;
 CXXFLAGS=&quot;-march=armv8-a -O2 -pipe -fstack-protector-strong -fno-plt&quot;
 &lt;/pre&gt;
 
-&lt;p&gt;What Mr. redfish is telling us is that we must add ‘+crypto’ to the end of the -march compiler flag so that our compiler will know how to inline that pesky vaesmcq_u8 function.&lt;/p&gt;
+What Mr. redfish is telling us is that we must add &apos;+crypto&apos; to the end of the -march compiler flag so that our compiler will know how to inline that pesky vaesmcq_u8 function.
 
-&lt;p&gt;So in the end, your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;makepkg.conf&lt;/code&gt;’s relevant lines will look like so:&lt;/p&gt;
+So in the end, your `makepkg.conf`&apos;s relevant lines will look like so:
 &lt;pre class=&quot;file&quot;&gt;
 CFLAGS=&quot;-march=armv8-a+crypto -O2 -pipe -fstack-protector-strong -fno-plt&quot;
 CXXFLAGS=&quot;-march=armv8-a+crypto -O2 -pipe -fstack-protector-strong -fno-plt&quot;
 &lt;/pre&gt;
 
-&lt;h2 id=&quot;why&quot;&gt;Why?&lt;/h2&gt;
+## Why?
 
-&lt;p&gt;Redfish continues:&lt;/p&gt;
+Redfish continues:
 
-&lt;blockquote&gt;
-  &lt;p&gt;Build of abseil-cpp package works because it uses CMake which adds the correct -march flag regardless of makepkg.conf, whereas when abseil-cpp is build as a subproject within this package, it uses meson, which does not add the flag and thus fails with the above error.&lt;/p&gt;
-&lt;/blockquote&gt;
+&gt; Build of abseil-cpp package works because it uses CMake which adds the correct -march flag regardless of makepkg.conf, whereas when abseil-cpp is build as a subproject within this package, it uses meson, which does not add the flag and thus fails with the above error.
 
-&lt;p&gt;In other words, one of the dependencies pulled in with auracle is not compiling without this special compiler flag enabled.&lt;/p&gt;
+In other words, one of the dependencies pulled in with auracle is not compiling without this special compiler flag enabled.
 
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
-&lt;p&gt;Thanks to redfish for posting this solution to the forums!
-Would’ve been quite the rabbit hole for me to figure out how to do that.
-In fact, it is very likely I would have never figured that one out.&lt;/p&gt;
+## Conclusion
 
-&lt;p&gt;After this issue is resolved, the installation of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pacaur&lt;/code&gt; goes as expected. Nice and easy!
-Pacuar will compile on any architecture so it’s smooth sailing from here.&lt;/p&gt;
+Thanks to redfish for posting this solution to the forums!
+Would&apos;ve been quite the rabbit hole for me to figure out how to do that.
+In fact, it is very likely I would have never figured that one out.
 
-&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">I recently installed Manjaro ARM (based on Arch Linux ARM) on a Raspberry Pi 4. I used some standard commands to start to add the pacaur package so I can easily retrieve AUR packages without needing to do it manually. Unfortunately, there is a small problem with compiling this on ARM.</summary></entry><entry><title type="html">ZFS NAS Box, Part 2</title><link href="/2020/11/15/nas2/" rel="alternate" type="text/html" title="ZFS NAS Box, Part 2" /><published>2020-11-15T00:00:00-07:00</published><updated>2020-11-15T00:00:00-07:00</updated><id>/2020/11/15/nas2</id><content type="html" xml:base="/2020/11/15/nas2/">&lt;p&gt;Back in &lt;a href=&quot;/2020/04/12/nas1/&quot;&gt;part one of my NAS project&lt;/a&gt; I discussed how I wanted to set up my hardware.
-Today, I set up the NAS (almost).&lt;/p&gt;
+After this issue is resolved, the installation of `pacaur` goes as expected. Nice and easy!
+Pacuar will compile on any architecture so it&apos;s smooth sailing from here.
 
-&lt;p&gt;There were some hiccup along the way, like learning that M.2 slots can disable some of your SATA ports or waiting a month for a host bus adapter to come in from China.&lt;/p&gt;
+Happy hacking!</content><author><name></name></author><summary type="html">I recently installed Manjaro ARM (based on Arch Linux ARM) on a Raspberry Pi 4. I used some standard commands to start to add the pacaur package so I can easily retrieve AUR packages without needing to do it manually. Unfortunately, there is a small problem with compiling this on ARM.</summary></entry><entry><title type="html">ZFS NAS Box, Part 2</title><link href="/2020/11/15/nas2/" rel="alternate" type="text/html" title="ZFS NAS Box, Part 2" /><published>2020-11-15T00:00:00-07:00</published><updated>2020-11-15T00:00:00-07:00</updated><id>/2020/11/15/nas2</id><content type="html" xml:base="/2020/11/15/nas2/">Back in [part one of my NAS project]({% post_url 2020-04-12-nas1 %}) I discussed how I wanted to set up my hardware.
+Today, I set up the NAS (almost).
 
-&lt;h2 id=&quot;why-did-it-take-so-long&quot;&gt;Why Did It Take So Long&lt;/h2&gt;
+There were some hiccup along the way, like learning that M.2 slots can disable some of your SATA ports or waiting a month for a host bus adapter to come in from China.
 
-&lt;p&gt;So it turns out I was going to spend a lot more on this project than I originally anticipated.
+## Why Did It Take So Long
+
+So it turns out I was going to spend a lot more on this project than I originally anticipated.
 I ended up getting a server machine instead of a sleek NAS box.
-Here are some of the quick specs:&lt;/p&gt;
+Here are some of the quick specs:
 
-&lt;ul&gt;
-  &lt;li&gt;Standard ATX case by Thermaltake.&lt;/li&gt;
-  &lt;li&gt;LSI 9211-8i.&lt;/li&gt;
-  &lt;li&gt;The cheapest HDMI graphics card I could find on Kijiji.&lt;/li&gt;
-  &lt;li&gt;6x 3TB Segate HDDs.&lt;/li&gt;
-  &lt;li&gt;1x 250G Kingston SSD.&lt;/li&gt;
-  &lt;li&gt;AMD Ryzen 5 3600.&lt;/li&gt;
-  &lt;li&gt;MSI B450 Gaming Plus Max.&lt;/li&gt;
-  &lt;li&gt;2x 8GB FlareX 3200Mhz RAM.&lt;/li&gt;
-  &lt;li&gt;1x 16GB Kingston 3200Mhz RAM.&lt;/li&gt;
-&lt;/ul&gt;
+* Standard ATX case by Thermaltake.
+* LSI 9211-8i.
+* The cheapest HDMI graphics card I could find on Kijiji.
+* 6x 3TB Segate HDDs.
+* 1x 250G Kingston SSD.
+* AMD Ryzen 5 3600.
+* MSI B450 Gaming Plus Max.
+* 2x 8GB FlareX 3200Mhz RAM.
+* 1x 16GB Kingston 3200Mhz RAM.
 
-&lt;h2 id=&quot;zfs&quot;&gt;ZFS&lt;/h2&gt;
+## ZFS
 
-&lt;p&gt;This is how I decided to configure my storage pools.
+This is how I decided to configure my storage pools.
 In hindsight, this was not the best choice for upgrading.
-I may change it in the future to a 0+1 setup, but it works for now.&lt;/p&gt;
+I may change it in the future to a 0+1 setup, but it works for now.
 
-&lt;p&gt;I have 5x 3TB in a RAIDZ2 with one drive not attached for redundancy’s sake.
-How does one setup a ZFS pool. Check this out:&lt;/p&gt;
+I have 5x 3TB in a RAIDZ2 with one drive not attached for redundancy&apos;s sake.
+How does one setup a ZFS pool. Check this out:
 
 &lt;pre class=&quot;terminal&quot;&gt;
 # zpool create poolname raidz2 \
@@ -1168,8 +1068,8 @@ How does one setup a ZFS pool. Check this out:&lt;/p&gt;
 /dev/by-id/blahblahblah5
 &lt;/pre&gt;
 
-&lt;p&gt;And zippidy-doo! We’ve got a ZFS pool!
-We can check its status with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zpool status&lt;/code&gt;.&lt;/p&gt;
+And zippidy-doo! We&apos;ve got a ZFS pool!
+We can check its status with `zpool status`.
 
 &lt;pre class=&quot;terminal&quot;&gt;
 $ zfs status
@@ -1192,32 +1092,32 @@ config:
 errors: No known data errors
 &lt;/pre&gt;
 
-&lt;p&gt;I had run a scrub right before this, so there’s some extra detail in that.
+I had run a scrub right before this, so there&apos;s some extra detail in that.
 This is really fun! I will be doing more home storage projects soon.
 Perhaps Raspberry Pi NAS using all 4 USB ports to load SATA drives on it.
-Now that would be fun!&lt;/p&gt;
+Now that would be fun!
 
-&lt;h2 id=&quot;so-i-kinda-have-a-nas-now&quot;&gt;So I Kinda Have A NAS Now…?&lt;/h2&gt;
+## So I Kinda Have A NAS Now...?
 
-&lt;p&gt;So right now I can only copy files with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rsync&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scp&lt;/code&gt; and moving data via a physical drive.
-The one major disadvantage this has is speed.&lt;/p&gt;
+So right now I can only copy files with `rsync`, `scp` and moving data via a physical drive.
+The one major disadvantage this has is speed.
 
-&lt;p&gt;Due to this machine being connected directly outside my network and pulling DHCP like a normal router would, I need to send my data through the WAN connection to get my files to it.
-This is rather unfortunate as my upload speed is capped at 20 megabits per second, despite my upload being in the 300+ range.&lt;/p&gt;
+Due to this machine being connected directly outside my network and pulling DHCP like a normal router would, I need to send my data through the WAN connection to get my files to it.
+This is rather unfortunate as my upload speed is capped at 20 megabits per second, despite my upload being in the 300+ range.
 
-&lt;p&gt;Part 3 will involve a LAN card so I can connect both to the DHCP server of my ISP and my local router.
+Part 3 will involve a LAN card so I can connect both to the DHCP server of my ISP and my local router.
 This way my transfer speeds should be in the range of 1 gigabit per second.
-This will make my life much easier, at least on the local network.&lt;/p&gt;
+This will make my life much easier, at least on the local network.
 
-&lt;h2 id=&quot;fun-fact&quot;&gt;Fun Fact!&lt;/h2&gt;
+## Fun Fact!
 
-&lt;p&gt;Do not try to use the M.2 slot on a consumer motherboard where you are also using all the SATA ports.
-On my consumer gaming motherboard, the SATA ports next to the M.2 slot became &lt;em&gt;disabled&lt;/em&gt; when I attached the M.2 SSD.
-I found this out form my motherboard documentation, which I read only after a week of thinking my motherboard itself was defective, and sending it in for repairs that did absolutely nothing.&lt;/p&gt;
+Do not try to use the M.2 slot on a consumer motherboard where you are also using all the SATA ports.
+On my consumer gaming motherboard, the SATA ports next to the M.2 slot became *disabled* when I attached the M.2 SSD.
+I found this out form my motherboard documentation, which I read only after a week of thinking my motherboard itself was defective, and sending it in for repairs that did absolutely nothing.
 
-&lt;h2 id=&quot;thoughts&quot;&gt;Thoughts&lt;/h2&gt;
+## Thoughts
 
-&lt;p&gt;I like having all this space. I plan on using it up pretty fast, so I’m already looking at how to expand.
-Hopefully that gives a decent overview of how I set up my drives.&lt;/p&gt;
+I like having all this space. I plan on using it up pretty fast, so I&apos;m already looking at how to expand.
+Hopefully that gives a decent overview of how I set up my drives.
 
-&lt;p&gt;Happy hacking!&lt;/p&gt;</content><author><name></name></author><summary type="html">Back in part one of my NAS project I discussed how I wanted to set up my hardware. Today, I set up the NAS (almost).</summary></entry></feed>
+Happy hacking!</content><author><name></name></author><summary type="html">Back in part one of my NAS project I discussed how I wanted to set up my hardware. Today, I set up the NAS (almost).</summary></entry></feed>

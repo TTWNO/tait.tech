@@ -1,0 +1,81 @@
+$ ./Demo 12345
+
+As a short data type, the variable aShort has the value 12345 (hex: 0x 30 39)
+
+Converting SIZE implicitly: short -> integer *** Sign extension ***
+This is done by issuing the statement: int anInt = aShort;
+As a int data type, the variable anInt has the value 12345 (hex: 0x 00 00 30 39)
+
+Converting SIZE implicitly: short -> char *** Truncation ***
+This is done by issuing the statement: signed char aChar = aShort;
+As a char data type, the variable aChar has the value 57 (hex: 0x 39)
+
+Converting SIGN implicitly: short -> unsigned short
+This is done by issuing the statement: unsigned short aUShort = aShort;
+As an unsigned short data type, the variable aUShort has the value 12345 (hex: 0x 30 39)
+
+Converting SIGN implicitly: unsigned short -> short
+This is done by issuing the statement: short aShort1 = aUShort;
+As a signed short data type, the variable aShort1 has the value 12345 (hex: 0x 30 39)
+
+Converting both SIZE and SIGN: short -> unsigned int
+This is done by issuing the statement: unsigned aUInt = aShort;
+As an unsigned int data type, the variable aUInt has the value 12345 (hex: 0x 00 00 30 39)
+
+One step at a time - First conversion is SIZE: (int) aShort = 12345
+One step at a time - Second conversion is SIGN: (unsigned) (int) aShort = 12345
+
+What if ... First conversion is SIGN: (unsigned short) aShort = 12345
+What if ... Second conversion is SIZE: (unsigned int) (unsigned short) aShort = 12345
+
+Converting both SIZE and SIGN: short -> unsigned char
+This is done by issuing the statement: unsigned char anUChar = aShort;
+As an unsigned char data type, the variable anUChar has the value 57 (hex: 0x 39)
+
+One step at a time - First conversion is SIZE: (signed char) aShort = 57
+One step at a time - Second conversion is SIGN: (unsigned char) (signed char) aShort = 57
+
+What if ... First conversion is SIGN: (unsigned short) aShort = 12345
+What if ... Second conversion is SIZE: (unsigned char) (unsigned short) aShort = 57
+
+----------------------------------------------------------------------------------------------
+
+$ ./Demo -12345
+
+As a short data type, the variable aShort has the value -12345 (hex: 0x cf c7)
+
+Converting SIZE implicitly: short -> integer *** Sign extension ***
+This is done by issuing the statement: int anInt = aShort;
+As a int data type, the variable anInt has the value -12345 (hex: 0x ff ff cf c7)
+
+Converting SIZE implicitly: short -> char *** Truncation ***
+This is done by issuing the statement: signed char aChar = aShort;
+As a char data type, the variable aChar has the value -57 (hex: 0x c7)
+
+Converting SIGN implicitly: short -> unsigned short
+This is done by issuing the statement: unsigned short aUShort = aShort;
+As an unsigned short data type, the variable aUShort has the value 53191 (hex: 0x cf c7)
+
+Converting SIGN implicitly: unsigned short -> short
+This is done by issuing the statement: short aShort1 = aUShort;
+As a signed short data type, the variable aShort1 has the value -12345 (hex: 0x cf c7)
+
+Converting both SIZE and SIGN: short -> unsigned int
+This is done by issuing the statement: unsigned aUInt = aShort;
+As an unsigned int data type, the variable aUInt has the value 4294954951 (hex: 0x ff ff cf c7)
+
+One step at a time - First conversion is SIZE: (int) aShort = -12345
+One step at a time - Second conversion is SIGN: (unsigned) (int) aShort = 4294954951
+
+What if ... First conversion is SIGN: (unsigned short) aShort = 53191
+What if ... Second conversion is SIZE: (unsigned int) (unsigned short) aShort = 53191
+
+Converting both SIZE and SIGN: short -> unsigned char
+This is done by issuing the statement: unsigned char anUChar = aShort;
+As an unsigned char data type, the variable anUChar has the value 199 (hex: 0x c7)
+
+One step at a time - First conversion is SIZE: (signed char) aShort = -57
+One step at a time - Second conversion is SIGN: (unsigned char) (signed char) aShort = 199
+
+What if ... First conversion is SIGN: (unsigned short) aShort = 53191
+What if ... Second conversion is SIZE: (unsigned char) (unsigned short) aShort = 199

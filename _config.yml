@@ -11,7 +11,14 @@ collections:
   emacspeak_tutorials:
     output: true
     permalink: /emacspeak-tutorials/:name/
+  book_notes:
+    output: true
+    permalink: /book-notes/:name/
 
 markdown: kramdown
 kramdown:
   math_engine: katex
+
+scholar:
+  style: "ieee"
+  #style: "modern-language-association"

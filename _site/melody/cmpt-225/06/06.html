@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/assets/css/katex.css">
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-225call-stack--heap-memory">CMPT 225–Call Stack &amp; Heap Memory</h1>
+
+<h2 id="the-call-stack">The call stack</h2>
+
+<ul>
+  <li>Suppose a function <code class="language-plaintext highlighter-rouge">A</code> calls a function <code class="language-plaintext highlighter-rouge">B</code>, which calls <code class="language-plaintext highlighter-rouge">C</code>.</li>
+  <li>During execution control passes from (the code for) <code class="language-plaintext highlighter-rouge">A</code>, to <code class="language-plaintext highlighter-rouge">B</code>, then to <code class="language-plaintext highlighter-rouge">C</code>.</li>
+  <li>The execution of <code class="language-plaintext highlighter-rouge">C</code> ends, control must return to <code class="language-plaintext highlighter-rouge">B</code> and then to <code class="language-plaintext highlighter-rouge">A</code>.</li>
+</ul>
+
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo>↔</mo><mi>A</mi><mo>↔</mo><mi>B</mi><mo>↔</mo><mi>C</mi><mo>↔</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">
+... \leftrightarrow A \leftrightarrow B \leftrightarrow C \leftrightarrow ...
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.10556em;vertical-align:0em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span></span></span></span></span></p>
+
+<ul>
+  <li>At each function call, the system records where control should return to be <em>pushing an activation record on the call stack</em></li>
+  <li>The call stack also records all local variables, including the arguments to the function call.</li>
+</ul>
+
+<h2 id="call-stack-illustration">Call Stack Illustration</h2>
+
+<p>Code is in <a href="./call_stack.cpp">call_stack.cpp</a></p>
+
+<p>Call stack for this process:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>main</td>
+      <td>a=1, b=0</td>
+    </tr>
+    <tr>
+      <td>f(2)</td>
+      <td>c=2, d=3, e=8</td>
+    </tr>
+    <tr>
+      <td>g(4)</td>
+      <td>i=4</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>g</td>
+      <td>&lt;code for g&gt;</td>
+    </tr>
+    <tr>
+      <td>f</td>
+      <td>&lt;code for f&gt;</td>
+    </tr>
+    <tr>
+      <td>main</td>
+      <td>&lt;code for main&gt;</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="stack-code">Stack Code</h2>
+
+<p>Picture of code, which can be found in <a href="./stack_pointers.cpp">stack_pointers.cpp</a></p>
+
+<p>Picture of code output, which can be found in <a href="stack_pointers_output.txt">stack_pointers_output.txt</a></p>
+
+<h2 id="dynamic-memory-or-heap">Dynamic Memory <em>or</em> Heap</h2>
+
+<ul>
+  <li>Vairables declared in functions are stored on the <em>call stack</em></li>
+  <li>These variables:
+    <ul>
+      <li>are of fixed size</li>
+      <li>are destoryed when the function they are defined in terminates</li>
+    </ul>
+  </li>
+  <li>We often want a function <code class="language-plaintext highlighter-rouge">f</code> to create data that can be used after it returns.
+    <ul>
+      <li>In particular, dynamic data structures require this!</li>
+    </ul>
+  </li>
+  <li>This data is stored in “the heap”, a region of memory that is allocated dynamically as needed!</li>
+</ul>
+
+<h2 id="in-c">In C++:</h2>
+
+<ul>
+  <li>Basic (or primitive) types can be stored on the call stack <em>or</em> on the heap.</li>
+  <li>Objects (e.g. instances of classes) can be stored on the call stack <em>or</em> on the heap.</li>
+  <li>Variables declared in functions are on the stack</li>
+  <li>Allocation on the heap is denoted by “new”.</li>
+</ul>
+
+<h2 id="ex-basic-types-on-call-stack--heap">Ex: Basic Types on Call Stack &amp; Heap</h2>
+
+<p>Code snippet below:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>f(){
+  int n; //n is on stack
+  n=6;
+  int * np;//np is on stack
+  np = new int;// new int is stored in heap
+  *np = 7; // np points to the location.
+}
+</code></pre></div></div>
+
+<h2 id="ex-basic-types-on-call-stack--heap-1">Ex: Basic Types on Call Stack &amp; Heap</h2>
+
+<p>See code above.</p>
+
+<p>Call stack:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>n</td>
+      <td>6</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>np</td>
+      <td><a href="#h1">pointer</a></td>
+      <td><code class="language-plaintext highlighter-rouge">np</code> is a pointer to the location on the heap.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Heap:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>...</td>
+    </tr>
+      <td><span id="h1">7</span></td>
+    <tr>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note: When <code class="language-plaintext highlighter-rouge">f</code> ends, <code class="language-plaintext highlighter-rouge">np</code> is gone (the stack is popped), but the space it pointed to <em>is not</em>.</p>
+
+<h2 id="class-instances-on-heap--stack-combines-notes-on-two-slides">Class Instances on Heap &amp; Stack (combines notes on two slides)</h2>
+
+<p>Code snippet:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">List</span> <span class="o">*</span> <span class="nf">f</span><span class="p">(){</span>
+  <span class="n">List</span> <span class="n">L</span><span class="p">;</span>
+  <span class="n">List</span> <span class="o">*</span> <span class="n">Lp</span><span class="p">;</span>
+  <span class="n">Lp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">();</span>
+  <span class="k">return</span> <span class="n">Lp</span><span class="p">;</span> <span class="c1">// returns pointer</span>
+<span class="p">}</span>
+
+<span class="n">main</span><span class="p">(){</span>
+  <span class="p">...</span>
+  <span class="n">List</span> <span class="o">*</span> <span class="n">lst</span> <span class="o">=</span> <span class="n">f</span><span class="p">();</span> <span class="c1">// lst becomes a pointer to the list object</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Call Stack:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Values</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>lst</td>
+      <td><a href="#o2">pointer to heap</a></td>
+      <td>in main</td>
+    </tr>
+    <tr>
+      <td>L</td>
+      <td>&lt;List Object&gt;</td>
+      <td>entire List object; in function <code class="language-plaintext highlighter-rouge">f</code> (destroyed when f ends)</td>
+    </tr>
+    <tr>
+      <td>Lp</td>
+      <td><a href="#o2">pointer to &lt;List Object&gt;</a></td>
+      <td>in function <code class="language-plaintext highlighter-rouge">f</code> (this <em>pointer</em> is also destroyed when f exits); annotation: this instanciates the list class</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Heap:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Value</td>
+      <td>Notes</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td><span id="o2">&lt;List Object&gt;</span></td>
+      <td>entire list object</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="accessing-instance-members-in-c-combination-of-notes-in-two-slides">Accessing Instance Members in C++ (combination of notes in two slides)</h2>
+
+<p>Suppose a class <em>Store</em> with:</p>
+
+<ul>
+  <li>a data member <code class="language-plaintext highlighter-rouge">x</code>. (an int)</li>
+  <li>a function <code class="language-plaintext highlighter-rouge">put(v)</code> that stores <code class="language-plaintext highlighter-rouge">v</code> in <code class="language-plaintext highlighter-rouge">x</code>.</li>
+  <li>a function <code class="language-plaintext highlighter-rouge">get()</code> that returns the value of <code class="language-plaintext highlighter-rouge">x</code>.</li>
+</ul>
+
+<p>Consider this code fragment:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span><span class="p">(){</span>
+  <span class="p">...</span>
+  <span class="n">Store</span> <span class="n">s1</span><span class="p">;</span>
+  <span class="n">s1</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+  <span class="n">y</span><span class="o">=</span><span class="n">s1</span><span class="p">.</span><span class="n">get</span><span class="p">();</span><span class="c1">//y=5</span>
+  <span class="p">...</span>
+  <span class="n">Store</span> <span class="o">*</span><span class="n">s2</span><span class="p">;</span>
+  <span class="n">s2</span><span class="o">=</span><span class="k">new</span> <span class="n">Store</span><span class="p">();</span><span class="c1">// (annotation: XX)</span>
+  <span class="n">s2</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="c1">// (annotation: X)</span>
+  <span class="n">y</span><span class="o">=</span><span class="n">s2</span><span class="p">.</span><span class="n">get</span><span class="p">()</span><span class="c1">// (annotation: X)</span>
+  <span class="p">...</span>
+  <span class="o">*</span><span class="n">s2</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="c1">// (annotation: X)</span>
+  <span class="n">y</span><span class="o">=*</span><span class="n">s2</span><span class="p">.</span><span class="n">get</span><span class="p">();</span><span class="c1">// (annotation: X)</span>
+  <span class="p">...</span>
+  <span class="p">(</span><span class="o">*</span><span class="n">s2</span><span class="p">).</span><span class="n">put</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="c1">// (annotation: check mark)</span>
+  <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="o">*</span><span class="n">s2</span><span class="p">).</span><span class="n">get</span><span class="p">();</span><span class="c1">// (annotation: check mark)</span>
+  <span class="p">...</span>
+  <span class="n">s2</span><span class="o">-&gt;</span><span class="n">put</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// equiv. to (*s).put(5)// (annotation: check mark)</span>
+  <span class="n">y</span><span class="o">=</span><span class="n">s2</span><span class="o">-&gt;</span><span class="n">get</span><span class="p">();</span> <span class="c1">// equiv. to y=(*s).get()// (annotation: check mark)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Call Stack:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>s2</td>
+      <td><a href="#pts">pointer to &lt;Store Object&gt;</a></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>s1</td>
+      <td>&lt;Store Object [x=5]&gt;</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Heap:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="pts">&lt;Store Object [x=5]&gt;</span></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="using-the-textbook-list-class">Using the Textbook List Class</h2>
+
+<p>See <a href="./textbook_list.cpp">textbook_list.cpp</a>
+and <a href="./List.h">List.h</a>.</p>
+
+<p>Call stack during the run of the program:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>N</td>
+      <td>5</td>
+      <td>within main</td>
+    </tr>
+    <tr>
+      <td>lst</td>
+      <td>&lt;List Object [size=5, head=0, tail=4]&gt;</td>
+      <td>within main</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The heap is empty.</p>
+
+<p>See “doubly linked list” example in lecture 05.</p>
+
+<h2 id="the-list-class">The List Class</h2>
+
+<p>Two images of the doubly linked list slides from lecture 05 with a big red X written overtop each image.</p>
+
+<h2 id="the-list-class---constructor">The List Class - Constructor</h2>
+
+<p>Code snippet:</p>
+
+<pre><code class="language-C++">private:
+  int theSize;
+  Node *head;
+  Node *tail;
+  void init()
+  {
+    theSize = 0;
+    head = new Node;
+    tail = new Node;
+    head-&gt;next = tail;
+    tail-&gt;prev = head;
+  }
+};
+</code></pre>
+
+<p>After constructor:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Next</th>
+      <th>Value</th>
+      <th>Prev</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="t0">head</span></td>
+      <td><a href="#t1">pointer</a></td>
+      <td>nullptr</td>
+      <td>nullptr</td>
+    </tr>
+    <tr>
+      <td><span id="t1">tail</span></td>
+      <td>nullptr</td>
+      <td>nullptr</td>
+      <td><a href="#t0">pointer</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Code snippet form <a href="./List.h">List.h</a>:</p>
+
+<pre><code class="language-C++">Node(const Object&amp; d = Object{}, Node* p = nullptr, Node* n = nullptr)
+  : data{d}, prev{p}, next{n} {}
+</code></pre>
+
+<h2 id="the-list-class---the-iterators">The List Class - The iterators</h2>
+
+<ul>
+  <li>Data member (Node* current)
+    <ul>
+      <li>a pointer to a Node. (the list iterators are implemented with pointers.)</li>
+    </ul>
+  </li>
+  <li>Constructors:
+    <ul>
+      <li>turn a pointer into an iterator:
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">iterator(Node\* p): const_iterator{p}{}</code></li>
+          <li><code class="language-plaintext highlighter-rouge">const_iterator(Node\* p): current{p}</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>function:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">iterator end(){ return iterator(tail}</code>
+        <ul>
+          <li>turns the tail pointer into the iter to “end”. (???can’t read completely)</li>
+          <li>it corresponds to “just past the end” of the list</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="the-list-class---the-push_back-function">The List Class - the push_back function</h2>
+
+<pre><code class="language-C++">// add an element to the tail end of the list
+// end() is the end iterator
+// x is the element to add
+void push_back(const Object&amp; x){insert(end(), x);}
+
+iterator insert(iterator itr, const Object&amp; x){
+  Node *p = itr.current; // turns the iterator into a pointer
+  ++theSize; //increments size variable
+  return iterator(p-&gt;prev=p-&gt;prev-&gt;next=new Node(x, p-&gt;prev, p)) // turns the pointer into an iterator
+  // p-&gt;prev=p-&gt;prev-&gt;next=new Node(x, p-&gt;prev, p)) does two things:
+  // 1. Makes a new node `N`
+  // 2. stores a pointer to `N` in p-&gt;prev and it p-&gt;prev-&gt;next
+}
+</code></pre>
+
+<h2 id="the-list-class---inserting-the-first-element-combination-of-notes-from-two-slides">The List Class - Inserting the first element (combination of notes from two slides)</h2>
+
+<p>Code snippet:</p>
+
+<pre><code class="language-C++">// itr is the end
+iterator insert(iterator itr, const Object&amp; x){
+  Node *p = itr.current;// itr.current is the tail
+  ++theSize;
+  return iterator(p-&gt;prev=p-&gt;prev-&gt;next=new Node(x, p-&gt;prev, p)); // turns pointer into iterator
+  // x is new list element
+  // p-&gt;prev is initial value of prev
+  // p is initial value of next
+}
+</code></pre>
+
+<p>List pointed to by <a href="#d1">pointer p</a> (original)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Next</th>
+      <th>Value</th>
+      <th>Prev</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="d0">head</span></td>
+      <td><a href="#d1">pointer</a></td>
+      <td>nullptr</td>
+      <td>nullptr</td>
+    </tr>
+    <tr>
+      <td><span id="d1">tail</span></td>
+      <td>nullptr</td>
+      <td>nullptr</td>
+      <td><a href="#d0">pointer</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The “new Node(…)” object:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Next</th>
+      <th>Value</th>
+      <th>Prev</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#d1">pointer</a></td>
+      <td>nullptr</td>
+      <td><a href="#d0">pointer</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="transcribers-addition-implied-in-diagram-what-does-p-prevp-prev-nextnew-node-do-to-this-list">Transcriber’s addition (implied in diagram): What does <code class="language-plaintext highlighter-rouge">p-&gt;prev=p-&gt;prev-&gt;next=New Node(...)</code> do to this list?</h2>
+
+<p>Transciber’s note: It inserts the <code class="language-plaintext highlighter-rouge">new Node(...)</code> into the list like so:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Next</th>
+      <th>Value</th>
+      <th>Prev</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="l0">head</span></td>
+      <td><a href="#l2">pointer</a></td>
+      <td>nullptr</td>
+      <td>nullptr</td>
+    </tr>
+    <tr>
+      <td><span id="l2"><code class="language-plaintext highlighter-rouge">new Node(...)</code></span></td>
+      <td><a href="#l1">pointer</a></td>
+      <td>nullptr</td>
+      <td><a href="#l0">pointer</a></td>
+    </tr>
+    <tr>
+      <td><span id="l1">tail</span></td>
+      <td>nullptr</td>
+      <td>nullptr</td>
+      <td><a href="#l2">pointer</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Transciber’s note: This cancels the previous connection between <code class="language-plaintext highlighter-rouge">head</code> and <code class="language-plaintext highlighter-rouge">tail</code> directly.</p>
+
+<h2 id="using-the-textbook-list-class-1">Using the Textbook List Class</h2>
+
+<p>Code snippet:</p>
+
+<pre><code class="language-C++">#include "dsexceptions.h"
+#include "List.h"
+int main(){
+  const int N = 5;
+  List&lt;int&gt; = lst;
+  for(int i=N-1; i&lt;0; --i){
+    lst.push_front(i);
+  }
+  return 0;
+}
+</code></pre>
+<p>When lst contains the two values [1, 2]:</p>
+
+<p>Call Stack:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>N</td>
+      <td>5</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>lst</td>
+      <td>&lt;List Object [theSize=2, head=<a href="#g3v">pointer</a>, tail=<a href="#g1v">pointer</a>&gt;</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Heap (transcriber’s note: the link takes you to the value, but the pointer is to the group of values [next, value, prev), A.K.A. a Node):</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Value</td>
+      <td>Notes</td>
+    </tr>
+    <tr>
+      <td><a href="#g2v">Node.next</a></td>
+      <td>Node index 0</td>
+    </tr>
+    <tr>
+      <td><span id="g0v">Node Value: 1</span></td>
+      <td>Node index 0</td>
+    </tr>
+    <tr>
+      <td><a href="#g3v">Node.prev</a></td>
+      <td>Node index 0</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>Node.next (nullptr)</td>
+      <td>Ending Node</td>
+    </tr>
+    <tr>
+      <td><span id="g1v">Node Value: ?</span></td>
+      <td>Ending Node</td>
+    </tr>
+    <tr>
+      <td><a href="#g2v">Node.prev</a></td>
+      <td>Ending Node</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td><a href="#g1v">Node.next</a></td>
+      <td>Node index 1</td>
+    </tr>
+    <tr>
+      <td><span id="g2v">Node Value: 2</span></td>
+      <td>Node index 1</td>
+    </tr>
+    <tr>
+      <td><a href="#g0v">Node.prev</a></td>
+      <td>Node index 1</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td><a href="#g0v">Node.next</a></td>
+      <td>Beginning Node</td>
+    </tr>
+    <tr>
+      <td><span id="g3v">Node Value: ?</span></td>
+      <td>Beginning Node</td>
+    </tr>
+    <tr>
+      <td>Node.prev (nullptr)</td>
+      <td>Beginning Node</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="linked-list-ends">Linked List Ends</h2>
+
+<p>Transcriber’s note: tell me if you like this way of transcribing simplified linked lists where the individual values don’t matter, but only a linear relationship between the nodes:</p>
+
+<p>For [4, 5, 6]:</p>
+
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>head</mtext><mo>↔</mo><mtext>beginning node</mtext><mo>↔</mo><mn>4</mn><mo>↔</mo><mn>5</mn><mo>↔</mo><mn>6</mn><mo>↔</mo><mtext>ending node</mtext><mo>↔</mo><mtext>tail</mtext></mrow><annotation encoding="application/x-tex">
+\text{head} \leftrightarrow \text{beginning node} \leftrightarrow 4 \leftrightarrow 5 \leftrightarrow 6 \leftrightarrow \text{ending node} \leftrightarrow \text{tail}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">head</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">beginning node</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">ending node</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">tail</span></span></span></span></span></span></p>
+
+<p>versus</p>
+
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>head</mtext><mo>↔</mo><mn>4</mn><mo>↔</mo><mn>5</mn><mo>↔</mo><mn>6</mn><mo>↔</mo><mtext>tail</mtext></mrow><annotation encoding="application/x-tex">
+\text{head} \leftrightarrow 4 \leftrightarrow 5 \leftrightarrow 6 \leftrightarrow \text{tail}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">head</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">tail</span></span></span></span></span></span></p>
+
+<p>For [5]:</p>
+
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>head</mtext><mo>↔</mo><mtext>beginning node</mtext><mo>↔</mo><mn>5</mn><mo>↔</mo><mtext>ending node</mtext><mo>↔</mo><mtext>tail</mtext></mrow><annotation encoding="application/x-tex">
+\text{head} \leftrightarrow \text{beginning node} \leftrightarrow 5 \leftrightarrow \text{ending node} \leftrightarrow \text{tail}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">head</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">beginning node</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">ending node</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">tail</span></span></span></span></span></span></p>
+
+<p>versus</p>
+
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>head</mtext><mo>↔</mo><mn>5</mn><mo>↔</mo><mtext>tail</mtext></mrow><annotation encoding="application/x-tex">\text{head} \leftrightarrow 5 \leftrightarrow \text{tail}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">head</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">tail</span></span></span></span></span></span>
+
+<p>For []:</p>
+
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>head</mtext><mo>↔</mo><mtext>beginning node</mtext><mo>↔</mo><mtext>ending node</mtext><mo>↔</mo><mtext>tail</mtext></mrow><annotation encoding="application/x-tex">\text{head} \leftrightarrow \text{beginning node} \leftrightarrow \text{ending node} \leftrightarrow \text{tail}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">head</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">beginning node</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">ending node</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">tail</span></span></span></span></span></span>
+
+<p>versus (transcriber’s note: the lack of connection is intentional)</p>
+
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>head</mtext><mo separator="true">,</mo><mtext>tail</mtext></mrow><annotation encoding="application/x-tex">\text{head} , \text{tail}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">head</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord text"><span class="mord">tail</span></span></span></span></span></span>
+
+<h2 id="end">End</h2>
+
+<p>After the “End” slide, some previous slides are repeated for no apparent reason.</p>
+
+      <footer>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>
