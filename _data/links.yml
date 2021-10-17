@@ -15,6 +15,9 @@
   - name: RSS Feed
     label: feed.xml
     value: /feed.xml
+  - name: Book Notes
+    label: /book-notes/
+    value: /book-notes/
   - name: Backup/Mirror Site
     value: https://beta.tait.tech/
     label: beta.tait.tech
@@ -25,6 +28,9 @@
       label: INHERIT
     - name: Protonmail
       value: https://protonmail.com
+      label: INHERIT
+    - name: Matrix
+      value: https://matrix.org
       label: INHERIT
 - heading: Linux Links
   values:
@@ -71,7 +77,4 @@
   values:
     - name: Justin Pilon
       value: https://elephantpaw.ca/
-      label: INHERIT
-    - name: Melody Shih
-      value: https://melly.tech/
       label: INHERIT
