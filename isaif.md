@@ -1,12 +1,54 @@
 ---
-layout: simple
+layout: book
+title: "The Unabomber Manifesto: Industrial Society and its Future"
+author: "Theodore John Kaczynski"
 ---
+<style>
+#footnotes {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+#footnotes li {
+  padding-left: 0;
+  margin-left: 0;
+}
+</style>
 
-# The Unabomber Manifesto: Industrial Society and its Future
+<h2 id="toc">Table Of Contents</h2>
 
-by Theodore Kaczynski
+<ol>
+  <li><a href="#toc">Table Of Contents</a></li>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#the-psychology-of-modern-leftism">The Psychology of Modern Leftism</a></li>
+  <li><a href="#feelings-of-inferiority">Feelings of Inferiority</a></li>
+  <li><a href="#oversocialization">Oversocialization</a></li>
+  <li><a href="#the-power-process">The Power Process</a></li>
+  <li><a href="#surrogate-activities">Surrogate Activities</a></li>
+  <li><a href="#autonomy">Autonomy</a></li>
+  <li><a href="#sources-of-social-problems">Sources of Social Problems</a></li>
+  <li><a href="#how-some-people-adjust">How Some People Adjust</a></li>
+  <li><a href="#the-motives-of-scientists">The Motives of Scientists</a></li>
+  <li><a href="#the-nature-of-freedom">The Nature of Freedom</a></li>
+  <li><a href="#some-principles-of-history">Some Principles of History</a></li>
+  <li><a href="#industrial-technological-society-cannot-be-reformed">Industrial-Technological Society Cannot Be Reformed</a></li>
+  <li><a href="#restriction-of-freedom-is-unavoidable-in-industrial-society">Restriction of Freedom is Unavoidable in Industrial Society</a></li>
+  <li><a href="#technology-is-a-more-powerful-social-force-than-the-aspiration-for-freedom">Technology is a More Powerful Social Force than the Aspiration for Freedom</a></li>
+  <li><a href="#simpler-social-problems-have-proved-intractable">Simpler Social Problems Have Proved Intractable</a></li>
+  <li><a href="#revolution-is-easier-than-reform">Revolution is Easier than Reform</a></li>
+  <li><a href="#control-of-human-behavior">Control of Human Behavior</a></li>
+  <li><a href="#human-race-at-a-crossroads">Human Race at a Crossroads</a></li>
+  <li><a href="#human-suffering">Human Suffering</a></li>
+  <li><a href="#the-future">The Future</a></li>
+  <li><a href="#strategy">Strategy</a></li>
+  <li><a href="#two-kinds-of-technology">Two Kinds of Technology</a></li>
+  <li><a href="#the-danger-of-leftism">The Danger of Leftism</a></li>
+  <li><a href="#final-note">Final Note</a></li>
+  <li><a href="#notes">Notes</a></li>
+  <li><a href="#my-footnotes">My Footnotes</a></li>
+</ol>
 
-## Introduction
+<h2 id="introduction">Introduction</h2>
 
 <p id="1">1. The Industrial Revolution and its consequences have been a disaster for the human race. They have greatly increased the
 life-expectancy of those of us who live in “advanced” countries, but they have destabilized society, have made life unfulfilling,
@@ -42,7 +84,7 @@ environmental and wilderness movements, we have written very little about enviro
 wild nature, even though we consider these to be highly important.
 </p>
 
-## The Psychology of Modern Leftism
+<h2 id="the-psychology-of-modern-leftism">The Psychology of Modern Leftism</h2>
 
 <p id="6">6. Almost everyone will agree that we live in a deeply troubled society. One of the most widespread manifestations of the
 craziness of our world is leftism, so a discussion of the psychology of leftism can serve as an introduction to the discussion of
@@ -70,7 +112,7 @@ Feelings of inferiority are characteristic of modern leftism as a whole, while o
 segment of modern leftism; but this segment is highly influential.
 </p>
 
-## Feelings of Inferiority
+<h2 id="feelings-of-inferiority">Feelings of Inferiority</h2>
 
 <p id="10">10. By “feelings of inferiority” we mean not only inferiority feelings in the strict sense but a whole spectrum of related traits;
 low self-esteem, feelings of powerlessness, depressive tendencies, defeatism, guilt, self-hatred, etc. We argue that modern
@@ -178,7 +220,7 @@ with an excuse for making a fuss.
 leftist. It is only a rough indication of a general tendency of leftism.
 </p>
 
-## Oversocialization
+<h2 id="oversocialization">Oversocialization</h2>
 
 <p id="24">24. Psychologists use the term “socialization” to designate the process by which children are trained to think and act as society
 demands. A person is said to be well socialized if he believes in and obeys the moral code of his society and fits in well as a
@@ -267,7 +309,7 @@ And today’s society tries to socialize us to a greater extent than any previou
 how to exercise, how to make love, how to raise our kids and so forth.
 </p>
 
-## The Power Process
+<h2 id="the-power-process">The Power Process</h2>
 
 <p id="33">33. Human beings have a need (probably based in biology) for something that we will call the “power process.” This is closely
 related to the need for power (which is widely recognized) but is not quite the same thing. The power process has four
@@ -296,7 +338,7 @@ the goals is compatible with survival. Consistent failure to attain goals throug
 he must have a reasonable rate of success in attaining his goals.
 </p>
 
-## Surrogate Activities
+<h2 id="surrogate-activities">Surrogate Activities</h2>
 
 <p id="38">38. But not every leisured aristocrat becomes bored and demoralized. For example, the emperor Hirohito, instead of sinking
 into decadent hedonism, devoted himself to marine biology, a field in which he became distinguished. When people do not
@@ -347,7 +389,7 @@ importantly, in our society people do not satisfy their biological needs AUTONOM
 immense social machine. In contrast, people generally have a great deal of autonomy in pursuing their surrogate activities.
 </p>
 
-## Autonomy
+<h2 id="autonomy">Autonomy</h2>
 
 <p id="42">42. Autonomy as a part of the power process may not be necessary for every individual. But most people need a greater or
 lesser degree of autonomy in working toward their goals. Their efforts must be undertaken on their own initiative and must be
@@ -368,10 +410,10 @@ developing fighting skills that he is quite content to use in blind obedience to
 -- that self-esteem, self-confidence and a sense of power are acquired. When one does not have adequate opportunity to go
 through the power process the consequences are (depending on the individual and on the way the power process is disrupted)
 boredom, demoralization, low self-esteem, inferiority feelings, defeatism, depression, anxiety, guilt, frustration, hostility,
-spouse or child abuse, insatiable hedonism, abnormal sexual behavior, sleep disorders, eating disorders. etc. [<a href="#footnote-5">6</a>]
+spouse or child abuse, insatiable hedonism, abnormal sexual behavior, sleep disorders, eating disorders. etc. [<a href="#footnote-6">6</a>]
 </p>
 
-## Sources of Social Problems
+<h2 id="sources-of-social-problems">Sources of Social Problems</h2>
 
 <p id="45">45. Any of the foregoing symptoms can occur in any society, but in modern industrial society they are present on a massive
 scale. We aren’t the first to mention that the world today seems to be going crazy. This sort of thing is not normal for human
@@ -628,7 +670,7 @@ them. What they need is to find or make their own opportunities. As long as the 
 has them on a leash. To attain autonomy they must get off that leash.
 </p>
 
-## How Some People Adjust
+<h2 id="how-some-people-adjust">How Some People Adjust</h2>
 
 <p id="77">77. Not everyone in industrial-technological society suffers from psychological problems. Some people even profess to be
 quite satisfied with society as it is. We now discuss some of the reasons why people differ so greatly in their response to
@@ -713,7 +755,7 @@ of society, because (among other reasons) we consider it demeaning to fulfill on
 surrogate activities or through identification with an organization, rather than through pursuit of real goals.
 </p>
 
-## The Motives of Scientists
+<h2 id="the-motives-of-scientists">The Motives of Scientists</h2>
 
 <p id="87">87. Science and technology provide the most important examples of surrogate activities. Some scientists claim that they are
 motivated by “curiosity” or by a desire to “benefit humanity.” But it is easy to see that neither of these can be the principal
@@ -764,7 +806,7 @@ only to the psychological needs of the scientists and of the government official
 funds for research.
 </p>
 
-## The Nature of Freedom
+<h2 id="the-nature-of-freedom">The Nature of Freedom</h2>
 
 <p id="93">93. We are going to argue that industrial-technological society cannot be reformed in such a way as to prevent it from
 progressively narrowing the sphere of human freedom. But, because “freedom” is a word that can be interpreted in many ways,
@@ -831,7 +873,7 @@ socialized too little rather than too much, yet the oversocialized leftist pays 
 socialization.
 </p>
 
-## Some Principles of History
+<h2 id="some-principles-of-history">Some Principles of History</h2>
 
 <p id="99">99. Think of history as being the sum of two components: an erratic component that consists of unpredictable events that
 follow no discernible pattern, and a regular component that consists of long-term historical trends. Here we are concerned with
@@ -913,7 +955,7 @@ principles should be borne constantly in mind, and whenever one reaches a conclu
 carefully reexamine one’s thinking and retain the conclusion only if one has good, solid reasons for doing so.
 </p>
 
-## Industrial-Technological Society Cannot Be Reformed
+<h2 id="industrial-technological-society-cannot-be-reformed">Industrial-Technological Society Cannot Be Reformed</h2>
 
 <p id="111">111. The foregoing principles help to show how hopelessly difficult it would be to reform the industrial system in such a way
 as to prevent it from progressively narrowing our sphere of freedom. There has been a consistent tendency, going back at least
@@ -941,7 +983,7 @@ reconcile freedom with modern technology. In the next few sections we will give 
 freedom and technological progress are incompatible.
 </p>
 
-## Restriction of Freedom is Unavoidable in Industrial Society
+<h2 id="restriction-of-freedom-is-unavoidable-in-industrial-society">Restriction of Freedom is Unavoidable in Industrial Society</h2>
 
 <p id="114">114. As explained in paragraphs <a href="#65">65</a>-<a href="#67">67</a>, <a href="#70">70</a>-<a href="#73">73</a>, modern man is strapped down by a network of rules and regulations, and his
 fate depends on the actions of persons remote from him whose decisions he cannot influence. This is not accidental or a result
@@ -1062,7 +1104,7 @@ diseases, giving people the abilities they need to get along in today’s world)
 extensively, but only in ways consistent with the needs of the industrial-technological system. [<a href="#footnote-20">20</a>]
 </p>
 
-## Technology is a More Powerful Social Force than the Aspiration for Freedom
+<h2 id="technology-is-a-more-powerful-social-force-than-the-aspiration-for-freedom">Technology is a More Powerful Social Force than the Aspiration for Freedom</h2>
 
 <p id="125">125. It is not possible to make a LASTING compromise between technology and freedom, because technology is by far the
 more powerful social force and continually encroaches on freedom through REPEATED compromises. Imagine the case of
@@ -1182,7 +1224,7 @@ way, while the industrial system is sick we must destroy it. If we compromise wi
 eventually wipe out all of our freedom.
 </p>
 
-## Simpler Social Problems Have Proved Intractable
+<h2 id="simpler-social-problems-have-proved-intractable">Simpler Social Problems Have Proved Intractable</h2>
 
 <p id="136">136. If anyone still imagines that it would be possible to reform the system in such a way as to protect freedom from
 technology, let him consider how clumsily and for the most part unsuccessfully our society has dealt with other social problems
@@ -1219,7 +1261,7 @@ means that will disguise the encroachment on freedom). This isn’t just our opi
 Wilson) have stressed the importance of “socializing” people more effectively.
 </p>
 
-## Revolution is Easier than Reform
+<h2 id="revolution-is-easier-than-reform">Revolution is Easier than Reform</h2>
 
 <p id="140">140. We hope we have convinced the reader that the system cannot be reformed in such a way as to reconcile freedom with
 technology. The only way out is to dispense with the industrial-technological system altogether. This implies revolution, not
@@ -1243,7 +1285,7 @@ committed to the revolution, but this minority is sufficiently large and active 
 We will have more to say about revolution in paragraphs <a href="#180">180</a>-<a href="#205">205</a>.
 </p>
 
-## Control of Human Behavior
+<h2 id="control-of-human-behavior">Control of Human Behavior</h2>
 
 <p id="143">143. Since the beginning of civilization, organized societies have had to put pressures on human beings of the sake of the
 functioning of the social organism. The kinds of pressures vary greatly from one society to another. Some of the pressures are
@@ -1414,7 +1456,7 @@ technology is increasingly applied to the human body and mind, man himself will 
 and way of life have been.
 </p>
 
-## Human Race at a Crossroads
+<h2 id="human-race-at-a-crossroads">Human Race at a Crossroads</h2>
 
 <p href="#161">161. But we have gotten ahead of our story. It is one thing to develop in the laboratory a series of psychological or biological
 techniques for manipulating human behavior and quite another to integrate these techniques into a functioning social system.
@@ -1476,7 +1518,7 @@ an ideology will help to assure that, if and when industrial society breaks down
 that the system cannot be reconstituted. The factories should be destroyed, technical books burned, etc.
 </p>
 
-## Human Suffering
+<h2 id="human-suffering">Human Suffering</h2>
 
 <p id="167">167. The industrial system will not break down purely as a result of revolutionary action. It will not be vulnerable to
 revolutionary attack unless its own internal problems of development lead it into very serious difficulties. So if the system
@@ -1529,7 +1571,7 @@ not likely to be any easy escape.
 
 </p>
 
-## The Future
+<h2 id="the-future">The Future</h2>
 
 <p id="171">171. But suppose now that industrial society does survive the next several decades and that the bugs do eventually get worked
 out of the system, so that it functions smoothly. What kind of system will it be? We will consider several possibilities.
@@ -1621,7 +1663,7 @@ be adapted to it through a long and painful process of natural selection. The fo
 <p id="179">179. It would be better to dump the whole stinking system and take the consequences.
 </p>
 
-## Strategy
+<h2 id="strategy">Strategy</h2>
 
 <p id="180">180. The technophiles are taking us all on an utterly reckless ride into the unknown. Many people understand something of
 what technological progress is doing to us yet take a passive attitude toward it because they think it is inevitable. But we (FC)
@@ -1853,7 +1895,7 @@ revolutionaries should take an empirical approach. If experience indicates that 
 foregoing paragraphs are not going to give good results, then those recommendations should be discarded.
 </p>
 
-## Two Kinds of Technology
+<h2 id="two-kinds-of-technology">Two Kinds of Technology</h2>
 
 <p id="207">207. An argument likely to be raised against our proposed revolution is that it is bound to fail, because (it is claimed)
 throughout history technology has always progressed, never regressed, hence technological regression is impossible. But this
@@ -1905,7 +1947,7 @@ worrying about it, since we can’t predict or control events 500 or 1,000 years
 by the people who will live at that time.
 </p>
 
-## The Danger of Leftism
+<h2 id="the-danger-of-leftism">The Danger of Leftism</h2>
 
 <p id="213">213. Because of their need for rebellion and for membership in a movement, leftists or persons of similar psychological type
 often are unattracted to a rebellious or activist movement whose goals and membership are not initially leftist. The resulting
@@ -2075,7 +2117,7 @@ collectivity. And maybe his (well-sublimated) drive for power is stronger than t
 
 </p>
 
-## Final Note
+<h2 id="final-note">Final Note</h2>
 
 <p id="231">231. Throughout this article we’ve made imprecise statements and statements that ought to have had all sorts of qualifications
 and reservations attached to them; and some of our statements may be flatly false. Lack of sufficient information and the need
@@ -2096,20 +2138,21 @@ movements, as they are in modern leftism. But we are not in a position to assert
 existed prior to modern leftism. This is a significant question to which historians ought to give their attention.
 </p>
 
-## Notes
+<h2 id="notes">Notes</h2>
 
-<p id="footnote-1">1. (Paragraph <a href="#19">19</a>) We are asserting that ALL, or even most, bullies and ruthless competitors suffer from feelings of inferiority.
-</p>
+<ol id="footnotes">
+<li><p id="footnote-1">1. (Paragraph <a href="#19">19</a>) We are asserting that ALL, or even most, bullies and ruthless competitors suffer from feelings of inferiority.
+</p></li>
 
-<p id="footnote-2">2. (Paragraph <a href="#25">25</a>) During the Victorian period many oversocialized people suffered from serious psychological problems as a
+<li><p id="footnote-2">2. (Paragraph <a href="#25">25</a>) During the Victorian period many oversocialized people suffered from serious psychological problems as a
 result of repressing or trying to repress their sexual feelings. Freud apparently based his theories on people of this type. Today
 the focus of socialization has shifted from sex to aggression.
-</p>
+</p></li>
 
-<p id="footnote-3">3. (Paragraph <a href="#27">27</a>) Not necessarily including specialists in engineering or the “hard” sciences.
-</p>
+<li><p id="footnote-3">3. (Paragraph <a href="#27">27</a>) Not necessarily including specialists in engineering or the “hard” sciences.
+</p></li>
 
-<p id="footnote-4">4. (Paragraph <a href="#28">28</a>) There are many individuals of the middle and upper classes who resist some of these values, but usually their
+<li><p id="footnote-4">4. (Paragraph <a href="#28">28</a>) There are many individuals of the middle and upper classes who resist some of these values, but usually their
 resistance is more or less covert. Such resistance appears in the mass media only to a very limited extent. The main thrust of
 propaganda in our society is in favor of the stated values. The main reason why these values have become, so to speak, the
 official values of our society is that they are useful to the industrial system. Violence is discouraged because it disrupts the
@@ -2120,18 +2163,18 @@ to have careers because their talents are useful to the system and, more importa
 become better integrated into the system and tied directly to it rather than to their families. This helps to weaken family solidarity. (The leaders of the system say they want to strengthen the family, but they really mean is that they want the family
 to serve as an effective tool for socializing children in accord with the needs of the system. We argue in paragraphs <a href="#51">51</a>, <a href="#52">52</a> that
 the system cannot afford to let the family or other small-scale social groups be strong or autonomous.)
-</p>
+</p></li>
 
-<p id="footnote-5">5. (Paragraph <a href="#42">42</a>) It may be argued that the majority of people don’t want to make their own decisions but want leaders to do
+<li><p id="footnote-5">5. (Paragraph <a href="#42">42</a>) It may be argued that the majority of people don’t want to make their own decisions but want leaders to do
 their thinking for them. There is an element of truth in this. People like to make their own decisions in small matters, but
 making decisions on difficult, fundamental questions requires facing up to psychological conflict, and most people hate
 psychological conflict. Hence they tend to lean on others in making difficult decisions. But it does not follow that they like to
 have decisions imposed upon them without having any opportunity to influence those decisions. The majority of people are
 natural followers, not leaders, but they like to have direct personal access to their leaders, they want to be able to influence the
 leaders and participate to some extent in making even the difficult decisions. At least to that degree they need autonomy.
-</p>
+</p></li>
 
-<p id="footnote-6">6. (Paragraph <a href="#44">44</a>) Some of the symptoms listed are similar to those shown by caged animals. To explain how these symptoms
+<li><p id="footnote-6">6. (Paragraph <a href="#44">44</a>) Some of the symptoms listed are similar to those shown by caged animals. To explain how these symptoms
 arise from deprivation with respect to the power process: common-sense understanding of human nature tells one that lack of
 goals whose attainment requires effort leads to boredom and that boredom, long continued, often leads eventually to
 depression. Failure to attain goals leads to frustration and lowering of self-esteem. Frustration leads to anger, anger to
@@ -2146,9 +2189,9 @@ that is severe enough to be treated by a psychiatrist. Often only mild forms of 
 goals we do not necessarily mean long-term, thought-out goals. For many or most people through much of human history, the
 goals of a hand-to-mouth existence (merely providing oneself and one’s family with food from day to day) have been quite
 sufficient.
-</p>
+</p></li>
 
-<p id="footnote-7">7. (Paragraph <a href="#52">52</a>) A partial exception may be made for a few passive, inward-looking groups, such as the Amish, which have
+<li><p id="footnote-7">7. (Paragraph <a href="#52">52</a>) A partial exception may be made for a few passive, inward-looking groups, such as the Amish, which have
 little effect on the wider society. Apart from these, some genuine small-scale communities do exist in America today. For
 instance, youth gangs and “cults.” Everyone regards them as dangerous, and so they are, because the members of these groups
 are loyal primarily to one another rather than to the system, hence the system cannot control them. Or take the gypsies. The
@@ -2159,20 +2202,20 @@ necessity breaking down small-scale social groups such as the family: “(Accord
 a new surge of patriotism, which would lead to a transfer of loyalty from the family to the state.... (According to Li Huang)
 traditional attachments, particularly to the family had to be abandoned if nationalism were to develop in China.” (Chester C.
 Tan, “Chinese Political Thought in the Twentieth Century,” page 125, page 297.)
-</p>
+</p></li>
 
-<p id="footnote-8">8. (Paragraph <a href="#56">56</a>) Yes, we know that 19th century America had its problems, and serious ones, but for the sake of brevity we
+<li><p id="footnote-8">8. (Paragraph <a href="#56">56</a>) Yes, we know that 19th century America had its problems, and serious ones, but for the sake of brevity we
 have to express ourselves in simplified terms.
-</p>
+</p></li>
 
-<p id="footnote-9">9. (Paragraph <a href="#61">61</a>) We leave aside the “underclass.” We are speaking of the mainstream.
-</p>
+<li><p id="footnote-9">9. (Paragraph <a href="#61">61</a>) We leave aside the “underclass.” We are speaking of the mainstream.
+</p></li>
 
-<p id="footnote-10">10. (Paragraph <a href="#62">62</a>) Some social scientists, educators, “mental health” professionals and the like are doing their best to push the
+<li><p id="footnote-10">10. (Paragraph <a href="#62">62</a>) Some social scientists, educators, “mental health” professionals and the like are doing their best to push the
 social drives into group 1 by trying to see to it that everyone has a satisfactory social life.
-</p>
+</p></li>
 
-<p id="footnote-11">11. (Paragraphs <a href="#63">63</a>, <a href="#82">82</a>) Is the drive for endless material acquisition really an artificial creation of the advertising and marketing
+<li><p id="footnote-11">11. (Paragraphs <a href="#63">63</a>, <a href="#82">82</a>) Is the drive for endless material acquisition really an artificial creation of the advertising and marketing
 industry? Certainly there is no innate human drive for material acquisition. There have been many cultures in which people
 have desired little material wealth beyond what was necessary to satisfy their basic physical needs (Australian aborigines,
 traditional Mexican peasant culture, some African cultures). On the other hand there have also been many pre-industrial
@@ -2183,9 +2226,9 @@ that kind of money without solid proof that they were getting it back in increas
 manager a couple of years ago who was frank enough to tell him, “Our job is to make people buy things they don’t want and
 don’t need.” He then described how an untrained novice could present people with the facts about a product, and make no sales at all, while a trained and experienced professional salesman would make lots of sales to the same people. This shows that
 people are manipulated into buying things they don’t really want.
-</p>
+</p></li>
 
-<p id="footnote-12">12. (Paragraph <a href="#64">64</a>) The problem of purposelessness seems to have become less serious during the last 15 years or so, because
+<li><p id="footnote-12">12. (Paragraph <a href="#64">64</a>) The problem of purposelessness seems to have become less serious during the last 15 years or so, because
 people now feel less secure physically and economically than they did earlier, and the need for security provides them with a
 goal. But purposelessness has been replaced by frustration over the difficulty of attaining security. We emphasize the problem
 of purposelessness because the liberals and leftists would wish to solve our social problems by having society guarantee
@@ -2193,26 +2236,26 @@ everyone’s security; but if that could be done it would only bring back the pr
 whether society provides well or poorly for people’s security; the trouble is that people are dependent on the system for their
 security rather than having it in their own hands. This, by the way, is part of the reason why some people get worked up about
 the right to bear arms; possession of a gun puts that aspect of their security in their own hands.
-</p>
+</p></li>
 
-<p id="footnote-13">13. (Paragraph <a href="#66">66</a>) Conservatives’ efforts to decrease the amount of government regulation are of little benefit to the average
+<li><p id="footnote-13">13. (Paragraph <a href="#66">66</a>) Conservatives’ efforts to decrease the amount of government regulation are of little benefit to the average
 man. For one thing, only a fraction of the regulations can be eliminated because most regulations are necessary. For another
 thing, most of the deregulation affects business rather than the average individual, so that its main effect is to take power from
 the government and give it to private corporations. What this means for the average man is that government interference in his
 life is replaced by interference from big corporations, which may be permitted, for example, to dump more chemicals that get
 into his water supply and give him cancer. The conservatives are just taking the average man for a sucker, exploiting his
 resentment of Big Government to promote the power of Big Business.
-</p>
+</p></li>
 
-<p id="footnote-14">14. (Paragraph <a href="#73">73</a>) When someone approves of the purpose for which propaganda is being used in a given case, he generally
+<li><p id="footnote-14">14. (Paragraph <a href="#73">73</a>) When someone approves of the purpose for which propaganda is being used in a given case, he generally
 calls it “education” or applies to it some similar euphemism. But propaganda is propaganda regardless of the purpose for which
 it is used.
-</p>
+</p></li>
 
-<p id="footnote-15">15. (Paragraph <a href="#83">83</a>) We are not expressing approval or disapproval of the Panama invasion. We only use it to illustrate a point.
-</p>
+<li><p id="footnote-15">15. (Paragraph <a href="#83">83</a>) We are not expressing approval or disapproval of the Panama invasion. We only use it to illustrate a point.
+</p></li>
 
-<p id="footnote-16">16. (Paragraph <a href="#95">95</a>) When the American colonies were under British rule there were fewer and less effective legal guarantees of
+<li><p id="footnote-16">16. (Paragraph <a href="#95">95</a>) When the American colonies were under British rule there were fewer and less effective legal guarantees of
 freedom than there were after the American Constitution went into effect, yet there was more personal freedom in preindustrial America, both before and after the War of Independence, than there was after the Industrial Revolution took hold in
 this country. We quote from “Violence in America: Historical and Comparative Perspectives,” edited by Hugh Davis Graham
 and Ted Robert Gurr, Chapter 12 by Roger Lane, pages 476-478: “The progressive heightening of standards of propriety, and
@@ -2238,29 +2281,29 @@ this country. In “Violence in America: Historical and Comparative Perspectives
 Robert Gurr, Chapter 12 by Roger Lane, it is explained how in pre-industrial America the average person had greater
 independence and autonomy than he does today, and how the process of industrialization necessarily led to the restriction of
 personal freedom.
-</p>
+</p></li>
 
-<p id="footnote-17">17. (Paragraph <a href="#117">117</a>) Apologists for the system are fond of citing cases in which elections have been decided by one or two
+<li><p id="footnote-17">17. (Paragraph <a href="#117">117</a>) Apologists for the system are fond of citing cases in which elections have been decided by one or two
 votes, but such cases are rare.
-</p>
+</p></li>
 
-<p id="footnote-18">18. (Paragraph <a href="#119">119</a>) “Today, in technologically advanced lands, men live very similar lives in spite of geographical, religious,
+<li><p id="footnote-18">18. (Paragraph <a href="#119">119</a>) “Today, in technologically advanced lands, men live very similar lives in spite of geographical, religious,
 and political differences. The daily lives of a Christian bank clerk in Chicago, a Buddhist bank clerk in Tokyo, and a
 Communist bank clerk in Moscow are far more alike than the life of any one of them is like that of any single man who lived a
 thousand years ago. These similarities are the result of a common technology....” L. Sprague de Camp, “The Ancient
 Engineers,” Ballantine edition, page 17. The lives of the three bank clerks are not IDENTICAL. Ideology does have SOME
 effect. But all technological societies, in order to survive, must evolve along APPROXIMATELY the same trajectory.
-</p>
+</p></li>
 
-<p id="footnote-19">19. (Paragraph <a href="#123">123</a>) Just think an irresponsible genetic engineer might create a lot of terrorists.
-</p>
+<li><p id="footnote-19">19. (Paragraph <a href="#123">123</a>) Just think an irresponsible genetic engineer might create a lot of terrorists.
+</p></li>
 
-<p id="footnote-20">20. (Paragraph <a href="#124">124</a>) For a further example of undesirable consequences of medical progress, suppose a reliable cure for cancer
+<li><p id="footnote-20">20. (Paragraph <a href="#124">124</a>) For a further example of undesirable consequences of medical progress, suppose a reliable cure for cancer
 is discovered. Even if the treatment is too expensive to be available to any but the elite, it will greatly reduce their incentive to
 stop the escape of carcinogens into the environment.
-</p>
+</p></li>
 
-<p id="footnote-21">21. (Paragraph <a href="#128">128</a>) Since many people may find paradoxical the notion that a large number of good things can add up to a bad
+<li><p id="footnote-21">21. (Paragraph <a href="#128">128</a>) Since many people may find paradoxical the notion that a large number of good things can add up to a bad
 thing, we illustrate with an analogy. Suppose Mr. A is playing chess with Mr. B. Mr. C, a Grand Master, is looking over Mr.
 A’s shoulder. Mr. A of course wants to win his game, so if Mr. C points out a good move for him to make, he is doing Mr. A a
 favor. But suppose now that Mr. C tells Mr. A how to make ALL of his moves. In each particular instance he does Mr. A a
@@ -2268,30 +2311,30 @@ favor by showing him his best move, but by making ALL of his moves for him he sp
 Mr. A’s playing the game at all if someone else makes all his moves. The situation of modern man is analogous to that of Mr.
 A. The system makes an individual’s life easier for him in innumerable ways, but in doing so it deprives him of control over
 his own fate.
-</p>
+</p></li>
 
-<p id="footnote-22">22. (Paragraph <a href="#137">137</a>) Here we are considering only the conflict of values within the mainstream. For the sake of simplicity we
+<li><p id="footnote-22">22. (Paragraph <a href="#137">137</a>) Here we are considering only the conflict of values within the mainstream. For the sake of simplicity we
 leave out of the picture “outsider” values like the idea that wild nature is more important than human economic welfare.
-</p>
+</p></li>
 
-<p id="footnote-23">23. (Paragraph <a href="#137">137</a>) Self-interest is not necessarily MATERIAL self-interest. It can consist in fulfillment of some
+<li><p id="footnote-23">23. (Paragraph <a href="#137">137</a>) Self-interest is not necessarily MATERIAL self-interest. It can consist in fulfillment of some
 psychological need, for example, by promoting one’s own ideology or religion.
-</p>
+</p></li>
 
-<p id="footnote-24">24. (Paragraph <a href="#139">139</a>) A qualification: It is in the interest of the system to permit a certain prescribed degree of freedom in some
+<li><p id="footnote-24">24. (Paragraph <a href="#139">139</a>) A qualification: It is in the interest of the system to permit a certain prescribed degree of freedom in some
 areas. For example, economic freedom (with suitable limitations and restraints) has proved effective in promoting economic
 growth. But only planned, circumscribed, limited freedom is in the interest of the system. The individual must always be kept
 on a leash, even if the leash is sometimes long (see paragraphs <a href="#94">94</a>, <a href="#97">97</a>).
-</p>
+</p></li>
 
-<p id="footnote-25">25. (Paragraph <a href="#143">143</a>) We don’t mean to suggest that the efficiency or the potential for survival of a society has always been
+<li><p id="footnote-25">25. (Paragraph <a href="#143">143</a>) We don’t mean to suggest that the efficiency or the potential for survival of a society has always been
 inversely proportional to the amount of pressure or discomfort to which the society subjects people. That certainly is not the
 case. There is good reason to believe that many primitive societies subjected people to less pressure than European society did,
 but European society proved far more efficient than any primitive society and always won out in conflicts with such societies
 because of the advantages conferred by technology.
-</p>
+</p></li>
 
-<p id="footnote-26">26. (Paragraph <a href="#147">147</a>) If you think that more effective law enforcement is unequivocally good because it suppresses crime, then
+<li><p id="footnote-26">26. (Paragraph <a href="#147">147</a>) If you think that more effective law enforcement is unequivocally good because it suppresses crime, then
 remember that crime as defined by the system is not necessarily what YOU would call crime. Today, smoking marijuana is a
 “crime,” and, in some places in the U.S., so is possession of an unregistered handgun. Tomorrow, possession of ANY firearm,
 registered or not, may be made a crime, and the same thing may happen with disapproved methods of child-rearing, such as
@@ -2300,18 +2343,18 @@ happen in the U.S., since no constitution or political system lasts forever. If 
 establishment, then there is something gravely wrong with that society; it must be subjecting people to severe pressures if so
 many refuse to follow the rules, or follow them only because forced. Many societies in the past have gotten by with little or no
 formal law-enforcement.
-</p>
+</p></li>
 
-<p id="footnote-27">27. (Paragraph <a href="#151">151</a>) To be sure, past societies have had means of influencing human behavior, but these have been primitive
+<li><p id="footnote-27">27. (Paragraph <a href="#151">151</a>) To be sure, past societies have had means of influencing human behavior, but these have been primitive
 and of low effectiveness compared with the technological means that are now being developed.
-</p>
+</p></li>
 
-<p id="footnote-28">28. (Paragraph <a href="#152">152</a>) However, some psychologists have publicly expressed opinions indicating their contempt for human
+<li><p id="footnote-28">28. (Paragraph <a href="#152">152</a>) However, some psychologists have publicly expressed opinions indicating their contempt for human
 freedom. And the mathematician Claude Shannon was quoted in Omni (August 1987) as saying, “I visualize a time when we
 will be to robots what dogs are to humans, and I’m rooting for the machines.”
-</p>
+</p></li>
 
-<p id="29">29. (Paragraph <a href="#154">154</a>) This is no science fiction! After writing paragraph <a href="#154">154</a> we came across an article in Scientific American
+<li><p id="footnote-29">29. (Paragraph <a href="#154">154</a>) This is no science fiction! After writing paragraph <a href="#154">154</a> we came across an article in Scientific American
 according to which scientists are actively developing techniques for identifying possible future criminals and for treating them
 by a combination of biological and psychological means. Some scientists advocate compulsory application of the treatment,
 which may be available in the near future. (See “Seeking the Criminal Element,” by W. Wayt Gibbs, Scientific American,
@@ -2319,9 +2362,9 @@ March 1995.) Maybe you think this is OK because the treatment would be applied t
 criminals. But of course it won’t stop there. Next, a treatment will be applied to those who might become drunk drivers (they
 endanger human life too), then perhaps to peel who spank their children, then to environmentalists who sabotage logging
 equipment, eventually to anyone whose behavior is inconvenient for the system.
-</p>
+</p></li>
 
-<p id="footnote-30">30. (Paragraph <a href="#184">184</a>) A further advantage of nature as a counter-ideal to technology is that, in many people, nature inspires the
+<li><p id="footnote-30">30. (Paragraph <a href="#184">184</a>) A further advantage of nature as a counter-ideal to technology is that, in many people, nature inspires the
 kind of reverence that is associated with religion, so that nature could perhaps be idealized on a religious basis. It is true that in
 many societies religion has served as a support and justification for the established order, but it is also true that religion has
 often provided a basis for rebellion. Thus it may be useful to introduce a religious element into the rebellion against
@@ -2336,40 +2379,41 @@ invented religion would probably be a failure. Take the “Gaia” religion for 
 are they just play-acting? If they are just play-acting their religion will be a flop in the end. It is probably best not to try to
 introduce religion into the conflict of nature vs. technology unless you REALLY believe in that religion yourself and find that
 it arouses a deep, strong, genuine response in many other people.
-</p>
+</p></li>
 
-<p id="footnote-31">31. (Paragraph <a href="#189">189</a>) Assuming that such a final push occurs. Conceivably the industrial system might be eliminated in a
+<li><p id="footnote-31">31. (Paragraph <a href="#189">189</a>) Assuming that such a final push occurs. Conceivably the industrial system might be eliminated in a
 somewhat gradual or piecemeal fashion (see paragraphs <a href="#4">4</a>, <a href="#167">167</a> and <a href="#footnote-4">Note 4</a>).
-</p>
+</p></li>
 
-<p id="footnote-32">32. (Paragraph <a href="#193">193</a>) It is even conceivable (remotely) that the revolution might consist only of a massive change of attitudes
+<li><p id="footnote-32">32. (Paragraph <a href="#193">193</a>) It is even conceivable (remotely) that the revolution might consist only of a massive change of attitudes
 toward technology resulting in a relatively gradual and painless disintegration of the industrial system. But if this happens we’ll
 be very lucky. It’s far more probably that the transition to a non-technological society will be very difficult and full of conflicts
 and disasters.
-</p>
+</p></li>
 
-<p id="footnote-33">33. (Paragraph <a href="#195">195</a>) The economic and technological structure of a society are far more important than its political structure in
-determining the way the average man lives (see paragraphs <a href="#95">95</a>, <a href="#119">119</a> and Notes <a href="#16">16</a>, <a href="#18">18</a>).
-</p>
+<li><p id="footnote-33">33. (Paragraph <a href="#195">195</a>) The economic and technological structure of a society are far more important than its political structure in
+determining the way the average man lives (see paragraphs <a href="#95">95</a>, <a href="#119">119</a> and Notes <a href="#footnote-16">16</a>, <a href="#footnote-18">18</a>).
+</p></li>
 
-<p id="footnote-footnote-34">34. (Paragraph <a href="#215">215</a>) This statement refers to our particular brand of anarchism. A wide variety of social attitudes have been
+<li><p id="footnote-34">34. (Paragraph <a href="#215">215</a>) This statement refers to our particular brand of anarchism. A wide variety of social attitudes have been
 called “anarchist,” and it may be that many who consider themselves anarchists would not accept our statement of paragraph <a href="#215">215</a>.
 It should be noted, by the way, that there is a nonviolent anarchist movement whose members probably would not accept
 FC as anarchist and certainly would not approve of FC’s violent methods.
-</p>
+</p></li>
 
-<p id="footnote-35">35. (Paragraph <a href="#219">219</a>) Many leftists are motivated also by hostility, but the hostility probably results in part from a frustrated
+<li><p id="footnote-35">35. (Paragraph <a href="#219">219</a>) Many leftists are motivated also by hostility, but the hostility probably results in part from a frustrated
 need for power.
-</p>
+</p></li>
 
-<p id="footnote-36">36. (Paragraph <a href="#229">229</a>) It is important to understand that we mean someone who sympathizes with these MOVEMENTS as they
+<li><p id="footnote-36">36. (Paragraph <a href="#229">229</a>) It is important to understand that we mean someone who sympathizes with these MOVEMENTS as they
 exist today in our society. One who believes that women, homosexuals, etc., should have equal rights is not necessary a leftist.
 The feminist, gay rights, etc., movements that exist in our society have the particular ideological tone that characterizes leftism,
 and if one believes, for example, that women should have equal rights it does not necessarily follow that one must sympathize
 with the feminist movement as it exists today.
-</p>
+</p></li>
+</ol>
 
-## My Footnotes
+<h2 id="my-footnotes">My Footnotes</h2>
 
 <p id="my-footnote-1">A1. (Paragraph <a href="#116">116</a>) A scan (slideshow of images) of the original manuscript is available at: <a href="https://archive.org/details/fc.manifesto/page/n107/mode/2up">https://archive.org/details/fc.manifesto/page/n107/mode/2up</a></p>
 

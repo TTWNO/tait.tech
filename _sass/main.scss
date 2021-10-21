@@ -1,24 +1,4 @@
-$normal-text-color: #ffffff;
-$background-color: #222222;
-$lighter-color: #ffffff;
-$nav-link-color: #ffffff;
-$nav-link-hover-color: black;
-$link-color: #7ad;
-$visited-link-color: #ff3492;
-
-$last-p-padd: 1.5em;
-$nav-padd: 1em;
-$line-under: 1px solid #aaa; 
-
-$line-height: 1.5em;
-$term-line-height: 1em;
-$file-line-height: 1.2em;
-
-$terminal-bg: #000000;
-$terminal-fg: #00FF00;
-
-$file-bg: #444444;
-$file-fg: #ffffff;
+@import "vars";
 
 body {
   background-color: $background-color;

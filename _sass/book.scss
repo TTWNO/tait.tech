@@ -1,0 +1,18 @@
+@import "vars";
+
+body {
+  background-color: $background-color;
+  color: $normal-text-color;
+  font-family: -apple-system, helvetica, arial, sans-serif;
+  line-height: $line-height;
+  padding: .25em;
+}
+a {
+  color: $link-color;
+}
+a:visited {
+  color: $visited-link-color;
+}
+h1, h2 {
+  text-align: center;
+}
