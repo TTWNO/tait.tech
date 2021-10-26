@@ -68,7 +68,9 @@ const saveMd = async () => {
 
 const renderHTML = async () => {
   setStatus("Rendering...");
-  const md = new remarkable.Remarkable();
+  const md = new remarkable.Remarkable({
+    html: true,
+  });
   const markdownInput = document.getElementById("markdown-input");
   const htmlOutput = document.getElementById("html-output");
   const newHtml = md.render(markdownInput.value);
