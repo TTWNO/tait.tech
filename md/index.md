@@ -18,7 +18,7 @@ math: true
 ## Info
 
 * You can use `$...$` for inline math.
-* Uou can use `$$...$$` for "display mode" math.
+* You can use `$$...$$` for "display mode" math.
 * Display mode will make the equation take up an entire line for itself, and it will display larger and more "formally". It also allows you to have newlines without breaking up the expression, and/or the use of `\newline` to have a multi-line formula.
 * You can save the HTML or markdown for future use.
 * You can download the HTML or markdown for sharing with others.
