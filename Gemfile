@@ -6,7 +6,7 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 gem "jekyll"
 gem "kramdown"
-gem "kramdown-with-katex"
+gem "kramdown-math-katex"
 gem "execjs"
 gem "duktape"
 gem "addressable", "~> 2.8"

@@ -33,3 +33,30 @@ I'm thinking of similar key commands to Orca/NVDA but output is send to the term
 Change backend on-the-fly with a page reload. So if a website doesn't work with Webkit, load it in Firefox with a key command.
 
 Just an idea.
+
+## Dead Simple Chess App
+
+I want to make a simple chess app which can connect to multiple backends
+(i.e. Lichess, Chess.com, etc.) and then users can use one app to play many games.
+This should be quite simple given how easy the lichess API is, and the [chess.com API](https://www.chess.com/news/view/published-data-api) coming soon!
+
+> This is read-only data. You cannot send game-moves or other commands to Chess.com from this system. ***If you wish to send commands, you will be interested in the Interactive API releasing later this year.***
+
+## Open-Source VPN Deployment System
+
+Help my business and others start their own.
+
+* Update active servers with pings from said server. Encrypt with GPG to verify, send over HTTPS. Use sub-keys (?) so they may be revoked anytime. Use token to login server.
+* Ability to create new tokens with no priviledges; only to say "Hi I'm still here."
+* All IP address changes need to be manually approved.
+* Status queries, must be logged in: POST /status/[id/] should give back info about:
+  * Number of connections.
+  * Level (paid, free, plus when I can find out how to get Netflix working).
+  * Protocol (OpenVPN/Wireguard). Wireguard should be default.
+  * Max throughput (i.e. 1Gb/sec, 100Mb/sec)
+  * Current average throughput over last minute, 15 minutes, hour and day. (i.e. 15Mb/sec 12Mb/sec)
+* Decide server: POST /new/[coutnry_code/] should send a response of a possible server to connect to (or even the full Wireguard file possibly)
+* Get server files: POST /download/[country_code/[number/]] return the wireguard config file for that region, or a zip file containing the group of them.
+* A client would be able to use a native wireguard client on linux (i.e. store in `/etc/wireguard` (or its default location).
+* A client would allow local options like blocking LAN, kill-switch support, and the ability to change your VPN region based on latest list of servers.
+* The list of servers will be updated manually with `bt update`.
