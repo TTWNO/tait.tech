@@ -3,17 +3,6 @@ layout: book
 title: "The Unabomber Manifesto: Industrial Society and its Future"
 author: "Theodore John Kaczynski"
 ---
-<style>
-#footnotes {
-  list-style: none;
-  padding-left: 0;
-  margin-left: 0;
-}
-#footnotes li {
-  padding-left: 0;
-  margin-left: 0;
-}
-</style>
 
 <h2 id="toc">Table Of Contents</h2>
 
@@ -27,12 +16,14 @@ author: "Theodore John Kaczynski"
   <li><a href="#surrogate-activities">Surrogate Activities</a></li>
   <li><a href="#autonomy">Autonomy</a></li>
   <li><a href="#sources-of-social-problems">Sources of Social Problems</a></li>
+  <li><a href="#disruption-of-the-power-process-in-modern-society">Disruption of the Power Process in Modern Society</a></li>
   <li><a href="#how-some-people-adjust">How Some People Adjust</a></li>
   <li><a href="#the-motives-of-scientists">The Motives of Scientists</a></li>
   <li><a href="#the-nature-of-freedom">The Nature of Freedom</a></li>
   <li><a href="#some-principles-of-history">Some Principles of History</a></li>
   <li><a href="#industrial-technological-society-cannot-be-reformed">Industrial-Technological Society Cannot Be Reformed</a></li>
   <li><a href="#restriction-of-freedom-is-unavoidable-in-industrial-society">Restriction of Freedom is Unavoidable in Industrial Society</a></li>
+  <li><a href="#the-bad-parts-of-technology-cannot-be-separated-from-the-good-parts">The ‘Bad’ Parts of Technology Cannot Be Separated from the ‘Good’ Parts</a></li>
   <li><a href="#technology-is-a-more-powerful-social-force-than-the-aspiration-for-freedom">Technology is a More Powerful Social Force than the Aspiration for Freedom</a></li>
   <li><a href="#simpler-social-problems-have-proved-intractable">Simpler Social Problems Have Proved Intractable</a></li>
   <li><a href="#revolution-is-easier-than-reform">Revolution is Easier than Reform</a></li>
@@ -77,7 +68,7 @@ a revolution against that form of society. This is not to be a POLITICAL revolut
 governments but the economic and technological basis of the present society.
 </p>
 
-<p id="5">5. In this article we give attention to only some of the negative developments that have grown out of the industrialtechnological system. Other such developments we mention only briefly or ignore altogether. This does not mean that we
+<p id="5">5. In this article we give attention to only some of the negative developments that have grown out of the industrial-technological system. Other such developments we mention only briefly or ignore altogether. This does not mean that we
 regard these other developments as unimportant. For practical reasons we have to confine our discussion to areas that have
 received insufficient public attention or in which we have something new to say. For example, since there are well-developed
 environmental and wilderness movements, we have written very little about environmental degradation or the destruction of
@@ -137,7 +128,7 @@ imply that primitive cultures ARE inferior to ours. We merely point out the hype
 immigrant, abused woman or disabled person, but a minority of activists, many of whom do not even belong to any
 “oppressed” group but come from privileged strata of society. Political correctness has its stronghold among university
 professors, who have secure employment with comfortable salaries, and the majority of whom are heterosexual white males
-from middle- to upper-middle-class families.
+from middle to upper-class families.
 </p>
 
 <p id="13">13. Many leftists have an intense identification with the problems of groups that have an image of being weak (women),
@@ -188,7 +179,7 @@ up properly.
 </p>
 
 
-<p id="19">19. The leftist is not typically the kind of person whose feelings of inferiority make him a braggart, an egotist, a bully, a selfpromoter, a ruthless competitor. This kind of person has not wholly lost faith in himself. He has a deficit in his sense of power and self-worth, but he can still conceive of himself as having the capacity to be strong, and his efforts to make himself strong
+<p id="19">19. The leftist is not typically the kind of person whose feelings of inferiority make him a braggart, an egotist, a bully, a self-promoter, a ruthless competitor. This kind of person has not wholly lost faith in himself. He has a deficit in his sense of power and self-worth, but he can still conceive of himself as having the capacity to be strong, and his efforts to make himself strong
 produce his unpleasant behavior. [<a href="#footnote-1">1</a>] But the leftist is too far gone for that. His feelings of inferiority are so ingrained that he
 cannot conceive of himself as individually strong and valuable. Hence the collectivism of the leftist. He can feel strong only as
 a member of a large organization or a mass movement with which he identifies himself.
@@ -233,7 +224,7 @@ perceived as a rebel. Nevertheless, the position can be defended. Many leftists 
 we are not supposed to hate anyone, yet almost everyone hates somebody at some time or other, whether he admits it to himself
 or not. Some people are so highly socialized that the attempt to think, feel and act morally imposes a severe burden on them. In
 order to avoid feelings of guilt, they continually have to deceive themselves about their own motives and find moral
-explanations for feelings and actions that in reality have a nonmoral origin. We use the term “oversocialized” to describe such
+explanations for feelings and actions that in reality have a non-moral origin. We use the term “oversocialized” to describe such
 people. [<a href="#footnote-2">2</a>]
 </p>
 
@@ -256,7 +247,7 @@ another.
 <p id="27">27. We argue that a very important and influential segment of the modern left is oversocialized and that their oversocialization
 is of great importance in determining the direction of modern leftism. Leftists of the oversocialized type tend to be intellectuals
 or members of the upper-middle class. Notice that university intellectuals [<a href="#footnote-3">3</a>] constitute the most highly socialized segment of
-our society and also the most leftwing segment.
+our society and also the most left-wing segment.
 </p>
 
 <p id="28">28. The leftist of the oversocialized type tries to get off his psychological leash and assert his autonomy by rebelling. But
@@ -265,7 +256,7 @@ leftists are NOT in conflict with the accepted morality. On the contrary, the le
 its own, and then accuses mainstream society of violating that principle. Examples: racial equality, equality of the sexes,
 helping poor people, peace as opposed to war, nonviolence generally, freedom of expression, kindness to animals. More
 fundamentally, the duty of the individual to serve society and the duty of society to take care of the individual. All these have
-been deeply rooted values of our society (or at least of its middle and upper classes [<a href="#footnote-4">4</a>] for a long time. These values are
+been deeply rooted values of our society (or at least of its middle and upper classes) [<a href="#footnote-4">4</a>] for a long time. These values are
 explicitly or implicitly expressed or presupposed in most of the material presented to us by the mainstream communications
 media and the educational system. Leftists, especially those of the oversocialized type, usually do not rebel against these
 principles but justify their hostility to society by claiming (with some degree of truth) that society is not living up to these
@@ -282,7 +273,7 @@ this preservation of African American culture consist? It can hardly consist in 
 express itself only in superficial matters. In all ESSENTIAL respects most leftists of the oversocialized type want to make the
 black man conform to white, middle-class ideals. They want to make him study technical subjects, become an executive or a
 scientist, spend his life climbing the status ladder to prove that black people are as good as white. They want to make black
-fathers “responsible,” they want black gangs to become nonviolent, etc. But these are exactly the values of the industrialtechnological system. The system couldn’t care less what kind of music a man listens to, what kind of clothes he wears or what
+fathers “responsible,” they want black gangs to become nonviolent, etc. But these are exactly the values of the industrial-technological system. The system couldn’t care less what kind of music a man listens to, what kind of clothes he wears or what
 religion he believes in as long as he studies in school, holds a respectable job, climbs the status ladder, is a “responsible”
 parent, is nonviolent and so forth. In effect, however much he may deny it, the oversocialized leftist wants to integrate the
 black man into the system and make him adopt its values.
@@ -330,7 +321,7 @@ power. This shows that power is not enough. One must have goals toward which to 
 are made necessary by the climate. But the leisured aristocrat obtains these things without effort. Hence his boredom and demoralization.
 </p>
 
-<p id="36">36. Nonattainment of important goals results in death if the goals are physical necessities, and in frustration if nonattainment of
+<p id="36">36. Non-attainment of important goals results in death if the goals are physical necessities, and in frustration if non-attainment of
 the goals is compatible with survival. Consistent failure to attain goals throughout life results in defeatism, low self-esteem or depression.
 </p>
 
@@ -410,7 +401,7 @@ developing fighting skills that he is quite content to use in blind obedience to
 -- that self-esteem, self-confidence and a sense of power are acquired. When one does not have adequate opportunity to go
 through the power process the consequences are (depending on the individual and on the way the power process is disrupted)
 boredom, demoralization, low self-esteem, inferiority feelings, defeatism, depression, anxiety, guilt, frustration, hostility,
-spouse or child abuse, insatiable hedonism, abnormal sexual behavior, sleep disorders, eating disorders. etc. [<a href="#footnote-6">6</a>]
+spouse or child abuse, insatiable hedonism, abnormal sexual behavior, sleep disorders, eating disorders, etc. [<a href="#footnote-6">6</a>]
 </p>
 
 <h2 id="sources-of-social-problems">Sources of Social Problems</h2>
@@ -419,7 +410,7 @@ spouse or child abuse, insatiable hedonism, abnormal sexual behavior, sleep diso
 scale. We aren’t the first to mention that the world today seems to be going crazy. This sort of thing is not normal for human
 societies. There is good reason to believe that primitive man suffered from less stress and frustration and was better satisfied
 with his way of life than modern man is. It is true that not all was sweetness and light in primitive societies. Abuse of women
-was common among the Australian aborigines, transexuality was fairly common among some of the American Indian tribes.
+was common among the Australian aborigines, transsexuality was fairly common among some of the American Indian tribes.
 But it does appear that GENERALLY SPEAKING the kinds of problems that we have listed in the preceding paragraph were
 far less common among primitive peoples than they are in modern society.
 </p>
@@ -459,9 +450,9 @@ the technology and the economy of a society without causing rapid changes in all
 such rapid changes inevitably break down traditional values.
 </p>
 
-<p id="51">51. The breakdown of traditional values to some extent implies the breakdown of the bonds that hold together traditional smallscale social groups. The disintegration of small-scale social groups is also promoted by the fact that modern conditions often require or tempt individuals to move to new locations, separating themselves from their communities. Beyond that, a
+<p id="51">51. The breakdown of traditional values to some extent implies the breakdown of the bonds that hold together traditional small-scale social groups. The disintegration of small-scale social groups is also promoted by the fact that modern conditions often require or tempt individuals to move to new locations, separating themselves from their communities. Beyond that, a
 technological society HAS TO weaken family ties and local communities if it is to function efficiently. In modern society an
-individual’s loyalty must be first to the system and only secondarily to a smallscale community, because if the internal loyalties
+individual’s loyalty must be first to the system and only secondarily to a small-scale community, because if the internal loyalties
 of small-scale communities were stronger than loyalty to the system, such communities would pursue their own advantage at the expense of the system.
 </p>
 
@@ -511,10 +502,10 @@ most important cause of social and psychological problems in modern society is t
 opportunity to go through the power process in a normal way. We don’t mean to say that modern society is the only one in
 which the power process has been disrupted. Probably most if not all civilized societies have interfered with the power process
 to a greater or lesser extent. But in modern industrial society the problem has become particularly acute. Leftism, at least in its
-recent (mid- to late-20th century) form, is in part a symptom of deprivation with respect to the power process.
-
-Disruption of the Power Process in Modern Society
+recent (mid-to-late 20th century) form, is in part a symptom of deprivation with respect to the power process.
 </p>
+
+<h2 id="disruption-of-the-power-process-in-modern-society">Disruption of the Power Process in Modern Society</h2>
 
 <p id="59">59. We divide human drives into three groups: (1) those drives that can be satisfied with minimal effort; (2) those that can be
 satisfied but only at the cost of serious effort; (3) those that cannot be adequately satisfied no matter how much effort one
@@ -529,7 +520,7 @@ tends to consist increasingly of artificially created drives.
 <p id="61">61. In primitive societies, physical necessities generally fall into group 2: They can be obtained, but only at the cost of serious
 effort. But modern society tends to guaranty the physical necessities to everyone [<a href="#footnote-9">9</a>] in exchange for only minimal effort, hence
 physical needs are pushed into group 1. (There may be disagreement about whether the effort needed to hold a job is
-“minimal”; but usually, in lower- to middle-level jobs, whatever effort is required is merely that of OBEDIENCE. You sit or
+“minimal”; but usually, in lower to middle-level jobs, whatever effort is required is merely that of OBEDIENCE. You sit or
 stand where you are told to sit or stand and do what you are told to do in the way you are told to do it. Seldom do you have to
 exert yourself seriously, and in any case you have hardly any autonomy in work, so that the need for the power process is not
 well served.)
@@ -549,7 +540,7 @@ artificial needs created by the advertising and marketing industry [<a href="#fo
 
 <p id="64">64. It seems that for many people, maybe the majority, these artificial forms of the power process are insufficient. A theme that
 appears repeatedly in the writings of the social critics of the second half of the 20th century is the sense of purposelessness that
-afflicts many people in modern society. (This purposelessness is often called by other names such as “anomie” or “middleclass vacuity.”) We suggest that the so-called “identity crisis” is actually a search for a sense of purpose, often for commitment
+afflicts many people in modern society. (This purposelessness is often called by other names such as “anomie” or “middle class vacuity.”) We suggest that the so-called “identity crisis” is actually a search for a sense of purpose, often for commitment
 to a suitable surrogate activity. It may be that existentialism is in large part a response to the purposelessness of modern life.
 [<a href="#footnote-12">12</a>] Very widespread in modern society is the search for “fulfillment.” But we think that for the majority of people an activity
 whose main goal is fulfillment (that is, a surrogate activity) does not bring completely satisfactory fulfillment. In other words,
@@ -580,12 +571,13 @@ techniques prescribed by experts must be followed if there is to be a chance of 
 pursuit of goals. But it is also disrupted because of those human drives that fall into group 3: the drives that one cannot
 adequately satisfy no matter how much effort one makes. One of these drives is the need for security. Our lives depend on
 decisions made by other people; we have no control over these decisions and usually we do not even know the people who
-make them. (“We live in a world in which relatively few people -- maybe 500 or 1,000 make the important decisions” -- Philip
-B. Heymann of Harvard Law School, quoted by Anthony Lewis, New York Times, April 21,1995.) Our lives depend on
+make them.
+<blockquote>“We live in a world in which relatively few people &ndash; maybe 500 or 1,000 make the important decisions” <br>&mdash; Philip
+B. Heymann of Harvard Law School, quoted by Anthony Lewis, New York Times, April 21, 1995 <!-- cite + time -->.</blockquote> Our lives depend on
 whether safety standards at a nuclear power plant are properly maintained; on how much pesticide is allowed to get into our
 food or how much pollution into our air; on how skillful (or incompetent) our doctor is; whether we lose or get a job may
 depend on decisions made by government economists or corporation executives; and so forth. Most individuals are not in a
-position to secure themselves against these threats to more [than] a very limited extent. The individual’s search for security is
+position to secure themselves against these threats to more than a very limited extent. The individual’s search for security is
 therefore frustrated, which leads to a sense of powerlessness.
 </p>
 
@@ -653,9 +645,9 @@ hunting not for sport or for fulfillment but to get meat that is necessary for f
 complex, with greater emphasis on social power; we won’t discuss that here.) This phase having been successfully passed
 through, the young man has no reluctance about settling down to the responsibilities of raising a family. (In contrast, some
 modern people indefinitely postpone having children because they are too busy seeking some kind of “fulfillment.” We suggest
-that the fulfillment they need is adequate experience of the power process -- with real goals instead of the artificial goals of surrogate activities.) Again, having successfully raised his children, going through the power process by providing them with
+that the fulfillment they need is adequate experience of the power process &ndash; with real goals instead of the artificial goals of surrogate activities.) Again, having successfully raised his children, going through the power process by providing them with
 the physical necessities, the primitive man feels that his work is done and he is prepared to accept old age (if he survives that
-long) and death. any modern people, on the other hand, are disturbed by the prospect of physical deterioration and death, as is
+long) and death. Many modern people, on the other hand, are disturbed by the prospect of physical deterioration and death, as is
 shown by the amount of effort they expend trying to maintain their physical condition, appearance and health. We argue that
 this is due to unfulfillment resulting from the fact that they have never put their physical powers to any practical use, have
 never gone through the power process using their bodies in a serious way. It is not the primitive man, who has used his body
@@ -665,7 +657,7 @@ life who is best prepared to accept the end of that life.
 </p>
 
 <p id="76">76. In response to the arguments of this section someone will say, “Society must find a way to give people the opportunity to
-go through the power process.” For such people the value of the opportunity is destroyed by the very fact that society gives it to
+go through the power process.” This won't work for those who need autonomy in the power process. For such people the value of the opportunity is destroyed by the very fact that society gives it to
 them. What they need is to find or make their own opportunities. As long as the system GIVES them their opportunities it still
 has them on a leash. To attain autonomy they must get off that leash.
 </p>
@@ -677,7 +669,7 @@ quite satisfied with society as it is. We now discuss some of the reasons why pe
 modern society.
 </p>
 
-<p id="78">78. First, there doubtless are differences in the strength of the drive for power. Individuals with a weak drive for power may
+<p id="78">78. First, there doubtless are innate differences in the strength of the drive for power. Individuals with a weak drive for power may
 have relatively little need to go through the power process, or at least relatively little need for autonomy in the power process.
 These are docile types who would have been happy as plantation darkies in the Old South. (We don’t mean to sneer at the
 “plantation darkies” of the Old South. To their credit, most of the slaves were NOT content with their servitude. We do sneer at
@@ -711,9 +703,9 @@ industry. Of course it’s not that simple. [<a href="#footnote-11">11</a>]
 An individual lacking goals or power joins a movement or an organization, adopts its goals as his own, then works toward
 those goals. When some of the goals are attained, the individual, even though his personal efforts have played only an
 insignificant part in the attainment of the goals, feels (through his identification with the movement or organization) as if he
-had gone through the power process. This phenomenon was exploited by the fascists, nazis and communists. Our society uses it
+had gone through the power process. This phenomenon was exploited by the fascists, Nazis and communists. Our society uses it
 too, though less crudely. Example: Manuel Noriega was an irritant to the U.S. (goal: punish Noriega). The U.S. invaded
-Panama (effort) and punished Noriega (attainment of goal). Thus the U.S. went through the power process and many
+Panama (effort) and punished Noriega (attainment of goal); the U.S. went through the power process and many
 Americans, because of their identification with the U.S., experienced the power process vicariously. Hence the widespread
 public approval of the Panama invasion; it gave people a sense of power. [<a href="#footnote-15">15</a>] We see the same phenomenon in armies,
 corporations, political parties, humanitarian organizations, religious or ideological movements. In particular, leftist movements tend to attract people who are seeking to satisfy their need for power. But for most people identification with a large
@@ -750,7 +742,7 @@ deficiency of autonomy, and in frustration due to the impossibility of attaining
 many impulses.
 </p>
 
-<p id="86">86. But even if most people in industrial-technological society were well satisfied, we (FC) would still be opposed to that form
+<p id="86">86. But even if most people in industrial-technological society were well satisfied, we would still be opposed to that form
 of society, because (among other reasons) we consider it demeaning to fulfill one’s need for the power process through
 surrogate activities or through identification with an organization, rather than through pursuit of real goals.
 </p>
@@ -838,8 +830,8 @@ in line by publicly exposing any misbehavior on their part. But freedom of the p
 as an individual. The mass media are mostly under the control of large organizations that are integrated into the system.
 Anyone who has a little money can have something printed, or can distribute it on the Internet or in some such way, but what
 he has to say will be swamped by the vast volume of material put out by the media, hence it will have no practical effect. To
-make an impression on society with words is therefore almost impossible for most individuals and small groups. Take us (FC)
-for example. If we had never done anything violent and had submitted the present writings to a publisher, they probably would not have been accepted. If they had been accepted and published, they probably would not have attracted many readers,
+make an impression on society with words is therefore almost impossible for most individuals and small groups. Take us
+for example. If we (FC)[<a href="#my-footnote-1">A1</a>] had never done anything violent and had submitted the present writings to a publisher, they probably would not have been accepted. If they had been accepted and published, they probably would not have attracted many readers,
 because it’s more fun to watch the entertainment put out by the media than to read a sober essay. Even if these writings had had
 many readers, most of these readers would soon have forgotten what they had read as their minds were flooded by the mass of
 material to which the media expose them. In order to get our message before the public with some chance of making a lasting
@@ -881,7 +873,7 @@ the long-term trends.
 </p>
 
 <p id="100">100. FIRST PRINCIPLE. If a SMALL change is made that affects a long-term historical trend, then the effect of that change
-will almost always be transitory -- the trend will soon revert to its original state. (Example: A reform movement designed to
+will almost always be transitory &ndash; the trend will soon revert to its original state. (Example: A reform movement designed to
 clean up political corruption in a society rarely has more than a short-term effect; sooner or later the reformers relax and
 corruption creeps back in. The level of political corruption in a given society tends to remain constant, or to change only slowly
 with the evolution of the society. Normally, a political cleanup will be permanent only if accompanied by widespread social
@@ -961,7 +953,7 @@ carefully reexamine one’s thinking and retain the conclusion only if one has g
 as to prevent it from progressively narrowing our sphere of freedom. There has been a consistent tendency, going back at least
 to the Industrial Revolution for technology to strengthen the system at a high cost in individual freedom and local autonomy.
 Hence any change designed to protect freedom from technology would be contrary to a fundamental trend in the development
-of our society. Consequently, such a change either would be a transitory one -- soon swamped by the tide of history -- or, if
+of our society. Consequently, such a change either would be a transitory one &ndash; soon swamped by the tide of history &ndash; or, if
 large enough to be permanent would alter the nature of our whole society. This by the first and second principles. Moreover,
 since society would be altered in a way that could not be predicted in advance (third principle) there would be great risk.
 Changes large enough to make a lasting difference in favor of freedom would not be initiated because it would be realized that
@@ -988,11 +980,11 @@ freedom and technological progress are incompatible.
 <p id="114">114. As explained in paragraphs <a href="#65">65</a>-<a href="#67">67</a>, <a href="#70">70</a>-<a href="#73">73</a>, modern man is strapped down by a network of rules and regulations, and his
 fate depends on the actions of persons remote from him whose decisions he cannot influence. This is not accidental or a result
 of the arbitrariness of arrogant bureaucrats. It is necessary and inevitable in any technologically advanced society. The system
-HAS TO regulate human behavior closely in order to function. At work people have to do what they are told to do, otherwise
+HAS TO regulate human behavior closely in order to function. At work people have to do what they are told to do, when they are told to do it, and in the way they are told to do it, otherwise
 production would be thrown into chaos. Bureaucracies HAVE TO be run according to rigid rules. To allow any substantial
 personal discretion to lower-level bureaucrats would disrupt the system and lead to charges of unfairness due to differences in
 the way individual bureaucrats exercised their discretion. It is true that some restrictions on our freedom could be eliminated,
-but GENERALLY SPEAKING the regulation of our lives by large organizations is necessary for the functioning of industrialtechnological society. The result is a sense of powerlessness on the part of the average person. It may be, however, that formal
+but GENERALLY SPEAKING the regulation of our lives by large organizations is necessary for the functioning of industrial-technological society. The result is a sense of powerlessness on the part of the average person. It may be, however, that formal
 regulations will tend increasingly to be replaced by psychological tools that make us want to do what the system requires of us.
 (Propaganda [<a href="#footnote-14">14</a>], educational techniques, “mental health” programs, etc.)
 </p>
@@ -1002,15 +994,15 @@ behavior. For example, the system needs scientists, mathematicians and engineers
 pressure is put on children to excel in these fields. It isn’t natural for an adolescent human being to spend the bulk of his time
 sitting at a desk absorbed in study. A normal adolescent wants to spend his time in active contact with the real world. Among
 primitive peoples the things that children are trained to do tend to be in reasonable harmony with natural human impulses.
-Among the American Indians, for example, boys were trained in active outdoor pursuits -- just the sort of thing that boys like.
+Among the American Indians, for example, boys were trained in active outdoor pursuits &ndash; just the sort of thing that boys like.
 But in our society children are pushed into studying technical subjects, which most do grudgingly.
 </p>
 
-<p id="116">[[116 is not used in the original manuscript. [<a href="#my-footnote-1">A1</a>]]]</p>
+<p id="116">116. Because of the constant pressure that the system exerts to modify human behavior, there is a gradual increase in the number of people who cannot or will not adjust to society's requirements: welfare leeches, youth-gang members, cultists, anti-government rebels, radical environmentalist saboteurs, dropouts and resisters of various kinds.</p>
 
 <p id="117">117. In any technologically advanced society the individual’s fate MUST depend on decisions that he personally cannot
 influence to any great extent. A technological society cannot be broken down into small, autonomous communities, because
-production depends on the cooperation of very large numbers of people. When a decision affects, say, a million people, then
+production depends on the cooperation of very large numbers of people and machines. Such a society MUST be highly organized and decisions HAVE TO be made that affect very large numbers of people. When a decision affects, say, a million people, then
 each of the affected individuals has, on the average, only a one-millionth share in making the decision. What usually happens
 in practice is that decisions are made by public officials or corporation executives, or by technical specialists, but even when
 the public votes on a decision the number of voters ordinarily is too large for the vote of any one individual to be significant.
@@ -1023,28 +1015,27 @@ successful in making people feel better, it would be demeaning.
 <p id="118">118. Conservatives and some others advocate more “local autonomy.” Local communities once did have autonomy, but such
 autonomy becomes less and less possible as local communities become more enmeshed with and dependent on large-scale
 systems like public utilities, computer networks, highway systems, the mass communications media, the modern health care
-system. Also operating against autonomy is the fact that technology applied in one location often affects people at other
-
-Page 16
-
-locations far way. Thus pesticide or chemical use near a creek may contaminate the water supply hundreds of miles
+system. Also operating against autonomy is the fact that technology applied in one location often affects people at other locations far way.
+Thus pesticide or chemical use near a creek may contaminate the water supply hundreds of miles
 downstream, and the greenhouse effect affects the whole world.
 </p>
 
 <p id="119">119. The system does not and cannot exist to satisfy human needs. Instead, it is human behavior that has to be modified to fit
 the needs of the system. This has nothing to do with the political or social ideology that may pretend to guide the technological
-system. It is the fault of technology, because the system is guided not by ideology but by technical necessity. [<a href="#footnote-18">18</a>] Of course the
+system. It is not the fault of capitalism, and it is not the fault of socialism.
+It is the fault of technology, because the system is guided not by ideology but by technical necessity. [<a href="#footnote-18">18</a>] Of course the
 system does satisfy many human needs, but generally speaking it does this only to the extend that it is to the advantage of the
 system to do it. It is the needs of the system that are paramount, not those of the human being. For example, the system
 provides people with food because the system couldn’t function if everyone starved; it attends to people’s psychological needs
 whenever it can CONVENIENTLY do so, because it couldn’t function if too many people became depressed or rebellious. But
 the system, for good, solid, practical reasons, must exert constant pressure on people to mold their behavior to the needs of the
-system. To much waste accumulating? The government, the media, the educational system, environmentalists, everyone
+system. Too much waste accumulating? The government, the media, the educational system, environmentalists, everyone
 inundates us with a mass of propaganda about recycling. Need more technical personnel? A chorus of voices exhorts kids to
 study science. No one stops to ask whether it is inhumane to force adolescents to spend the bulk of their time studying subjects
 most of them hate. When skilled workers are put out of a job by technical advances and have to undergo “retraining,” no one
 asks whether it is humiliating for them to be pushed around in this way. It is simply taken for granted that everyone must bow
-to technical necessity. and for good reason: If human needs were put before technical necessity there would be economic
+to technical necessity.
+And for good reason: If human needs were put before technical necessity there would be economic
 problems, unemployment, shortages or worse. The concept of “mental health” in our society is defined largely by the extent to
 which an individual behaves in accord with the needs of the system and does so without showing signs of stress.
 </p>
@@ -1060,11 +1051,12 @@ socialist system, workers must direct their efforts toward the goals of the ente
 purpose as part of the system. Once again, for purely technical reasons it is not possible for most individuals or small groups to
 have much autonomy in industrial society. Even the small-business owner commonly has only limited autonomy. Apart from
 the necessity of government regulation, he is restricted by the fact that he must fit into the economic system and conform to its
-requirements. For instance, when someone develops a new technology, the small- business person often has to use that
+requirements. For instance, when someone develops a new technology, the small-business person often has to use that
 technology whether he wants to or not, in order to remain competitive.
 
-The ‘Bad’ Parts of Technology Cannot Be Separated from the ‘Good’ Parts
 </p>
+
+<h2 id="the-bad-parts-of-technology-cannot-be-separated-from-the-good-parts">The ‘Bad’ Parts of Technology Cannot Be Separated from the ‘Good’ Parts</h2>
 
 <p id="121">121. A further reason why industrial society cannot be reformed in favor of freedom is that modern technology is a unified
 system in which all parts are dependent on one another. You can’t get rid of the “bad” parts of technology and retain only the
@@ -1078,7 +1070,8 @@ medicine without the whole technological system and everything that goes with it
 evils. Suppose for example that a cure for diabetes is discovered. People with a genetic tendency to diabetes will then be able to
 survive and reproduce as well as anyone else. Natural selection against genes for diabetes will cease and such genes will spread
 throughout the population. (This may be occurring to some extent already, since diabetes, while not curable, can be controlled
-through use of insulin.) The same thing will happen with many other diseases susceptibility to which is affected by genetic
+through use of insulin.) The same thing will happen with many other diseases susceptibility to which is affected by genetic factors (e.g. childhood cancer)
+resulting in massive genetic
 degradation of the population. The only solution will be some sort of eugenics program or extensive genetic engineering of
 human beings, so that man in the future will no longer be a creation of nature, or of chance, or of God (depending on your
 religious or philosophical opinions), but a manufactured product.
@@ -1092,7 +1085,7 @@ beings, because the consequences of unregulated genetic engineering would be dis
 <p id="124">124. The usual response to such concerns is to talk about “medical ethics.” But a code of ethics would not serve to protect
 freedom in the face of medical progress; it would only make matters worse. A code of ethics applicable to genetic engineering
 would be in effect a means of regulating the genetic constitution of human beings. Somebody (probably the upper-middle class,
-mostly) would decide that such and such applications of genetic engineering were “ethical”. and others were not, so that in
+mostly) would decide that such and such applications of genetic engineering were “ethical” and others were not, so that in
 effect they would be imposing their own values on the genetic constitution of the population at large. Even if a code of ethics
 were chosen on a completely democratic basis, the majority would be imposing their own values on any minorities who might
 have a different idea of what constituted an “ethical” use of genetic engineering. The only code of ethics that would truly
@@ -1173,7 +1166,7 @@ whole; but that is revolution, not reform.
 <p id="131">131. Technicians (we use this term in its broad sense to describe all those who perform a specialized task that requires training)
 tend to be so involved in their work (their surrogate activity) that when a conflict arises between their technical work and
 freedom, they almost always decide in favor of their technical work. This is obvious in the case of scientists, but it also appears
-elsewhere: Educators humanitarian groups, conservation organizations do not hesitate to use propaganda or other psychological
+elsewhere: Educators, humanitarian groups, conservation organizations do not hesitate to use propaganda or other psychological
 techniques to help them achieve their laudable ends. Corporations and government agencies, when they find it useful, do not
 hesitate to collect information about individuals without regard to their privacy. Law enforcement agencies are frequently
 inconvenienced by the constitutional rights of suspects and often of completely innocent persons, and they do whatever they
@@ -1198,7 +1191,7 @@ technological advances are permanent within the context of a given civilization.
 arrive at some social arrangements that would prevent genetic engineering from being applied to human beings, or prevent it
 from being applied in such a way as to threaten freedom and dignity. Still, the technology would remain waiting. Sooner or
 later the social arrangement would break down. Probably sooner, given the pace of change in our society. Then genetic
-engineering would begin to invade our sphere of freedom. and this invasion would be irreversible (short of a breakdown of
+engineering would begin to invade our sphere of freedom, and this invasion would be irreversible (short of a breakdown of
 technological civilization itself). Any illusions about achieving anything permanent through social arrangements should be
 dispelled by what is currently happening with environmental legislation. A few years ago its seemed that there were secure
 legal barriers preventing at least SOME of the worst forms of environmental degradation. A change in the political wind, and
@@ -1213,7 +1206,6 @@ through which the system is likely to pass will cause it to break down, or at le
 against it becomes possible. If such a revolution occurs and is successful, then at that particular moment the aspiration for
 freedom will have proved more powerful than technology.
 </p>
-
 
 <p id="135">135. In paragraph <a href="#125">125</a> we used an analogy of a weak neighbor who is left destitute by a strong neighbor who takes all his land
 by forcing on him a series of compromises. But suppose now that the strong neighbor gets sick, so that he is unable to defend
@@ -1248,7 +1240,7 @@ social planning can EVER be successful.
 <p id="138">138. Thus it is clear that the human race has at best a very limited capacity for solving even relatively straightforward social
 problems. How then is it going to solve the far more difficult and subtle problem of reconciling freedom with technology?
 Technology presents clear-cut material advantages, whereas freedom is an abstraction that means different things to different
-people. and its loss is easily obscured by propaganda and fancy talk.
+people, and its loss is easily obscured by propaganda and fancy talk.
 </p>
 
 <p id="139">139. And note this important difference: It is conceivable that our environmental problems (for example) may some day be
@@ -1265,7 +1257,10 @@ Wilson) have stressed the importance of “socializing” people more effectivel
 
 <p id="140">140. We hope we have convinced the reader that the system cannot be reformed in such a way as to reconcile freedom with
 technology. The only way out is to dispense with the industrial-technological system altogether. This implies revolution, not
-necessarily an armed uprising, but certainly a radical and fundamental change in the nature of society. 141. People tend to
+necessarily an armed uprising, but certainly a radical and fundamental change in the nature of society.
+</p>
+
+<p id="141">141. People tend to
 assume that because a revolution involves a much greater change than reform does, it is more difficult to bring about than
 reform is. Actually, under certain circumstances revolution is much easier than reform. The reason is that a revolutionary
 movement can inspire an intensity of commitment that a reform movement cannot inspire. A reform movement merely offers
@@ -1273,8 +1268,9 @@ to solve a particular social problem. A revolutionary movement offers to solve a
 new world; it provides the kind of ideal for which people will take great risks and make great sacrifices. For this reasons it
 would be much easier to overthrow the whole technological system than to put effective, permanent restraints on the
 development or application of any one segment of technology, such as genetic engineering, for example. Not many people will
-devote themselves with single-minded passion to imposing and maintaining restraints on genetic engineering, but under suitable conditions large numbers of people may devote themselves passionately to a revolution against the industrialtechnological system. As we noted in paragraph <a href="#132">132</a>, reformers seeking to limit certain aspects of technology would be
-working to avoid a negative outcome. But revolutionaries work to gain a powerful reward -- fulfillment of their revolutionary
+devote themselves with single-minded passion to imposing and maintaining restraints on genetic engineering, but under suitable conditions large numbers of people may devote themselves passionately to a revolution against the industrial-technological system.
+As we noted in paragraph <a href="#132">132</a>, reformers seeking to limit certain aspects of technology would be
+working to avoid a negative outcome. But revolutionaries work to gain a powerful reward &ndash; fulfillment of their revolutionary
 vision and therefore work harder and more persistently than reformers do.
 </p>
 
@@ -1359,7 +1355,7 @@ eventually be used to modify those aspects of the body that affect mental functi
 problems of human behavior and in part to economic and environmental problems. And a considerable proportion of the
 system’s economic and environmental problems result from the way human beings behave. Alienation, low self-esteem,
 depression, hostility, rebellion; children who won’t study, youth gangs, illegal drug use, rape, child abuse, other crimes, unsafe
-sex, teen pregnancy, population growth, political corruption, race hatred, ethnic rivalry, bitter ideological conflict (e.g., prochoice vs. pro-life), political extremism, terrorism, sabotage, anti-government groups, hate groups. All these threaten the very
+sex, teen pregnancy, population growth, political corruption, race hatred, ethnic rivalry, bitter ideological conflict (e.g., pro-choice vs. pro-life), political extremism, terrorism, sabotage, anti-government groups, hate groups. All these threaten the very
 survival of the system. The system will therefore be FORCED to use every practical means of controlling human behavior.
 </p>
 
@@ -1373,7 +1369,7 @@ systems will not be adjusted to suit the needs of human beings. Instead, human b
 system. [<a href="#footnote-27">27</a>]
 </p>
 
-<p id="152">152. generally speaking, technological control over human behavior will probably not be introduced with a totalitarian
+<p id="152">152. Generally speaking, technological control over human behavior will probably not be introduced with a totalitarian
 intention or even through a conscious desire to restrict human freedom. [<a href="#footnote-28">28</a>] Each new step in the assertion of control over the
 human mind will be taken as a rational response to a problem that faces society, such as curing alcoholism, reducing the crime
 rate or inducing young people to study science and engineering. In many cases there will be a humanitarian justification. For
@@ -1417,7 +1413,9 @@ In a world in which most children are put through a program to make them enthusi
 forced to put his kid through such a program, because if he does not, then the kid will grow up to be, comparatively speaking,
 an ignoramus and therefore unemployable. Or suppose a biological treatment is discovered that, without undesirable sideeffects, will greatly reduce the psychological stress from which so many people suffer in our society. If large numbers of
 people choose to undergo the treatment, then the general level of stress in society will be reduced, so that it will be possible for
-the system to increase the stress-producing pressures. In fact, something like this seems to have happened already with one of
+the system to increase the stress-producing pressures.
+This will lead more people to undergo the treatment and so forth so that eventually the pressures may become so heavy that few people will be able to survive without undergoing the stress-reducing treatment.
+In fact, something like this seems to have happened already with one of
 our society’s most important psychological tools for enabling people to reduce (or at least temporarily escape from) stress,
 namely, mass entertainment (see paragraph <a href="#147">147</a>). Our use of mass entertainment is “optional”: No law requires us to watch
 television, listen to the radio, read magazines. Yet mass entertainment is a means of escape and stress-reduction on which most
@@ -1467,7 +1465,7 @@ away from the kids to subject them to the latest techniques for making them into
 technical advances relating to human behavior, the system to date has not been impressively successful in controlling human
 beings. The people whose behavior is fairly well under the control of the system are those of the type that might be called
 “bourgeois.” But there are growing numbers of people who in one way or another are rebels against the system: welfare
-leaches, youth gangs, cultists. Satanists, nazis, radical environmentalists, militiamen, etc.
+leaches, youth gangs, cultists. Satanists, Nazis, radical environmentalists, militiamen, etc.
 </p>
 
 <p id="162">162. The system is currently engaged in a desperate struggle to overcome certain problems that threaten its survival, among
@@ -1568,7 +1566,6 @@ long and difficult period of trial and error for the technophiles to work the bu
 do). In the meantime there will be great suffering. So it is not at all clear that the survival of industrial society would involve
 less suffering than the breakdown of that society would. Technology has gotten the human race into a fix from which there is
 not likely to be any easy escape.
-
 </p>
 
 <h2 id="the-future">The Future</h2>
@@ -1599,7 +1596,7 @@ would amount to suicide.
 
 <p id="174">174. On the other hand it is possible that human control over the machines may be retained. In that case the average man may
 have control over certain private machines of his own, such as his car or his personal computer, but control over large systems
-of machines will be in the hands of a tiny elite -- just as it is today, but with two differences. Due to improved techniques the
+of machines will be in the hands of a tiny elite &ndash; just as it is today, but with two differences. Due to improved techniques the
 elite will have greater control over the masses; and because human work will no longer be necessary the masses will be
 superfluous, a useless burden on the system. If the elite is ruthless they may simply decide to exterminate the mass of
 humanity. If they are humane they may use propaganda or other psychological or biological techniques to reduce the birth rate
@@ -1713,7 +1710,7 @@ should tend to increase, because lack of advanced technology and rapid communica
 or other large organizations to control local communities.
 </p>
 
-<p id="185">185. As for the negative consequences of eliminating industrial society -- well, you can’t eat your cake and have it too. To gain
+<p id="185">185. As for the negative consequences of eliminating industrial society &ndash; well, you can’t eat your cake and have it too. To gain
 one thing you have to sacrifice another.
 </p>
 
@@ -1775,7 +1772,7 @@ framework of the conflicts of power-elite vs. ordinary people, technology vs. na
 
 <p id="#192">192. But the way to discourage ethnic conflict is NOT through militant advocacy of minority rights (see paragraphs <a href="#21">21</a>, <a href="#29">29</a>).
 Instead, the revolutionaries should emphasize that although minorities do suffer more or less disadvantage, this disadvantage is
-of peripheral significance. Our real enemy is the industrial- technological system, and in the struggle against the system, ethnic
+of peripheral significance. Our real enemy is the industrial-technological system, and in the struggle against the system, ethnic
 distinctions are of no importance.
 </p>
 
@@ -1789,7 +1786,7 @@ industrial system is stressed to the danger point and has proved itself to be a 
 example that some “green” party should win control of the United States Congress in an election. In order to avoid betraying or
 watering down their own ideology they would have to take vigorous measures to turn economic growth into economic
 shrinkage. To the average man the results would appear disastrous: There would be massive unemployment, shortages of
-commodities, etc Even if the grosser ill effects could be avoided through superhumanly skillful management, still people would
+commodities, etc. Even if the grosser ill effects could be avoided through superhumanly skillful management, still people would
 have to begin giving up the luxuries to which they have become addicted. Dissatisfaction would grow, the “green” party would
 be voted out of office and the revolutionaries would have suffered a severe setback. For this reason the revolutionaries should
 not try to acquire political power until the system has gotten itself into such a mess that any hardships will be seen as resulting
@@ -1822,8 +1819,8 @@ to its breakdown in all industrialized nations.
 <p id="197">197. Some people take the line that modern man has too much power, too much control over nature; they argue for a more
 passive attitude on the part of the human race. At best these people are expressing themselves unclearly, because they fail to
 distinguish between power for LARGE ORGANIZATIONS and power for INDIVIDUALS and SMALL GROUPS. It is a
-mistake to argue for powerlessness and passivity, because people NEED power. Modern man as a collective entity -- that is,
-the industrial system -- has immense power over nature, and we (FC) regard this as evil. But modern INDIVIDUALS and
+mistake to argue for powerlessness and passivity, because people NEED power. Modern man as a collective entity &ndash; that is,
+the industrial system &ndash; has immense power over nature, and we (FC) regard this as evil. But modern INDIVIDUALS and
 SMALL GROUPS OF INDIVIDUALS have far less power than primitive man ever did. Generally speaking, the vast power of
 “modern man” over nature is exercised not by individuals or small groups but by large organizations. To the extent that the
 average modern INDIVIDUAL can wield the power of technology, he is permitted to do so only within narrow limits and only
@@ -1950,7 +1947,7 @@ by the people who will live at that time.
 <h2 id="the-danger-of-leftism">The Danger of Leftism</h2>
 
 <p id="213">213. Because of their need for rebellion and for membership in a movement, leftists or persons of similar psychological type
-often are unattracted to a rebellious or activist movement whose goals and membership are not initially leftist. The resulting
+often are attracted to a rebellious or activist movement whose goals and membership are not initially leftist. The resulting
 influx of leftish types can easily turn a non-leftist movement into a leftist one, so that leftist goals replace or distort the original
 goals of the movement.
 </p>
@@ -1970,8 +1967,6 @@ technology is too valuable a source of collective power.
 groups to be able to control the circumstances of their own lives. He opposes technology because it makes small groups
 dependent on large organizations.
 </p>
-
-
 
 <p id="216">216. Some leftists may seem to oppose technology, but they will oppose it only so long as they are outsiders and the
 technological system is controlled by non-leftists. If leftism ever becomes dominant in society, so that the technological system
@@ -2000,7 +1995,7 @@ psychological economy. His beliefs are not easily modified by logic or facts. He
 Right with a capital R, and that he has not only a right but a duty to impose leftist morality on everyone. (However, many of
 the people we are referring to as “leftists” do not think of themselves as leftists and would not describe their system of beliefs
 as leftism. We use the term “leftism” because we don’t know of any better words to designate the spectrum of related creeds
-that includes the feminist, gay rights, political correctness, etc., movements, and because these movements have a strong
+that includes the feminist, gay rights, political correctness, etc. movements, and because these movements have a strong
 affinity with the old left. See paragraphs <a href="#227">227</a>-<a href="#230">230</a>.)
 </p>
 
@@ -2014,7 +2009,7 @@ leftist’s real motive is not to attain the ostensible goals of leftism; in rea
 struggling for and then reaching a social goal. [<a href="#footnote-35">35</a>] Consequently the leftist is never satisfied with the goals he has already
 attained; his need for the power process leads him always to pursue some new goal. The leftist wants equal opportunities for
 minorities. When that is attained he insists on statistical equality of achievement by minorities. And as long as anyone harbors
-in some corner of his mind a negative attitude toward some minority, the leftist has to re-educated him. And ethnic minorities
+in some corner of his mind a negative attitude toward some minority, the leftist has to re-educate him. And ethnic minorities
 are not enough; no one can be allowed to have a negative attitude toward homosexuals, disabled people, fat people, old people,
 ugly people, and on and on and on. It’s not enough that the public should be informed about the hazards of smoking; a warning
 has to be stamped on every package of cigarettes. Then cigarette advertising has to be restricted if not banned. The activists
@@ -2031,12 +2026,12 @@ distress at society’s ills than by the need to satisfy his drive for power by 
 </p>
 
 <p id="221">221. Because of the restrictions placed on their thoughts and behavior by their high level of socialization, many leftists of the
-over-socialized type cannot pursue power in the ways that other people do. For them the drive for power has only one morally
+oversocialized type cannot pursue power in the ways that other people do. For them the drive for power has only one morally
 acceptable outlet, and that is in the struggle to impose their morality on everyone.
 </p>
 
 <p id="222">222. Leftists, especially those of the oversocialized type, are True Believers in the sense of Eric Hoffer’s book, “The True
-Believer.” But not all True Believers are of the same psychological type as leftists. Presumably a true-believing nazi, for
+Believer.” But not all True Believers are of the same psychological type as leftists. Presumably a true-believing Nazi, for
 instance, is very different psychologically from a true-believing leftist. Because of their capacity for single-minded devotion to
 a cause, True Believers are a useful, perhaps a necessary, ingredient of any revolutionary movement. This presents a problem
 with which we must admit we don’t know how to deal. We aren’t sure how to harness the energies of the True Believer to a
@@ -2079,7 +2074,7 @@ whole form having a totalitarian tendency.
 
 <p id="227">227. Our discussion of leftism has a serious weakness. It is still far from clear what we mean by the word “leftist.” There
 doesn’t seem to be much we can do about this. Today leftism is fragmented into a whole spectrum of activist movements. Yet
-not all activist movements are leftist, and some activist movements (e.g., radical environmentalism) seem to include both
+not all activist movements are leftist, and some activist movements (e.g. radical environmentalism) seem to include both
 personalities of the leftist type and personalities of thoroughly un-leftist types who ought to know better than to collaborate
 with leftists. Varieties of leftists fade out gradually into varieties of non-leftists and we ourselves would often be hard-pressed
 to decide whether a given individual is or is not a leftist. To the extent that it is defined at all, our conception of leftism is
@@ -2095,7 +2090,7 @@ Again, you just have to use your judgment.
 <p id="229">229. The leftist is oriented toward large-scale collectivism. He emphasizes the duty of the individual to serve society and the
 duty of society to take care of the individual. He has a negative attitude toward individualism. He often takes a moralistic tone.
 He tends to be for gun control, for sex education and other psychologically “enlightened” educational methods, for social
-planning, for affirmative action, for multi- culturalism. He tends to identify with victims. He tends to be against competition
+planning, for affirmative action, for multiculturalism. He tends to identify with victims. He tends to be against competition
 and against violence, but he often finds excuses for those leftists who do commit violence. He is fond of using the common
 catch-phrases of the left, like “racism,” “sexism,” “homophobia,” “capitalism,” “imperialism,” “neocolonialism,” “genocide,”
 “social change,” “social justice,” “social responsibility.” Maybe the best diagnostic trait of the leftist is his tendency to sympathize with the following movements: feminism, gay rights, ethnic rights, disability rights, animal rights, political
@@ -2415,5 +2410,9 @@ with the feminist movement as it exists today.
 
 <h2 id="my-footnotes">My Footnotes</h2>
 
-<p id="my-footnote-1">A1. (Paragraph <a href="#116">116</a>) A scan (slideshow of images) of the original manuscript is available at: <a href="https://archive.org/details/fc.manifesto/page/n107/mode/2up">https://archive.org/details/fc.manifesto/page/n107/mode/2up</a></p>
+<p id="my-footnote-1">A1. Paragraph <a href="#96">96</a>
+FC is "Freedom Club"; Kaczynski used this to refer to himself.
+</p>
+
+<p id="my-footnote-2">A2. (Paragraph <a href="#116">116</a>) A scan (slideshow of images) of the original manuscript is available at: <a href="https://archive.org/details/fc.manifesto/page/n107/mode/2up">https://archive.org/details/fc.manifesto/page/n107/mode/2up</a></p>
 

@@ -11,6 +11,7 @@
     - skill: "Typescript, SCSS, Static Site Generation (Compiled Web)"
     - skill: "PHP"
     - skill: "POSIX Shell"
+    - skill: "TeX/LaTeX"
 - section: "Frameworks/Environments"
   skilllist:
     - skill: "Flask"
@@ -21,3 +22,4 @@
     - skill: "3D Printing"
     - skill: "Proxmox Virtualization"
     - skill: "Embedded Systems (RPi, ESP-compatible)"
+    - skill: "Accessibility Checking"
