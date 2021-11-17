@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Graph
+  </h1>
+  <p>
+   The ideal solution to this would actually be to turn the graph into a 3D braille model so it can be printed. Due to conditions of remoteness and the time required to do such a task though, this is not possible right now.
+  </p>
+  <p>
+   Please do not navigate to connections manually. Use the links.
+  </p>
+  <h2>
+   Nodes of Graph
+  </h2>
+  <ul>
+   <li id="pc">
+    PC:
+    <a href="#from_pc">
+     from
+    </a>
+    ,
+    <a href="#to_pc">
+     to
+    </a>
+   </li>
+   <li id="add1">
+    Add (1):
+    <a href="#from_add1">
+     from
+    </a>
+    ,
+    <a href="#to_add1">
+     to
+    </a>
+   </li>
+   <li id="4">
+    4:
+    <a href="#from_4">
+     from
+    </a>
+    ,
+    <a href="#to_4">
+     to
+    </a>
+   </li>
+   <li id="add2">
+    Add (2):
+    <a href="#from_add2">
+     from
+    </a>
+    ,
+    <a href="#to_add2">
+     to
+    </a>
+   </li>
+   <li id="insmem">
+    Instruction memory:
+    <a href="#from_insmem">
+     from
+    </a>
+    ,
+    <a href="#to_insmem">
+     to
+    </a>
+    <ul>
+     <li id="addr">
+      Address:
+      <a href="#from_addr">
+       from
+      </a>
+      ,
+      <a href="#to_addr">
+       to
+      </a>
+     </li>
+     <li id="instr">
+      Insturction:
+      <a href="#from_instr">
+       from
+      </a>
+      ,
+      <a href="#to_instr">
+       to
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="regs">
+    Registers:
+    <a href="#from_regs">
+     from
+    </a>
+    ,
+    <a href="#to_regs">
+     to
+    </a>
+    <ul>
+     <li id="data">
+      Data:
+      <a href="#from_data">
+       from
+      </a>
+      ,
+      <a href="#to_data">
+       to
+      </a>
+     </li>
+     <li id="reg1">
+      Register #1:
+      <a href="#from_reg1">
+       from
+      </a>
+      ,
+      <a href="#to_reg1">
+       to
+      </a>
+     </li>
+     <li id="reg2">
+      Register #2:
+      <a href="#from_reg2">
+       from
+      </a>
+      ,
+      <a href="#to_reg2">
+       to
+      </a>
+     </li>
+     <li id="reg3">
+      Register #3:
+      <a href="#from_reg3">
+       from
+      </a>
+      ,
+      <a href="#to_reg3">
+       to
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="alu">
+    ALU:
+    <a href="#from_alu">
+     from
+    </a>
+    ,
+    <a href="#to_alu">
+     to
+    </a>
+   </li>
+   <li id="datamem">
+    Data Memory:
+    <a href="#from_datamem">
+     from
+    </a>
+    ,
+    <a href="#to_datamem">
+     to
+    </a>
+    <ul>
+     <li id="addr2">
+      Address:
+      <a href="#from_addr2">
+       from
+      </a>
+      ,
+      <a href="#to_addr2">
+       to
+      </a>
+     </li>
+     <li id="data2">
+      Data:
+      <a href="#from_data2">
+       from
+      </a>
+      ,
+      <a href="#to_data2">
+       to
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <h2>
+   Graph Connections (to)
+  </h2>
+  <ul>
+   <li id="to_pc">
+    <a href="#pc">
+     PC
+    </a>
+    <ul>
+     <li id="to_pc_from_add1">
+      <a href="#add1">
+       Add (1)
+      </a>
+     </li>
+     <li id="to_pc_from_addr">
+      <a href="#addr">
+       Address
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="to_add1">
+    <a href="#add1">
+     Add (1)
+    </a>
+    <ul>
+     <li id="to_add1_from_add2">
+      <a href="#add2">
+       Add (2)
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="to_4">
+    <a href="#4">
+     4
+    </a>
+    <ul>
+     <li id="to_4_from_add1">
+      <a href="#add1">
+       Add (1)
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="to_add2">
+    <a href="#add2">
+     Add (2)
+    </a>
+    <ul>
+     <li id="to_add2_from_pc">
+      <a href="#pc">
+       PC
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="to_insmem">
+    <a href="#insmem">
+     Instruction memory
+    </a>
+   </li>
+   <li id="to_addr">
+    <a href="#addr">
+     Address
+    </a>
+   </li>
+   <li id="to_instr">
+    <a href="#instr">
+     Insturction
+    </a>
+    <ul>
+     <li id="to_instr_from_reg1">
+      <a href="#reg1">
+       Register #1
+      </a>
+     </li>
+     <li id="to_instr_from_reg2">
+      <a href="#reg2">
+       Register #2
+      </a>
+     </li>
+     <li id="to_instr_from_reg3">
+      <a href="#reg3">
+       Register #3
+      </a>
+     </li>
+     <li id="to_instr_from_alu">
+      <a href="#alu">
+       ALU
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="to_regs">
+    <a href="#regs">
+     Registers
+    </a>
+    <ul>
+     <li id="to_regs_from_alu">
+      <a href="#alu">
+       ALU
+      </a>
+     </li>
+     <li id="to_regs_from_alu">
+      <a href="#alu">
+       ALU
+      </a>
+     </li>
+     <li id="to_regs_from_data2">
+      <a href="#data2">
+       Data
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="to_data">
+    <a href="#data">
+     Data
+    </a>
+   </li>
+   <li id="to_reg1">
+    <a href="#reg1">
+     Register #1
+    </a>
+   </li>
+   <li id="to_reg2">
+    <a href="#reg2">
+     Register #2
+    </a>
+   </li>
+   <li id="to_reg3">
+    <a href="#reg3">
+     Register #3
+    </a>
+   </li>
+   <li id="to_alu">
+    <a href="#alu">
+     ALU
+    </a>
+    <ul>
+     <li id="to_alu_from_add2">
+      <a href="#add2">
+       Add (2)
+      </a>
+     </li>
+     <li id="to_alu_from_data">
+      <a href="#data">
+       Data
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="to_datamem">
+    <a href="#datamem">
+     Data Memory
+    </a>
+    <ul>
+     <li id="to_datamem_from_data">
+      <a href="#data">
+       Data
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="to_addr2">
+    <a href="#addr2">
+     Address
+    </a>
+   </li>
+   <li id="to_data2">
+    <a href="#data2">
+     Data
+    </a>
+   </li>
+  </ul>
+  <h2>
+   Graph Connections (form)
+  </h2>
+  <ul>
+   <li id="from_pc">
+    <a href="#pc">
+     PC
+    </a>
+    <ul>
+     <li id="from_pc_to_add2">
+      <a href="#add2">
+       Add (2)
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="from_add1">
+    <a href="#add1">
+     Add (1)
+    </a>
+    <ul>
+     <li id="from_add1_to_pc">
+      <a href="#pc">
+       PC
+      </a>
+     </li>
+     <li id="from_add1_to_4">
+      <a href="#4">
+       4
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="from_4">
+    <a href="#4">
+     4
+    </a>
+    <ul>
+    </ul>
+   </li>
+   <li id="from_add2">
+    <a href="#add2">
+     Add (2)
+    </a>
+    <ul>
+     <li id="from_add2_to_add1">
+      <a href="#add1">
+       Add (1)
+      </a>
+     </li>
+     <li id="from_add2_to_alu">
+      <a href="#alu">
+       ALU
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="from_insmem">
+    <a href="#insmem">
+     Instruction memory
+    </a>
+    <ul>
+    </ul>
+   </li>
+   <li id="from_addr">
+    <a href="#addr">
+     Address
+    </a>
+    <ul>
+     <li id="from_addr_to_pc">
+      <a href="#pc">
+       PC
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="from_instr">
+    <a href="#instr">
+     Insturction
+    </a>
+    <ul>
+    </ul>
+   </li>
+   <li id="from_regs">
+    <a href="#regs">
+     Registers
+    </a>
+    <ul>
+    </ul>
+   </li>
+   <li id="from_data">
+    <a href="#data">
+     Data
+    </a>
+    <ul>
+     <li id="from_data_to_alu">
+      <a href="#alu">
+       ALU
+      </a>
+     </li>
+     <li id="from_data_to_datamem">
+      <a href="#datamem">
+       Data Memory
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="from_reg1">
+    <a href="#reg1">
+     Register #1
+    </a>
+    <ul>
+     <li id="from_reg1_to_instr">
+      <a href="#instr">
+       Insturction
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="from_reg2">
+    <a href="#reg2">
+     Register #2
+    </a>
+    <ul>
+     <li id="from_reg2_to_instr">
+      <a href="#instr">
+       Insturction
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="from_reg3">
+    <a href="#reg3">
+     Register #3
+    </a>
+    <ul>
+     <li id="from_reg3_to_instr">
+      <a href="#instr">
+       Insturction
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="from_alu">
+    <a href="#alu">
+     ALU
+    </a>
+    <ul>
+     <li id="from_alu_to_instr">
+      <a href="#instr">
+       Insturction
+      </a>
+     </li>
+     <li id="from_alu_to_regs">
+      <a href="#regs">
+       Registers
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li id="from_datamem">
+    <a href="#datamem">
+     Data Memory
+    </a>
+    <ul>
+    </ul>
+   </li>
+   <li id="from_addr2">
+    <a href="#addr2">
+     Address
+    </a>
+    <ul>
+    </ul>
+   </li>
+   <li id="from_data2">
+    <a href="#data2">
+     Data
+    </a>
+    <ul>
+     <li id="from_data2_to_regs">
+      <a href="#regs">
+       Registers
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </body>
+</html>

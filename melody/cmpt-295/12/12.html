@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/assets/css/katex.css">
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295">CMPT 295</h1>
+
+<ul>
+  <li>Unit - Machine-Level Programming</li>
+  <li>Lecture 12 – Assembly language – Program Control – Conditional Statements</li>
+</ul>
+
+<h2 id="last-lecture">Last Lecture</h2>
+
+<ul>
+  <li>Demo
+    <ul>
+      <li>Observation: C compiler will figure out different instruction combinations to carry out the computations in our C code</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="todays-menu">Today’s Menu</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX (selected)</li>
+  <li>Loops</li>
+  <li>Function call – Stack</li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+<h2 id="completing-our-demo">Completing our Demo</h2>
+
+<ol>
+  <li>(checked) <code class="language-plaintext highlighter-rouge">gcc</code> uses <code class="language-plaintext highlighter-rouge">leaq</code> for addition -&gt; <code class="language-plaintext highlighter-rouge">sum_store.c</code> our own assembly code (arith.s) using arithmetic</li>
+  <li>(checked) Writing instructions of x86-64 assembly language</li>
+  <li>makefile
+    <ul>
+      <li>when we compile our own *.s files with *.c files</li>
+      <li>when we compile only *.c files</li>
+    </ul>
+  </li>
+  <li>How would <code class="language-plaintext highlighter-rouge">gcc</code> compile our <code class="language-plaintext highlighter-rouge">arith.c</code> into <code class="language-plaintext highlighter-rouge">arith.s</code>?</li>
+</ol>
+
+<h2 id="program-control-overview">Program Control Overview</h2>
+
+<ul>
+  <li>We can change the execution flow of a program
+    <ol>
+      <li>Based on a condition</li>
+      <li>Unconditionally</li>
+    </ol>
+  </li>
+  <li>Control statements (in C)
+    <ul>
+      <li>if/else</li>
+      <li>switch</li>
+      <li>cmp* instruction (compare)</li>
+      <li>for loop</li>
+    </ul>
+  </li>
+  <li>Control statements (in x86-64 assemvly)
+    <ul>
+      <li>cmp* instruction (compare)</li>
+      <li>jX instructions (jump)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Function calls -&gt; <code class="language-plaintext highlighter-rouge">call</code> and <code class="language-plaintext highlighter-rouge">ret</code></p>
+
+<h2 id="conditional-statement-ifelse">Conditional statement: <code class="language-plaintext highlighter-rouge">if/else</code></h2>
+
+<p>in C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void func(long x,long y){
+  if ( x &lt; y ) {
+    // stmts true
+  } else {
+    // stmts false
+  }
+  return;
+}
+</code></pre></div></div>
+
+<p>A label is a memory address.</p>
+
+<p>in assembly:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># func is a label
+func:
+  cmpq %rsi,%rdi # x – y
+  jge else       #
+  ...            # stmts true
+  jmp endif      #
+  # else is a label
+  else: ...      # stmts false
+  # endif is a label
+  endif: ret     #
+</code></pre></div></div>
+
+<p>We branch (jump) when the condition is false -&gt; This technique is called “coding the false condition first”</p>
+
+<h2 id="comparison-instructions">comparison instructions</h2>
+
+<ul>
+  <li>* -&gt; Size designator</li>
+  <li>q -&gt; long/64-bits</li>
+  <li>l -&gt; int/32-bits</li>
+  <li>w -&gt; short/16-bits</li>
+  <li>b -&gt; char/8-bits</li>
+</ul>
+
+<p>Remember in Lecture 9, we saw… (See header “Programming in x86-64 assembly” from lecture 9)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Syntax</th>
+      <th>Meaning/Effect</th>
+      <th>Example</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>cmp* Src2, Src1</td>
+      <td>Src1 – Src2 -&gt;<br />&gt; 0? -&gt; Src1 &gt; Src2<br />= 0? -&gt; Src1 == Src2<br />&lt; 0? -&gt; Src1 &lt; Src2</td>
+      <td><code class="language-plaintext highlighter-rouge">cmpq %rsi,%rdi</code></td>
+      <td>without saving the result in the destination operand (no Dest). Sets <strong>condition codes</strong> based on value of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Src1</mtext><mo>−</mo><mtext>Src2</mtext></mrow><annotation encoding="application/x-tex">\text{Src1} - \text{Src2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord">Src1</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">Src2</span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td>test* Src2, Src1</td>
+      <td>Src1 &amp; Src2 -&gt;</td>
+      <td><code class="language-plaintext highlighter-rouge">testq %rax,%rax</code></td>
+      <td>without saving the result in the destination operand (no <strong>Dest</strong>); sets <strong>condition code</strong> based on value of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Src1</mtext><mo>∧</mo><mtext>Src2</mtext></mrow><annotation encoding="application/x-tex">\text{Src1} \land \text{Src2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">Src1</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∧</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">Src2</span></span></span></span></span>; useful when one of the operands is a bit mask</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="jx-jump-family-instructions-branching"><code class="language-plaintext highlighter-rouge">jX</code> jump family instructions (branching)</h2>
+
+<ul>
+  <li>Jump to different part of the program depending on result of previous instructions (i.e., condition codes)</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th><code class="language-plaintext highlighter-rouge">jX</code></th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>jmp</td>
+      <td>unconditional</td>
+    </tr>
+    <tr>
+      <td>je</td>
+      <td>Equal / Zero</td>
+    </tr>
+    <tr>
+      <td>jne</td>
+      <td>Not Equal / Not Zero</td>
+    </tr>
+    <tr>
+      <td>js</td>
+      <td>Negative</td>
+    </tr>
+    <tr>
+      <td>jns</td>
+      <td>Nonnegative</td>
+    </tr>
+    <tr>
+      <td>jg</td>
+      <td>Greater (Signed)</td>
+    </tr>
+    <tr>
+      <td>jge</td>
+      <td>Greater or Equal (Signed)</td>
+    </tr>
+    <tr>
+      <td>jl</td>
+      <td>Less (Signed)</td>
+    </tr>
+    <tr>
+      <td>jle</td>
+      <td>Less or Equal (Signed</td>
+    </tr>
+    <tr>
+      <td>ja</td>
+      <td>Above (unsigned)</td>
+    </tr>
+    <tr>
+      <td>jb</td>
+      <td>Below (unsigned)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="example--int-absint-x">Example – <code class="language-plaintext highlighter-rouge">int abs(int x)</code></h2>
+
+<p>in C:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int abs(int x){
+  if(x&lt;0)
+    x=-x;
+  return x;
+}
+</code></pre></div></div>
+
+<p>in assembly:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># x in edi, result in eax
+
+abs:
+  movl %edi,%eax # eax &lt;- x
+  ____ #
+  ____ # ret if x &gt;= 0
+  ____ # x = -x
+
+endif:
+  ret
+</code></pre></div></div>
+
+<h2 id="int-maxint-x-int-y---homework"><code class="language-plaintext highlighter-rouge">int max(int x, int y</code> )- Homework</h2>
+
+<p>In C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int max(int x, int y){
+  int result=x;
+  if(y&gt;x)
+    result=y;
+  return result;
+}
+</code></pre></div></div>
+
+<p>In assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># x in edi, y in esi, result in eax
+max:
+  movl %edi,%eax # result = x
+  ____
+  ____
+  ____
+  ____
+  ____
+endif:
+  ret 
+</code></pre></div></div>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>In C, we can change the execution flow of a program
+    <ol>
+      <li>Conditionaly
+        <ul>
+          <li>Conditional statements: if/else, switch</li>
+          <li>Iterative statements: loops</li>
+        </ul>
+      </li>
+      <li>Unconditionally
+        <ul>
+          <li>Functions calls</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>In x86-64 assembly, we can also change the execution flow of a program
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">cmp*</code> instruction (compare)</li>
+      <li><code class="language-plaintext highlighter-rouge">jX</code> instructions (jump)</li>
+      <li><code class="language-plaintext highlighter-rouge">call</code> and <code class="language-plaintext highlighter-rouge">ret</code> instructions</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="next-lecture">Next Lecture</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX</li>
+  <li>(selected) Loops</li>
+  <li>Function call – Stack</li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+
+      <footer>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,4 +1,6 @@
 ---
+language: "C"
+library: "Standard"
 layout: emacspeak_tutorial
 title: "Printing in C"
 zip_link: "/assets/emacspeak-tutorials/printing.zip"

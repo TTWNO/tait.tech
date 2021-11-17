@@ -1,4 +1,6 @@
 ---
+language: "C"
+library: "Standard"
 layout: emacspeak_tutorial
 title: "User Input and Variables in C"
 zip_link: "/assets/emacspeak-tutorials/variables.zip"

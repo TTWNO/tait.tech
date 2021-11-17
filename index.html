@@ -25,7 +25,7 @@ I have all of my code projects hosted on <a href="https://github.com/TTWNO">my G
 {% for project in site.data.projects %}
   <li>
     <p>
-      <a href="{{ project.link }}">{{ project.name }}</a> &mdash; {{ project.description }}
+      <a class="namelink" href="{{ project.link }}">{{ project.name }}</a> &mdash; {{ project.description }}
     </p>
   </li>
 {% endfor %}

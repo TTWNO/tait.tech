@@ -3,11 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>{{ page.title }} | tait.tech</title>
-  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% if page.math %}
-  <link rel="stylesheet" href="/assets/css/katex.css">
+  {%- if page.math -%}
+  <link rel="stylesheet" href="/assets/css/katex.css" id="math-stylesheet">
   {% endif %}
+  {%- if page.code -%}
+  <!-- TODO: add this to /md page -->
+  <link rel="stylesheet" href="/assets/css/highlight.css" id="code-stylesheet">
+  {% endif %}
+  {% contentblock extrahead %}
 </head>
 <body>
   <main>
