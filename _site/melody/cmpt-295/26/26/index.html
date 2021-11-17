@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/assets/css/katex.css" id="math-stylesheet">
+  
+  
+
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295---unit--microprocessor-design--instruction-execution">CMPT 295 - Unit – Microprocessor Design &amp; Instruction Execution</h1>
+
+<p>Lecture 26</p>
+
+<ul>
+  <li>Intro to Logic Design</li>
+</ul>
+
+<h1 id="last-lecture">Last Lecture</h1>
+
+<ul>
+  <li>ISA design
+    <ul>
+      <li>MIPS</li>
+      <li>Created our own x295M: “Memory only”</li>
+    </ul>
+  </li>
+  <li>ISA Evaluation
+    <ul>
+      <li>Examining the effect of the von Neumann bottleneck on the
+execution time of our program by counting number of
+memory accesses
+        <ul>
+          <li>The fewer memory accesses our program makes, the faster it
+executes, hence the “better” it is</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Improvements:
+    <ul>
+      <li>Decreasing effect of von Neumann bottleneck by reducing
+the number of memory accesses</li>
+    </ul>
+  </li>
+</ul>
+
+<p>And one way to achieve this is by introducing registers in the design of the ISA -&gt; makes machine instructions shorter.
+Reducing the number of operands may also help (but not always).</p>
+
+<h2 id="todays-menu">Today’s Menu</h2>
+
+<ul>
+  <li>Instruction Set Architecture (ISA)
+    <ul>
+      <li>Definition of ISA</li>
+    </ul>
+  </li>
+  <li>Instruction Set design
+    <ul>
+      <li>Design principles</li>
+      <li>Look at an example of an instruction set: MIPS</li>
+      <li>Create our own</li>
+      <li>ISA evaluation</li>
+    </ul>
+  </li>
+  <li>(highlighted) Implementation of a microprocessor (CPU) based on an ISA
+    <ul>
+      <li>(highlighted) Execution of machine instructions (datapath)</li>
+      <li>(highlighted) Intro to logic design + Combinational logic + Sequential logic circuit</li>
+      <li>Sequential execution of machine instructions</li>
+      <li>Pipelined execution of machine instructions + Hazards</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="the-big-picture">The Big Picture</h2>
+
+<ul>
+  <li>C code:
+    <ul>
+      <li>C Program (.c) -&gt; sum_store.c</li>
+      <li>C Preprocessor creates: Preprocessed Source -&gt; sum_store.i</li>
+    </ul>
+  </li>
+  <li>Assembly code:
+    <ul>
+      <li>C compiler creates: Assembly program (.s) -&gt; sum_store.s</li>
+    </ul>
+  </li>
+  <li>Machine code:
+    <ul>
+      <li>Linker grates: Object (.o) -&gt; sum_store.o</li>
+    </ul>
+  </li>
+  <li>ISA - Instruction Set Architecture: An agreement establishing how software communicates with CPU.
+    <ul>
+      <li>Loader creates: Executable -&gt; ss</li>
+      <li>Computer executed it
+        <ul>
+          <li>CPU</li>
+          <li>Memory</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Now that we have had a
+look at a few instruction
+set architectures (ISA), i.e.,</p>
+
+<ul>
+  <li>Specification of various
+models (memory model,
+computational model,
+operand model, etc … ),
+and …</li>
+  <li>Design of instruction set (or
+subset) (assembly
+instructions and their
+corresponding machine
+instructions, their formats,
+etc. ) …</li>
+</ul>
+
+<p>… let’s step over this
+interface and explore
+how the microprocessor is
+constructed so it can
+execute these machine
+4 instructions</p>
+
+<h2 id="datapath-of-a-mips-microprocessor">Datapath of a MIPS microprocessor</h2>
+
+<p>Sneak preview (how CPU hardware updates
+the PC in fetch-decode-execute loop):
+0x00400000
+(from our Lecture 25)</p>
+
+<ul>
+  <li>Consider the memory address
+0x00400000 i.e.,
+<code class="language-plaintext highlighter-rouge">0000 0000 0100 0000 0000 0000 0000 0000</code>
+which holds the MIPS machine instruction
+<code class="language-plaintext highlighter-rouge">100011 11101 10001 0000000000000000</code></li>
+  <li>PC contains 0x00400000 i.e.,
+32 line bus with signals 0x00400000 input
+into ADDER with “4” as other input</li>
+  <li>ADDER adds both inputs and produces
+0x00400004 i.e., memory address of
+next machine instruction which holds
+the MIPS machine instruction
+<code class="language-plaintext highlighter-rouge">100011 11101 10010 0000000000000100</code> 32 line bus with signal 0x00400004 input into
+PC overwriting 0x00400000</li>
+</ul>
+
+<p>See <a href="./micro_graph.html">micro_graph.html</a></p>
+
+<p>Source: Page 246 in Patterson and Hennessy</p>
+
+<h2 id="digital-circuits">Digital circuits</h2>
+
+<ul>
+  <li>In order to understand how the microprocessor executes these machine instructions (series of 0’s and 1’s), we need to have a look at the components of a microprocessor and how they function: Types of components found in a digital system such as a microprocessor
+    <ol>
+      <li>Combinational logic -&gt; manipulate bits (compute functions on
+bits e.g., ADD)</li>
+      <li>Memory elements -&gt; store bits</li>
+      <li>Clock signals -&gt; regulate the update of memory elements</li>
+    </ol>
+  </li>
+  <li>And what affects the execution speed of these components
+such as propagation delay</li>
+  <li>So, we need to understand a few things about digital circuits</li>
+</ul>
+
+<h2 id="microprocessor">Microprocessor</h2>
+
+<ul>
+  <li>Made of resistors,
+capacitors, diodes,
+and transistors</li>
+  <li>For example, 10-core Core i7
+Broadwell-E (2016) from Intel
+contains 3,200,000,000 transistors
+Source: <a href="https://en.wikipedia.org/wiki/Transistor_count">https://en.wikipedia.org/wiki/Transistor_count</a></li>
+  <li>Lots of incredibly small components</li>
+</ul>
+
+<p>Source: <a href="https://www.newegg.ca/Product/Product.aspx">https://www.newegg.ca/Product/Product.aspx</a></p>
+
+<p>Source: <a href="https://www.elprocus.com/semiconductor-devices-types-and-applications">https://www.elprocus.com/semiconductor-devices-types-and-applications</a></p>
+
+<h2 id="logic-gates">Logic gates</h2>
+
+<ul>
+  <li>Definition: A logic gate is an
+electronic device that can
+perform a Boolean function
+(AND, NAND, OR, XOR, NOT)</li>
+  <li>On a chip, these can be
+made using transistors,
+resistors, and diodes</li>
+  <li>Here is how a NOT logic gate
+is constructed:</li>
+</ul>
+
+<p>(Transcriber’s note: I’m sorry but I have no fucking idea how to transcribe this diagram.
+It is <em>way</em> too complex to describe with plain text,
+and contains special symbols for electrical components I don’t recognize.)</p>
+
+<p>Source: <a href="http://www.cybermike.net/reference/liec_book/Digital/DIGI_3.html">http://www.cybermike.net/reference/liec_book/Digital/DIGI_3.html</a></p>
+
+<p>from Quora: 2.5 transistors/logic gate ∴ 640 millions [sic] to ~2 billions [sic] logic gate on 1 microprocessor!</p>
+
+<h2 id="behaviour-of-logic-gates">Behaviour of logic gates</h2>
+
+<ul>
+  <li>Here is a diagram representing
+the behaviour of an AND logic…both switches must be closed.
+    <ul>
+      <li>A positive and negative terminal are connected to a lamp. On the positive side, between the terminal and the lamp are two gates in series. They are labeled A and B. They are both open. This means they are not connected to the wire.</li>
+    </ul>
+  </li>
+  <li>Here is a diagram representing
+the behaviour of an OR logic…either (or both) switch must be closed!</li>
+  <li>A positive and negative terminal are connected to a lamp. On the positive side, between the terminal and the lamp are two gates in parallel, where the line splits in two. They are labeled A and B. They are both open. This means they are not connected to the wire.</li>
+</ul>
+
+<p><a href="https://www.electronics-tutorials.ws/boolean/bool_1.html">https://www.electronics-tutorials.ws/boolean/bool_1.html</a></p>
+
+<p><a href="https://www.electronics-tutorials.ws/boolean/bool_2.html">https://www.electronics-tutorials.ws/boolean/bool_2.html</a></p>
+
+<h2 id="abstracting-using-black-boxes">Abstracting using black boxes</h2>
+
+<ul>
+  <li>A black box is used to abstract the function of a device
+    <ul>
+      <li>The input and output of the device are visible/known
+        <ul>
+          <li>The idea is that we need to know these in order to use
+the device</li>
+        </ul>
+      </li>
+      <li>The implementation of the devide (what is inside) is
+invisible/unknown, i.e., hidden
+        <ul>
+          <li>The idea is that we do not need to know how the
+device is implemented in order to use it</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Same thing is true for functions in software!</li>
+</ul>
+
+<h2 id="abstracting-logic-gates">Abstracting logic gates</h2>
+
+<ul>
+  <li>Instead of drawing logic gates using their electronic components,
+we hide these components using a black box -&gt; a symbol
+simplified representing a logic gate</li>
+  <li>Symbols:
+    <ul>
+      <li>AND
+        <ul>
+          <li>Inputs: A, B</li>
+          <li>Outputs: AB</li>
+        </ul>
+      </li>
+      <li>OR
+        <ul>
+          <li>Inputs: A, B</li>
+          <li>Outputs: A+B</li>
+        </ul>
+      </li>
+      <li>XOR
+        <ul>
+          <li>Inputs: A, B</li>
+          <li>Outputs: A⊕B</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Input: a signal i.e., 0 or 1 (abstraction of voltage levels) travels
+along the input wire/line</li>
+  <li>Output: After a time delay (propagation delay tpd), a signal, i.e., 0
+or 1 travels along the output wire/line</li>
+  <li>Always active
+    <ul>
+      <li>As soon as signal (0 or 1) travels along the input wires/lines, the
+logical gate produces a result, i.e., a signal (0 or 1) which then travels
+along the output wire/line</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="abstracting-logic-gates--contd">Abstracting logic gates – cont’d</h2>
+
+<p>(Annotation: Homework: Label input &amp; output line.)</p>
+
+<ul>
+  <li>Symbols:
+    <ul>
+      <li>NAND
+        <ul>
+          <li>Inputs: A, B</li>
+          <li>Outputs: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{AB}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span></li>
+        </ul>
+      </li>
+      <li>NOT (inverter)
+        <ul>
+          <li>Inputs: A</li>
+          <li>Outputs: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>A</mi><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{A}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">A</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span></li>
+        </ul>
+      </li>
+      <li>NOR
+        <ul>
+          <li>Inputs: A, B</li>
+          <li>Outputs: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mrow><mi>A</mi><mo>+</mo><mi>B</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{A+B}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9666600000000001em;vertical-align:-0.08333em;"></span><span class="mord overline"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.08333em;"><span></span></span></span></span></span></span></span></span></li>
+        </ul>
+      </li>
+      <li>BUFFER
+        <ul>
+          <li>Inputs: A</li>
+          <li>Outputs: A</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Purpose of buffer gate: to buffer and/or delay and/or strengthen a signal</p>
+
+<h2 id="propagation-delay-t_textpd">Propagation delay <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mtext>pd</mtext></msub></mrow><annotation encoding="application/x-tex">t_{\text{pd}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9011879999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">pd</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span></h2>
+
+<ul>
+  <li>Definition: Longest time elapsed between the
+application of an input and the occurrence of the
+corresponding output</li>
+  <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mtext>pd</mtext></msub></mrow><annotation encoding="application/x-tex">t_{\text{pd}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9011879999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">pd</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> often expressed in picosecond (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>0</mn><mrow><mo>−</mo><mn>12</mn></mrow></msup></mrow><annotation encoding="application/x-tex">10^{-12}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">12</span></span></span></span></span></span></span></span></span></span></span></span> seconds)
+to nanosecond (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>0</mn><mrow><mo>−</mo><mn>9</mn></mrow></msup></mrow><annotation encoding="application/x-tex">10^{-9}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">9</span></span></span></span></span></span></span></span></span></span></span></span> seconds)</li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>We have now started to explore how the microprocessor
+executes machine instructions (series of 0’s and 1’s)
+    <ul>
+      <li>More specifically, how its datapath can be constructed</li>
+    </ul>
+  </li>
+  <li>Microprocessor itself is …
+    <ul>
+      <li>Made of resistors, capacitors, diodes, and transistors</li>
+      <li>Billions of them, so understanding their behaviours (what they
+do) once they are linked together is too onerous</li>
+      <li>So we resort to abstraction (black box) in order to understand
+their functioning
+        <ul>
+          <li>Logic gates: perform a Boolean function</li>
+        </ul>
+      </li>
+      <li>Hardware components (i.e., logic gates) have propagation
+delay
+        <ul>
+          <li>Signals (0’s and 1’s) take time to propagate through them</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="next-lecture">Next Lecture</h2>
+
+<ul>
+  <li>Instruction Set Architecture (ISA)
+    <ul>
+      <li>Definition of ISA</li>
+    </ul>
+  </li>
+  <li>Instruction Set design
+    <ul>
+      <li>Design principles</li>
+      <li>Look at an example of an instruction set: MIPS</li>
+      <li>Create our own</li>
+      <li>ISA evaluation</li>
+    </ul>
+  </li>
+  <li>(highlighted) Implementation of a microprocessor (CPU) based on an ISA
+    <ul>
+      <li>(highlighted) Execution of machine instructions (datapath)</li>
+      <li>(highlighted) Intro to logic design + Combinational logic + Sequential logic circuit</li>
+      <li>Sequential execution of machine instructions</li>
+      <li>Pipelined execution of machine instructions + Hazards</li>
+    </ul>
+  </li>
+</ul>
+
+
+      <footer>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

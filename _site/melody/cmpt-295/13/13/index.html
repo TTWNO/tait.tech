@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/assets/css/katex.css" id="math-stylesheet">
+  
+  
+
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295">CMPT 295</h1>
+
+<ul>
+  <li>Unit - Machine-Level Programming</li>
+  <li>Lecture 13 – Assembly language – Program Control – cmovX</li>
+  <li>Iterative Statements – Loops</li>
+</ul>
+
+<h2 id="last-lecture">Last Lecture</h2>
+
+<ul>
+  <li>In C, we can change the execution flow of a program
+    <ol>
+      <li>Conditionaly
+        <ul>
+          <li>Conditional statements: if/else, switch</li>
+          <li>Iterative statements: loops</li>
+        </ul>
+      </li>
+      <li>Unconditionally
+        <ul>
+          <li>Functions calls</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>In x86-64 assembly, we can also change the execution flow of a program
+    <ul>
+      <li>cmp* instruction (compare)</li>
+      <li>jX insturction (jump)</li>
+      <li>call and ret instructions</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="todays-menu">Today’s Menu</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX</li>
+  <li>(highlighted) Loops</li>
+  <li>Function call – Stack</li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+<h2 id="homework-int-maxint-x-int-y">Homework: <code class="language-plaintext highlighter-rouge">int max(int x, int y)</code></h2>
+
+<p>In C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int max(int x,int y){
+  int result = x;
+  if(y&gt;x)
+    result=y;
+  return result;
+}
+</code></pre></div></div>
+
+<p>version 1 – with jX instruction</p>
+
+<p>In Assembly: # x in %edi, y in %esi, result in %eax</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>max:
+  movl %edi,%eax #result=x
+  cmpl %edi,%esi #if y&lt;=x then
+  jle endif #return
+  movl %esi,%eax #result=y
+endif:
+  ret
+</code></pre></div></div>
+
+<p>We branch (jump) when the condition (y &gt; x) is false, i.e., when (y &lt;= x)
+-&gt; This technique is called “coding the false condition first”
+or ”taking care of …”</p>
+
+<h2 id="conditional-move-instruction-cmovx">Conditional move instruction cmovX</h2>
+
+<p>What C code looks like when using conditional operator:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>result=test?val2:val1;
+return result;
+</code></pre></div></div>
+
+<p>What logic of assembly
+code looks like when using
+cmovX (expressed in C):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>result=val1;
+if (test) result = val2;
+return result;
+</code></pre></div></div>
+
+<p>Example: <code class="language-plaintext highlighter-rouge">cmovle Src,Dest</code></p>
+
+<p>Alternative: <code class="language-plaintext highlighter-rouge">int abs(int x)</code></p>
+
+<p>In C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int abs(int x){
+  if(x&lt;0)
+    x=-x;
+  return x;
+}
+</code></pre></div></div>
+
+<p>in assembly: # <code class="language-plaintext highlighter-rouge">x</code> in <code class="language-plaintext highlighter-rouge">%edi</code>, <code class="language-plaintext highlighter-rouge">result</code> in <code class="language-plaintext highlighter-rouge">%eax</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>abs:
+  movl %edi,%eax # result = x
+  negl %edi # x = -x
+  cmpl $0,%eax # if x &lt; 0 then
+  cmovl %edi,%eax # result = -x
+  ret
+</code></pre></div></div>
+
+<h2 id="advantage-of-conditional-move-cmovx">Advantage of conditional move cmovX</h2>
+
+<p>Note about branching:</p>
+
+<ul>
+  <li>Branches are very disruptive to instruction flow through
+microprocessor CPU pipelines</li>
+  <li>However, since conditional moves (cmovX) do not
+require control transfer (no branching/jumping required),
+they are less disruptive</li>
+  <li>So, <code class="language-plaintext highlighter-rouge">gcc</code> tries to use them, but only when safe</li>
+</ul>
+
+<h2 id="what-do-we-mean-by-safe">What do we mean by “safe”?</h2>
+
+<ul>
+  <li>In <code class="language-plaintext highlighter-rouge">result = test ? aVal : anotherVal;</code> both values
+(<code class="language-plaintext highlighter-rouge">aVal</code> and <code class="language-plaintext highlighter-rouge">anotherVal</code>) are computed so their
+computation must be “safe”</li>
+  <li>Example of unsafe computations:
+    <ol>
+      <li>Expensive computations <code class="language-plaintext highlighter-rouge">val = Test(x) ? Hard1(x) : Hard2(x);</code>
+        <ul>
+          <li>Only makes sense when computations are very simple</li>
+        </ul>
+      </li>
+      <li>Risky computations <code class="language-plaintext highlighter-rouge">val = p ? *p : 0;</code>
+        <ul>
+          <li>Only makes sense when computations do not crash the application</li>
+        </ul>
+      </li>
+      <li>Computations with side effects <code class="language-plaintext highlighter-rouge">val = x &gt; 0 ? x*=7 : x+=3;</code>
+        <ul>
+          <li>Only makes sense when computations do not have side effects</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="homework-example-alternate-int-maxint-x-int-y">Homework: Example: alternate <code class="language-plaintext highlighter-rouge">int max(int x, int y)</code></h2>
+
+<p>version 2 – with cmovX instruction</p>
+
+<p>In C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int max(int x, int y){
+  int result = x;
+  if(y&gt;x)
+    result = y;
+  return result;
+}
+</code></pre></div></div>
+
+<p>In Assembly: # x in %edi, y in %esi, result in %eax</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>max:
+  movl %edi,%eax #result=x
+  cmpl %edi,%esi #if y&gt;x then
+  cmovg %esi,%eax #result=y
+  ret
+</code></pre></div></div>
+
+<h2 id="while-loop--coding-the-false-condition-first-updated">While loop – “coding the false condition first” (updated)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">int x</code> and <code class="language-plaintext highlighter-rouge">int y</code> are arguments to function</p>
+
+<p>in C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>while(x&lt;y){
+  //stmts
+}
+return;
+</code></pre></div></div>
+
+<p>Steps:</p>
+
+<ol>
+  <li>Analyze the condition: <code class="language-plaintext highlighter-rouge">x&lt;y</code></li>
+  <li>write <code class="language-plaintext highlighter-rouge">cmpl %esi,%edi</code></li>
+  <li>List all outcomes:
+    <ul>
+      <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mtext>  </mtext><mo>⟹</mo><mtext>  </mtext><mi>x</mi><mo>&gt;</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x-y &gt; 0 \implies x&gt;y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.7335400000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66844em;vertical-align:-0.024em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>: exits loop</li>
+      <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>y</mi><mo>&lt;</mo><mn>0</mn><mtext>  </mtext><mo>⟹</mo><mtext>  </mtext><mi>x</mi><mo>&lt;</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x-y &lt; 0 \implies x&lt; y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.7335400000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66844em;vertical-align:-0.024em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>: loops</li>
+      <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>y</mi><mo>=</mo><mn>0</mn><mtext>  </mtext><mo>⟹</mo><mtext>  </mtext><mi>x</mi><mo>=</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x-y = 0 \implies x=y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66844em;vertical-align:-0.024em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>: exits loop</li>
+    </ul>
+  </li>
+  <li>Which outcomes “exit loop”?</li>
+  <li>Write for false condition i.e. g &amp; e (<code class="language-plaintext highlighter-rouge">jge</code>)</li>
+</ol>
+
+<p>in assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>loop: # x in %edi, y in %esi
+  cmpl %esi,%edi # cmpl y,x
+  jge endloop
+  #stmts in loop
+  jmp loop
+endloop:
+  ret
+</code></pre></div></div>
+
+<p>Loop Pattern 1</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>loop:
+  if cond false
+    goto done:
+  stmts
+  goto loop:
+done:
+</code></pre></div></div>
+
+<h2 id="while-loop--jump-to-middle-updated">While loop – “jump-to-middle” (updated)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">int x</code> and <code class="language-plaintext highlighter-rouge">int y</code> are arguments to function</p>
+
+<p>in C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>while(x&lt;y){ //step 1
+  //stmts
+}
+return;
+</code></pre></div></div>
+
+<p>Steps:</p>
+
+<ol>
+  <li>(shown in C code)</li>
+  <li>(shwon in assembly)</li>
+  <li>All possible values
+    <ul>
+      <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>y</mi><mo>&gt;</mo><mn>0</mn><mtext>  </mtext><mo>⟹</mo><mtext>  </mtext><mi>x</mi><mo>&gt;</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x-y &gt;0 \implies x&gt;y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.7335400000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66844em;vertical-align:-0.024em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>: exits loop, g</li>
+      <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>y</mi><mo>&lt;</mo><mn>0</mn><mtext>  </mtext><mo>⟹</mo><mtext>  </mtext><mi>x</mi><mo>&lt;</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x-y &lt; 0 \implies x&lt; y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.7335400000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66844em;vertical-align:-0.024em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>: loops, l</li>
+      <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>y</mi><mo>=</mo><mn>0</mn><mtext>  </mtext><mo>⟹</mo><mtext>  </mtext><mi>x</mi><mo>=</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x-y = 0 \implies x=y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66844em;vertical-align:-0.024em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>: exits loops, e</li>
+    </ul>
+  </li>
+  <li>Consider outcome ???(can’t read) “loops”</li>
+</ol>
+
+<p>in assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  jmp test
+loop:
+  # stmts
+test:
+  cmpl %esi,%edi #cmpl y,x (step 2)
+  jl loop (step 5)
+  ret
+</code></pre></div></div>
+
+<p>Loop Pattern 2</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  goto test:
+loop:
+  # stmts
+test:
+  if cond true
+    goto loop:
+done:
+</code></pre></div></div>
+
+<h2 id="do-while-loop--jump-to-middle-updated">Do While loop – “jump-to-middle” (updated)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">int x</code> and <code class="language-plaintext highlighter-rouge">int y</code> are arguments to function</p>
+
+<p>in C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>do{
+  stmts
+} while(x&lt;y);
+return;
+</code></pre></div></div>
+
+<p>in assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>loop:
+  #stmts
+test:
+  jmpl %esi,%edi
+  jl loop
+  ret
+</code></pre></div></div>
+
+<p>Loop Pattern 2:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(deleted) goto test:
+loop:
+  stmts
+test:
+  if cond true
+    goto loop:
+done:
+</code></pre></div></div>
+
+<h2 id="for-loop-updated">For loop (updated)</h2>
+
+<p>In C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//format: for(initialization; condition testing; increment)
+for(int i=0;i&lt;n;++i){
+  //stmts
+}
+return;
+</code></pre></div></div>
+
+<p>Becomes:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>i=0; // initialization
+while(i&lt;n){// condition testing
+  //stmts
+  i++; //increment
+}
+return;
+</code></pre></div></div>
+
+<p>Questions:</p>
+
+<ol>
+  <li>Here are we coding the false condition first?</li>
+  <li>Which loop patterns are we using?</li>
+</ol>
+
+<p>Which becomes, in Assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  xorl %ecx, %ecx # initialization
+loop:             # %ecx (i) &lt;- 0
+  cmpl %edi, %ecx # while i &lt; n true (testing)
+  jge endloop     # jump when i&gt;=n (false condition); In this situation "je" would also work. Do you see why?
+  #stmts
+  incl %ecx       # i++ increment
+  jmp loop        # loop again
+endloop:
+  ret
+</code></pre></div></div>
+
+<h2 id="summary">Summary</h2>
+
+<p>Compiler can produce different instruction combinations when assembling the same C code.</p>
+
+<p><code class="language-plaintext highlighter-rouge">cmp*</code> and <code class="language-plaintext highlighter-rouge">test*</code> instructions set condition codes</p>
+
+<ul>
+  <li>In x86-64 assembly, there are no conditional statements, however,
+we can alter the execution flow of a program by using …
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">cmp*</code> instruction (compare)</li>
+      <li><code class="language-plaintext highlighter-rouge">jX</code> instructions (jump)</li>
+      <li><code class="language-plaintext highlighter-rouge">call</code> and ret instructions</li>
+      <li><code class="language-plaintext highlighter-rouge">cmovX</code> instructions -&gt; conditional move</li>
+    </ul>
+  </li>
+  <li>In x86-64 assembly, there are no iterative statements, however, we
+can alter the execution flow of a program by using …
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">cmp*</code> instruction</li>
+      <li><code class="language-plaintext highlighter-rouge">jX</code> instructions (jump)</li>
+    </ul>
+  </li>
+  <li>CPU uses these condition codes to decide whether a …
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">jX</code> instruction (conditional jump) is to be exectued or a</li>
+      <li><code class="language-plaintext highlighter-rouge">cmovX</code> instruction (conditional move) is to be exectued</li>
+    </ul>
+  </li>
+  <li>2 loop patterns:
+    <ul>
+      <li>“coding the false condition first” -&gt; <code class="language-plaintext highlighter-rouge">while</code> loops (hence <code class="language-plaintext highlighter-rouge">for</code> loops)</li>
+      <li>“jump-in-middle” -&gt; <code class="language-plaintext highlighter-rouge">while</code>, <code class="language-plaintext highlighter-rouge">do-while</code> (hence for loops)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="next-lecture">Next Lecture</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX</li>
+  <li>Loops</li>
+  <li>(highlighted) Function call – Stack
+    <ul>
+      <li>(highlighted) Overview of Function Call</li>
+      <li>(highlighted) Memory Layout and Stack - x86-64 instructions and registers</li>
+      <li>(highlighted) Passing control</li>
+      <li>Passing data – Calling Conventions</li>
+      <li>Managing local data</li>
+    </ul>
+  </li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+      <footer>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

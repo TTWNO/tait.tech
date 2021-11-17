@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/assets/css/katex.css" id="math-stylesheet">
+  
+  
+
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="recursion-on-trees">Recursion on Trees</h1>
+
+<p>CMPT 225</p>
+
+<h2 id="recursion">Recursion</h2>
+
+<p>Recursion: A definition of a function is recursive if the body cointains an application of itself.</p>
+
+<p>Consider: <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mi>n</mi></munderover><mi>i</mi></mrow><annotation encoding="application/x-tex">
+S(n)=\sum_{i=0}^{n} i
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.929066em;vertical-align:-1.277669em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6513970000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span></span></span></span></span></p>
+
+<p>or</p>
+
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.3599999999999999em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>if </mtext><mi>n</mi><mo>=</mo><mn>0</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>n</mi><mo>+</mo><mi>S</mi><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>if </mtext><mi>n</mi><mo>&gt;</mo><mn>0</mn></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">
+S(n) = \begin{cases}
+0 &amp; \text{if } n=0\\
+n+S(n-1) &amp; \text{if } n&gt;0
+\end{cases}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.0000299999999998em;vertical-align:-1.25003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">{</span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">if </span></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">if </span></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+
+<p>These two descriptions of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">S(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> suggest two implementations:</p>
+
+<p>e.g.:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>S(n){
+  s=0
+  for i=1..n
+    s=s+i
+  return s
+}
+</code></pre></div></div>
+
+<p>or</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>S(n){
+  if n=0
+    return 0
+  else
+    return n+S(n-1)
+}
+</code></pre></div></div>
+
+<h2 id="recursive-version">Recursive Version</h2>
+
+<ul>
+  <li>-&gt; S(4)
+    <ul>
+      <li>-&gt; S(3)
+        <ul>
+          <li>-&gt; S(2)
+            <ul>
+              <li>-&gt; S(1)
+                <ul>
+                  <li>-&gt; S(0)</li>
+                  <li><span id="inner0">returns 0</span></li>
+                </ul>
+              </li>
+              <li>returns <span id="inner1">1+<a href="#inner0">0</a></span></li>
+            </ul>
+          </li>
+          <li>returns <span id="inner2">2+<a href="#inner1">1</a>=3</span></li>
+        </ul>
+      </li>
+      <li>returns <span id="inner3">3+<a href="#inner2">3</a>=6</span></li>
+    </ul>
+  </li>
+  <li>returns 4+<a href="#inner3">6</a>=10</li>
+</ul>
+
+<p>Iterative version:</p>
+
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mn>0</mn><mo>+</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mi>i</mi><mo>=</mo><mn>1</mn><mo>+</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>2</mn></mrow><mi>n</mi></munderover><mi>i</mi><mo>=</mo><mn>3</mn><mo>+</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>3</mn></mrow><mi>n</mi></munderover><mi>i</mi><mo>=</mo><mo>…</mo><mspace linebreak="newline"></mspace><mo>=</mo><mn>0</mn><mo>+</mo><mn>1</mn><mo>+</mo><mn>2</mn><mo>+</mo><mn>3</mn><mo>+</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">
+S = 0 + \sum_{i=1}^{n} i = 1 + \sum_{i=2}^{n} i = 3 + \sum_{i=3}^{n} i = \dots\\
+= 0+1+2+3+4
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.929066em;vertical-align:-1.277669em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6513970000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.929066em;vertical-align:-1.277669em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6513970000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">2</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.929066em;vertical-align:-1.277669em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6513970000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">3</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.12em;vertical-align:0em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span></span></p>
+
+<p>The <em>same computation</em>, but a different control strategy.</p>
+
+<h2 id="recursion--the-call-stack">Recursion &amp; The Call Stack</h2>
+
+<p>Code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>S(n){
+  if(n=0){
+    r=0
+  }else{
+    r=n+S(n-1)
+  }
+  return r
+}
+</code></pre></div></div>
+
+<p>Compute <code class="language-plaintext highlighter-rouge">p=S(2)</code>:</p>
+
+<ul>
+  <li>Call S(2):
+    <ul>
+      <li>n = 2</li>
+      <li>r = ? -&gt;
+        <ul>
+          <li>Call S(1):
+            <ul>
+              <li>n=1</li>
+              <li>r=? -&gt;
+                <ul>
+                  <li>Call S(0):
+                    <ul>
+                      <li>N=0</li>
+                      <li>r=0</li>
+                      <li><span id="innerstack1">return 0</span></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><span id="innerstack2">return 1+<a href="#innerstack1">S(0)</a></span></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>return 2+<a href="#innerstack2">S(1)</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>The call stack at the end:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Name</td>
+      <td>Value</td>
+      <td>Removed</td>
+    </tr>
+    <tr>
+      <td>S</td>
+      <td>&lt;code of S; n=0, r=0&gt;</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>S</td>
+      <td>&lt;code of S; n=1, r=1&gt;</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>S</td>
+      <td>&lt;code of S; n=2, r=3&gt;</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>p</td>
+      <td>3</td>
+      <td>false</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>After the call the <code class="language-plaintext highlighter-rouge">S(2)</code> is complete, the entire call stack of S to S to S is gone.</p>
+
+<p>There are 2 more slides containing <em>slightly</em> different versions of the same diagrams.
+They do not provide any extra information.</p>
+
+<h2 id="recursion-on-trees-1">Recursion on Trees</h2>
+
+<ul>
+  <li>We will often use recursion &amp; induction on trees.
+    <ul>
+      <li>e.g. the tree rooted a v has some property if its subtrees have some related property</li>
+    </ul>
+  </li>
+  <li>e.g. the height of node v in a binary tree may be defined by:</li>
+</ul>
+
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.3599999999999999em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext> if v is a leaf</mtext></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mn>1</mn><mo>+</mo><mtext>max</mtext><mo stretchy="false">{</mo><mi>h</mi><mo stretchy="false">(</mo><mtext>left</mtext><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>h</mi><mo stretchy="false">(</mo><mtext>right</mtext><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo stretchy="false">}</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext> otherwise</mtext></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">
+h(v) = \begin{cases}
+0 &amp; \text{ if v is a leaf}\\
+1 + \text{max}\{h(\text{left}(v)), h(\text{right}(v))\} &amp; \text{ otherwise}
+\end{cases}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.0000299999999998em;vertical-align:-1.25003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">{</span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord text"><span class="mord">max</span></span><span class="mopen">{</span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord text"><span class="mord">left</span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord text"><span class="mord">right</span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">}</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord"> if v is a leaf</span></span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord"> otherwise</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+
+<p>(We can define h(left(v)) to be -1 if left(v) does not exist, and sim. for right(v)).</p>
+
+<h2 id="recurssion-a-trees-examples">Recurssion a Trees Examples</h2>
+
+<p>height of node v in T:</p>
+
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.3599999999999999em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext> if v is a leaf</mtext></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mn>1</mn><mo>+</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo stretchy="false">{</mo><mi>h</mi><mo stretchy="false">(</mo><mtext>left</mtext><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>h</mi><mo stretchy="false">(</mo><mtext>right</mtext><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo stretchy="false">}</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext> ow</mtext></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">
+h(v) = \begin{cases}
+0 &amp; \text{ if v is a leaf}\\
+1+ max\{h(\text{left}(v)),h(\text{right}(v))\} &amp; \text{ ow}
+\end{cases}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.0000299999999998em;vertical-align:-1.25003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">{</span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">{</span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord text"><span class="mord">left</span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord text"><span class="mord">right</span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">}</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord"> if v is a leaf</span></span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord"> ow</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+
+<p>for the follwing tree: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">?</mo></mrow><annotation encoding="application/x-tex">h(v)=?</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mclose">?</span></span></span></span></p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   v
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     a
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       e
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         g
+        </span>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         h
+        </span>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       f
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         i
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     b
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       c
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       d
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<h2 id="recursion-on-trees-example-pt-2">Recursion on Trees Example (pt 2)</h2>
+
+<p>(See math equation of previous slide)</p>
+
+<p>h(v) = 3</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   v (3)
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     a (2)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       e (1)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         g (0)
+        </span>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         h (0)
+        </span>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       f (1)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         i (0)
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     b (1)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       c (0)
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       d (0)
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<h2 id="pseudo-code-version">Pseudo-code version:</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>height(v){
+  if v is a leaf
+    return 0
+  if v has one child u
+    return 1+height(u)
+  else
+    return 1+max(height(left(v)), height(right(v)))
+}
+</code></pre></div></div>
+
+<h2 id="traversals-of-binary-tree">Traversals of Binary Tree</h2>
+
+<ul>
+  <li>A traversal of a graph is a process that “visits” each node in the graph once.</li>
+  <li>We consider 4 standard tree traversalt:
+    <ol>
+      <li>level order</li>
+      <li>pre-order</li>
+      <li>in-order</li>
+      <li>post-order</li>
+    </ol>
+  </li>
+  <li>2,3,4 begin at the root &amp; recursively visit the nodes in each subtree &amp; the root. They vary in the relative ???(can’t read).</li>
+</ul>
+
+<p>(Level order later)</p>
+
+<p>Code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pre-order-T(v){
+  visit v
+  pre-order-T(left(v))
+  pre-order-T(right(v))
+}
+</code></pre></div></div>
+
+<p>pre-order-T(v) does nothing if v does not exist.</p>
+
+<ul>
+  <li>v is visited before any of its decendants</li>
+  <li>every node in the left subtree is visited before any node in the right subtree.</li>
+</ul>
+
+<p>Tree to come back to:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   A
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     B
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       D
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       E
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     C
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       F
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Pre-order-traversal: A,B,D,E,C,F</p>
+
+<h2 id="in-order-t">in-order-T</h2>
+
+<p>code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>in-order-T(v){
+  in-order-T(left(v))
+  visit v
+  in-order-T(right(v))
+}
+</code></pre></div></div>
+
+<p>In order traversal: D,B,E,A,C,F</p>
+
+<h2 id="post-order-t">post-order-T</h2>
+
+<p>code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>post-order-T(v){
+  post-order-T(left(v))
+  post-order-T(right(v))
+  visit v
+}
+</code></pre></div></div>
+
+<p>Post order traversal: D,E,B,F,C,A</p>
+
+<h2 id="end">End</h2>
+
+<p>…some repeated slides… unknown reason</p>
+
+      <footer>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

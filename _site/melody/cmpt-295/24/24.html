@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/assets/css/katex.css" id="math-stylesheet">
+  
+  
+
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295---unit---instruction-set-architecture">CMPT 295 - Unit - Instruction Set Architecture</h1>
+
+<p>I do not like computer jokes…not one bit!</p>
+
+<p>Lecture 24:</p>
+
+<ul>
+  <li>MIPS</li>
+</ul>
+
+<h2 id="last-lecture">Last Lecture</h2>
+
+<ul>
+  <li>Assembler (part of the compilation process):
+    <ul>
+      <li>Transforms assembly code (<code class="language-plaintext highlighter-rouge">movl %edi,%eax</code>) into machine code
+(<code class="language-plaintext highlighter-rouge">0xf889 -&gt; 1111100010001001</code>)</li>
+    </ul>
+  </li>
+  <li>Instruction Set Architecture (ISA)
+A formal specification (or agreement) of:
+    <ul>
+      <li>Registers and memory model, set of instructions (assembly-machine)</li>
+      <li>Conventions, model of computation</li>
+      <li>etc…</li>
+    </ul>
+  </li>
+  <li>Design principles when creating instruction set (IS)
+    <ol>
+      <li>Each instruction must have an unambiguous encoding</li>
+      <li>Functionally complete (Turing complete)</li>
+      <li>Machine instruction format: 1) as few of them as possible 2) of the
+same length 3) fields that have the same purpose positioned in the
+same location in the format</li>
+    </ol>
+  </li>
+  <li>Types of instruction sets: CISC and RISC</li>
+</ul>
+
+<h2 id="todays-menu">Today’s Menu</h2>
+
+<ul>
+  <li>Instruction Set Architecture (ISA)
+    <ul>
+      <li>Definition of ISA</li>
+    </ul>
+  </li>
+  <li>Instruction Set design
+    <ul>
+      <li>Design guidelines</li>
+      <li>(highlighted) Example of an instruction set: MIPS</li>
+      <li>Create our own instruction sets</li>
+      <li>ISA evaluation</li>
+    </ul>
+  </li>
+  <li>Implementation of a microprocessor (CPU) based on an ISA
+    <ul>
+      <li>Execution of machine instructions (datapath)</li>
+      <li>Intro to logic design + Combinational logic + Sequential logic circuit</li>
+      <li>Sequential execution of machine instructions</li>
+      <li>Pipelined execution of machine instructions + Hazards</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="example-of-another-isa-mips">Example of another ISA: MIPS</h2>
+
+<p>(Transcriber’s note: rest of slide is blank)</p>
+
+<h2 id="example-of-an-isa-mips">Example of an ISA: MIPS</h2>
+
+<ul>
+  <li>Registers and Memory model
+    <ul>
+      <li>
+        <h1 id="of-registers---32-registers-each-register-is-32-bit-wide-see-figure-on-next-slide">of registers -&gt; 32 registers (each register is 32 bit wide) See Figure on next Slide</h1>
+      </li>
+      <li>Word size -&gt; 32 bits</li>
+      <li>Memory size -&gt; 2m x n</li>
+      <li>Byte-addressable memory
+so address resolution -&gt;</li>
+      <li>Size of memory address (# of bits) -&gt;</li>
+    </ul>
+  </li>
+  <li>So, there are _______ distinct addressable memory “chunks”
+(or “locations”) and each of these addressable memory
+“chunks” (or “locations”) has _____ bits See Figure on next next Slide</li>
+</ul>
+
+<h3 id="figure-a61-mips-registers-and-usage-conventions">FIGURE A.6.1 MIPS registers and usage conventions.</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register name</th>
+      <th>Number</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$zero</code></td>
+      <td>0</td>
+      <td>constant 0</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$at</code></td>
+      <td>1</td>
+      <td>reserved for assembler</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$v0</code></td>
+      <td>2</td>
+      <td>expression evaluation and results of a function</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$v1</code></td>
+      <td>3</td>
+      <td>expression evaluation and results of a function</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$a0</code></td>
+      <td>4</td>
+      <td>argument 1</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$a1</code></td>
+      <td>5</td>
+      <td>argument 2</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$a2</code></td>
+      <td>6</td>
+      <td>argument 3</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$a3</code></td>
+      <td>7</td>
+      <td>argument 4</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t0</code></td>
+      <td>8</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t1</code></td>
+      <td>9</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t2</code></td>
+      <td>10</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t3</code></td>
+      <td>11</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t5</code></td>
+      <td>12</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t6</code></td>
+      <td>13</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t7</code></td>
+      <td>14</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s0</code></td>
+      <td>15</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s1</code></td>
+      <td>16</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s2</code></td>
+      <td>17</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s3</code></td>
+      <td>18</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s4</code></td>
+      <td>19</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s5</code></td>
+      <td>20</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s6</code></td>
+      <td>21</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s7</code></td>
+      <td>22</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t8</code></td>
+      <td>24</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t9</code></td>
+      <td>25</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$k0</code></td>
+      <td>26</td>
+      <td>reserved for OS kernel</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$k1</code></td>
+      <td>27</td>
+      <td>reserved for OS kernel</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$gp</code></td>
+      <td>28</td>
+      <td>pointer to global area</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$sp</code></td>
+      <td>29</td>
+      <td>stack pointer</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$fp</code></td>
+      <td>30</td>
+      <td>frame pointer</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$ra</code></td>
+      <td>31</td>
+      <td>return address (used by function call)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Source: Page A-24 in Patterson and Hennessy</p>
+
+<h2 id="mips-memory-model">MIPS Memory Model</h2>
+
+<h3 id="figure-213--the-mips-memory-allocation-for-program-and-data">FIGURE 2.13 – The MIPS memory allocation for program and data</h3>
+
+<p>These addresses are only a software convention,
+and not part of the MIPS architecture.
+The stack pointer is initialized to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>7fff fffc</mtext><mtext>hex</mtext></msub></mrow><annotation encoding="application/x-tex">\text{7fff fffc}_{\text{hex}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">7fff fffc</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">hex</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and grows down toward the segment.<!--_-->
+At the other end, the program code (“text”) starts at <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>0040 0000</mtext><mtext>hex</mtext></msub></mrow><annotation encoding="application/x-tex">\text{0040 0000}_{\text{hex}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">0040 0000</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">hex</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>. <!--_-->
+The static data starts at <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>1000 0000</mtext><mtext>hex</mtext></msub></mrow><annotation encoding="application/x-tex">\text{1000 0000}_{\text{hex}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">1000 0000</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">hex</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>. <!--_-->
+Dynamic data, allocated by <code class="language-plaintext highlighter-rouge">malloc</code> in C and by <code class="language-plaintext highlighter-rouge">new</code> in Java, is next.
+It grows up toward the stack and in an area called the heap.
+The global pointer: <code class="language-plaintext highlighter-rouge">$gp</code>, is set to an address to make it easy to access data.
+It is initialized to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>1000 8000</mtext><mtext>hex</mtext></msub></mrow><annotation encoding="application/x-tex">\text{1000 8000}_{\text{hex}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">1000 8000</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">hex</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><!--_-->
+so it can access from <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>1000 000</mtext><mtext>hex</mtext></msub></mrow><annotation encoding="application/x-tex">\text{1000 000}_{\text{hex}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">1000 000</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">hex</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>1000 ffff</mtext><mtext>hex</mtext></msub></mrow><annotation encoding="application/x-tex">\text{1000 ffff}_{\text{hex}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">1000 ffff</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">hex</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> using the positive and negative 16-bit offsets from <code class="language-plaintext highlighter-rouge">$gp</code>.
+The information is also found in Column 4 of the MIPS Reference Data Card at the front of the book.</p>
+
+<p>Source: Page 104 in Patterson and Hennessy</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Register/Address</td>
+      <td>Label</td>
+    </tr>
+    <tr>
+      <td>(top) <code class="language-plaintext highlighter-rouge">$sp</code> -&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>7fff ffff</mtext><mtext>hex</mtext></msub></mrow><annotation encoding="application/x-tex">\text{7fff ffff}_{\text{hex}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">7fff ffff</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">hex</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+      <td>Stack (arrow pointing down)</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>Dynamic data (arrow pointing up)</td>
+    </tr>
+    <tr>
+      <td>(between Static Data and Text) <code class="language-plaintext highlighter-rouge">$gp</code> -&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>1000 8000</mtext><mtext>hex</mtext></msub></mrow><annotation encoding="application/x-tex">\text{1000 8000}_{\text{hex}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">1000 8000</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">hex</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>1000 0000</mtext><mtext>hex</mtext></msub></mrow><annotation encoding="application/x-tex">\text{1000 0000}_{\text{hex}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">1000 0000</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">hex</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+      <td>Static Data</td>
+    </tr>
+    <tr>
+      <td>(bottom) <code class="language-plaintext highlighter-rouge">$pc</code> -&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>0040 0000</mtext><mtext>hex</mtext></msub></mrow><annotation encoding="application/x-tex">\text{0040 0000}_{\text{hex}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">0040 0000</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">hex</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+      <td>Text</td>
+    </tr>
+    <tr>
+      <td>(bottom) 0</td>
+      <td>Reserved</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="example-of-an-isa-mips-1">Example of an ISA: MIPS</h2>
+
+<ul>
+  <li>Instruction set
+    <ul>
+      <li>MIPS assembly language notation
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">add a, b, c</code>, Meaning: a = b+c</li>
+        </ul>
+      </li>
+      <li>3 operand assembly language
+        <ul>
+          <li>Requiring all instructions to have 3 operands would
+keep the design of the microprocessor hardware
+simple</li>
+          <li>Hardware for a variable number of operands is
+more complicated</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="activity">Activity</h2>
+
+<ul>
+  <li>
+    <p>If we want to write an assembly program that sums
+four variables b, c , d and e, how many MIPS add
+instructions would we need?</p>
+  </li>
+  <li>
+    <p>Solution:</p>
+  </li>
+</ul>
+
+<h2 id="example-of-an-isa-mips-2">Example of an ISA: MIPS</h2>
+
+<p>(Sub)set of instructions:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>MIPS assembly language instructions</th>
+      <th>Semantic (i.e., Meaning)</th>
+      <th>Corresponding MIPS machine instructions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">lw $s1, 20($s2)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">$s1 = M[$s2 + 20]</code></td>
+      <td>?</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sw $s1, 20($s2)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">M[$s2 + 20] = $s1</code></td>
+      <td>?</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">add $s1, $s2, $s3</code></td>
+      <td><code class="language-plaintext highlighter-rouge">$s1 = $s2 + $s3</code></td>
+      <td>?</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sub $s1, $s2, $s3</code></td>
+      <td><code class="language-plaintext highlighter-rouge">$s1 = $s2 - $s3</code></td>
+      <td>?</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">beq $s1, $s2, 25</code></td>
+      <td><code class="language-plaintext highlighter-rouge">if ($s1 == $s2) go to PC + 4 + 100</code></td>
+      <td>?</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">j 2500</code></td>
+      <td><code class="language-plaintext highlighter-rouge">go to 10000 (2500 * 4 bytes)</code></td>
+      <td>?</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jal 2500</code></td>
+      <td><code class="language-plaintext highlighter-rouge">$ra = PC + 4; go to 10000</code></td>
+      <td>?</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>Memory addressing modes -&gt; Direct (absolute),
+base + displacement and Indirect</li>
+  <li>Operand model -&gt;</li>
+  <li>Format/syntax of corresponding MIPS machine instructions?
+    <ul>
+      <li>Length of machine instruction -&gt; 32 bits (4 bytes)</li>
+      <li>Size of opcode? Size of other fields? Order of operands?</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Format/syntax of these bit patterns are all the question marks.</p>
+
+<h2 id="a-closer-look-at-mips-add-instruction">A closer look at MIPS’ add instruction</h2>
+
+<ul>
+  <li>MIPS assembly language instruction:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">add $s0, $al, $t7</code></li>
+    </ul>
+  </li>
+  <li>Corresponding MIPS machine instruction:
+    <ul>
+      <li>0x00af8020</li>
+      <li>Binary: 0000 0000 1010 1111 1000 0000 0010 0000</li>
+      <li>
+        <table>
+          <thead>
+            <tr>
+              <th>Breakdown: Label</th>
+              <th>Binary</th>
+              <th>Meaning</th>
+              <th>Bits</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>opcode</td>
+              <td>000000</td>
+              <td>operation of the instruction</td>
+              <td>6 bits</td>
+            </tr>
+            <tr>
+              <td>rs</td>
+              <td>00101</td>
+              <td>first register source operand</td>
+              <td>5 bits</td>
+            </tr>
+            <tr>
+              <td>rt</td>
+              <td>01111</td>
+              <td>second register source operand</td>
+              <td>5 bits</td>
+            </tr>
+            <tr>
+              <td>rd</td>
+              <td>10000</td>
+              <td>register destination operand (contains result of operation)</td>
+              <td>5 bits</td>
+            </tr>
+            <tr>
+              <td>shamt</td>
+              <td>00000</td>
+              <td>shift amount</td>
+              <td>5 bits</td>
+            </tr>
+            <tr>
+              <td>func</td>
+              <td>100000</td>
+              <td>function – often called function code, which indicates the specific variant of the operation in the <code class="language-plaintext highlighter-rouge">opcode</code> field</td>
+              <td>6 bits</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Total: 32 bits</p>
+
+<h2 id="lets-examine-an-isa-mips-3-of-3">Let’s examine an ISA: MIPS (3 of 3)</h2>
+
+<ul>
+  <li>Function call conventions
+    <ul>
+      <li>caller saved registers (4-15, 24, 25)</li>
+      <li>callee saved registers (16-23, 30, 31)</li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register name</th>
+      <th>Number</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$zero</code></td>
+      <td>0</td>
+      <td>constant 0</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$at</code></td>
+      <td>1</td>
+      <td>reserved for assembler</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$v0</code></td>
+      <td>2</td>
+      <td>expression evaluation and results of a function</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$v1</code></td>
+      <td>3</td>
+      <td>expression evaluation and results of a function</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$a0</code></td>
+      <td>4</td>
+      <td>argument 1</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$a1</code></td>
+      <td>5</td>
+      <td>argument 2</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$a2</code></td>
+      <td>6</td>
+      <td>argument 3</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$a3</code></td>
+      <td>7</td>
+      <td>argument 4</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t0</code></td>
+      <td>8</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t1</code></td>
+      <td>9</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t2</code></td>
+      <td>10</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t3</code></td>
+      <td>11</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t5</code></td>
+      <td>12</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t6</code></td>
+      <td>13</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t7</code></td>
+      <td>14</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s0</code></td>
+      <td>15</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s1</code></td>
+      <td>16</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s2</code></td>
+      <td>17</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s3</code></td>
+      <td>18</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s4</code></td>
+      <td>19</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s5</code></td>
+      <td>20</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s6</code></td>
+      <td>21</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s7</code></td>
+      <td>22</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t8</code></td>
+      <td>24</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t9</code></td>
+      <td>25</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$k0</code></td>
+      <td>26</td>
+      <td>reserved for OS kernel</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$k1</code></td>
+      <td>27</td>
+      <td>reserved for OS kernel</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$gp</code></td>
+      <td>28</td>
+      <td>pointer to global area</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$sp</code></td>
+      <td>29</td>
+      <td>stack pointer</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$fp</code></td>
+      <td>30</td>
+      <td>frame pointer</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$ra</code></td>
+      <td>31</td>
+      <td>return address (used by function call)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="mips---design-guidelines">MIPS - Design guidelines</h2>
+
+<ul>
+  <li>opcode</li>
+  <li>rs</li>
+  <li>rt</li>
+  <li>rd</li>
+  <li>shamt</li>
+  <li>func</li>
+</ul>
+
+<p>3) In terms of machine instruction format:
+    1. Create as few of them as possible
+    2. Have them all of the same length and same format!
+    3. If we have in different machine instruction formats, then position the
+fields that have the same purpose in the same location in the format</p>
+<ul>
+  <li>Can all MIPS machine instructions have the same length and same
+format?
+    <ul>
+      <li>For example: <code class="language-plaintext highlighter-rouge">lw $s1, 20($s2)</code></li>
+      <li>When designing its corresponding machine instruction …
+        <ul>
+          <li>Must specify source register using 5 bits -&gt; OK!</li>
+          <li>Must specify destination register using 5 bits -&gt; OK!</li>
+          <li>Must specify a constant using 5 bits -&gt; Hum…
+            <ul>
+              <li>Value of constant limited to [0..25-1]</li>
+              <li>Often use to access array elements
+so needs to be <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&gt;</mo><msup><mn>2</mn><mn>5</mn></msup><mo>=</mo><mn>32</mn></mrow><annotation encoding="application/x-tex">&gt; 2^{5} = 32</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">32</span></span></span></span></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="mips-isa-designers-compromise">MIPS ISA designers compromise</h2>
+
+<ul>
+  <li>Keep all machine instructions format the same length</li>
+  <li>Consequence -&gt; different formats for different kinds of MIPS
+instructions
+    <ul>
+      <li>R-format for register
+        <ul>
+          <li>
+            <table>
+              <thead>
+                <tr>
+                  <th>Label</th>
+                  <th>Size</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>opcode</td>
+                  <td>6 bits</td>
+                </tr>
+                <tr>
+                  <td>rs</td>
+                  <td>5 bits</td>
+                </tr>
+                <tr>
+                  <td>rt</td>
+                  <td>5 bits</td>
+                </tr>
+                <tr>
+                  <td>shamt</td>
+                  <td>5 bits</td>
+                </tr>
+                <tr>
+                  <td>func</td>
+                  <td>6 bits</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </li>
+      <li>I-format for immediate
+        <ul>
+          <li>
+            <table>
+              <thead>
+                <tr>
+                  <th>Label</th>
+                  <th>Size</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>opcode</td>
+                  <td>6 bits</td>
+                </tr>
+                <tr>
+                  <td>rs</td>
+                  <td>5 bits</td>
+                </tr>
+                <tr>
+                  <td>rt</td>
+                  <td>5 bits</td>
+                </tr>
+                <tr>
+                  <td>Address/immediate</td>
+                  <td>16 bits</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </li>
+      <li>J-format for jump
+        <ul>
+          <li>
+            <table>
+              <thead>
+                <tr>
+                  <th>Label</th>
+                  <th>Size</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>opcode</td>
+                  <td>6 bits</td>
+                </tr>
+                <tr>
+                  <td>Target address</td>
+                  <td>26 bits</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>opcode indicates the format of the instruction
+    <ul>
+      <li>This way, the hardware knows whether to treat the last half of the
+instruction as 3 fields (R-format) or as 1 field (I-format)</li>
+      <li>Also, position of fields with same purpose are in the same location
+in the 3 formats ☺</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>Types of instruction sets: CISC and RISC</li>
+  <li>Looked at an example of a RISC instruction set: MIPS
+    <ul>
+      <li>Registers and Memory model</li>
+      <li>(Sub)set of instructions (assembly + machine instructions)</li>
+      <li>Function call conventions</li>
+      <li>Model of computation</li>
+    </ul>
+  </li>
+  <li>MIPS design principles
+    <ol>
+      <li>Unambiguous binary encoding of instruction</li>
+      <li>(highlighted) IS functionally complete (“Turing complete”)</li>
+      <li>Machine instruction format -&gt; only 3 of same length but of different format!
+    * R-format for register
+    * I-format for immediate
+    * J-format for jump</li>
+    </ol>
+  </li>
+  <li>Also, position of fields with same purpose are in the same location in the 3
+formats ☺</li>
+</ul>
+
+<h2 id="next-lecture">Next lecture</h2>
+
+<ul>
+  <li>Instruction Set Architecture (ISA)
+    <ul>
+      <li>Definition of ISA</li>
+    </ul>
+  </li>
+  <li>Instruction Set design
+    <ul>
+      <li>Design guidelines</li>
+      <li>Example of an instruction set: MIPS</li>
+      <li>(highlighted) Create our own instruction sets</li>
+      <li>(highlighted) ISA evaluation</li>
+    </ul>
+  </li>
+  <li>Implementation of a microprocessor (CPU) based on an ISA
+    <ul>
+      <li>Execution of machine instructions (datapath)</li>
+      <li>Intro to logic design + Combinational logic + Sequential logic circuit</li>
+      <li>Sequential execution of machine instructions</li>
+      <li>Pipelined execution of machine instructions + Hazards</li>
+    </ul>
+  </li>
+</ul>
+
+      <footer>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

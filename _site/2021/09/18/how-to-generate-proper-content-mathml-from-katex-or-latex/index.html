@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>How To Produce Semantically Correct MathML From XaTeX/LaTeX (and other accessibility ideas) | tait.tech</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tait Hoyem">
+    <meta name="keywords" content="">
+    <meta name="description" content=""><link rel="stylesheet" href="/assets/css/katex.css">
+    
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+	<h1>tait.tech</h1>
+
+        <nav>
+	
+	<a href="/" class="nav-link"  >Home</a>
+	
+	<a href="/blog/" class="nav-link"  >Blog</a>
+	
+	<a href="/ideas/" class="nav-link"  >Ideas</a>
+	
+	<a href="/links/" class="nav-link"  >Links</a>
+	
+	<a href="https://github.com/TTWNO/" class="nav-link"   target="_blank" rel="noopener noreferrer" >Github</a>
+	
+</nav>
+
+      </header>
+      <main>
+        <article>
+  <header>
+    <h1 class="post-title">How To Produce Semantically Correct MathML From XaTeX/LaTeX (and other accessibility ideas)</h1>
+    <time datetime="21-09-18" class="post-date">Saturday, September 18 2021</time>
+  </header>
+  <hr>
+
+  <p>During a recent run-in with the Simon Fraser Fraser University accessibility department,
+I learned that they’re writers are so well-trained as to write “image” where a simple diagram is shown,
+and “print out picture of output” where a piece of code lies.
+I figure the geniuses over there could use some help creating files for the visually impaired.
+Here’s a quick guide!</p>
+
+<h2 id="diagrams">Diagrams</h2>
+
+<p>Most unexplained diagrams I saw were ones which mirrored classic computer-science imagery;
+these diagrams, for the most part, were not complex nor exotic;
+they are straight-forward to explain in writing,
+or easy to turn into a table.
+I’ll show two examples here,
+one will show a visual aide in relation to stacks and queues,
+and the other will show a memory representation of a stack.
+Both of these were explained as “image” to the student.</p>
+
+<h2 id="stacks">Stacks</h2>
+
+<p>Diagram 1:</p>
+
+<figure>
+  <img src="/assets/img/access1/stack.png" alt="image...lol! Just kidding, will explain it below w/ table" />
+  <figcaption>Simple diagram explaining the push/pop process. Source: <a href="https://stackoverflow.com/questions/32151392/stacks-queues-and-linked-lists">Stackoverflow</a></figcaption>
+</figure>
+
+<p>Ok, so here we have a diagram showing the pushing and popping process of a stack.
+Now, “image” is hardly sufficient to explain this, so let’s try it with text.
+I won’t finish it because it gets unwieldy very fast:</p>
+
+<blockquote>
+  <p>A diagram showing a stack. It starts with the operation “Push A”, and now the stack contains the variable “A”; now the stack pushes “B”, which displays now “B” on top of “A”…</p>
+</blockquote>
+
+<p>This is no solution.
+It is hard to explain this correctly and accurately without being extremely verbose and frankly, confusing—this defeats the whole purpose of describing the image.
+The good news, is that computer science diagrams especially tend to lean towards being tabular data.
+Now to be clear, something does not need to look like a table to be tabular data;
+this image happens to look almost like a table if you squinted hard enough,
+but many data not written down in a table, are still “tabular data”.
+I will show an example of that next!
+For now though, here is the same idea, same data without words:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Stack Values</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Push A</td>
+      <td>[A]</td>
+    </tr>
+    <tr>
+      <td>Push B</td>
+      <td>[B, A]</td>
+    </tr>
+    <tr>
+      <td>Push C</td>
+      <td>[C, B, A]</td>
+    </tr>
+    <tr>
+      <td>Push D</td>
+      <td>[D, C, B, A]</td>
+    </tr>
+    <tr>
+      <td>Pop D</td>
+      <td>[C, B, A]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Now this diagram does imply you can pop other items, like “Pop A”, which is just not true.
+But that’s the fault of the diagram, not the representation of it.</p>
+
+<p>Here is the raw text equivalent (in Markdown):</p>
+
+<pre>
+Operator|Stack Values
+---|---
+Push A|[A]
+Push B|{B, A]
+Push C|[C, B, A]
+Push D|[D, C, B, A]
+Pop (D)|[C, B, A]
+</pre>
+
+<h2 id="stacks-in-memory">Stacks in Memory</h2>
+
+<p>So I couldn’t find a good non-copyright image of a stack in memory, but I’ll write it down here in plain text, and you should get the idea.
+Now again, remember this is still labeled “image” to the student,
+they do not have access to a text version of this.</p>
+
+<pre>
+( ) ( ( ( ) ) ) ( ) ( ( ) ( ( )
+1 0 1 2 3 2 1 0 1 0 1 2 1 2 3 2
+</pre>
+
+<p>Now, someone who looks at this can probably see that the number goes up for a left parenthesis, and down for a right parenthesis.
+“Image”, however, does not handle the detail.
+The issue here is a transcriber is likely to want to transcribe this as <em>text</em>.
+But it’s really not.
+This is again, tabular data, which is best represented in a table.</p>
+
+<p>Table of this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Character</th>
+      <th>Counter</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>(</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Raw text in markdown:</p>
+
+<pre>
+Character|Counter
+---|---
+(|1
+)|0
+(|1
+(|2
+(|3
+)|2
+)|1
+)|0
+(|1
+)|0
+(|1
+(|2
+)|1
+(|2
+(|3
+)|2
+</pre>
+
+<p>Insanely simple!
+Look for clues of tabular data.
+Things which have a one to one correspondence of any kind can usually be represented as a table, even if it’s only “aligned” on the slide or note.</p>
+
+<h2 id="math-expressions--mathml">Math Expressions &amp; MathML</h2>
+
+<p>Here is a more complex example:
+using math within a presentation.</p>
+
+<p>Let’s take for example the mathematical expression <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn><mo>=</mo><msup><mn>2</mn><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">16 = 2^{4}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">16</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span></span></span></span></span>. This is a very simple math expression that completely breaks in some cases.
+When converting some math expressions to text, it will convert that expression as <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn><mo>=</mo><mn>24</mn></mrow><annotation encoding="application/x-tex">16 = 24</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">16</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">24</span></span></span></span>, erasing the superscript to denote the exponent.</p>
+
+<p>This gets even worse with large mathematical expressions like this:</p>
+
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>B2U</mtext><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>w</mi><mo>−</mo><mn>1</mn></mrow></munderover><msub><mi>x</mi><mi>i</mi></msub><mo>×</mo><msup><mn>2</mn><mi>i</mi></msup></mrow><annotation encoding="application/x-tex">
+\text{B2U}(X) = \sum_{i=0}^{w-1} x_{i} \times 2^{i}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">B2U</span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.0787820000000004em;vertical-align:-1.277669em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8011130000000004em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.300005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02691em;">w</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8746639999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8746639999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+
+<p>Here is what I get by extracting the text from the PDF:</p>
+
+<pre>
+B2U(X ) =
+
+w-1
+
+Σ xi •2
+i=0
+
+i
+</pre>
+
+<p>And this is generous, as the sigma sign, bullet point, equal sign and minus sign were for some reason not UTF-8 encoded so it displayed as a chat sign emoji, down arrow, video camera and book sign respectively.
+Not sure about you, but I certainly can’t get the equation out of that mess.</p>
+
+<p>These can be written in LaTeX, then converted to MathML (an accessible math format) using <a href="https://katex.org">KaTeX</a>.
+Here’s an example of what to write to product the function above:</p>
+
+<pre>
+\text{B2U}(X) = \sum_{i=0}^{w-1} x_{i} \times 2^{i}
+</pre>
+
+<p>For someone who is doing transcription as a <em>job</em> for visually impaired students,
+I would go so far as to say to learn this is a necessity.</p>
+
+<ol>
+  <li>It’s not difficult. You can learn the vast majority of LaTeX math syntax in an afternoon.</li>
+  <li>It’s easier for <em>everyone</em> to read. Especially with KaTeX. KaTeX is able to convert the formula to both MathML for screenreader users and HTML markup for people who just want to see those fancy math expressions.</li>
+</ol>
+
+<p>Likely, the teacher is already using some LaTeX derivative to create the math in the first place,
+they might as well use a program like KaTeX, MathJax or likewise to convert it to MathML.</p>
+
+<h2 id="code--output">Code &amp; Output</h2>
+
+<p>How did it even happen that entire programs and outputs were just ignored with the label “picture of output” is beyond me.
+Everything should be transcribed.
+Whoever transcribed that document should be fired.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>To teachers:</p>
+
+<p>Presenting information in plain text, or at least having alternates forms of images, diagrams and math formulas makes education better for everyone, not just blind students.
+It makes it better for people running on cheaper devices which may not handle running heavy software like Microsoft PowerPoint;
+it makes it better for people who use operating systems other than MacOS and Windows (this is especially important in the technology sector, where Linux/BSD users make up a sizeable minority of users);
+and finally, it makes it easier to search through the content of all notes at once using simple text-manipulation tools.</p>
+
+<p>To accessibility departments:</p>
+
+<p>Running a <code class="language-plaintext highlighter-rouge">pdftotext</code> program, or simply transcribing handwritten notes is not enough to properly describe slides and notes—handwritten or not.
+Every diagram, math equation, annotation, piece of code or output—every single thing must be transcribed to plain text, or some alternate format like MathML.</p>
+
+<p>I find it sad that a student (with their own full-time job) can product better work than someone who has this job exclusively at a major university.
+Perhaps I am mistaken and the university has volunteers do this work.
+In that case I guess you can’t ask for too much, but somehow I feel like this is probably not the case.</p>
+
+<p>Big sad.</p>
+
+</article>
+
+      </main>
+      <hr>
+      <footer>
+        This page will be mirrored on <a href="https://beta.tait.tech/2021/09/18/how-to-generate-proper-content-mathml-from-katex-or-latex/">beta.tait.tech</a>.
+
+      </footer>
+    </div>
+  </body>
+</html>

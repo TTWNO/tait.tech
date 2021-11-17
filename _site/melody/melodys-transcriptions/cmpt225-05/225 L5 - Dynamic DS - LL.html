@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/assets/css/katex.css">
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="dynamic-data-structures---linked-lists">Dynamic Data Structures - Linked Lists</h1>
+
+<p>Transcriber’s note:
+Each row in the Value|Pointer/Link tables represents a node.
+Despite the fact that the link/pointer takes you to the “value” column, in reality it is taking you to the node “row”, it’s not just a pointer to the value.</p>
+
+<h2 id="dynamic-data-structures">Dynamic Data Structures</h2>
+
+<ul>
+  <li>Basic types (e.g. int, char, bool, …), and arrays of these store a <em>fixed</em> amount of data.</li>
+  <li>We want implementations of ADTs like stacks + queues to <em>grow &amp; shrink</em> (their memory use) <em>as needed</em>.
+    <ul>
+      <li>e.g. like Vector, Array-something? (can’t read), String classes</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Basic Idea:</p>
+
+<p>Store data in a collection of (simple) objects.
+add/delete these as needed; link them all together to make the main object.</p>
+
+<h2 id="linked-lists">Linked Lists</h2>
+
+<ul>
+  <li>A sequence of simple objects (nodes): each storing one datum (plus a link…) linked together in a chain</li>
+  <li>E.g., to store the list &lt;3, 5, 7&gt;:</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Datum</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="z1">3</span></td>
+      <td><a href="#z2">link</a></td>
+    </tr>
+    <tr>
+      <td><span id="z2">5</span></td>
+      <td><a href="#z3">link</a></td>
+    </tr>
+    <tr>
+      <td><span id="z3">7</span></td>
+      <td>link to nowhere</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>These objects have no names, (in contrast to declared values)
+    <ul>
+      <li>we access them by following links
+        <ul>
+          <li>in Java, references (implemented as pointers)</li>
+          <li>in C++, pointers</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Need one named place to start like so:</p>
+
+<p>A normal variable of type “pointer to a node”: <a href="#y1">First</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="y1">3</span></td>
+      <td><a href="#y2">pointer</a></td>
+    </tr>
+    <tr>
+      <td><span id="y2">5</span></td>
+      <td><a href="#y3">pointer</a></td>
+    </tr>
+    <tr>
+      <td><span id="y3">7</span></td>
+      <td>null pointer</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="implementing-a-stack-with-a-linked-list-by-example">Implementing a Stack with a Linked List (By example)</h2>
+
+<p>Code to run, followed by the current stack.</p>
+
+<h3 id="stack-s"><code>stack s;</code></h3>
+
+<p><label for="tof">top or front</label>
+<span id="tof">node</span></p>
+
+<h3 id="spush3"><code>s.push(3)</code></h3>
+
+<p><a href="#x1">front</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Pointer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="x1">3</span></td>
+      <td>null pointer</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="etc">etc…</h3>
+
+<p>…</p>
+
+<h3 id="spush5"><code>s.push(5)</code></h3>
+
+<p><a href="#w1">front</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Pointer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="w1">5</span></td>
+      <td><a href="#w2">pointer</a></td>
+    </tr>
+    <tr>
+      <td><span id="w2">8</span></td>
+      <td><a href="#w3">pointer</a></td>
+    </tr>
+    <tr>
+      <td><span id="w3">…</span></td>
+      <td>… (<a href="#w4">pointer</a>)</td>
+    </tr>
+    <tr>
+      <td><span id="w4">3</span></td>
+      <td>null pointer</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="spush7"><code>s.push(7)</code></h3>
+
+<p><a href="#v1">front</a></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Value</td>
+      <td>Pointer</td>
+    </tr>
+    <tr>
+      <td><span id="v1">7</span></td>
+      <td><a href="#v2">pointer</a></td>
+    </tr>
+    <tr>
+      <td><span id="v2">5</span></td>
+      <td><a href="#v3">pointer</a></td>
+    </tr>
+    <tr>
+      <td><span id="v3">8</span></td>
+      <td><a href="#v4">pointer</a></td>
+    </tr>
+    <tr>
+      <td><span id="v4">…</span></td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To perform the push(7):</p>
+
+<ol>
+  <li>Make a new node to store the 7</li>
+  <li>modify links to insert it correctly</li>
+</ol>
+
+<p>Original:</p>
+
+<p><a href="#u1">front</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Pointer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="u1">5</span></td>
+      <td><a href="#u2">pointer</a></td>
+    </tr>
+    <tr>
+      <td><span id="u2">8</span></td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>After operation:</p>
+
+<p><a href="#t1">front</a> now points at node with value 7; node with value 7’s pointer now points to the <a href="#u1">old front</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Pointer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="t1">7</span></td>
+      <td><a href="#t2">pointer</a></td>
+    </tr>
+    <tr>
+      <td><span id="t2">5</span></td>
+      <td><a href="#t3">pointer</a></td>
+    </tr>
+    <tr>
+      <td><span id="t3">8</span></td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="spop"><code>s.pop()</code></h3>
+
+<p><a href="#s1">front</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Pointer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="s1">5</span></td>
+      <td><a href="#s2">pointer</a></td>
+    </tr>
+    <tr>
+      <td><span id="s2">8</span></td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>How to perform the pop():</p>
+<ol>
+  <li>Change the “top” link</li>
+  <li>Return the old top node</li>
+</ol>
+
+<p>Linked list after running operation (note that two links go to the same node):</p>
+
+<p><a href="#r0">top</a> now points to second row</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Pointer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="r1">7</span> (return this value)</td>
+      <td><a href="#r0">pointer</a></td>
+    </tr>
+    <tr>
+      <td><span id="r0">5</span></td>
+      <td><a href="#r2">pointer</a></td>
+    </tr>
+    <tr>
+      <td><span id="r2">8</span></td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>Caveat 1: don’t lose the old top value</li>
+  <li>Caveat 2: don’t ignore the old top node (it still consumes space)</li>
+</ul>
+
+<h3 id="improved-pop">“Improved” pop():</h3>
+
+<ol>
+  <li>Store the old top value in “temp”</li>
+  <li>make <em>top</em> link to the new top node</li>
+  <li><em>free</em> the space for the old top node</li>
+  <li>return temp</li>
+</ol>
+
+<h2 id="the-list-class-a-doubly-linked-list-implementation-of-a-list">The List Class (A doubly-linked list implementation of a list)</h2>
+
+<p>See <a href="./list.cpp">list.cpp</a></p>
+
+<p>&lt;…5,6,7,…&gt; in a double linked list:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Prev</th>
+      <th>Value</th>
+      <th>Next</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>…</td>
+      <td><span id="d0">5</span></td>
+      <td><a href="#d1">next</a></td>
+    </tr>
+    <tr>
+      <td><a href="#d0">prev</a></td>
+      <td><span id="d1">6</span></td>
+      <td><a href="#d2">next</a></td>
+    </tr>
+    <tr>
+      <td><a href="#d1">prev</a></td>
+      <td><span id="d2">7</span></td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="end">End</h2>
+
+      <footer>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

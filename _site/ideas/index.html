@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Ideas | tait.tech</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tait Hoyem">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+	<h1>tait.tech</h1>
+
+        <nav>
+	
+	<a href="/" class="nav-link"  >Home</a>
+	
+	<a href="/blog/" class="nav-link"  >Blog</a>
+	
+	<a href="/ideas/" class="nav-link"  class="on-page" >Ideas</a>
+	
+	<a href="/links/" class="nav-link"  >Links</a>
+	
+	<a href="https://github.com/TTWNO/" class="nav-link"   target="_blank" rel="noopener noreferrer" >Github</a>
+	
+</nav>
+
+      </header>
+      <main>
+        <h1 id="ideas">Ideas</h1>
+
+<h2 id="1-accessible-bios">1. Accessible BIOS</h2>
+
+<p>Update:
+See my blog post with the guy who’s writing the <a href="/2021/06/21/uefi-audio/">new audio driver into EDK2</a>.</p>
+
+<p>Some server motherboards include serial UART/I<sup>2</sup>C ports which can be used to manage a BIOS via serial.
+If this is possible, would it be able to attach to a braille display via an intermediary like a Rockchip/Pi SBC or Arduino compatible chip using <a href="https://brltty.app">BRLTTY</a> and serial input from the motherboard?
+Maybe not as it <a href="https://tldp.org/HOWTO/Remote-Serial-Console-HOWTO/rhl-biosserial.html">appears to require</a> a full Unicode terminal, which I have the suspicion that BRLTTY will not be able to automatically filter out the formatting characters.</p>
+
+<p>I found one paper referencing the (in)accessibility of BIOS, specifically UEFI BIOS from Brazil.
+I have downloaded the paper and uploaded it here for reference.
+<a href="/assets/pdf/bios-accessibility.pdf">PDF of “UEFI BIOS Accessibility for the Visually Impaired”</a>.</p>
+
+<p>After emailing the authors of the paper, I found out that one of them, Rafael Machado, was able to get a song playing in UEFI as a part of his masters.
+Here is a link to the Github <a href="https://github.com/RafaelRMachado/Msc_UefiHda_PreOs_Accessibility">Msc UEFI PreOS Accessibility</a>;
+he has links to YouTube videos where he is shown playing a song on an ASUS laptop with PCIe connected speakers: <a href="https://www.youtube.com/watch?v=2De9dI9WbwM">Song Playing in UEFI</a></p>
+
+<p>I have downloaded and played around with his Github project but to no avail.
+Either I am not setting it up correctly, or I do not have the proper sound setup, but in any case no sound plays from either my laptop or desktop.</p>
+
+<p>This requires more research and investment to understand UEFI, HDA audio, what systems have it and how to work with words and other sounds.</p>
+
+<h2 id="2-terminal-oriented-browser">2. Terminal-oriented browser</h2>
+
+<p>Use selenium to allow a cross-engine compatible terminal-browser with JS support. Yes, sure, it has all the bloat of the modern web as it uses the full code of Chrome/Firefox/Webkit—but at least it can be used in the terminal.
+Guaranteed to be accessible.</p>
+
+<p>I’m thinking of similar key commands to Orca/NVDA but output is send to the terminal. Unsure of how to handle aria-live regions, but perhaps a queue could be used to print text. Unsure how to calculate delay as the user may be using a screen reader at different speeds and/or a braille display.</p>
+
+<p>Change backend on-the-fly with a page reload. So if a website doesn’t work with Webkit, load it in Firefox with a key command.</p>
+
+<p>Just an idea.</p>
+
+<h2 id="3-dead-simple-chess-app">3. Dead Simple Chess App</h2>
+
+<p>I want to make a simple chess app which can connect to multiple backends
+(i.e. Lichess, Chess.com, etc.) and then users can use one app to play many games.
+This should be quite simple given how easy the lichess API is, and the <a href="https://www.chess.com/news/view/published-data-api">chess.com API</a> coming soon!</p>
+
+<blockquote>
+  <p>This is read-only data. You cannot send game-moves or other commands to Chess.com from this system. <strong><em>If you wish to send commands, you will be interested in the Interactive API releasing later this year.</em></strong></p>
+</blockquote>
+
+<h2 id="4-open-source-vpn-deployment-system">4. Open-Source VPN Deployment System</h2>
+
+<p>Help my business and others start their own.</p>
+
+<ul>
+  <li>Update active servers with pings from said server. Encrypt with GPG to verify, send over HTTPS. Use sub-keys (?) so they may be revoked anytime. Use token to login server.</li>
+  <li>Ability to create new tokens with no priviledges; only to say “Hi I’m still here.”</li>
+  <li>All IP address changes need to be manually approved.</li>
+  <li>Status queries, must be logged in: POST /status/[id/] should give back info about:
+    <ul>
+      <li>Number of connections.</li>
+      <li>Level (paid, free, plus when I can find out how to get Netflix working).</li>
+      <li>Protocol (OpenVPN/Wireguard). Wireguard should be default.</li>
+      <li>Max throughput (i.e. 1Gb/sec, 100Mb/sec)</li>
+      <li>Current average throughput over last minute, 15 minutes, hour and day. (i.e. 15Mb/sec 12Mb/sec)</li>
+    </ul>
+  </li>
+  <li>Decide server: POST /new/[coutnry_code/] should send a response of a possible server to connect to (or even the full Wireguard file possibly)</li>
+  <li>Get server files: POST /download/[country_code/[number/]] return the wireguard config file for that region, or a zip file containing the group of them.</li>
+  <li>A client would be able to use a native wireguard client on linux (i.e. store in <code class="language-plaintext highlighter-rouge">/etc/wireguard</code> (or its default location).</li>
+  <li>A client would allow local options like blocking LAN, kill-switch support, and the ability to change your VPN region based on latest list of servers.</li>
+  <li>The list of servers will be updated manually with <code class="language-plaintext highlighter-rouge">bt update</code>.</li>
+</ul>
+
+<h2 id="5-3d-printing-of-google-mapsopenstreetmaps-data-for-the-visually-impaired">5. 3d printing of Google Maps/OpenStreetMaps data for the visually impaired.</h2>
+
+<p>A larger project, to be sure, but one I think could be of interest.
+Imagine being able to download some data from Google or OpenStrretMaps,
+then put it into a program and have it generate a 3d map which can be printed.
+Unsure what to do, as the braille overlay on top of the streets and important buildings, etc. needs to be of a uniform size (braille cannot be scaled) but the buildings, streets, and parks do need to be scaled in size.</p>
+
+<p>I think for beginning, forget the braille entirely and simply product a map.
+This can be done in the STL file format or some intermediary if that is easier.
+Roads will have a slight border on the side,
+parks will have a diamond texture,
+buildings will have slight rectangular borders (slightly wider than the roads),
+paths will be a thin line, and the label for the path will need to extend the thin line into a (rounded) rectangle with text on it.</p>
+
+<p>Start with roads.
+Get a road, get it to generate the correct shape.
+Then add a border around the side.
+Then, add 4 more roads and figure out how to intersect them.</p>
+
+<p>If it can be done on a display, it can be done in a file.</p>
+
+<p>Start with that. Wow what a daunting project!</p>
+
+<p>This is being worked on through the <a href="https://github.com/skarkkai/touch-mapper">touch-mapper</a> project.
+They do not, however, have labels yet.</p>
+
+      </main>
+      <hr>
+      <footer>
+        This page will be mirrored on <a href="https://beta.tait.tech/ideas/">beta.tait.tech</a>.
+
+      </footer>
+    </div>
+  </body>
+</html>

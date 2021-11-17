@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/assets/css/katex.css">
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="rooted-trees--cmpt-225">Rooted Trees – CMPT 225</h1>
+
+<h2 id="graphs">Graphs</h2>
+
+<p>Graph is a pair G=&lt;V,E&gt;, with:</p>
+
+<ul>
+  <li>V, a set called “vertacies” or “nodes”</li>
+  <li>E, a set of pairs from V, i.e. <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>⊆</mo><mi>V</mi><mo>×</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">E \subseteq V\times V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊆</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span></span></span></span> called edges</li>
+  <li>Example: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mo stretchy="false">⟨</mo><mo stretchy="false">{</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">}</mo><mo separator="true">,</mo><mo stretchy="false">{</mo><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo><mo stretchy="false">}</mo><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">G=\langle\{1,2,3\},\{(1,2),(1,3)\}\rangle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">G</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mopen">{</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">}</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">{</span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">)</span><span class="mclose">}</span><span class="mclose">⟩</span></span></span></span></li>
+</ul>
+
+<p>Example in table format:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>node</th>
+      <th>connections</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="g1-1">1</span></td>
+      <td><a href="#g1-2">2</a>,<a href="#g1-3">3</a></td>
+    </tr>
+    <tr>
+      <td><span id="g1-2">2</span></td>
+      <td><a href="#g1-1">1</a></td>
+    </tr>
+    <tr>
+      <td><span id="g1-3">3</span></td>
+      <td><a href="#g1-1">1</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>“G is directed”: edges are ordered pairs (often called arcs)</p>
+
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⟨</mo><mo stretchy="false">{</mo><mo stretchy="false">{</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">}</mo><mo separator="true">,</mo><mo stretchy="false">{</mo><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo><mo stretchy="false">}</mo><mo stretchy="false">}</mo><mo stretchy="false">⟩</mo><mo mathvariant="normal">≠</mo><mo stretchy="false">⟨</mo><mo stretchy="false">{</mo><mo stretchy="false">{</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">}</mo><mo separator="true">,</mo><mo stretchy="false">{</mo><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo><mo stretchy="false">}</mo><mo stretchy="false">}</mo><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">
+\langle\{\{1,2,3\},\{(1,2),(1,3)\}\}\rangle
+\neq
+\langle\{\{1,2,3\},\{(2,1),(1,3)\}\}\rangle
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mopen">{</span><span class="mopen">{</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">}</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">{</span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">)</span><span class="mclose">}</span><span class="mclose">}</span><span class="mclose">⟩</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mrel"><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel"></span></span><span class="fix"></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mopen">{</span><span class="mopen">{</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">}</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">{</span><span class="mopen">(</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">)</span><span class="mclose">}</span><span class="mclose">}</span><span class="mclose">⟩</span></span></span></span></span></p>
+
+<p>i.e. graph one:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>node</th>
+      <th>connections</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="g2-1">1</span></td>
+      <td><a href="#g2-2">2</a>,<a href="#g2-3">3</a></td>
+    </tr>
+    <tr>
+      <td><span id="g2-2">2</span></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><span id="g2-3">3</span></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>does not equal graph two:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>node</th>
+      <th>connections</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="g3-1">1</span></td>
+      <td><a href="#g3-3">3</a></td>
+    </tr>
+    <tr>
+      <td><span id="g3-2">2</span></td>
+      <td><a href="#g3-1">1</a></td>
+    </tr>
+    <tr>
+      <td><span id="g3-3">3</span></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>“G is undirected” edges are sets</p>
+
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⟨</mo><mo stretchy="false">{</mo><mo stretchy="false">{</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">}</mo><mo separator="true">,</mo><mo stretchy="false">{</mo><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo><mo stretchy="false">}</mo><mo stretchy="false">}</mo><mo stretchy="false">⟩</mo><mo>=</mo><mo stretchy="false">⟨</mo><mo stretchy="false">{</mo><mo stretchy="false">{</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">}</mo><mo separator="true">,</mo><mo stretchy="false">{</mo><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mn>3</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">}</mo><mo stretchy="false">}</mo><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">
+\langle\{\{1,2,3\},\{(2,1),(1,3)\}\}\rangle
+=
+\langle\{\{1,2,3\},\{(1,2),(3,1)\}\}\rangle
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mopen">{</span><span class="mopen">{</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">}</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">{</span><span class="mopen">(</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">)</span><span class="mclose">}</span><span class="mclose">}</span><span class="mclose">⟩</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mopen">{</span><span class="mopen">{</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">}</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">{</span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mclose">}</span><span class="mclose">}</span><span class="mclose">⟩</span></span></span></span></span></p>
+
+<p>i.e. graph one:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>node</th>
+      <th>connections</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="g4-1">1</span></td>
+      <td><a href="#g4-3">3</a>,<a href="#g4-2">2</a></td>
+    </tr>
+    <tr>
+      <td><span id="g4-2">2</span></td>
+      <td><a href="#g4-1">1</a></td>
+    </tr>
+    <tr>
+      <td><span id="g4-3">3</span></td>
+      <td><a href="#g4-1">1</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>is equal to graph two:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>node</th>
+      <th>connections</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="g5-1">1</span></td>
+      <td><a href="#g5-2">2</a>,<a href="#g5-3">3</a></td>
+    </tr>
+    <tr>
+      <td><span id="g5-2">2</span></td>
+      <td><a href="#g5-1">1</a></td>
+    </tr>
+    <tr>
+      <td><span id="g5-3">3</span></td>
+      <td><a href="#g5-1">1</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>By default, by “graph” we will mean “undirected graph”.</p>
+
+<h2 id="path">Path</h2>
+
+<p>Path of G of length n is a sequence <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⟨</mo><msub><mi>V</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>V</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>V</mi><mn>2</mn></msub><mo separator="true">,</mo><mo>…</mo><msub><mi>V</mi><mi>n</mi></msub><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">\langle V_{0},V_{1},V_{2},\dots V_{n}\rangle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> of vertacies s-t. <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>V</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>V</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><msub><mi>V</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>V</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><msub><mi>V</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>V</mi><mn>3</mn></msub><mo stretchy="false">)</mo><mo>…</mo></mrow><annotation encoding="application/x-tex">(V_{0},V_{1}),(V_{1},V_{2}),(V_{2},V_{3})\dots</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span></span></span></span> are edges of G.</p>
+
+<p>s-t Path in G: path <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⟨</mo><mi>s</mi><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><mi>t</mi><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">\langle s,\dots,t\rangle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">t</span><span class="mclose">⟩</span></span></span></span> in G.</p>
+
+<p>Example of a s-t path of length 6 for G: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⟨</mo><mi>s</mi><mo separator="true">,</mo><mi>d</mi><mo separator="true">,</mo><mi>c</mi><mo separator="true">,</mo><mi>e</mi><mo separator="true">,</mo><mi>f</mi><mo separator="true">,</mo><mi>h</mi><mo separator="true">,</mo><mi>t</mi><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">\langle s,d,c,e,f,h,t\rangle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">d</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">c</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">e</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">h</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">t</span><span class="mclose">⟩</span></span></span></span></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>node</th>
+      <th>connections</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="g6-a">a</span></td>
+      <td><a href="#g6-b">b</a>,<a href="#g6-s">s</a></td>
+    </tr>
+    <tr>
+      <td><span id="g6-b">b</span></td>
+      <td><a href="#g6-a">a</a>,<a href="#g6-c">c</a></td>
+    </tr>
+    <tr>
+      <td><span id="g6-c">c</span></td>
+      <td><a href="#g6-b">b</a>,<a href="#g6-d">d</a>,<a href="#g6-e">e</a>,<a href="#g6-s">s</a></td>
+    </tr>
+    <tr>
+      <td><span id="g6-d">d</span></td>
+      <td><a href="#g6-c">c</a>,<a href="#g6-s">s</a></td>
+    </tr>
+    <tr>
+      <td><span id="g6-e">e</span></td>
+      <td><a href="#g6-c">c</a>,<a href="#g6-f">f</a>,<a href="#g6-g">g</a></td>
+    </tr>
+    <tr>
+      <td><span id="g6-f">f</span></td>
+      <td><a href="#g6-e">e</a>,<a href="#g6-h">h</a></td>
+    </tr>
+    <tr>
+      <td><span id="g6-g">g</span></td>
+      <td><a href="#g6-e">e</a>,<a href="#g6-h">h</a>,<a href="#g6-t">t</a></td>
+    </tr>
+    <tr>
+      <td><span id="g6-h">h</span></td>
+      <td><a href="#g6-f">f</a>,<a href="#g6-g">g</a>,<a href="#g6-t">t</a></td>
+    </tr>
+    <tr>
+      <td><span id="g6-s">s</span></td>
+      <td><a href="#g6-a">a</a>,<a href="#g6-c">c</a>,<a href="#g6-d">d</a></td>
+    </tr>
+    <tr>
+      <td><span id="g6-t">t</span></td>
+      <td><a href="#g6-g">g</a>,<a href="#g6-h">h</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Vertex t is <em>reachable</em> from s in G if ther is an s-t path in G.
+G is <em>connected</em> if for every pair <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">u,v\in V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7335400000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span></span>, u is reachable from v.</p>
+
+<p>Transcriber’s note: this is much easier to show with graphics and in fact very hard to show easily without graphics. I did my best, but it should be noted that this is <em>very</em> obvious with a visual graph.
+It becomes two seperate graphs, in essense.
+So for convenience, I will be splitting this up into two tables, even though technically it’s one “graph” with two sets of connected nodes.</p>
+
+<p id="connected1">Connected:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>node</th>
+      <th>connections</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="g7-a">a</span></td>
+      <td><a href="#g7-b">b</a>,<a href="#g7-s">s</a></td>
+    </tr>
+    <tr>
+      <td><span id="g7-b">b</span></td>
+      <td><a href="#g7-a">a</a>,<a href="#g7-c">c</a></td>
+    </tr>
+    <tr>
+      <td><span id="g7-c">c</span></td>
+      <td><a href="#g7-b">b</a>,<a href="#g7-d">d</a>,<a href="#g7-e">e</a>,<a href="#g7-s">s</a></td>
+    </tr>
+    <tr>
+      <td><span id="g7-d">d</span></td>
+      <td><a href="#g7-c">c</a>,<a href="#g7-s">s</a></td>
+    </tr>
+    <tr>
+      <td><span id="g7-e">e</span></td>
+      <td><a href="#g7-c">c</a>,<a href="#g7-f">f</a>,<a href="#g7-g">g</a></td>
+    </tr>
+    <tr>
+      <td><span id="g7-f">f</span></td>
+      <td><a href="#g7-e">e</a>,<a href="#g7-h">h</a></td>
+    </tr>
+    <tr>
+      <td><span id="g7-g">g</span></td>
+      <td><a href="#g7-e">e</a>,<a href="#g7-h">h</a>,<a href="#g7-t">t</a></td>
+    </tr>
+    <tr>
+      <td><span id="g7-h">h</span></td>
+      <td><a href="#g7-f">f</a>,<a href="#g7-g">g</a>,<a href="#g7-t">t</a></td>
+    </tr>
+    <tr>
+      <td><span id="g7-s">s</span></td>
+      <td><a href="#g7-a">a</a>,<a href="#g7-c">c</a>,<a href="#g7-d">d</a></td>
+    </tr>
+    <tr>
+      <td><span id="g7-t">t</span></td>
+      <td><a href="#g7-g">g</a>,<a href="#g7-h">h</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Not connected:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>node</th>
+      <th>connections</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="g9-a">a</span></td>
+      <td><a href="#g9-b">b</a>,<a href="#g9-s">s</a></td>
+    </tr>
+    <tr>
+      <td><span id="g9-b">b</span></td>
+      <td><a href="#g9-a">a</a>,<a href="#g9-c">c</a></td>
+    </tr>
+    <tr>
+      <td><span id="g9-c">c</span></td>
+      <td><a href="#g9-b">b</a>,<a href="#g9-d">d</a>,<a href="#g9-e">e</a>,<a href="#g9-s">s</a></td>
+    </tr>
+    <tr>
+      <td><span id="g9-d">d</span></td>
+      <td><a href="#g9-c">c</a>,<a href="#g9-s">s</a></td>
+    </tr>
+    <tr>
+      <td><span id="g9-e">e</span></td>
+      <td><a href="#g9-c">c</a></td>
+    </tr>
+    <tr>
+      <td><span id="g9-s">s</span></td>
+      <td><a href="#g9-a">a</a>,<a href="#g9-c">c</a>,<a href="#g9-d">d</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>node</th>
+      <th>connections</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="g10-f">f</span></td>
+      <td><a href="#g10-h">h</a></td>
+    </tr>
+    <tr>
+      <td><span id="g10-g">g</span></td>
+      <td><a href="#g10-h">h</a>,<a href="#g10-t">t</a></td>
+    </tr>
+    <tr>
+      <td><span id="g10-h">h</span></td>
+      <td><a href="#g10-f">f</a>,<a href="#g10-g">g</a>,<a href="#g10-t">t</a></td>
+    </tr>
+    <tr>
+      <td><span id="g10-t">t</span></td>
+      <td><a href="#g10-g">g</a>,<a href="#g10-h">h</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="cycles--trees">Cycles &amp; Trees</h2>
+
+<p>Cycle in G: path <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⟨</mo><msub><mi>V</mi><mn>0</mn></msub><mo separator="true">,</mo><mo>…</mo><msub><mi>V</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo separator="true">,</mo><msub><mi>V</mi><mi>n</mi></msub><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">\langle V_{0},\dots V_{n-1},V_{n}\rangle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> in G where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>0</mn></msub><mo>=</mo><msub><mi>V</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">V_{0}=V_{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
+
+<p><em>Simple path</em>: all vertecies are distinct.
+<em>Simple Cycle</em>: cycle <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⟨</mo><msub><mi>V</mi><mn>0</mn></msub><mo separator="true">,</mo><mo>…</mo><msub><mi>V</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo separator="true">,</mo><msub><mi>V</mi><mi>n</mi></msub><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">\langle V_{0},\dots V_{n-1},V_{n}\rangle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⟨</mo><msub><mi>V</mi><mn>0</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>V</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\langle V_{0},\dots,V_{n-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span> is a simple path.</p>
+
+<p>Simple cylcle of length 5: (see <a href="#connected1">“connected” graph</a> for confirmation): <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⟨</mo><mi>s</mi><mo separator="true">,</mo><mi>d</mi><mo separator="true">,</mo><mi>c</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>a</mi><mo separator="true">,</mo><mi>s</mi><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">\langle s,d,c,b,a,s\rangle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">d</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">c</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">s</span><span class="mclose">⟩</span></span></span></span></p>
+
+<p>Cycle of length 7 + repeats: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⟨</mo><mi>s</mi><mo separator="true">,</mo><mi>d</mi><mo separator="true">,</mo><mi>c</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>f</mi><mo separator="true">,</mo><mi>e</mi><mo separator="true">,</mo><mi>c</mi><mo separator="true">,</mo><mi>s</mi><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">\langle s,d,c,b,f,e,c,s\rangle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">d</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">c</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">e</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">c</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">s</span><span class="mclose">⟩</span></span></span></span></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>node</th>
+      <th>connections</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="g11-a">a</span></td>
+      <td><a href="#g11-b">b</a>,<a href="#g11-s">s</a></td>
+    </tr>
+    <tr>
+      <td><span id="g11-b">b</span></td>
+      <td><a href="#g11-a">a</a>,<a href="#g11-c">c</a>,<a href="#g11-f">f</a></td>
+    </tr>
+    <tr>
+      <td><span id="g11-c">c</span></td>
+      <td><a href="#g11-b">b</a>,<a href="#g11-d">d</a>,<a href="#g11-e">e</a>,<a href="#g11-f">f</a>,<a href="#g11-s">s</a></td>
+    </tr>
+    <tr>
+      <td><span id="g11-d">d</span></td>
+      <td><a href="#g11-c">c</a>,<a href="#g11-s">s</a></td>
+    </tr>
+    <tr>
+      <td><span id="g11-e">e</span></td>
+      <td><a href="#g11-c">c</a>,<a href="#g11-f">f</a>,<a href="#g11-g">g</a></td>
+    </tr>
+    <tr>
+      <td><span id="g11-f">f</span></td>
+      <td><a href="#g11-c">c</a>,<a href="#g11-e">e</a>,<a href="#g11-h">h</a>,<a href="#g11-b">b</a></td>
+    </tr>
+    <tr>
+      <td><span id="g11-g">g</span></td>
+      <td><a href="#g11-e">e</a>,<a href="#g11-h">h</a>,<a href="#g11-t">t</a></td>
+    </tr>
+    <tr>
+      <td><span id="g11-h">h</span></td>
+      <td><a href="#g11-f">f</a>,<a href="#g11-g">g</a>,<a href="#g11-t">t</a></td>
+    </tr>
+    <tr>
+      <td><span id="g11-s">s</span></td>
+      <td><a href="#g11-a">a</a>,<a href="#g11-c">c</a>,<a href="#g11-d">d</a></td>
+    </tr>
+    <tr>
+      <td><span id="g11-t">t</span></td>
+      <td><a href="#g11-g">g</a>,<a href="#g11-h">h</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="tree">Tree</h2>
+
+<p>Tree: a connected, acyclic graph:</p>
+
+<p>Example 1 (not a tree, due to cycle: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⟨</mo><mi>s</mi><mo separator="true">,</mo><mi>c</mi><mo separator="true">,</mo><mi>d</mi><mo separator="true">,</mo><mi>s</mi><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">\langle s,c,d,s\rangle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">c</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">d</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">s</span><span class="mclose">⟩</span></span></span></span>):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>node</th>
+      <th>connections</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="g12-a">a</span></td>
+      <td><a href="#g12-b">b</a></td>
+    </tr>
+    <tr>
+      <td><span id="g12-b">b</span></td>
+      <td><a href="#g12-a">a</a>,<a href="#g12-c">c</a></td>
+    </tr>
+    <tr>
+      <td><span id="g12-c">c</span></td>
+      <td><a href="#g12-b">b</a>,<a href="#g12-d">d</a>,<a href="#g12-e">e</a>,<a href="#g12-s">s</a></td>
+    </tr>
+    <tr>
+      <td><span id="g12-d">d</span></td>
+      <td><a href="#g12-c">c</a>,<a href="#g12-s">s</a></td>
+    </tr>
+    <tr>
+      <td><span id="g12-e">e</span></td>
+      <td><a href="#g12-c">c</a>,<a href="#g12-g">g</a></td>
+    </tr>
+    <tr>
+      <td><span id="g12-f">f</span></td>
+      <td><a href="#g12-h">h</a></td>
+    </tr>
+    <tr>
+      <td><span id="g12-g">g</span></td>
+      <td><a href="#g12-e">e</a>,<a href="#g12-h">h</a>,<a href="#g12-t">t</a></td>
+    </tr>
+    <tr>
+      <td><span id="g12-h">h</span></td>
+      <td><a href="#g12-f">f</a>,<a href="#g12-g">g</a>,<a href="#g12-t">t</a></td>
+    </tr>
+    <tr>
+      <td><span id="g12-s">s</span></td>
+      <td><a href="#g12-c">c</a>,<a href="#g12-d">d</a></td>
+    </tr>
+    <tr>
+      <td><span id="g12-t">t</span></td>
+      <td><a href="#g12-g">g</a>,<a href="#g12-h">h</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example 2 (a tree, no cycle, all connected):</p>
+
+<p>Now using ARIA trees:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   s
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     a
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       b
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     d
+    </span>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     c
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       e
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         f
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           h
+          </span>
+         </li>
+        </ul>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         g
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           i
+          </span>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Example 3 (not a tree) (transcriber’s note: written as two trees for simplicity’s sake)</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   s
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     a
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       b
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     d
+    </span>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     c
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       e
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   f
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     h
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       g
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         i
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Fact: every tree with <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> verticies has <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> edges.</p>
+
+<h2 id="rooted-tree">Rooted-tree:</h2>
+
+<p>Rooted tree: tree with a distringuished vertex called the root.</p>
+
+<p>Unrooted tree:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   a
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     b
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       c
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       d
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     e
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       f
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         g
+        </span>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         h
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     i
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       j
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         k
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           l
+          </span>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Tree T with root:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   a (root)
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     b
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       c
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       d
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     e
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       f
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         g
+        </span>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         h
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     i
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       j
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         k
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           l
+          </span>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>An alternate drawing of T, with no semantic change.</p>
+
+<p>Notice: in a tree there is a unique path between any two verticies.
+So: a unique path from any vertex to the root.
+Thus: the root indicates a <em>direction</em> on the edges e.g. towards the root.</p>
+
+<p>A graph of the same tree, T, with arrows pointing towards the root.
+There is no reason for having any semantic markup for this.</p>
+
+<p>(sometimes “away from the root”).</p>
+
+<h2 id="rooted-tree-terminology">Rooted Tree Terminology</h2>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   z (root, anscestor of a)
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     y
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       x (leaf)
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       w (leaf)
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     v (anscestor of a)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       u (leaf)
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     t (anscestor of a, parent of a)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       s (sibling of a, leaf)
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       r (sibling of a, leaf)
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       a (descendant of a, anscestor of a)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         q (child of a, desandant of a)
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           o (decendant of a, leaf)
+          </span>
+         </li>
+         <li role="treeitem" tabindex="-1">
+          <span>
+           n (decendant of a, leaf)
+          </span>
+         </li>
+         <li role="treeitem" tabindex="-1">
+          <span>
+           m (decendant of a, leaf)
+          </span>
+         </li>
+        </ul>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         p (child of a, desendant of a, leaf)
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<ul>
+  <li>The <em>root</em> has no parent.</li>
+  <li><em>Leaves</em> have no children.</li>
+  <li>Internal nodes are the non-leaves (sometimes root ??? [can’t read] too)</li>
+</ul>
+
+<h2 id="depth--height">Depth &amp; Height</h2>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   4 (depth 0)
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     1 (depth 1)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       0 (depth 2)
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       0 (depth 2)
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     3 (depth 1)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       2 (depth 2)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         1 (depth 3)
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           0 (depth 4)
+          </span>
+         </li>
+        </ul>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         0 (depth 3)
+        </span>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       0 (depth 2)
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<ul>
+  <li>Depth of node v = length of path from v to the root.</li>
+  <li>Height of node v = length of longest path from to a decendant of v (e.g. to a leaf)</li>
+  <li>Height of Tree T = height of its root = max height of any node in T = max depth of any node in T.</li>
+</ul>
+
+<p>A rooted tree is:</p>
+
+<ul>
+  <li>k-ary if <em>no node has</em> &gt;k children.</li>
+  <li>binary if <em>no node has</em> &gt;2 children.</li>
+  <li>ordered if the children of every node are ordered.</li>
+</ul>
+
+<p>E.g. A ordered trenary tree:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   no name
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     1
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       1
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       2
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     2
+    </span>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     3
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       1
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       2
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       3
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Notice: when we draw a tree, or represent it in a data structure, we order it.</p>
+
+<p>In an ordered binary tree, every child of a node v is either the “left child of v” or the “right child of v”.</p>
+
+<p>Transcriber’s note: nodes’ children are transcribes from left to right. So for a binary tree, the first child is the “left child” and the second child is the “right child”.</p>
+
+<h2 id="subtree-rooted-at-v">Subtree rooted at v</h2>
+
+<p>Subtree rooted at v: tree with root v and containing all decendants of v.</p>
+
+<p>In a binary tree:</p>
+<ul>
+  <li>“left subtree of v” means the subtree rooted at the left child of v.</li>
+  <li>sim. for “right child of v”.</li>
+</ul>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   z
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     v (subtree rooted at v)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       y (subtree rooted at v, left subtree of v)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         v (subtree rooted at v, left subtree of v
+        </span>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         u (subtree rooted at v, left subtree of v
+        </span>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       x (subtree rooted at v, right subtree of v)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         w (subtree rooted at v, right subtree of v)
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     a
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       b
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       c
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<h2 id="end">End</h2>
+
+      <footer>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

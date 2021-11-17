@@ -1,0 +1,16 @@
+{
+	"version": 3,
+	"file": "book.css",
+	"sources": [
+		"book.scss",
+		"_sass/book.scss",
+		"_sass/vars.scss"
+	],
+	"sourcesContent": [
+		"@import \"book\";\n",
+		"@import \"vars\";\n\nbody {\n  background-color: $background-color;\n  color: $normal-text-color;\n  font-family: -apple-system, helvetica, arial, sans-serif;\n  line-height: $line-height;\n  padding: .25em;\n}\na {\n  color: $link-color;\n}\na:visited {\n  color: $visited-link-color;\n}\nh1, h2 {\n  text-align: center;\n}\n",
+		"$normal-text-color: #ffffff;\n$background-color: #222222;\n$lighter-color: #ffffff;\n$nav-link-color: #ffffff;\n$nav-link-hover-color: black;\n$link-color: #7ad;\n$visited-link-color: #ff3492;\n$last-p-padd: 1.5em;\n$nav-padd: 1em;\n$line-under: 1px solid #aaa; \n$line-height: 1.5em;\n$term-line-height: 1em;\n$file-line-height: 1.2em;\n$terminal-bg: #000000;\n$terminal-fg: #00FF00;\n$file-bg: #444444;\n$file-fg: #ffffff;\n"
+	],
+	"names": [],
+	"mappings": "ACEA,AAAA,IAAI,CAAC,EACH,gBAAgB,ECFC,OAAO,EDGxB,KAAK,ECJa,OAAO,EDKzB,WAAW,EAAE,2CAA2C,EACxD,WAAW,ECIC,KAAK,EDHjB,OAAO,EAAE,KAAK,GACf;;AACD,AAAA,CAAC,CAAC,EACA,KAAK,ECLM,IAAI,GDMhB;;AACD,AAAA,CAAC,CAAC,OAAO,CAAC,EACR,KAAK,ECPc,OAAO,GDQ3B;;AACD,AAAA,EAAE,EAAE,EAAE,CAAC,EACL,UAAU,EAAE,MAAM,GACnB"
+}

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295--fall-2021">CMPT 295 – Fall 2021</h1>
+
+<p>Assignment 5</p>
+
+<h2 id="objectives">Objectives:</h2>
+
+<ul>
+  <li>x86-64 function calls and stack</li>
+  <li>Investigating the size of some x86-64 assembly instructions</li>
+</ul>
+
+<hr />
+
+<h2 id="submission">Submission:</h2>
+
+<ul>
+  <li>Submit your document called Assignment_5.pdf om CourSys.
+    <ul>
+      <li>Add your full name and student number at the top of the first page of your document.</li>
+    </ul>
+  </li>
+  <li><strong>If you write your answers by hand (as opposed to using a computer application to
+write them)</strong>, when putting your assignment document together, do not take photos of
+your assignment sheets! Scan them instead! Better quality -&gt; easier to read -&gt; easier to
+mark!</li>
+</ul>
+
+<hr />
+
+<h2 id="due">Due:</h2>
+
+<ul>
+  <li>Friday Oct. 29 at 4pm on CourSys</li>
+  <li>Late assignments will receive a grade of 0, but they will be marked (if they are submitted
+before the solutions are posted on Monday) in order to provide feedback to the
+student.</li>
+</ul>
+
+<hr />
+
+<h2 id="marking-scheme">Marking scheme:</h2>
+
+<ul>
+  <li>All questions of this assignment will be marked for correctness.</li>
+  <li>The amount of marks for each question is indicated as part of the question.</li>
+  <li>solution will be posted on Monday after the due date.</li>
+</ul>
+
+<hr />
+
+<h3 id="1-10-marks-x86-64-function-calls-and-stack">1) [10 marks] x86-64 function calls and stack</h3>
+
+<p>a. Hand trace the code from our Lab 4 (main.c , main.s, p1.c, p1.s, p2.c and p2.s) using the test case, i.e., x = 6, y = 9, buf[40].</p>
+
+<ul>
+  <li>As you do so, draw the corresponding Stack Diagram for the entire program, i.e.,
+until you reach (but have not yet executed) the ret instruction of the main
+function. To do so, you can either print the “Stack Diagram” sheet at the end of
+this assignment and do the drawing by hand, then scan the result and include it
+into this assignment document OR do the drawing by electronically annotating the
+“Stack Diagram” sheet at the end of this assignment then include the result into
+this assignment document.</li>
+  <li>The use of the Register Table is optional: use it only if you find it useful. You do
+not have to include it as part of your assignment document.</li>
+  <li>Indicate the movement of %rsp by crossing its old location and rewriting “%rsp”
+to indicate its new location (as we have done in our lectures and Lab 4).</li>
+  <li>Cross the content of the stack that has been popped.</li>
+  <li>When the value of a stack location is changed, cross its old value and write the
+new value in the same stack location.</li>
+  <li>Make sure you include the content of buf in your Stack Diagram.</li>
+  <li>When drawing your stack diagram, you do not have to show the effect on the stack
+of the 5 call instructions at lines 33, 43, 45 and 57 in main.s and at line 47 in
+p1.s. These are calls to printf(…), puts(…) and sprintf(…). In other
+words, you do not have to add the return addresses associated to these 5 calls
+onto the stack.</li>
+  <li>Hint: The solution to Participation Activity 6 (which will be posted after its
+deadeline on Monday) will give us a great head start!</li>
+</ul>
+
+<p>b. Modify main.c by reducing the size of buf[] from 40 to 24.</p>
+
+<ul>
+  <li>Remake the code and hand trace it using the following test case, i.e., x = 6, y =
+9, buf[24].</li>
+  <li>Repeat the instructions found in the section a. above and create a second drawing
+of the stack using the Stack Diagram sheet found at the end of this assignment.</li>
+  <li>Make sure you include the content of buf in your Stack Diagram drawing.</li>
+  <li>On the same sheet as your Stack Diagram, asnwer the question:What happens to
+the “canary value” in this situation?</li>
+</ul>
+
+<hr />
+
+<h3 id="2-10-marks-investigating-the-size-of-some-x86-64-assembly-instructions">2. [10 marks] Investigating the size of some x86-64 assembly instructions</h3>
+
+<p>Complete the following three tables:</p>
+
+<p>Table 1:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>X86-64 Instructions</th>
+      <th>Their size (in bytes)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>xorq %rax, %rax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>xorl %eax, %eax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>movq $0, %rax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>movl $0, %eax</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table 2:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>X86-64 Instructions</th>
+      <th>Their size (in bytes)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>addl $1, %eax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>leal 1(%eax), %eax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>incl %eax</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table 3:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>X86-64 Instructions</th>
+      <th>Their size (in bytes)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>addl $8, %eax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>leal 8(%eax), %eax</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To complete the above tables, you must:</p>
+<ul>
+  <li>Write an assembly program and include all the above x86-64 instructions in it. Of
+course, this program is going to be rather nonsensical. Not a problem!</li>
+  <li>Compile your program.</li>
+  <li>Use the objdump tool on the resulting object file you obtained from the
+compilation process.</li>
+  <li>Looking at the result will lead you to the answer, i.e., the size of each of these x8664 instructions in bytes.</li>
+  <li>In each table, bold the instruction that is the most space efficient.</li>
+  <li>Copy the content of your program (*.s) into this assignment (into this
+Assignment_5.pdf document). <!--*--></li>
+  <li>Copy the result you obtained from the objdump tool into this assignment (into this
+Assignment_5.pdf document).</li>
+</ul>
+
+<hr />
+
+<table>
+  <thead>
+    <tr>
+      <th>Base + Displacement</th>
+      <th>Stack</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Register Table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+      <footer>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

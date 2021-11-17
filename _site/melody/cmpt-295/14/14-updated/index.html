@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/assets/css/katex.css" id="math-stylesheet">
+  
+  
+
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295">CMPT 295</h1>
+
+<ul>
+  <li>Unit - Machine-Level Programming</li>
+  <li>Lecture 14
+    <ul>
+      <li>Assembly language</li>
+      <li>Program Control</li>
+      <li>Function Call and Stack</li>
+      <li>Passing Control</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="last-lecture">Last Lecture</h2>
+
+<ul>
+  <li>In x86-64 assembly, there are no iterative statements</li>
+  <li>To alter the execution flow, compiler generates code sequence
+that implements these iterative statements (while, do-while
+and for loops) using branching method:
+    <ul>
+      <li>cmp* instruction</li>
+      <li>jX instructions (jump)</li>
+    </ul>
+  </li>
+  <li>2 loop patterns:
+    <ul>
+      <li>“coding the false condition first” -&gt; while loops (hence for loops)</li>
+      <li>“jump-in-middle” -&gt; while, do-while (hence for loops)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="while-loop--question-from-last-lecture-coding-the-false-condition-first-updated">While loop – Question from last lecture “coding the false condition first” (updated)</h2>
+
+<p>in C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>while(x&lt;y){ // 1
+  //stmts
+}
+</code></pre></div></div>
+
+<p>Cases:</p>
+
+<ul>
+  <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>−</mo><mi>x</mi><mo>&gt;</mo><mn>0</mn><mtext>  </mtext><mo>⟹</mo><mtext>  </mtext><mi>y</mi><mo>&gt;</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">y-x &gt;0 \implies y&gt;x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66844em;vertical-align:-0.024em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7335400000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>: loops, g</li>
+  <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>−</mo><mi>x</mi><mo>&lt;</mo><mn>0</mn><mtext>  </mtext><mo>⟹</mo><mtext>  </mtext><mi>y</mi><mo>&lt;</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">y-x &lt;0 \implies y&lt; x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66844em;vertical-align:-0.024em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7335400000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>: exits loop, l</li>
+  <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>−</mo><mi>x</mi><mo>=</mo><mn>0</mn><mtext>  </mtext><mo>⟹</mo><mtext>  </mtext><mi>y</mi><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">y-x =0 \implies y=x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66844em;vertical-align:-0.024em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>: exists loops, e</li>
+</ul>
+
+<p>in assembly: # x in %edi, y in %esi</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>loop:
+  cmpl %edi, %esi #2
+  jl endloop
+  # stmts
+  jmp loop
+endloop:
+  ret
+</code></pre></div></div>
+
+<p>Loop Pattern 1</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>loop:
+  if cond false
+    goto done:
+  stmts
+  goto loop:
+done:
+</code></pre></div></div>
+
+<p>Would this assembly code be the equivalent of our C code?</p>
+
+<p>Not quite! We need <code class="language-plaintext highlighter-rouge">jle</code></p>
+
+<h2 id="demo-alternative-way-of-implementing-ifelse-in-assembly-language-updated">Demo: alternative way of implementing <code class="language-plaintext highlighter-rouge">if/else</code> in assembly language (updated)</h2>
+
+<p>Lecture 12 – ifelse.c and ifelse.s</p>
+
+<p>We shall have a look at this code during lecture 15, our review lecture!</p>
+
+<h2 id="for-loop---homework">For loop - Homework</h2>
+
+<p>In C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>format: for(initialization;condition testing;increment){
+for(i=0;i&lt;;i++){
+  // stmts
+}
+return;
+</code></pre></div></div>
+
+<p>Becomes:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>i=0; //initialization
+while(i&lt;n){//condition
+  //stmts
+  i++; //increment
+}
+return;
+</code></pre></div></div>
+
+<p>In Assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  xorl %ecx, %ecx #initialization: %ecx (i) &lt;- 0
+loop:
+  cmpl %edi, %ecx #i-n?0 testing
+  jge endloop #i-n&gt;=0 false condition
+  #stmts
+  incl %ecx #i++ increment
+  jmp loop #loop again
+endloop:
+  ret
+</code></pre></div></div>
+
+<h2 id="todays-menu">Today’s Menu</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX</li>
+  <li>Loops</li>
+  <li>(highlighted) Function call – Stack
+    <ul>
+      <li>(highlighted) Overview of Function Call</li>
+      <li>(highlighted) Memory Layout and Stack - x86-64 instructions and registers</li>
+      <li>(highlighted) Passing control</li>
+      <li>Passing data – Calling Conventions</li>
+      <li>Managing local data</li>
+      <li>Recursion</li>
+    </ul>
+  </li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+<h2 id="what-happens-when-a-function-caller-calls-another-function-callee">What happens when a function (caller) calls another function (callee)?</h2>
+
+<ol>
+  <li>Control is passed (PC is set) …
+    <ul>
+      <li>To the beginning of the code in callee function</li>
+      <li>Back to where callee function was called in caller function</li>
+    </ul>
+  </li>
+  <li>Data is passed …
+    <ul>
+      <li>To callee function via function parameter(s)</li>
+      <li>Back to caller function via return value</li>
+    </ul>
+  </li>
+  <li>Memory is …
+    <ul>
+      <li>Allocated during callee function execution</li>
+      <li>Deallocated upon return to caller function</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Code example 1:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void who(...) {
+  int sum = 0;
+  ...
+  y = amI(x);
+  sum = x + y;
+  return;
+}
+</code></pre></div></div>
+
+<p>Code example 2:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int amI(int i)
+{
+  int t = 3*i;
+  int v[10];
+  ...
+  return v[t];
+}
+</code></pre></div></div>
+
+<p>Above mechanisms implemented with machine code instructions and described as a set of conventions (ISA)</p>
+
+<h2 id="remember-from-lecture-2-closer-look-at-memory">Remember from Lecture 2: Closer look at memory</h2>
+
+<ul>
+  <li>Seen as a linear array of bytes</li>
+  <li>1 byte (8 bits) smallest addressable
+unit of memory
+    <ul>
+      <li>Byte-addressable</li>
+    </ul>
+  </li>
+  <li>Each byte has a unique address</li>
+  <li>Computer reads a “word size” worth
+of bits at a time</li>
+  <li>Compressed view of memory</li>
+</ul>
+
+<p>Compressed view of memory w/ addresses in cells:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th colspan="8">M[]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>size-8</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <td>0x0018</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>0x0010</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>0x0008</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>0x0000</td>
+      <td>0x0001</td>
+      <td>0x0002</td>
+      <td>0x0003</td>
+      <td>0x0004</td>
+      <td>0x0005</td>
+      <td>0x0006</td>
+      <td>0x0007</td>
+      <td>0x0008</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="memory-layout">Memory Layout</h2>
+
+<p>Segments:</p>
+
+<ul>
+  <li>Stack
+    <ul>
+      <li>Runtime stack, e. g., local variables</li>
+    </ul>
+  </li>
+  <li>Heap
+    <ul>
+      <li>Dynamically allocated as needed, explicitly released (freed)</li>
+      <li>When call malloc(), free(), new(), delete, …</li>
+    </ul>
+  </li>
+  <li>Data
+    <ul>
+      <li>Statically allocated data, e.g., global vars, static vars, string constants</li>
+    </ul>
+  </li>
+  <li>Text
+    <ul>
+      <li>Executable machine instructions</li>
+      <li>Read-only</li>
+    </ul>
+  </li>
+  <li>Shared Libraries
+    <ul>
+      <li>Executable machine instructions</li>
+      <li>Read-only</li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th>M[]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0x00007FFFFFFFFFFF</td>
+      <td>Stack (down arrow)</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>Shared Libraries</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>Heap (up arrow)</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>Data</td>
+    </tr>
+    <tr>
+      <td>0x0000000000400000</td>
+      <td>Text</td>
+    </tr>
+    <tr>
+      <td>0x0000000000000000</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="memory-allocation-example">Memory Allocation Example</h2>
+
+<p>Where does everything go?</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include ...
+char hugeArray[1 &lt;&lt; 31]; /* 231 = 2GB */
+int global = 0;
+int useless(){ return 0; }
+int main ()
+{
+  void *ptr1, *ptr2;
+  int local = 0;
+  ptr1 = malloc(1 &lt;&lt; 28); /* 228 = 256 MB*/
+  ptr2 = malloc(1 &lt;&lt; 8); /* 28 = 256 B*/
+
+  /* Some print statements ... */
+}
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr><th>M[]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Stack (down arrow)</td></tr>
+    <tr><td>...</td></tr>
+    <tr><td>Shared Libraries</td></tr>
+    <tr><td>...</td></tr>
+    <tr><td>Heap (up arrow)</td></tr>
+    <tr><td>Data</td></tr>
+    <tr><td>Text</td></tr>
+  </tbody>
+</table>
+
+<h2 id="closer-look-at-function-call-pattern">Closer look at function call pattern</h2>
+
+<p>A function may call a function, which may call a function, which may call a function, …</p>
+
+<p>Code example 1:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>who(...) {
+  ...
+  ...
+  are();
+  ...
+  ...
+}
+</code></pre></div></div>
+
+<p>Code example 2:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>are(...) {
+  ...
+  you();
+  ...
+  you();
+  ...
+}
+</code></pre></div></div>
+
+<p>Example 3:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>you(...) {
+  ...
+  ...
+  ...
+  ...
+  ...
+}
+</code></pre></div></div>
+
+<ul>
+  <li>When a function (callee) terminates and returns, its most
+recent caller resumes which eventually terminates and returns
+and its most recent caller resumes …</li>
+  <li>Does this pattern remind you of anything?</li>
+</ul>
+
+<h2 id="stack">Stack</h2>
+
+<p>Definition: A stack is a last-in-first-out (LIFO) data structure with two characteristic operations:</p>
+
+<ul>
+  <li>push(data)</li>
+  <li>data = pop() or pop(&amp;data)</li>
+</ul>
+
+<p>Do not have access to anything except what is on (at) top.</p>
+
+<p>Image of stack of dinner plates.</p>
+
+<h2 id="closer-look-at-stack">Closer look at stack</h2>
+
+<ul>
+  <li>x86-64 assembly language has stack-specific</li>
+  <li>%rsp
+    <ul>
+      <li>Points to address of last used byte on stack</li>
+      <li>Initialized to “top of stack” at startup</li>
+      <li>Stack grows towards low memory address</li>
+    </ul>
+  </li>
+  <li>pushq src</li>
+  <li>popq dest</li>
+</ul>
+
+<p>Diagram of stack:
+at the top of the stack is <code class="language-plaintext highlighter-rouge">%rsp</code>; the stack grows down.
+Memory addresses decreese as they go down the stack.</p>
+
+<h2 id="x86-64-stack-instruction-push">x86-64 stack instruction: push</h2>
+
+<ul>
+  <li>pushq src
+    <ul>
+      <li>Fetch value of operand src</li>
+      <li>Decrement %rsp by 8</li>
+      <li>Write value at address given by %rsp</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Diagram of stack after 3 pushes (transcriber’s note: these diagrams are probably wrong, but I need to describe what is there):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>M[] Stack</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%rsp</td>
+      <td> </td>
+      <td>Top</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="x86-64-stack-instruction-pop">x86-64 stack instruction: pop</h2>
+
+<p>… we pop once.</p>
+
+<ul>
+  <li>popq dest
+    <ul>
+      <li>Read value at %rsp (address) and store it in operand dest (must be register)</li>
+      <li>Increment %rsp by 8</li>
+    </ul>
+  </li>
+</ul>
+
+<p>After we pop once:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>M[] stack</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>data</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>data</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td>data</td>
+      <td>Top</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="passing-control-mechanism-x86-64-instruction-call-and-ret">Passing control mechanism x86-64 instruction: call and ret</h2>
+
+<ul>
+  <li>call func
+    <ul>
+      <li>push PC</li>
+      <li>jmp func (set PC to func)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Effect: return address, i.e., the
+address of the instruction after
+call func (held in PC) is
+pushed onto the stack</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>M[] Stack</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%rsp</td>
+      <td> </td>
+      <td>Top</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="passing-control-mechanism-x86-64-instruction-call-and-ret-1">Passing control mechanism x86-64 instruction: call and ret</h2>
+
+<ul>
+  <li>ret
+    <ul>
+      <li>popq PC</li>
+      <li>jmp PC</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Effect: return address, i.e., the
+address of instruction after
+call func, is pop’ed from
+the stack and stored in PC</p>
+
+<p>After returning from the call …</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>M[] Stack</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>data</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td> </td>
+      <td>Top</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="example">Example</h2>
+
+<p>Example pt. 1, in C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void multstore(long x, long y, long *dest) {
+  long t = mult2(x, y);
+  *dest = t;
+  return;
+}
+</code></pre></div></div>
+
+<p>Example pt. 1, in Assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0000000000400540 &lt;multistore&gt;:
+  400540: push %rbx #Save %rbx
+  400541: mov %rdx,%rbx #save Dest
+  400544: callq 400550 &lt;mult2&gt; #mult2(x,y)
+  400549: mov %rax,(%rbx) #save as dest
+  40054c: pop %rbx #restore %rbx
+  40054d: retq #return
+</code></pre></div></div>
+
+<p>Example pt. 2, in C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>long mult2(long a, long b) {
+  long s = a * b;
+  return s;
+}
+</code></pre></div></div>
+
+<p>Example pt. 2, in Assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0000000000400550 &lt;mult2&gt;:
+  400550: mov %rdi,%rax #a
+  400553: imul %rsi,%rax #a*b
+  400557: retq #return
+</code></pre></div></div>
+
+<h2 id="example--steps-1-and-2">Example – Steps 1 and 2</h2>
+
+<p>Stack:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>M[] Stack</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>ret address</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td> </td>
+      <td>Top</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Registers:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%rbx</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td>0x120</td>
+    </tr>
+    <tr>
+      <td>%rax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rip</td>
+      <td>0x400540</td>
+    </tr>
+    <tr>
+      <td>%rdi</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rsi</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rdx</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="example--steps-3-and-4">Example – Steps 3 and 4</h2>
+
+<p>Stack:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>M[] Stack</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>ret address</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>%rbx</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td> </td>
+      <td>Top</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Registers:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Register</td>
+      <td>Value</td>
+    </tr>
+    <tr>
+      <td>%rbx</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td>0x118</td>
+    </tr>
+    <tr>
+      <td>%rax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rip</td>
+      <td>400544</td>
+    </tr>
+    <tr>
+      <td>%rdi</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rsi</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rdx</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="example--steps-5-and-6">Example – Steps 5 and 6</h2>
+
+<p>Stack:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>M[] Stack</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>ret address</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>%rbx</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>0x400549</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td> </td>
+      <td>Top</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Registers:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%rbx</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td>0x110</td>
+    </tr>
+    <tr>
+      <td>%rax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rip</td>
+      <td>0x400553</td>
+    </tr>
+    <tr>
+      <td>%rdi</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rsi</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rdx</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="example--steps-7-8-and-9">Example – Steps 7, 8 and 9</h2>
+
+<p>Stack:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Register</td>
+      <td>M[] Stack</td>
+      <td>Name</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>ret address</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>%rbx</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td> </td>
+      <td>Top</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Registers:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Register</td>
+      <td>Value</td>
+    </tr>
+    <tr>
+      <td>%rbx</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td>0x118</td>
+    </tr>
+    <tr>
+      <td>%rax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rip</td>
+      <td>0x400549</td>
+    </tr>
+    <tr>
+      <td>%rdi</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rsi</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rdx</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>Function call mechanisms: passing control and data, managing memory</li>
+  <li>Memory layout
+    <ul>
+      <li>Stack (local variables …)</li>
+      <li>Heap (dynamically allocated data)</li>
+      <li>Data (statically allocated data)</li>
+      <li>Text / Shared Libraries (program code)</li>
+    </ul>
+  </li>
+  <li>“Stack” is the data structure used for function call / return
+    <ul>
+      <li>If multstore calls mult2, then mult2 returns before multstore</li>
+    </ul>
+  </li>
+  <li>x86-64 stack register and instructions: stack pointer rsp, push and pop</li>
+  <li>x86-64 function call instructions: call and ret</li>
+</ul>
+
+<h2 id="next-lecture">Next Lecture</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX</li>
+  <li>Loops</li>
+  <li>Function call – Stack
+    <ul>
+      <li>Overview of Function Call</li>
+      <li>Memory Layout and Stack - x86-64 instructions and registers</li>
+      <li>(highlighted) Passing control</li>
+      <li>Passing data – Calling Conventions</li>
+      <li>Managing local data</li>
+      <li>Recursion</li>
+    </ul>
+  </li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+
+      <footer>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

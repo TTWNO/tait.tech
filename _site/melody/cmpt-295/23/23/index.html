@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/assets/css/katex.css" id="math-stylesheet">
+  
+  
+
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295---unit---instruction-set-architecture">CMPT 295 - Unit - Instruction Set Architecture</h1>
+
+<p>Lecture 23</p>
+
+<ul>
+  <li>Introduction to Instruction Set Architecture (ISA)</li>
+  <li>ISA Design + MIPS (MIPS is crossed out)</li>
+</ul>
+
+<h2 id="last-lecture---1">Last Lecture - 1</h2>
+
+<ul>
+  <li>What is a buffer overflow
+    <ul>
+      <li>When function writes more data in array than array can hold on stack</li>
+      <li>Effect: data kept on the stack (value of other local variables and registers,
+return address) may be corrupted
+-&gt; Stack smashing</li>
+    </ul>
+  </li>
+  <li>Why buffer overflow spells trouble -&gt; it creates vulnerability
+    <ul>
+      <li>Allowing hacker attacks</li>
+    </ul>
+  </li>
+  <li>How to protect system against such attacks
+    <ol>
+      <li>(s/w developer) Avoid creating overflow vulnerabilities in the code that we write
+        <ul>
+          <li>By always checking bounds and calling “safe” library functions that
+consider size of array</li>
+        </ul>
+      </li>
+      <li>(system) Employ system-level protections
+        <ul>
+          <li>Randomized initial stack pointer and non-executable code segments</li>
+        </ul>
+      </li>
+      <li>(compiler) Use compiler (like gcc) security features:
+        <ul>
+          <li>Stack “canary” value and endbr64 instruction</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="last-lecture---2">Last Lecture - 2</h2>
+
+<p>Brief look at:</p>
+
+<ul>
+  <li>Floating point data and operations
+    <ul>
+      <li>Data held and manipulated in XMM registers</li>
+      <li>Assembly language instructions similar to integer assembly
+language instructions we have seen so far</li>
+    </ul>
+  </li>
+  <li>Optional: Storing Data in Various Segments of Memory
+    <ul>
+      <li>Global variables =&gt; data segment</li>
+      <li>Local variables =&gt; stack segment</li>
+      <li>How their values are represented in an assembly program</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="todays-menu">Today’s Menu</h2>
+
+<ul>
+  <li>(highlighted) Instruction Set Architecture (ISA)
+    <ul>
+      <li>(highlighted) Definition of ISA</li>
+    </ul>
+  </li>
+  <li>(highlighted) Instruction Set design
+    <ul>
+      <li>(highlighted) Design guidelines</li>
+      <li>Example of an instruction set: MIPS</li>
+      <li>Create our own instruction sets</li>
+      <li>ISA evaluation</li>
+    </ul>
+  </li>
+  <li>Implementation of a microprocessor (CPU) based on an ISA
+    <ul>
+      <li>Execution of machine instructions (datapath)</li>
+      <li>Intro to logic design + Combinational logic + Sequential logic circuit</li>
+      <li>Sequential execution of machine instructions</li>
+      <li>Pipelined execution of machine instructions + Hazards</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+  <li>Computer Organization and Design, 5th Edition,
+by David A. Patterson and John L. Hennessy
+    <ul>
+      <li>See Resources for a link to an online version</li>
+      <li>Chapter 2 – Instructions: Language of the Computer</li>
+      <li>Chapter 4 – The processor</li>
+    </ul>
+  </li>
+  <li>Chapter 4 of our textbook ?
+    <ul>
+      <li>will not make use of this chapter very much!</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="the-big-picture--above-the-hood">The Big Picture – Above the hood</h2>
+
+<ul>
+  <li>C code:
+    <ul>
+      <li>C Program (.c) -&gt; sum_store.c</li>
+      <li>C Preprocessor creates: Preprocessed Source -&gt; sum_store.i</li>
+    </ul>
+  </li>
+  <li>Assembly code:
+    <ul>
+      <li>C compiler creates: Assembly program (.s) -&gt; sum_store.s</li>
+    </ul>
+  </li>
+  <li>Machine code:
+    <ul>
+      <li>Linker grates: Object (.o) -&gt; sum_store.o</li>
+    </ul>
+  </li>
+  <li>ISA - Instruction Set Architecture: An agreement establishing how software communicates with CPU.
+    <ul>
+      <li>Loader creates: Executable -&gt; ss</li>
+      <li>Computer executed it
+        <ul>
+          <li>CPU</li>
+          <li>Memory</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>C code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>short abs(short aNumber){
+  short result=0;
+  if(aNumber&gt;0) result=aNumber;
+  else result=-aNumber;
+  return result;
+}
+</code></pre></div></div>
+
+<p>Assembly code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  .global abs
+abs:
+  movl %edi,%eax
+  testw %di,%di
+  jle .L3
+.L2:
+  ret
+.L3:
+  negl %eax
+  jmp .L2
+</code></pre></div></div>
+
+<p>Machine code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1111100010001001
+111111111000010101100110
+0000001001111110
+1100001111110011
+1101100011110111
+1111101011101011
+</code></pre></div></div>
+
+<h2 id="the-big-picture---under-the-hood">The Big Picture - Under the hood!</h2>
+
+<p>Wikipedia says: A datapath is a collection
+of functional units
+such as:</p>
+
+<ul>
+  <li>ALU (perform data
+processing operations),</li>
+  <li>registers, and</li>
+  <li>buses (allow data
+to flow between them).</li>
+</ul>
+
+<p>Along with the control
+unit, the datapath
+composes the
+central processing unit
+(CPU/microprocessor).</p>
+
+<p><a href="./micro_graph.html">Microprocessor datapath</a></p>
+
+<p>Machine code below is stored in <a href="./micro_graph.html#insmem">Instruction Memory</a>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1111100010001001
+111111111000010101100110
+0000001001111110
+1100001111110011
+1101100011110111
+1111101011101011
+</code></pre></div></div>
+
+<h2 id="instruction-set-architecture-isa">Instruction Set Architecture (ISA)</h2>
+
+<ul>
+  <li>Instruction set architecture (ISA): defines the machine
+code (i.e., instruction set) that a microprocessor reads
+and acts upon as well as the memory model. (Adapted from <a href="https://en.wikipedia.org/wiki/Computer_architecture#History">https://en.wikipedia.org/wiki/Computer_architecture#History</a>)</li>
+  <li>Instruction Set: it is all the commands understood by a
+given computer architecture. Source: Computer Organization and Design, 5th Edition, by David A.
+Patterson and John L. Hennessy</li>
+  <li>We say that a microprocessor implements an ISA.</li>
+</ul>
+
+<h2 id="instruction-set-architecture-isa-1">Instruction Set Architecture (ISA)</h2>
+
+<p>An ISA is a formal specification of …</p>
+
+<ul>
+  <li>Memory and Registers
+    <ul>
+      <li>Memory
+        <ul>
+          <li>Word size</li>
+          <li>Memory size -&gt; 2m x n
+            <ul>
+              <li>2m distinct addressable locations in memory</li>
+              <li>each of these addressable locations has n bits</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Registers
+    <ul>
+      <li>Number</li>
+      <li>Size</li>
+      <li>Data type</li>
+      <li>Purpose</li>
+    </ul>
+  </li>
+  <li>Instruction Set
+(First three sub-items have a label: of assembly instructions
+and their corresponding
+machine instructions)
+    <ul>
+      <li>Format</li>
+      <li>Syntax</li>
+      <li>Description (semantic)</li>
+      <li>Operand model: number, order and meaning of operands</li>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="instruction-set-architecture-isa-contd">Instruction Set Architecture (ISA) cont’d</h2>
+
+<p>An ISA is a formal specification of … (cont’d)</p>
+
+<ul>
+  <li>Conventions
+    <ul>
+      <li>How control flow and data are passed during function calls</li>
+      <li>How registers are preserved during function calls
+        <ul>
+          <li>Any callee and caller saved registers?</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Model of computation - sequential
+    <ul>
+      <li>Microprocessor executes our C program in such a way that it
+produces the expected result
+        <ul>
+          <li>We get the illusion that the microprocessor executes each C
+statement sequentially.
+Annotation 1: Through the fetch-decode execvute bop &amp; PC++ to next instructions.
+Annotation 2: but as we shall see in our next unit (Chapter 5) this is not what actually happens at the CPU level.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="memory-models">Memory Models:</h2>
+
+<p>Address resolution is the smallest addressable memory “chunk”.</p>
+
+<h3 id="model-1--word-addressable-computer">Model 1 – word-addressable computer</h3>
+
+<p>Memory layout with <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup><mo>×</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">2^{32} \times 16</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">32</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">16</span></span></span></span> bits; 16 is the “address resolution”:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th>Value (width = address resolution)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{32}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">32</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example of word-addressable ISAs:</p>
+
+<ul>
+  <li>Data General Nova mini-computer</li>
+  <li>Texas Instruments TMS9900</li>
+  <li>National Semiconductors IMP-16</li>
+</ul>
+
+<p>In this model, n = wordsize; wordsize is 16 bits.</p>
+
+<h3 id="model-2--byte-addressable-computer">Model 2 – byte-addressable computer</h3>
+
+<p>Memory layout with <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup><mo>×</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">2^{32} \times 8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">32</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span></span></span></span> bits. 8 is the address resolution.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th>Value (8 bits in width)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{32}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">32</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> a.k.a 4294967232</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Compressed View of Memory:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th>+1</th>
+      <th>+2</th>
+      <th>+3</th>
+      <th>+4</th>
+      <th>+5</th>
+      <th>+6</th>
+      <th>+7</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mn>32</mn><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2^{32-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">32</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span> a.k.a. 4294967295</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this model <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo mathvariant="normal">≠</mo><mtext>wordsize</mtext></mrow><annotation encoding="application/x-tex">n \neq \text{wordsize}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">wordsize</span></span></span></span></span>; wordsize = 64 bits.</p>
+
+<p>Examples of byte-addressable ISA:</p>
+
+<ul>
+  <li>Intel Core i7 and i9 (Transcriber’s note: this is not an ISA, these are processor lines that implement the x86-64 ISA)</li>
+  <li>AMD64 Epyc (Transcriber’s note: AMD64 is an alternate name for x86-64, Epyc is a lineup of server processors from AMD)</li>
+  <li>MIPS64</li>
+  <li>RISC-V</li>
+</ul>
+
+<h3 id="model-3">Model 3</h3>
+
+<p>Target machine:</p>
+
+<ul>
+  <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">m=64</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">64</span></span></span></span> (however only 48 bits are used)</li>
+  <li>
+    <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>n</mi><mo>=</mo><mn>8</mn><mtext> bits</mtext></mrow><annotation encoding="application/x-tex">n=8 \text{ bits}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mord text"><span class="mord"> bits</span></span></span></span></span></span>
+  </li>
+</ul>
+
+<h2 id="example-of-an-isa-x86">Example of an ISA: x86</h2>
+
+<ul>
+  <li>Memory model
+    <ul>
+      <li>Word size: 64 bits</li>
+      <li>Memory size -&gt; 2m x n
+        <ul>
+          <li>m = 64 bits even though only 48 bits are used</li>
+          <li>n = 8 bits (byte-addressable)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Registers
+    <ul>
+      <li>16 integers registers of 64 bits (8/16/32/64 bits can be accessed)
+        <ul>
+          <li>Purpose: stack pointer, return value, callee-saved, caller-saved,
+arguments</li>
+        </ul>
+      </li>
+      <li>16 floating point registers of 128 bits</li>
+    </ul>
+  </li>
+  <li>Instruction set
+    <ul>
+      <li>Lots of them: https://en.wikipedia.org/wiki/X86_instruction_listings</li>
+      <li>Operand model: two operands (of different sizes)</li>
+      <li>Memory addressing modes: Supports various addressing modes including
+immediate (direct), indirect, base+displacement, indexed, and scaled</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="instruction-set-is-design-guidelines">Instruction set (IS) design guidelines</h2>
+
+<ol>
+  <li>Each instruction of IS must have an unambiguous binary
+encoding, so CPU can unambiguously decode and
+execute it -&gt; let’s assign a unique opcode to each instruction</li>
+  <li>IS is functionally complete -&gt; i.e., it is “Turing complete”; it will have 3 classes of instructions:
+    <ol>
+      <li>Data transfer instructions – Memory reference</li>
+      <li>Data manipulation instructions – Arithmetic and logical</li>
+      <li>Program control instructions – Branch and jump</li>
+    </ol>
+  </li>
+  <li>In terms of machine instruction format:
+    <ol>
+      <li>Create as few of them as possible</li>
+      <li>Have them all of the same length and same format!</li>
+      <li>If we have different machine instruction formats, then position the
+fields that have the same purpose in the same location in the format</li>
+    </ol>
+  </li>
+</ol>
+
+<h2 id="1-each-instruction-of-is-must-have-an-unambiguous-binary-encoding-">1. “Each instruction of IS must have an unambiguous binary encoding …”</h2>
+
+<p>Assembly instruction:</p>
+
+<ul>
+  <li>Symbolic representation of a
+machine instruction
+    <ul>
+      <li>Mnemonics: abbreviation of
+operation name
+        <ul>
+          <li>Example: <code class="language-plaintext highlighter-rouge">movq, addw, ret</code></li>
+        </ul>
+      </li>
+      <li>Labels to represent addresses
+        <ul>
+          <li>Example: <code class="language-plaintext highlighter-rouge">call sum</code>, <code class="language-plaintext highlighter-rouge">jmp loop</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Advantage: human readable,
+i.e., program easier to read and
+write than a series of 0’s and 1’s, Example</li>
+  <li>Made easier through the use of of format opcode
+mnemonics and labels</li>
+</ul>
+
+<p>An assembly instruction will compile (more specifically, “assemble”) into a:</p>
+
+<p>Machine Instrucction:</p>
+
+<ul>
+  <li>Each assembly instruction has a
+corresponding machine instruction</li>
+  <li>Machine instruction expressed as
+bit pattern (binary encoding)
+–&gt; 0’s and 1’s</li>
+  <li>unique
+bit pattern
+representing
+each opcode</li>
+  <li>unique
+bit pattern
+representing
+each operand</li>
+  <li>This is an example of formal binary encoding</li>
+</ul>
+
+<h2 id="what-is-an-opcode-what-is-an-operand">What is an opcode? What is an operand?</h2>
+
+<ul>
+  <li>Opcode: Operation Code</li>
+  <li>Opcode: operation that can be executed by the CPU
+    <ul>
+      <li>Expressed as bit pattern (binary encoding) –&gt; 0’s and 1’s</li>
+    </ul>
+  </li>
+  <li>Operand(s): required by the opcode in order for CPU to
+successfully carry out the instruction
+    <ul>
+      <li>They are also expressed as bit patterns –&gt; 0’s and 1’s</li>
+    </ul>
+  </li>
+  <li>In the output of the objdump tool (disassembler), we can see
+opcodes and operands expressed as hexadecimal values</li>
+</ul>
+
+<h3 id="example-using-x86-64">Example using x86-64:</h3>
+
+<p>Mixed assembly and hex machine instructions:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>00000000004004b7 &lt;someFcn&gt;:
+  4004b7:   4c 03 00  add (%rax),%r8
+  4004ba:   7e fb     jle 4004b7 &lt;someFcn&gt;
+  4004bc:   c3        retq
+</code></pre></div></div>
+
+<p>Binary machine instructions:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>000000000000001101001100
+1111101101111110
+11000011
+</code></pre></div></div>
+
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo>∴</mo><mtext> diff. length</mtext></mrow><annotation encoding="application/x-tex">\therefore \text{ diff. length}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69224em;vertical-align:0em;"></span><span class="mrel amsrm">∴</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord"> diff. length</span></span></span></span></span></span>
+
+<h2 id="types-of-instruction-sets">Types of instruction sets</h2>
+
+<p>CISC:</p>
+
+<ul>
+  <li>Stands for: Complex Instruction Set Computing</li>
+  <li>Large # of instructions
+including special purpose
+instructions</li>
+  <li>Usually “register-memory”
+architecture
+    <ul>
+      <li>This means any instruction may address memory e.g. <code class="language-plaintext highlighter-rouge">addq 8(%rsp) %rax</code></li>
+    </ul>
+  </li>
+  <li>Examples: VAX, x86, MC68000</li>
+</ul>
+
+<p>RISC:</p>
+
+<ul>
+  <li>Reduced Instruction Set
+Computing</li>
+  <li>Small # of general purpose
+instructions
+    <ul>
+      <li>smaller machine instruction set</li>
+      <li>simpler microprocessor design</li>
+    </ul>
+  </li>
+  <li>“load/store” architecture
+    <ul>
+      <li>This means <code class="language-plaintext highlighter-rouge">load</code> &amp; <code class="language-plaintext highlighter-rouge">store</code> are the only instructions to access memory</li>
+    </ul>
+  </li>
+  <li>Examples: SPARC, MIPS, Alpha, AXP, PowerPC (Transcriber’s note: Also, ARM, like the Raspberry Pi, PinebookPro and M1 chips)</li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>Assembler (part of the compilation process):
+    <ul>
+      <li>Transforms assembly code (<code class="language-plaintext highlighter-rouge">movl %edi,%eax</code>) into machine code
+(<code class="language-plaintext highlighter-rouge">0xf889 -&gt; 1111100010001001</code>)</li>
+    </ul>
+  </li>
+  <li>Instruction Set Architecture (ISA)
+    <ul>
+      <li>A formal specification (or agreement) of:</li>
+      <li>Registers and memory model, set of instructions (assembly-machine)</li>
+      <li>Conventions, model of computation</li>
+      <li>etc…</li>
+    </ul>
+  </li>
+  <li>Design principles when creating instruction set (IS)
+    <ol>
+      <li>Each instruction must have an unambiguous encoding</li>
+      <li>Functionally complete (Turing complete)</li>
+      <li>Machine instruction format: 1) as few of them as possible 2) of the
+same length 3) fields that have the same purpose positioned in the
+same location in the format</li>
+    </ol>
+  </li>
+  <li>Types of instruction sets: CISC and RISC</li>
+</ul>
+
+<h2 id="next-lecture">Next lecture</h2>
+
+<ul>
+  <li>Instruction Set Architecture (ISA)
+    <ul>
+      <li>Definition of ISA</li>
+    </ul>
+  </li>
+  <li>Instruction Set design
+    <ul>
+      <li>Design guidelines</li>
+      <li>(highlighted) Example of an instruction set: MIPS</li>
+      <li>Create our own instruction sets</li>
+      <li>ISA evaluation</li>
+    </ul>
+  </li>
+  <li>Implementation of a microprocessor (CPU) based on an ISA
+    <ul>
+      <li>Execution of machine instructions (datapath)</li>
+      <li>Intro to logic design + Combinational logic + Sequential logic circuit</li>
+      <li>Sequential execution of machine instructions</li>
+      <li>Pipelined execution of machine instructions + Hazards</li>
+    </ul>
+  </li>
+</ul>
+
+      <footer>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

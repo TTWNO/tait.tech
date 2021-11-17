@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>UEFI Development On x86 With EDK2 | tait.tech</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tait Hoyem">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+	<h1>tait.tech</h1>
+
+        <nav>
+	
+	<a href="/" class="nav-link"  >Home</a>
+	
+	<a href="/blog/" class="nav-link"  >Blog</a>
+	
+	<a href="/ideas/" class="nav-link"  >Ideas</a>
+	
+	<a href="/links/" class="nav-link"  >Links</a>
+	
+	<a href="https://github.com/TTWNO/" class="nav-link"   target="_blank" rel="noopener noreferrer" >Github</a>
+	
+</nav>
+
+      </header>
+      <main>
+        <article>
+  <header>
+    <h1 class="post-title">UEFI Development On x86 With EDK2</h1>
+    <time datetime="21-04-18" class="post-date">Sunday, April 18 2021</time>
+  </header>
+  <hr>
+
+  <p>I made this blog so I could remember how to do stuff that had instructions spread around the internet.
+So here is how I setup my environment for developing EFI applications.</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<p>On Artix or other Arch-based distros like Manjaro I installed the following packages: <code class="language-plaintext highlighter-rouge">gcc nasm iasl</code></p>
+
+<p>Here is what the packages do:</p>
+
+<ul>
+  <li>GCC is obviously the GNU Compiler Collection and it allows us to compile C code to machine code.</li>
+  <li>NASM stands for Netwide Assembler. It is an assembler and disassembler for 32 and 64 bit Intel x86 platforms.</li>
+  <li>IASL stands for the ACPI Source Language Compiler/Decompiler. This will compile any ACPI calls to our local machine’s code.</li>
+</ul>
+
+<p>We need all these packages to start our (U)EFI journey.
+Now that these are installed, let’s setup our environment.</p>
+
+<h2 id="building-edk2">Building EDK2</h2>
+
+<p>I used the stable/202011 branch as that is latest stable version of the EDK2 project.</p>
+
+<p>So first let’s pull the project:</p>
+
+<p><code class="language-plaintext highlighter-rouge">git clone https://github.com/tianocore/edk2.git</code></p>
+
+<p>Now, let’s fetch the tags and switch to the latest stable version:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd edk2
+git fetch
+git checkout stable/202011
+</code></pre></div></div>
+
+<p>Perfect! We’re on stable now! Let’s grab all our submodules: <code class="language-plaintext highlighter-rouge">git submodule update --init</code></p>
+
+<p>This will take a bit the first time you do it. But no fear, once that’s done, we can finally build the base tools.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make -C BaseTools
+export EDK_TOOLS_PATH=$HOME/Documents/edk2/BaseTools
+. edksetup.sh BaseTools
+</code></pre></div></div>
+
+<p>Notice we source a file with <code class="language-plaintext highlighter-rouge">.</code> before continuing. This is needed to load some tools and options into our shell for later. The environment variable <code class="language-plaintext highlighter-rouge">EDK_TOOLS_PATH</code> is set so that EDK knows where to find itself later. Now that everything is loaded up, we can modify a config file located at <code class="language-plaintext highlighter-rouge">Conf/target.txt</code>.</p>
+
+<p>The most important options are these, feel free to append them to the end of the file; there is no default value for them.</p>
+
+<pre class="file">
+ACTIVE_PLATFORM = MdeModulePkg/MdeModulePkg.dsc
+TOOL_CHAIN_TAG = GCC5
+# for 64-bit development
+TARGET_ARCH = X64
+# for 32-bit development
+TARGET_ARCH = IA32
+# for 32 and 64-bit development
+TARGET_ARCH = IA32 X64
+
+# set multithreading to 1 + (2 x # of cores)
+MAX_CONCURRENT_THREAD_NUMBER = 9
+</pre>
+
+<p>There are other options, but I don’t know about them much, so I’m just sticking with this for now.</p>
+
+<p>Finally, after all this work, we can build some .efi files. Let’s compile the <code class="language-plaintext highlighter-rouge">Helloworld.efi</code> file!
+Simply run the <code class="language-plaintext highlighter-rouge">build</code> command in the terminal.
+You can find your compiled EFI files by running this <code class="language-plaintext highlighter-rouge">ls</code> command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls Build/MdeModule/DEBUG_*/*/HelloWorld.efi
+</code></pre></div></div>
+
+<p>This will show all HelloWorld.efi files for all architectures and toolchains (if you decide to change them).</p>
+
+<h2 id="running-in-uefi-shell">Running In UEFI Shell</h2>
+
+<p>Once all this is complete, you will want to run your EFI files.
+To do so, let’s first add an EFI shell to use at boot.
+This will appear as an option in your bootloader, like GRUB, which is what I will show documentation for in this article.</p>
+
+<p>So, first thing is first,
+<a href="https://github.com/tianocore/edk2/blob/UDK2018/ShellBinPkg/UefiShell/X64/Shell.efi?raw=true">download and EFI shell file</a>.
+Second, move it to a partition (FAT formatted) which can be used for the UEFI.
+On my Linux system, this is /boot. On others there may be no FAT filesystem so attach a USB and format it as FAT.
+Third, add the <code class="language-plaintext highlighter-rouge">EFI Shell</code> option to your grub boot file.
+Substitute hdX with the right hard drive (I did it with trial and error) as when it doesn’t work I would hit ‘e’ on grub and add the <code class="language-plaintext highlighter-rouge">ls</code> GRUB command.
+Substitute the gptX with the correct partition, or msdosX if it is a DOS formatted partition table.
+My <code class="language-plaintext highlighter-rouge">Shell.efi</code> was placed in /boot/EFI/.</p>
+
+<p><label>/etc/grub.d/40_custom</label></p>
+<pre class="file">
+menuentry "EFI Shell" {
+        insmod part_gpt
+        insmod chain
+        insmod fat
+        set root='(hd4,gpt2)'
+        chainloader /EFI/Shell.efi
+}
+</pre>
+
+<p>Now regenerate your grub configuration file with <code class="language-plaintext highlighter-rouge">grub-update</code> (Debian-based) or <code class="language-plaintext highlighter-rouge">grub-mkconfig -o /boot/grub/grub.cfg</code> (Other).</p>
+
+<p>You’ll know if your shell is working if you see the following text on boot into the EFI shell:</p>
+
+<pre class="terminal">
+UEFI Interactive Shell v2.1
+EDK II
+UEFI v2.4 (EDI II, 0x000100000)
+Mapping table:
+	...
+Shell&gt; 
+</pre>
+
+<h2 id="running-hello-world">Running Hello World</h2>
+
+<p>When we run our <code class="language-plaintext highlighter-rouge">ls</code> command from earlier, remember we saw our <code class="language-plaintext highlighter-rouge">HelloWorld.efi</code> file.
+Let’s move this file somewhere useful, like for me, <code class="language-plaintext highlighter-rouge">/boot</code>.
+Then, once we’re in our UEFI shell we can run commands:</p>
+
+<pre class="terminal">
+Shell&gt; .\HelloWorld.efi
+UEFI Hello World!
+Shell&gt; 
+</pre>
+
+<p>And that… All that is how you set up a UEFI development environment.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>This took me a long time to figure out.
+I needed to scrounge resources from around the internet,
+and I had to look at my config files for hours to make sure that I hadn’t missed a step that I did without thinking.
+I hope this will be useful to you and my future self.</p>
+
+<p>Happy UEFI hacking :)</p>
+
+</article>
+
+      </main>
+      <hr>
+      <footer>
+        This page will be mirrored on <a href="https://beta.tait.tech/2021/04/18/uefi-development-environment/">beta.tait.tech</a>.
+
+      </footer>
+    </div>
+  </body>
+</html>
