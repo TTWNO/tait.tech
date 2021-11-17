@@ -5,12 +5,12 @@ source "https://rubygems.org"
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 gem "webrick"
-gem "jekyll"
 gem "rack", ">= 2.2.3"
 gem "kramdown"
 gem "kramdown-math-katex"
 gem "execjs"
 gem "duktape"
+gem "ffi"
 
 group :jekyll_plugins do
 	gem 'jekyll-katex'
@@ -19,6 +19,7 @@ group :jekyll_plugins do
   gem 'jekyll-seo-tag'
   gem 'jekyll-minifier'
   gem 'jekyll-scholar'
+  gem 'jekyll-contentblocks'
 end
 
 # gem "rails"

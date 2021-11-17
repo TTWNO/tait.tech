@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h2 id="cmpt-295---unit---machine-level-programming">CMPT 295 - Unit - Machine-Level Programming</h2>
+
+<p>Lecture 20:</p>
+
+<ul>
+  <li>Assembly language</li>
+  <li>Array</li>
+  <li>1D</li>
+</ul>
+
+<h2 id="last-lecture---x86-64-register-saving-convention">Last Lecture - x86-64 “register saving” convention</h2>
+
+<p>callee saved registers:</p>
+
+<ul>
+  <li>Callee must save &amp; restore</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%rbx</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%r12</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%r13</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%r14</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%r15</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rbp</td>
+      <td>parameters/arguments</td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td>return value</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>caller saved registers:</p>
+
+<ul>
+  <li>Caller must save &amp; restore</li>
+  <li>Can be modified by callee</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%rax</td>
+      <td>Return value</td>
+    </tr>
+    <tr>
+      <td>%rdi</td>
+      <td>Parameters/arguments</td>
+    </tr>
+    <tr>
+      <td>%rsi</td>
+      <td>Parameters/arguments</td>
+    </tr>
+    <tr>
+      <td>%rdx</td>
+      <td>Parameters/arguments</td>
+    </tr>
+    <tr>
+      <td>%rcx</td>
+      <td>Parameters/arguments</td>
+    </tr>
+    <tr>
+      <td>%r8</td>
+      <td>Parameters/arguments</td>
+    </tr>
+    <tr>
+      <td>%r9</td>
+      <td>Parameters/arguments</td>
+    </tr>
+    <tr>
+      <td>%r10</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%r11</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="last-lecture---x86-64-conventions-and-stack-frame">Last Lecture - x86-64 conventions and stack frame</h2>
+
+<ul>
+  <li>caller preserves caller saved registers (<a href="#caller">arrow</a>)</li>
+  <li>caller passes arguments (<a href="#args">arrow</a>)</li>
+  <li>caller calls callee (<a href="#ret">arrow</a>)</li>
+  <li>callee preserves callee saved registers (<a href="#callee">arrow</a>)</li>
+  <li>callee constructs local vars (get stack space) (<a href="$vars">arrow</a>)</li>
+  <li>callee performs function</li>
+  <li>callee recycles local vars (restore stack space)</li>
+  <li>callee restores callee saved registers</li>
+  <li>callee returns to caller</li>
+  <li>caller pops arguments</li>
+  <li>caller restores caller saved registers</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>M[] Stack</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>…</td>
+      <td>caller frame</td>
+    </tr>
+    <tr>
+      <td><span id="caller">caller saved regs</span></td>
+      <td>caller frame</td>
+    </tr>
+    <tr>
+      <td><span id="args">args 7 … n</span></td>
+      <td>caller frame</td>
+    </tr>
+    <tr>
+      <td><span id="ret">return address</span></td>
+      <td>caller frame</td>
+    </tr>
+    <tr>
+      <td><span id="callee">callee saved regs</span></td>
+      <td>callee frame</td>
+    </tr>
+    <tr>
+      <td><span id="vars">%rsp/Top/local vars</span></td>
+      <td>callee frame</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="recursion-in-x86-64">Recursion in x86-64</h2>
+
+<ul>
+  <li>Handled without special instruction (We already know how to implement recursive functions in x86-64 assembly language)
+    <ol>
+      <li>Call / return mechanism still follow the stack pattern.
+    * If P (first invocation of P) calls itself (second invocation of P), then the second invocation of P must terminate before the first invocation of P can do so.</li>
+      <li>Each invocation of the recursive function has its own stack frame.
+    * Saved registers &amp; local variables
+    * Argument 7..n (if any)
+    * Saved return address
+        <ul>
+          <li>Function call conventions still required and implemented
+            <ul>
+              <li>Passing arguments and returning return value.</li>
+            </ul>
+          </li>
+          <li>Regular saving conventions still required and implemented
+            <ul>
+              <li>Prevent one function from corrupting antoher’s data (stored in registers)</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>Also works for mutual recursion
+    <ul>
+      <li>P calls Q then Q calls P</li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Label</th>
+      <th>M[] Stack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>Stack frame of 1st invocation of P</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>Stack frame of 2nd invocation of P</td>
+    </tr>
+    <tr>
+      <td>top</td>
+      <td>Stack frmae of 3rd invocation of P</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="recursive-function--countonesr">Recursive Function – countOnesR(…)</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/* Recursive counter of 1’s */
+long countOnesR(unsigned long x) {
+  if (x == 0){
+    return 0;
+  } else {
+    return (x &amp; 1) + countOnesR(x &gt;&gt; 1);
+  }
+}
+</code></pre></div></div>
+
+<p>What does this function do?</p>
+
+<h2 id="recursive-function--example--base-case">Recursive Function – Example – Base Case</h2>
+
+<p>C program:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/* Recursive counter of 1’s */
+long countOnesR(unsigned long x) {
+  if (x == 0) //highlighted
+    return 0; //highlighted
+  else
+    return (x &amp; 1) + countOnesR(x &gt;&gt; 1);
+}
+</code></pre></div></div>
+
+<p>Assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>countOnesR:
+  xorl %eax, %eax #highlighted
+  testq %rdi, %rdi #highlighted
+  je done #highlighted
+  pushq %rbx
+  movq %rdi, %rbx
+  andl $1, %ebx
+  shrq %rdi
+  call countOnesR
+  addq %rbx, %rax
+  popq %rbx
+done: #highlighted
+  ret #highlighted
+</code></pre></div></div>
+
+<h2 id="recursive-function--example---saving-registers">Recursive Function – Example - Saving registers</h2>
+
+<p>C code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/* Recursive counter of 1’s */
+long countOnesR(unsigned long x) {
+  if (x == 0)
+    return 0;
+  else
+    return (x &amp; 1) + countOnesR(x &gt;&gt; 1);
+}
+</code></pre></div></div>
+
+<p>Assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>countOnesR:
+  xorl %eax, %eax
+  testq %rdi, %rdi
+  je done
+  pushq %rbx #highlighted
+  movq %rdi, %rbx
+  andl $1, %ebx
+  shrq %rdi
+  call countOnesR
+  addq %rbx, %rax
+  popq %rbx #highlighted
+done:
+  ret
+</code></pre></div></div>
+
+<h2 id="recursive-function--example---call-setup">Recursive Function – Example - Call Setup</h2>
+
+<p>C code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/* Recursive counter of 1’s */
+long countOnesR(unsigned long x) {
+  if (x == 0)
+    return 0;
+  else
+    return (x &amp; 1) + countOnesR(x &gt;&gt; 1); // between the parenthasies are highlighted
+}
+</code></pre></div></div>
+
+<p>Assembly code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>countOnesR:
+  xorl %eax, %eax
+  testq %rdi, %rdi
+  je done
+  pushq %rbx
+  movq %rdi, %rbx #highlighted
+  andl $1, %ebx #highlighted
+  shrq %rdi #highlighted
+  call countOnesR
+  addq %rbx, %rax
+  popq %rbx
+done:
+  ret
+</code></pre></div></div>
+
+<h2 id="recursive-function--example--recursive-call">Recursive Function – Example – Recursive Call</h2>
+
+<p>C code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/* Recursive counter of 1’s */
+long countOnesR(unsigned long x) {
+  if (x == 0)
+    return 0;
+  else
+    return (x &amp; 1) + countOnesR(x &gt;&gt; 1);// countOnesR(x &gt;&gt; 1) is highlighted
+}
+</code></pre></div></div>
+
+<p>Assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>countOnesR:
+  xorl %eax, %eax
+  testq %rdi, %rdi
+  je done
+  pushq %rbx
+  movq %rdi, %rbx
+  andl $1, %ebx
+  shrq %rdi
+  call countOnesR
+  addq %rbx, %rax
+  popq %rbx
+done:
+  ret
+</code></pre></div></div>
+
+<h2 id="recursive-function--example--result">Recursive Function – Example – Result</h2>
+
+<p>C code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/* Recursive counter of 1’s */
+long countOnesR(unsigned long x) {
+  if (x == 0)
+    return 0;
+  else
+    return (x &amp; 1) + countOnesR(x &gt;&gt; 1); // + is highlighted
+}
+</code></pre></div></div>
+
+<p>Assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>countOnesR:
+  xorl %eax, %eax
+  testq %rdi, %rdi
+  je done
+  pushq %rbx
+  movq %rdi, %rbx
+  andl $1, %ebx
+  shrq %rdi
+  call countOnesR
+  addq %rbx, %rax #highlighted
+  popq %rbx
+done:
+  ret
+</code></pre></div></div>
+
+<h2 id="recursive-function--example--clean-up-and-return">Recursive Function – Example – Clean-up and return</h2>
+
+<p>C code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/* Recursive counter of 1’s */
+long countOnesR(unsigned long x) {
+  if (x == 0)
+    return 0;
+  else
+    return (x &amp; 1) + countOnesR(x &gt;&gt; 1);
+}
+</code></pre></div></div>
+
+<p>Assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>countOnesR:
+  xorl %eax, %eax
+  testq %rdi, %rdi
+  je done
+  pushq %rbx
+  movq %rdi, %rbx
+  andl $1, %ebx
+  shrq %rdi
+  call countOnesR
+  addq %rbx, %rax
+  popq %rbx
+done:
+  ret
+</code></pre></div></div>
+
+<h2 id="recursive-function--example--test-cases">Recursive Function – Example – Test Cases</h2>
+
+<ul>
+  <li>Test Case 1
+    <ul>
+      <li>Input: x = 0</li>
+      <li>Expected result: 0</li>
+    </ul>
+  </li>
+  <li>Test Case 2
+    <ul>
+      <li>Input: x = 7</li>
+      <li>Expected result: 3</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>countOnesR:
+  xorl %eax, %eax
+  testq %rdi, %rdi
+  je done
+  pushq %rbx
+  movq %rdi, %rbx
+  andl $1, %ebx
+  shrq %rdi
+  call countOnesR
+  addq %rbx, %rax
+  popq %rbx
+done:
+  ret
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>base + displacement</th>
+      <th>Stack Variable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Register table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="1d-array--in-c">1D Array – in C</h2>
+
+<p>In C, arrays are also pointers!</p>
+
+<p>Diagram of: <code class="language-plaintext highlighter-rouge">int x[5];</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Address/Variable</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>x</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>x+1</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>x+2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>x+3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>x+4</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>x+5</td>
+      <td>end of array</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>I want…</th>
+      <th>Type</th>
+      <th>Value of result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>x[4]</td>
+      <td>int</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>x</td>
+      <td>int *</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>x+1</td>
+      <td>int *</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>&amp;x[2]</td>
+      <td>int *</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>x[5]</td>
+      <td>int</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>*(x+1)</td>
+      <td>int</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>x+i</td>
+      <td>int *</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="1d-array--in-c-and-in-x86-64">1D Array – in C and in x86-64</h2>
+
+<p>T A[n];</p>
+
+<ul>
+  <li>… is an array of data type T and length n =&gt; in C</li>
+  <li>… is a contiguously allocated region of n * L bytes in memory where L = sizeof(T) =&gt; in x86-64</li>
+</ul>
+
+<h3 id="char-x12">char x[12];</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name/Address</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>x</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>x+?</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="int-x5">int x[5];</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name/Address</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>x</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>x+?</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="long-x3">long x[3];</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name/Address</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>x</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>x+?</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="char-x3">char *x[3];</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name/Address</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>x</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>x+?</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We access arrays differently in x86-64 than in C!</p>
+
+<h2 id="accessing-1d-array--in-x86-64">Accessing 1D Array – in x86-64</h2>
+
+<ul>
+  <li>Use index arithmatic to compute memory address of each array element
+    <ul>
+      <li>Memory address of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo><mo>=</mo><mi>A</mi><mo>+</mo><mi>i</mi><mo>×</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">A[i] = A+i \times L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mopen">[</span><span class="mord mathnormal">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span></span></span></span>
+        <ul>
+          <li>where A is base memory address
+            <ul>
+              <li>i.e., A memory address of array element 0</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Can access other array elements by incrementing A by i*L</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="1d-array--in-x86-64">1D Array – in x86-64</h2>
+
+<p><code class="language-plaintext highlighter-rouge">int x[5];</code></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Name/Address</td>
+      <td>Value</td>
+    </tr>
+    <tr>
+      <td>x</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>x+4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>x+8</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>x+12</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>x+16</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>x+20</td>
+      <td>end of array</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>I want…</th>
+      <th>Type</th>
+      <th>Value of result (x86-64 instruction)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>x[4]</td>
+      <td>int</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>x</td>
+      <td>int *</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>x+1</td>
+      <td>int *</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>&amp;x[2]</td>
+      <td>int *</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>x[5]</td>
+      <td>int</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>*(x+1)</td>
+      <td>int</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>x+i</td>
+      <td>int *</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="manipulating-1d-array--example---mainc">Manipulating 1D array – Example - main.c</h2>
+
+<p>This program defines 4 arrays:</p>
+
+<ul>
+  <li>an array of char’s,</li>
+  <li>an array of short’s,</li>
+  <li>an array of int’s,</li>
+  <li>an array of long’s</li>
+</ul>
+
+<p>then it calls the appropriate sum function, i.e., the one
+that sums elements of the correct data type.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+char sumChar(char*,int);
+short sumShort(short*,int);
+int sumInt(int*,int);
+long sumLong(long*,int);
+
+#define N 6
+
+char AC[N] = {-58,22,101,-15,72,27}; // Expected results: sum = -107
+short AS[N] = {-58,22,101,-15,72,27}; // Expected results: sum = 149
+int AI[N] = {258,522,1010,-15,-3372,27};// Expected results: -1570
+long AL[N] = {258,522,1010,-15,-3370,27}; // Expected results: -1570
+
+int main(){
+  printf("The total of AC is %hhi.\n", sumChar(AC, N));
+  printf("The total of AS is %hi.\n", sumShort(AS, N));
+  printf("The total of AI is %d.\n", sumInt(AI, N));
+  printf("The total of AL is %ld.\n", sumLong(AL, N));
+  return;
+}
+</code></pre></div></div>
+
+<h2 id="manipulating-1d-array--example---sumss---part-1">Manipulating 1D array – Example - sums.s - Part 1</h2>
+
+<ul>
+  <li>Register %rdi contains starting address of array (base address of array)</li>
+  <li>Register %esi contains size of array (N)</li>
+  <li>Register %ecx contains array index</li>
+  <li>Register %al or %ax contains the running sum</li>
+</ul>
+
+<p>sumChar assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  .global sumChar
+sumChar:
+  movl $0,%eax
+  movl $0,%ecx
+loopChar:
+  cmpl %ecx,%esi
+  jle endloop1
+  addb (%rdi,%rcx,1),%al
+  incl %ecx
+  jmp loopChar
+endloop1:
+  ret
+</code></pre></div></div>
+
+<p>sumShort assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  .global sumShort
+sumShort:
+  xorl %eax,%eax
+  xorl %ecx,%ecx
+  jmp condl
+loopShort:
+  addw (%rdi,%rcx,2), %ax
+  incl %ecx
+condl:
+  cmpl %esi,%ecx
+  jne loopShort
+  ret
+</code></pre></div></div>
+
+<h2 id="manipulating-1d-array--example---sumss---part-2">Manipulating 1D array – Example - sums.s - Part 2</h2>
+
+<p>Register %rdi contains starting address of array (base address of array)</p>
+<ul>
+  <li>Register %esi contains size of array (N)</li>
+  <li>Register %ecx contains array index</li>
+  <li>Register %eax or %rax contains the running sum</li>
+</ul>
+
+<p>sumInt assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  .global sumint
+sumInt:
+  xorl %eax,%eax
+  xorl %ecx,%ecx
+  jmp cond2
+loopInt:
+  addl (%rdi,%rcx,4),%eax
+  incl %ecx
+cond2:
+  jmpl %esi,%ecx
+  jne loopInt
+  ret
+</code></pre></div></div>
+
+<p>sumLong in assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  .global sumLong
+sumLong:
+  movq $0,%rax
+  movl $0,%ecx
+loopLoop:
+  cmpl %ecx,%esi,
+  jle endloop
+  addq (%rdi,%rcx,8),%rax
+  incl %ecx
+  jmp loopLoop
+endloop:
+  ret
+</code></pre></div></div>
+
+<h2 id="warning">Warning!</h2>
+
+<ul>
+  <li>Forgetting that the memory addresses of contiguous array
+cells differ by the size of the content of these cells instead of
+by 1 is a common mistake in assembly language
+programming</li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>Arrays
+    <ul>
+      <li>Elements packed into contiguous region of memory</li>
+      <li>Use index arithmetic to locate individual elements</li>
+      <li>1D array: address of A[i] = A + i * L</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="next-lecture">Next Lecture</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation</li>
+  <li>Memory addressing modes</li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX</li>
+  <li>Loops</li>
+  <li>Function call – Stack
+    <ul>
+      <li>Overview of Function Call</li>
+      <li>Memory Layout and Stack - x86-64 instructions and registers</li>
+      <li>Passing control</li>
+      <li>Passing data – Calling Conventions</li>
+      <li>Managing local data</li>
+      <li>Recursion</li>
+    </ul>
+  </li>
+  <li>(highlighted) Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+      <footer>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

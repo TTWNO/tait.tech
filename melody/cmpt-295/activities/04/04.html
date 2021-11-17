@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="participation-activity-4">Participation Activity 4</h1>
+
+<p>Last name: <input type="text" name="lname" /></p>
+
+<p>First name: <input type="text" name="fname" /></p>
+
+<p>Std#: <input type="text" name="stdnum" /></p>
+
+<h2 id="memory-allocation-example">Memory Allocation Example:</h2>
+
+<p>Where does eveything go?</p>
+
+<p>Indicate with an arrow in which memory segment the content of each box will be found one we start executing the program.</p>
+
+<p>Code (box is indicated as a comment):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include ... // cyan box
+
+char hugeArray[1 &lt;&lt; 31]; /* 2^31 = 2GB */ // purple box
+int global = 0; // purple box
+
+int main()
+{
+  void *ptr1, *ptr2; // red box
+  int local = 0; // red box
+  ptr1 = malloc(1 &lt;&lt; 28); /* 2^28 = 256 MB */ // blue box
+  ptr2 = malloc(1 &lt;&lt; 8); /* 2^8 = 256 B*/ // blue box
+/* some print statements */
+}
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>M[]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Kernel</td>
+    </tr>
+    <tr>
+      <td>Stack (arrow pointing down)</td>
+    </tr>
+    <tr>
+      <td>...</td>
+    </tr>
+    <tr>
+      <td>Shared Libraries</td>
+    </tr>
+    <tr>
+      <td>...</td>
+    </tr>
+    <tr>
+      <td>Heap (arrow pointing up)</td>
+    </tr>
+    <tr>
+      <td>Data</td>
+    </tr>
+    <tr>
+      <td>Text</td>
+    </tr>
+    <tr>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table>
+
+      <footer>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

@@ -382,33 +382,33 @@ memory address through various memory addressing modes</p>
     </tr>
     <tr>
       <td>8(%rdx)</td>
-      <td><span contenteditable="true"></span></td>
-      <td><span contenteditable="true"></span></td>
+      <td><code class="language-plaintext highlighter-rouge">0xF000</code>+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mn>8</mn><mn>10</mn></msub><mo>=</mo><mtext>0x8</mtext><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(8_{10} = \text{0x8})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord">8</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">0x8</span></span><span class="mclose">)</span></span></span></span></td>
+      <td><code class="language-plaintext highlighter-rouge">0xF008</code></td>
     </tr>
     <tr>
       <td>(%rdx,%rcx)</td>
-      <td><span contenteditable="true"></span></td>
-      <td><span contenteditable="true"></span></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>0xF000</mtext><mo>=</mo><mtext>0x0100</mtext></mrow><annotation encoding="application/x-tex">\text{0xF000} = \text{0x0100}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">0xF000</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">0x0100</span></span></span></span></span></td>
+      <td><code class="language-plaintext highlighter-rouge">0xF100</code></td>
     </tr>
     <tr>
       <td>(%rdx,%rcx,4)</td>
-      <td><span contenteditable="true"></span></td>
-      <td><span contenteditable="true"></span></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>0xF000</mtext><mo>+</mo><mtext>0x0100</mtext><mo>×</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">\text{0xF000} + \text{0x0100} \times 4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord">0xF000</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord">0x0100</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span></td>
+      <td><code class="language-plaintext highlighter-rouge">0xF400</code></td>
     </tr>
     <tr>
       <td>0x80(,%rdx,2)</td>
-      <td><span contenteditable="true"></span></td>
-      <td><span contenteditable="true"></span></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>0x80</mtext><mo>+</mo><mtext>0xF000</mtext><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\text{0x80} + \text{0xF000} \times 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord">0x80</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord">0xF000</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span></td>
+      <td><code class="language-plaintext highlighter-rouge">0xE080</code></td>
     </tr>
     <tr>
       <td>0x80(%rdx, 2)</td>
-      <td><span contenteditable="true"></span></td>
-      <td><span contenteditable="true"></span></td>
+      <td>invalid -&gt; missing a “,” (comma) before <code class="language-plaintext highlighter-rouge">%rdx</code></td>
+      <td> </td>
     </tr>
     <tr>
       <td>0x80(,%rdx, 3)</td>
-      <td><span contenteditable="true"></span></td>
-      <td><span contenteditable="true"></span></td>
+      <td>invalid scalar value</td>
+      <td> </td>
     </tr>
   </tbody>
 </table>

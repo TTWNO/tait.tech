@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/assets/css/katex.css" id="math-stylesheet">
+  
+  
+
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="assignment-7---cmpt-295--fall-2021">Assignment 7 - CMPT 295 – Fall 2021</h1>
+
+<h2 id="objectives">Objectives:</h2>
+
+<ul>
+  <li>Designing and evaluating instruction sets (ISA)</li>
+</ul>
+
+<hr />
+
+<h2 id="submission">Submission:</h2>
+
+<ul>
+  <li>Submit your document called Assignment_7.pdf, which must include your answers to all
+of the questions in Assignment 7.
+    <ul>
+      <li>Add your full name and student number at the top of the first page of your
+document Assignment_7.pdf.</li>
+    </ul>
+  </li>
+  <li>Submit your assignment Assignment_7.pdf on CourSys.</li>
+</ul>
+
+<hr />
+
+<h2 id="due">Due:</h2>
+
+<ul>
+  <li>Friday Nov. 12 at 23:59:59.</li>
+  <li>Late assignments will receive a grade of 0, but they will be marked (if they are submitted
+before the solutions are posted on Monday) in order to provide feedback to the
+student.</li>
+</ul>
+
+<hr />
+
+<h2 id="marking-scheme">Marking scheme:</h2>
+
+<ul>
+  <li>The marks assigned to each question is indicated in [ ].</li>
+  <li>This assignment will be marked for correctness.</li>
+  <li>A solution will be posted on Monday after the due date.</li>
+</ul>
+
+<hr />
+
+<p>Note: In our lectures, we designed and evaluated the instruction set called x295M. In this
+assignment, we shall design and evaluate three (3) other instruction sets: x295, x295+
+and x295++.</p>
+
+<p>Be aware: All of these 4 instruction sets are different!</p>
+
+<hr />
+
+<h2 id="instruction-set-1--x295">Instruction Set 1 – x295</h2>
+
+<h3 id="a-description-of-x295-instruction-set-architecture-isa">A. Description of x295 instruction set architecture (ISA)</h3>
+
+<ul>
+  <li>Data type size : 16 bits (for example, an integer has 16 bits)</li>
+  <li>Memory model
+    <ul>
+      <li>Size of memory: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>12</mn></msup><mo>×</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">2^{12} \times 16</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">12</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">16</span></span></span></span>
+        <ul>
+          <li>m = 12 -&gt; this means that each memory address has 12 bits.</li>
+          <li>n = 16 -&gt; this means that the address resolution, i.e., the smallest
+addressable memory “chunk”, is a memory “chunk” of 16 bits.
+            <ul>
+              <li>Each memory “chunk” of 16 bits has a distinct memory address.</li>
+              <li>This is not a byte-addressable computer</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Word size: 16 bits -&gt; this means that when the microprocessor reads from/writes
+to memory, it reads/writes 16 bits at a time.
+        <ul>
+          <li>In this ISA, the address resolution == the word size. It is not always the case.</li>
+        </ul>
+      </li>
+      <li>Number of registers: 0</li>
+    </ul>
+  </li>
+  <li>Instruction set (assembly and machine instructions)
+    <ul>
+      <li>Maximum number of instructions: 16
+        <ul>
+          <li>This means that we need a maximum of 4 bits to distinctly represent each
+of these 16 instructions.</li>
+          <li>Therefore, the size of the opcode field, in the machine instructions, will be
+4 bits (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>4</mn></msup><mo>=</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">2^4 = 16</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">16</span></span></span></span>)</li>
+        </ul>
+      </li>
+      <li>Operand Model:
+        <ul>
+          <li>Memory (only) – only memory locations are operands, no registers are
+used as operands except the register representing the stack pointer</li>
+          <li>3-operand model</li>
+          <li>In the machine instructions, the order of these operands is: Dest, Src1, Src2</li>
+        </ul>
+      </li>
+      <li>Memory addressing mode: Direct, Base and Displacement and Indirect
+        <ul>
+          <li>These may not all be used in the instructions found in this assignment.</li>
+        </ul>
+      </li>
+      <li>Assembly instructions (in this assignment we shall only define a subset of these
+instructions) and their format and meaning:
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">ADD a,b,c</code>; meaning: <code class="language-plaintext highlighter-rouge">M[c] &lt;- M[a] + M[b]</code></li>
+          <li><code class="language-plaintext highlighter-rouge">SUB a,b,c</code>; meaning: <code class="language-plaintext highlighter-rouge">M[c] &lt;- M[a] - M[b]</code></li>
+          <li><code class="language-plaintext highlighter-rouge">MUL a,b,c</code>; meaning: <code class="language-plaintext highlighter-rouge">M[c] &lt;- M[a] * M[b]</code></li>
+          <li>In these assembly instructions, the order of the operands is: Src1, Src2,
+Dest.</li>
+        </ul>
+      </li>
+      <li>Machine code format:
+opcode
+        <ul>
+          <li>
+            <table>
+              <thead>
+                <tr>
+                  <th>label</th>
+                  <th>bits</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>opcode</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>dest</td>
+                  <td>12</td>
+                </tr>
+                <tr>
+                  <td>padding</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>src</td>
+                  <td>12</td>
+                </tr>
+                <tr>
+                  <td>padding</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>src2</td>
+                  <td>12</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+          <li>This format is made of 3 words, each word is 16 bits in length (word size). This
+format must be used to form all three machine instructions corresponding to the
+three assembly instructions listed above.
+The bit patterns for the opcode are:
+            <ul>
+              <li>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Opcode (instruction)</th>
+                      <th>bit pattern (4 bits)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>padding</td>
+                      <td>0000</td>
+                    </tr>
+                    <tr>
+                      <td>ADD</td>
+                      <td>0001</td>
+                    </tr>
+                    <tr>
+                      <td>SUB</td>
+                      <td>0010</td>
+                    </tr>
+                    <tr>
+                      <td>MUL</td>
+                      <td>0011</td>
+                    </tr>
+                    <tr>
+                      <td>…</td>
+                      <td>…</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="b-evaluation-of-x295-instruction-set">B. Evaluation of x295 instruction set</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>C program</th>
+      <th>x295 assembly program</th>
+      <th>x295 machine code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><pre>z = (x + y) * (x - y);</pre></td>
+      <td><pre>ADD x,y,tmp1
+SUB x,y,imp2
+MUL tmp1,tmp2,z</pre> (where tmp1 and tmp2 are memory addresses for holding temporary resylts)</td>
+      <td><pre>0001 &lt;Dest 12 bits&gt;
+0000 &lt;Src1 12 bits&gt;
+0000 &lt;Src2 12 bits&gt;
+
+0011 &lt;Dest 12 bits&gt;
+0000 &lt;Src1 12 bits&gt;
+0000 &lt;Src2 12 bits&gt;
+</pre>
+
+Note: in the above machine code, we arbitarily express the memory address as `&lt;Dest 12 bits&gt;`, `&lt;Src1 12 bits&gt;` and `&lt;Src2 12 bits&gt;` as opposed to using actual memory addresses in the memory address fields (fields in between &lt; and &gt;).
+</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>1) The first step in evaluating our x295 instruction set is to write an assembly program using
+the assembly instructions defined by our x295 instruction set. This step has been done
+for us and is displayed in the table above in column “x295 assembly program”.</p>
+
+<p>Note that as we are performing this step, we are verifying that our x295 instruction set
+contains sufficient instructions to allow us to write such program in x295 assembly code.</p>
+
+<p>(There is nothing for us to do in this part of our x295 instruction set evaluation. We can
+use this as a model to follow when answering the rest of this assignment.)</p>
+
+<p>Once we have our x295 assembly program, we need to transform it into its x295
+machine code equivalent. This step has been done for us and is displayed in the table
+above in column “x295 machine code”.</p>
+
+<p>Note that as we are performing this step, we are verifying that our x295 instruction set
+contains sufficient instructions to allow us to write such program in x295 machine code.</p>
+
+<p>(Again, there is nothing for us to do in this part of our x295 instruction set evaluation.
+We can use this as a model to follow when answering the rest of this assignment.)</p>
+
+<p>2) The next step is evaluating our x295 instruction set is to execute (hand trace) our
+assembly program or its corresponding machine code and using the metric (criteria) called
+memory traffic, we count the number of memory accesses our program makes during its
+execution. In other words, we count how many time the execution of our program
+required a word (16 bits) to be read from or written to memory.</p>
+
+<p>Note that as we are performing this step, we are verifying that the meaning of the
+instructions contained in our x295 instruction set is such that hand tracing these
+instructions does indeed produce the result the software developer that wrote the above
+C program expected. This is to say that if we use the test case: x = 3, y = 2 when hand
+tracing our x295 assembly code (or its machine code equivalent), we would obtain the
+same (expected) result as if we were to hand trace the C program itself.</p>
+
+<p>For us to do: As part of this step in the evaluation of our x295 instruction set, we are
+asked to evaluate the number of word size memory accesses made by the
+microprocessor when it is fetching and decoding/executing each assembly code
+statement (or machine code statement) listed in the left column in the table below. Also
+we need to justify our count. Finally, let’s total our counts. [2 marks]</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>x295 program (in machine language and assembly code)</th>
+      <th>Fetch (number of word size memory accessors) + Provide an expaination explaining the count</th>
+      <th>Decode/Execute (number of word size memory accessors) + Provide an explaination explaining the count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><pre>ADD x,y,tmp1</pre>
+<br />
+<pre>0001 &lt;Dest 12 bits&gt;
+0000 &lt;Src1 12 bits&gt;
+0000 &lt;Src2 12 bits&gt;</pre></td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+    </tr>
+    <tr>
+      <td><pre>SUB x,y,tmp2</pre>
+<br />
+<pre>0010 &lt;Dest 12 bits&gt;
+0000 &lt;Src1 12 bits&gt;
+0000 &lt;Src2 12 bits&gt;</pre></td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+    </tr>
+    <tr>
+      <td><pre>MUL tmp1,tmp2,z</pre>
+<br />
+<pre>0011 &lt;Dest 12 bits&gt;
+0000 &lt;Src1 12 bits&gt;
+0000 &lt;Src2 12 bits&gt;</pre></td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+    </tr>
+    <tr>
+      <td>Grand total: ____</td>
+      <td>Total: ____</td>
+      <td>Total: ____</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>3) We also evaluate our instruction set using the metric (criteria) called static code size:</p>
+
+<ul>
+  <li>The code size of our x295 program is 3 instructions.</li>
+  <li>And since each instruction is 3 word long, the code size of our x295 program is 9
+words.</li>
+</ul>
+
+<p>(There is nothing for us to do in this part of our x295 instruction set evaluation. We can
+use this as a model to follow when answering the rest of this assignment.)</p>
+
+<hr />
+
+<h2 id="instruction-set-2--x295">Instruction Set 2 – x295+</h2>
+
+<h3 id="a-description-of-x295-instruction-set-architecture-isa-1">A. Description of x295+ instruction set architecture (ISA)</h3>
+
+<p>Considering the results of our x295 instruction set evaluation, one possible improvement in
+order to reduce the number of memory accesses could be to reduce the size of the machine
+instructions. Since these are made of an opcode and a memory address, we could introduce
+registers which could hold these memory addresses and take less space in the machine code
+than memory addresses (i.e., registers will take fewer bits to identify than memory addresses).</p>
+
+<p>With the idea of introducing registers, we specified a second instruction set architecture (ISA)
+with the same components as x295, but with the following modifications:</p>
+
+<ul>
+  <li>Memory model
+    <ul>
+      <li>Number of registers: 8 x 16-bit registers
+        <ul>
+          <li>This means that we need a maximum of 3 bits to distinctly represent each
+of these 8 (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">2^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>) registers.</li>
+          <li>Therefore, the size of any register field, in the machine instructions, will be
+3 bits in length.</li>
+          <li>Each register contains 16 bits.</li>
+        </ul>
+      </li>
+      <li>The bit patterns to uniquely identify each the registers are:
+        <ul>
+          <li>
+            <table>
+              <thead>
+                <tr>
+                  <th>Register</th>
+                  <th>Bit pattern (3 bits)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>r0</td>
+                  <td>000</td>
+                </tr>
+                <tr>
+                  <td>r1</td>
+                  <td>001</td>
+                </tr>
+                <tr>
+                  <td>r2</td>
+                  <td>010</td>
+                </tr>
+                <tr>
+                  <td>r3</td>
+                  <td>011</td>
+                </tr>
+                <tr>
+                  <td>r4</td>
+                  <td>100</td>
+                </tr>
+                <tr>
+                  <td>r5</td>
+                  <td>101</td>
+                </tr>
+                <tr>
+                  <td>r6</td>
+                  <td>110</td>
+                </tr>
+                <tr>
+                  <td>r7</td>
+                  <td>111</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Instruction set (assembly and machine instructions)
+    <ul>
+      <li>Operand Model:
+        <ul>
+          <li>Registers</li>
+          <li>We shall also use memory addresses</li>
+        </ul>
+      </li>
+      <li>Assembly instructions:
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">ADD rA,rB,rC</code>; meaning: <code class="language-plaintext highlighter-rouge">rC &lt;- rA + rB</code></li>
+          <li><code class="language-plaintext highlighter-rouge">SUB rA,rB,rC</code>; meaning: <code class="language-plaintext highlighter-rouge">rC &lt;- rA - rB</code></li>
+          <li><code class="language-plaintext highlighter-rouge">MUL rA,rB,rC</code>; meaning: <code class="language-plaintext highlighter-rouge">rC &lt;- rA * rB</code></li>
+          <li><code class="language-plaintext highlighter-rouge">LOAD a,rC</code>; meaning: <code class="language-plaintext highlighter-rouge">rC &lt;- M[a]</code></li>
+          <li><code class="language-plaintext highlighter-rouge">STORE rA,c</code>; meaning: <code class="language-plaintext highlighter-rouge">M[c] &lt;- rA</code></li>
+        </ul>
+      </li>
+      <li>Machine code format:
+        <ul>
+          <li>Format 1:
+            <ul>
+              <li>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Label</th>
+                      <th>Bits</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Opcode</td>
+                      <td>4 bits</td>
+                    </tr>
+                    <tr>
+                      <td>Dest</td>
+                      <td>3 bits</td>
+                    </tr>
+                    <tr>
+                      <td>Src1</td>
+                      <td>3 bits</td>
+                    </tr>
+                    <tr>
+                      <td>Src2</td>
+                      <td>3 bits</td>
+                    </tr>
+                    <tr>
+                      <td>XXX</td>
+                      <td>XXX</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </li>
+              <li>This format is made of 16 bits (1 word)  and it can be used to form the machine instruction corresponding to the ADD, SUB and MUL assembly instructions.</li>
+              <li>XXX -&gt; these’s X’s can be either 0’s or 1’s – they are not used by the microproccesor.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Format 2:
+        <ul>
+          <li>
+            <table>
+              <thead>
+                <tr>
+                  <th>Label</th>
+                  <th>Bits</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Opcode</td>
+                  <td>4 bits</td>
+                </tr>
+                <tr>
+                  <td>Dest</td>
+                  <td>3 bits</td>
+                </tr>
+                <tr>
+                  <td>XXX</td>
+                  <td>3 bits</td>
+                </tr>
+                <tr>
+                  <td>XXXXXX</td>
+                  <td>6 bits</td>
+                </tr>
+                <tr>
+                  <td>padding</td>
+                  <td>4 bits</td>
+                </tr>
+                <tr>
+                  <td>Memory address of Src</td>
+                  <td>12 bits</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+          <li>This format is made of 32 bits (2 words) and it can be used to form the machine instuctions corresponding to the LOAD assembly instruction.</li>
+          <li>XXX, XXXXXX and XXXX (padding) -&gt; These X’s can be either 0’s or 1’s – they are not used by the microproccesor.</li>
+        </ul>
+      </li>
+      <li>Format 3:
+        <ul>
+          <li>
+            <table>
+              <thead>
+                <tr>
+                  <th>Label</th>
+                  <th>Bits</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Opcode</td>
+                  <td>4 bits</td>
+                </tr>
+                <tr>
+                  <td>XXX</td>
+                  <td>3 bits</td>
+                </tr>
+                <tr>
+                  <td>Src</td>
+                  <td>3 bits</td>
+                </tr>
+                <tr>
+                  <td>XXXXXX</td>
+                  <td>6 bits</td>
+                </tr>
+                <tr>
+                  <td>padding</td>
+                  <td>3 bits</td>
+                </tr>
+                <tr>
+                  <td>Memory address of Dest</td>
+                  <td>12 bits</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+          <li>This format is made of 32 bits (2 words) and it can be used to form the machine instruction corresponding to the STORE assembly instruction.</li>
+          <li>XXX and XXXXXX -&gt; these X’s can be either 0’s or 1’s – they are not used by the microprocessor.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>When the microprocessor decodes the opcode for a LOAD instruction, it will
+know where to find the field Dest and where to find the field Src in the
+instruction itself (Dest -&gt; the first field after the opcode in the first word of the
+insruction and Src -&gt; the memory address located in the least significant 12 bits
+of the second word composing this instruction). It will also know to ignore all
+other bits (X’s) in the instruction.</p>
+
+<p>When the microprocessor decodes the opcode for a STORE instruction, it will
+know where to find the field Src and where to find the field Dest in the
+instruction itself (Src -&gt; the second field after the opcode in the first word of the
+insruction and Dest -&gt; the memory address located in the least significant 12 bits
+of the second word composing this instruction). It will also know to ignore all
+other bits (X’s) in the instruction.</p>
+
+<p>Note: About ISA design principles: When creating formats to encode instruction
+set …</p>
+
+<ul>
+  <li>As few of them as possible were created.</li>
+  <li>The fields that have the same purpose (such as Opcode, Dest and Src)
+are placed in the same location in as many of the formats as possible.</li>
+</ul>
+
+<p>This helps simplify the design of the microprocessor (its datapath).
+The bit patterns for the opcode are:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Opcode (instruction)</td>
+      <td>Bit pattern (4 bits)</td>
+    </tr>
+    <tr>
+      <td>padding</td>
+      <td>0000</td>
+    </tr>
+    <tr>
+      <td>ADD</td>
+      <td>0001</td>
+    </tr>
+    <tr>
+      <td>SUB</td>
+      <td>0010</td>
+    </tr>
+    <tr>
+      <td>MUL</td>
+      <td>0011</td>
+    </tr>
+    <tr>
+      <td>LOAD</td>
+      <td>1010</td>
+    </tr>
+    <tr>
+      <td>STORE</td>
+      <td>1011</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="b-description-of-x295-instruction-set">B. Description of x295+ instruction set</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>C program</th>
+      <th>x295+ assembly program</th>
+      <th>x295+ machine code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><pre>z = (x + y) * (x - y);</pre></td>
+      <td>(empty)</td>
+      <td><pre>1010 000 XXX XXXXXX 0000 &lt;Src 12 bits&gt;
+
+1010 001 XXX XXXXXX 0000 &lt;Src 12 bits&gt;
+
+0001 010 000 001 XXX
+
+0010 011 000 001 XXX
+
+0011 100 010 011 XXX
+
+1011 XXX 100 XXXXXX 0000 &lt;Src 12 bits&gt;</pre></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>1) The first step in evaluating our x295+ instruction set is to translate the C program into</p>
+
+<ul>
+  <li>an assembly program using the assembly instructions defined by our x295+
+instruction set and</li>
+  <li>its corresponding machine code using the machine instructions defined by our
+x295+ instruction set.</li>
+</ul>
+
+<p>For us to do: Our task is to complete the middle column (assembly code) in the table
+above. The machine code has already been given. [3 marks]</p>
+
+<p>2) The next step in evaluating our x295+ instruction set is to execute (hand trace) our
+assembly program or its corresponding machine code and using the metric (criteria) called
+memory traffic, we count the number of memory accesses our program makes during its
+execution. In other words, we count how many time the execution of our program
+required a word (16 bits) to be read from or written to memory.</p>
+
+<p>For us to do: As part of this step in the evaluation of our x295+ instruction set, complete
+the table below. [4 marks]</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>x295+ program (in assembly and machine code)</th>
+      <th>Fetch (number of word size memory accesses) + Provide an explaination explaining the count</th>
+      <th>Decode/Execute (number of word size memory accesses) + Provide an explaination explaining the count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Assembly code: ____<br />
+Machine code: <pre>1010 000 XXX XXXXXX 0000 &lt;Src 12 bits&gt;</pre></td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+      <td>Count: ____<br />
+Explaionation ____</td>
+    </tr>
+    <tr>
+      <td>Assembly code: ____<br />
+Machine code: <pre>1010 001 XXX XXXXXX 0000 &lt;Src 12 bits&gt;</pre></td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+    </tr>
+    <tr>
+      <td>Assembly code: ____<br />
+Machine code: <pre>0001 010 000 001 XXX</pre></td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+    </tr>
+    <tr>
+      <td>Assembly code: ____<br />
+Machine code: <pre>0010 011 000 001 XXX</pre></td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+    </tr>
+    <tr>
+      <td>Assembly code: ____<br />
+Machine code: <pre>0011 100 010 011 XXX</pre></td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+    </tr>
+    <tr>
+      <td>Assembly code: ____<br />
+Machine code: <pre>1011 XXX 100 XXXXXX 0000 &lt;Src 12 bits&gt;</pre></td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+      <td>Count: ____<br />
+Explaination: ____</td>
+    </tr>
+    <tr>
+      <td>Grand total: ____</td>
+      <td>Total: ____</td>
+      <td>Total: ____</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>3) We also evaluate our instruction set using the metric (criteria) called static code size. For
+us to do: Fill in the blanks in the statement below: [0.5 marks]</p>
+<ul>
+  <li>The code size of our x295+ program is <strong>__</strong><strong>__ instructions ( __</strong><strong>__</strong> words).</li>
+</ul>
+
+<h2 id="instruction-set-3--x295">Instruction Set 3 – x295++</h2>
+
+<h3 id="a-description-of-x295-instruction-set-architecture-isa-2">A. Description of x295++ instruction set architecture (ISA)</h3>
+
+<p>Would reducing the number of operands to the instructions in our instruction set decrease
+the number of memory accesses the microprocessor does when fetching, decoding and
+executing our program?</p>
+
+<p>Would introducing another instruction, namely COPY, in our instruction set also decrease the
+number of memory accesses the microprocessor does when fetching. decoding and executing
+our program?</p>
+
+<p>With the above two ideas in mind, we specified a third instruction set architecture (ISA) with
+the same components as x295 and x295+, but with the following modifications:</p>
+
+<ul>
+  <li>Instruction set (assembly and machine instructions)
+    <ul>
+      <li>Operand Model:
+        <ul>
+          <li>2 operand model</li>
+        </ul>
+      </li>
+      <li>Assembly instructions:
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">ADD rA,rC</code>; meaning: <code class="language-plaintext highlighter-rouge">rC &lt;- rA + rC</code></li>
+          <li><code class="language-plaintext highlighter-rouge">SUB rA,rC</code>; meaning: <code class="language-plaintext highlighter-rouge">rC &lt;- rA - rC</code></li>
+          <li><code class="language-plaintext highlighter-rouge">MUL rA,rC</code>; meaning: <code class="language-plaintext highlighter-rouge">rC &lt;- rA * rB</code></li>
+          <li><code class="language-plaintext highlighter-rouge">COPY rA,rC</code>; meaning: <code class="language-plaintext highlighter-rouge">rC &lt;- rA</code></li>
+          <li><code class="language-plaintext highlighter-rouge">LOAD a,rC</code>; meaning: <code class="language-plaintext highlighter-rouge">rC &lt;- M[a]</code></li>
+          <li><code class="language-plaintext highlighter-rouge">STORE rA,c</code>; meaning: <code class="language-plaintext highlighter-rouge">M[c] &lt;- rA</code></li>
+        </ul>
+      </li>
+      <li>Machine code formats:
+        <ul>
+          <li>Format 1:
+            <ul>
+              <li>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Lablel</th>
+                      <th>Bits</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Opcode</td>
+                      <td>4 bits</td>
+                    </tr>
+                    <tr>
+                      <td>Dest</td>
+                      <td>3 bits</td>
+                    </tr>
+                    <tr>
+                      <td>Src</td>
+                      <td>3 bits</td>
+                    </tr>
+                    <tr>
+                      <td>XXXXXX</td>
+                      <td>6 bits</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </li>
+              <li>This format is made of 16 bits (1 word) and it can be used to form the machine
+instructions corresponding to the ADD, SUB, MUL and COPY assembly instructions.</li>
+              <li>XXXXXX -&gt; these X’s can be either 0’s or 1’s.</li>
+              <li>The bit patterns for the opcode are:
+Opcode (instruction)|Bit pattern (4 bits)
+—|—
+padding|0000
+ADD|0001
+SUB|0010
+MUL|0011
+COPY|1001
+LOAD|1010
+STORE|1011
+…|…</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="b-evaluation-of-x295-instruction-set-1">B. Evaluation of x295++ instruction set</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td>C program</td>
+      <td>x295++ assembly program</td>
+      <td>x295++ machine code</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">z = (x + y) * (x – y);</code></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>1) The first step in evaluating our x295++ instruction set is to translate the C program into</p>
+<ul>
+  <li>an assembly program using the assembly instructions defined by our x295++
+instruction set and</li>
+  <li>its corresponding machine code using the machine instructions defined by our
+x295++ instruction set.</li>
+  <li>For us to do: Our task is to complete the middle column (assembly code) and the right
+column (machine code) in the table above. [5 marks]
+    <ul>
+      <li>Challenge: Can you express your x295++ assembly program and machine code
+with the fewest number of instructions. This may require you to first
+readjust the above C program.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>2) The next step in evaluating our x295++ instruction set is to execute (hand trace) our
+assembly program or its corresponding machine code and using the metric (criteria) called
+memory traffic, we count the number of memory accesses our program makes during its
+execution. In other words, we count how many time the execution of our program
+required a word (16 bits) to be read from or written to memory.</p>
+
+<p>For us to do: As part of this step in the evaluation of our x295++ instruction set,
+complete the table below. [4 marks]</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>x295++ program (in assembly and machine code)</th>
+      <th>Fetch (number of word size memory accesses) + Provide an explaination explaining the count</th>
+      <th>Decode/Execute (number of word size memory accesses) + Provide an explaination explainaing the count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="3">... expand the table by adding as many rows as needed using the
+row format seen in the tables above ...</td>
+    </tr>
+    <tr>
+      <td>Grand total: ____</td>
+      <td>Total: ____</td>
+      <td>Total: ____</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>3) We also evaluate our instruction set using the metric (criteria) called static code size. For
+us to do: Fill in the blanks in the statement below: [0.5 marks]</p>
+<ul>
+  <li>The code size of our x295++ program is <strong>__</strong><strong>_ instructions ( __</strong>_____ words).</li>
+</ul>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<hr />
+
+<p>For us to do: Considering the memory traffic metric (number of memory accesses required
+by our test program), which instruction set (x295, x295+ or x295++) produces the most
+time efficient program? [0.5 marks]</p>
+
+<p>For us to do: Considering the static code size metric (number of instructions/words required
+to implement our test program), which instruction set (x295, x295+ or x295++) produces
+the smallest program? [0.5 marks]</p>
+
+<hr />
+
+
+      <footer>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

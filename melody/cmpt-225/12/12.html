@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/assets/css/katex.css">
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="avl-trees--cmpt-225">AVL Trees – CMPT 225</h1>
+
+<h2 id="recall-a-bst-is">Recall: A BST is:</h2>
+
+<ul>
+  <li>a binary tree</li>
+  <li>with nodes labled by keys</li>
+  <li>for every two nodes u,v:
+    <ul>
+      <li>if u is in the left subtree of v, then key(u) &lt; key(v)</li>
+      <li>if u is in the right subtree of v, then key(u) &gt; key(v)</li>
+    </ul>
+  </li>
+  <li>
+    <p>BST operations take time proportional to the tree height, which might be the same as the number of keys.</p>
+  </li>
+  <li>AVL Trees are a kind of “self-balancing” BST.
+Tree height is always at most <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mi>n</mi></mrow><annotation encoding="application/x-tex">2 \log_{2} n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span></span></span></span>
+where n is number of keys.</li>
+  <li>An <em>AVL Tree</em> is a BST that satisfies the following height-balance invariant:
+    <ul>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>for every node v: $$</td>
+              <td>\text{height}(\text{left}(v)) - \text{height}(\text{right(v))</td>
+              <td>\leq 1$$ #TODO FIX</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>(We define height(left(v)) = -1 if left(v) does not exist, similarly for right.</li>
+    </ul>
+  </li>
+  <li>Implementing the Operations:
+    <ol>
+      <li>Perform BST operations, then</li>
+      <li>repair balance if needed.</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="how-unbalanced-can-an-avl-tree-be">How unbalanced can an AVL Tree be?</h2>
+
+<p>Ex. A “Maximally unbalanced” height - 5 AVL Tree</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   root node
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     left subtree (7 nodes)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       node
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         node
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           node (left)
+          </span>
+         </li>
+        </ul>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         node
+        </span>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       node
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         node (left)
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     right subtree (31 nodes)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       node
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         node
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           node
+          </span>
+          <ul role="group">
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+          </ul>
+         </li>
+         <li role="treeitem" tabindex="-1">
+          <span>
+           node
+          </span>
+          <ul role="group">
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+          </ul>
+         </li>
+        </ul>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         node
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           node
+          </span>
+          <ul role="group">
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+          </ul>
+         </li>
+         <li role="treeitem" tabindex="-1">
+          <span>
+           node
+          </span>
+          <ul role="group">
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+          </ul>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       node
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         node
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           node
+          </span>
+          <ul role="group">
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+          </ul>
+         </li>
+         <li role="treeitem" tabindex="-1">
+          <span>
+           node
+          </span>
+          <ul role="group">
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+          </ul>
+         </li>
+        </ul>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         node
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           node
+          </span>
+          <ul role="group">
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+          </ul>
+         </li>
+         <li role="treeitem" tabindex="-1">
+          <span>
+           node
+          </span>
+          <ul role="group">
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+           <li role="treeitem" tabindex="-1">
+            <span>
+             node
+            </span>
+           </li>
+          </ul>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<h2 id="how-tall-can-an-avl-tree-be">How tall can an AVL Tree be?</h2>
+
+<p>Let N(h) = min # of nodes in an AVL tree of height h.</p>
+
+<p>Observe:</p>
+
+<ul>
+  <li>
+    <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N(0) = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span>
+  </li>
+  <li>
+    <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">N(1) = 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span></span>
+  </li>
+  <li>
+    <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>=</mo><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>+</mo><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N(h) = N(h-1) + N(h-2) + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span>
+  </li>
+  <li>
+    <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>&gt;</mo><mn>2</mn><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">N(h) &gt; 2 N(h-2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span></span>
+  </li>
+  <li>
+    <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>&gt;</mo><mn>2</mn><mo>×</mo><mn>2</mn><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo>−</mo><mn>4</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">N(h) &gt; 2 \times 2 N(h-4)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">4</span><span class="mclose">)</span></span></span></span></span>
+  </li>
+  <li>
+    <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>&gt;</mo><msup><mn>2</mn><mn>3</mn></msup><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo>−</mo><mn>6</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">N(h) &gt; 2^{3} N(h-6)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.1141079999999999em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">6</span><span class="mclose">)</span></span></span></span></span>
+  </li>
+  <li>…</li>
+  <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>&gt;</mo><msup><mn>2</mn><mi>i</mi></msup><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo>−</mo><mn>2</mn><mi>i</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">N(h) &gt; 2^{i} N(h-2i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.0746639999999998em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord mathnormal">i</span><span class="mclose">)</span></span></span></span> (if H is even, we end when <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>−</mo><mn>2</mn><mi>i</mi><mo>=</mo><mn>0</mn><mtext>  </mtext><mo>⟹</mo><mtext>  </mtext><mi>i</mi><mo>=</mo><mi>h</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">h-2i=0 \implies i = h/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66844em;vertical-align:-0.024em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">h</span><span class="mord">/2</span></span></span></span>)</li>
+  <li>
+    <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>&gt;</mo><msup><mn>2</mn><mi>y</mi></msup><mo>×</mo><mi>c</mi><mo>=</mo><msup><mn>2</mn><mrow><mi>h</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow></msup><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N(h) &gt; 2^{y} \times c = 2^{h/2}\times 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.797722em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714392em;"><span style="top:-3.1130000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.0213299999999998em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mord mtight">/2</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span>
+  </li>
+</ul>
+
+<p>Claim: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>&gt;</mo><msup><mn>2</mn><mrow><mi>h</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">N(h) &gt; 2^{h/2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8879999999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mord mtight">/2</span></span></span></span></span></span></span></span></span></span></span></span></p>
+
+<h2 id="proposition-nh--2h2">Proposition: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>&gt;</mo><msup><mn>2</mn><mrow><mi>h</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">N(h) &gt; 2^{h/2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8879999999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mord mtight">/2</span></span></span></span></span></span></span></span></span></span></span></span></h2>
+
+<ul>
+  <li>Pf.:
+    <ul>
+      <li>By ind. on h.</li>
+      <li>Basis: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn><mo>≤</mo><msup><mn>2</mn><mn>0</mn></msup><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N(0)=1 \leq 2^{0} = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> (checkmark); <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn><mo>&gt;</mo><msup><mn>2</mn><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>2</mn></mrow></msup><mo>=</mo><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">N(1)=2 &gt; 2^{1/2} = \sqrt{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8879999999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1/2</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.13278em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.90722em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord">2</span></span></span><span style="top:-2.86722em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.13278em;"><span></span></span></span></span></span></span></span></span> (checkmark).</li>
+      <li>Assume, for some <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\geq 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83041em;vertical-align:-0.13597em;"></span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>, that <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>&gt;</mo><msup><mn>2</mn><mrow><mi>h</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">N(h)&gt;2^{h/2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8879999999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mord mtight">/2</span></span></span></span></span></span></span></span></span></span></span></span></li>
+      <li>Now <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><mo>&gt;</mo><mn>2</mn><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>≥</mo><mn>2</mn><mo>×</mo><msup><mn>2</mn><mfrac><mrow><mi>h</mi><mo>−</mo><mn>1</mn></mrow><mn>2</mn></mfrac></msup><mo>=</mo><msup><mn>2</mn><mrow><mn>1</mn><mo>+</mo><mfrac><mrow><mi>h</mi><mo>−</mo><mn>1</mn></mrow><mn>2</mn></mfrac></mrow></msup><mo>=</mo><msup><mn>2</mn><mfrac><mrow><mi>h</mi><mo>−</mo><mn>1</mn><mo>+</mo><mn>2</mn></mrow><mn>2</mn></mfrac></msup><mo>=</mo><msup><mn>2</mn><mfrac><mrow><mi>h</mi><mo>+</mo><mn>1</mn></mrow><mn>2</mn></mfrac></msup></mrow><annotation encoding="application/x-tex">N(h+1) &gt; 2N(h-1) \geq 2\times 2^{\frac{h-1}{2}} = 2^{1+\frac{h-1}{2}} = 2^{\frac{h-1+2}{2}} = 2^{\frac{h+1}{2}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.97902em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.97902em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8800285714285714em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.97902em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.97902em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8800285714285714em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.97902em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.97902em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8800285714285714em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mbin mtight">−</span><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.97902em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.97902em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8800285714285714em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span></span></span></span> (checkmark)</li>
+      <li>So: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>&gt;</mo><msup><mn>2</mn><mrow><mi>h</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow></msup><mtext>  </mtext><mo>⟹</mo><mtext>  </mtext><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>&gt;</mo><mi>h</mi><mi mathvariant="normal">/</mi><mn>2</mn><mtext>  </mtext><mo>⟹</mo><mtext>  </mtext><mi>h</mi><mo>&lt;</mo><mn>2</mn><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mi>N</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>≤</mo><mn>2</mn><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mi>n</mi></mrow><annotation encoding="application/x-tex">N(h)&gt;2^{h/2} \implies \log_{2} N(h) &gt; h/2 \implies h &lt; 2 \log_{2} N(h) \leq 2 \log_{2} n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.9119999999999999em;vertical-align:-0.024em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mord mtight">/2</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">h</span><span class="mord">/2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span></span></span></span></li>
+      <li>We have: for every AVL tree with n nodes and height h, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>&lt;</mo><mn>2</mn><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mi>n</mi><mo>=</mo><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">h &lt; 2 \log_{2} n = O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li>
+    </ul>
+  </li>
+  <li><strong><em>Thus</em></strong>: AVL Tree search takes time that is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li>
+</ul>
+
+<h2 id="max-avl-tree-height-vs-bst-height">Max AVL Tree Height vs BST height</h2>
+
+<p>(Worst case # of nodes visited by AVL-tree vs BST search)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span></th>
+      <th><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mi>n</mi></mrow><annotation encoding="application/x-tex">2 \log_{2} n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span></span></span></span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn></mrow><annotation encoding="application/x-tex">10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">10</span></span></span></span></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn></mrow><annotation encoding="application/x-tex">7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn></mrow><annotation encoding="application/x-tex">100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">100</span></span></span></span></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>14</mn></mrow><annotation encoding="application/x-tex">14</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">14</span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1000</mn></mrow><annotation encoding="application/x-tex">1000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1000</span></span></span></span></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>20</mn></mrow><annotation encoding="application/x-tex">20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">20</span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">10^{4}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span></span></span></span></span></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>27</mn></mrow><annotation encoding="application/x-tex">27</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">27</span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">10^{5}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></span></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>33</mn></mrow><annotation encoding="application/x-tex">33</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">33</span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>6</mn></msup></mrow><annotation encoding="application/x-tex">10^{6}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">6</span></span></span></span></span></span></span></span></span></span></span></span></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>40</mn></mrow><annotation encoding="application/x-tex">40</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">40</span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>7</mn></msup></mrow><annotation encoding="application/x-tex">10^{7}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">7</span></span></span></span></span></span></span></span></span></span></span></span></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>47</mn></mrow><annotation encoding="application/x-tex">47</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">47</span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>8</mn></msup></mrow><annotation encoding="application/x-tex">10^{8}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">8</span></span></span></span></span></span></span></span></span></span></span></span></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>53</mn></mrow><annotation encoding="application/x-tex">53</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">53</span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>9</mn></msup></mrow><annotation encoding="application/x-tex">10^{9}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span></span></span></span></span></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60</mn></mrow><annotation encoding="application/x-tex">60</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">60</span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>10</mn></msup></mrow><annotation encoding="application/x-tex">10^{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span></span></span></span></span></span></span></span></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>66</mn></mrow><annotation encoding="application/x-tex">66</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">66</span></span></span></span></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="unbalanced-subtrees-are-repaired-using-rotations">Unbalanced subtrees are “repaired” using <em>rotations</em></h2>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   5
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     3
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       1
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       4
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     7
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       6
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       8
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Can be converted to the following using a right rotation at node with 5.
+Can be converted from the following using a left rotation at the node with 3.</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   3
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     1
+    </span>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     5
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       4
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       7
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         6
+        </span>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         8
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<h2 id="avl-tree-insertion">AVL Tree insertion:</h2>
+
+<ol>
+  <li>Do BST insertion.</li>
+  <li>If there is an unbalanced node,
+    <ul>
+      <li>let v be the unbalanced node of greatest depth*</li>
+      <li>repair the imbalance at v.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Consider 4 cases (w is new node, v is unbalanced, k is height of tree, h is height of any given subtree):</p>
+
+<p>2 outside cases:</p>
+
+<h3 id="case-1">Case 1:</h3>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   v (root; h=k)
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     left (h=k-1)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       left left (h=k-2)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         ...
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           w
+          </span>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       left right (h=k-2)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         ...
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     right (h=k-2)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       ...
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<h3 id="case-2">Case 2:</h3>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   v (root)
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     left
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       ...
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     right
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       right left
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         ...
+        </span>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       right right
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         ...
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           w
+          </span>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<h3 id="case-3">Case 3:</h3>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   v (root)
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     left
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       left left
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         ...
+        </span>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       left right
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         ...
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           w*
+          </span>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     right
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       ...
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<h3 id="case-4">Case 4:</h3>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   v (root)
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     left
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       ...
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     right
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       right left
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         ...
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           w*
+          </span>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       right right
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         ...
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>* It msut be on the path from the new leaf to the root.</p>
+
+<h2 id="to-fix-the-ouside-cases">To fix the “ouside” cases:</h2>
+
+<p>Do 1 rotation at the unbalanced node.</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   v (root; h=k)
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     u (h=k-1)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       left left (h=k-1)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         T1 (h=h-2)
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           w
+          </span>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       T2 (h=k-2)
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     T3 (h=k-2)
+    </span>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>After rotation:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   u (root; h=k)
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     T1 (left; h=k-2)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       w
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     v (right; h=k-1)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       T2 (right left; h=k-2)
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       T3 (right right; h=k-2)
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>* The final height of u is k, so the tree is now balanced.</p>
+
+<p>Excersizes:</p>
+
+<ol>
+  <li>Draw the right-right case in detail.</li>
+  <li>Draw them with minimal sized T1,T2,T3</li>
+</ol>
+
+<h2 id="the-inside-cases-are-not-fixed-by-this-rotation">The “inside cases” are <em>not</em> fixed by this rotation:</h2>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   v (root)
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     node (left; h=k-1)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       T1 (left left; h=k-2)
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       T2 (left right; h=k-2)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         w
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     T3 (right; h=k-2)
+    </span>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Would become, with a right rotation:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   v (root)
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     T1 (left; h=k-2)
+    </span>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     node (right; h=k)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       T2 (right left; h=k-2)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         w
+        </span>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       T3 (right right)
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>(Transcriber’s note: w is now used as a variable by the slides. w will no longer represent the asdded node. This will be written down in full as “new node”.)</p>
+
+<h2 id="to-fix-the-inside-cases-we-use-two-rotations">To fix the “inside” cases, we use two rotations:</h2>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   v (h=k; v is the unbalanced node of any depth; label=a)
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     u (h=k-1; label=b)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       T1 (h=k-2)
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       w (h=k-2; label=w)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         T2 (h=k-3)
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           Insertion here or... one other place
+          </span>
+         </li>
+        </ul>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         T3 (h=k-3)
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           Other possible insertion place.
+          </span>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     T4 (h=k-2)
+    </span>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Left rotation at b:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   a
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     c (h=k)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       b
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         T1
+        </span>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         T2
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           possible insertion
+          </span>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       T3 (h=k-3)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         possible insertion (not part of height)
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     T4 (h=k-2)
+    </span>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>After 1 rotation, this is too tall (like outisde case</p>
+
+<p>Right rotation at a:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   c
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     b (h=k-1)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       T1 (h=k-2)
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       T2 (h=k-2)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         possible insertion point
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     a (h=k-1)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       T3 (h=k-2)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         possible insertion
+        </span>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       T4 (h=k-2)
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>The entire operation is:</p>
+
+<ol>
+  <li>left(c) &lt;- b</li>
+  <li>right(c) &lt;- a</li>
+  <li>left(a) &lt;- T3</li>
+  <li>right(b) &lt;- T2</li>
+  <li>Change parent(a) to be parent(c)</li>
+</ol>
+
+<p>(#1 rotation = 3 assignments; 2 rotations = 6 assignments; double rot = 5 assignments.)</p>
+
+<h2 id="avl-tree-removal">AVL Tree Removal</h2>
+
+<ol>
+  <li>Do BST Removal.</li>
+  <li>Rebalance.</li>
+</ol>
+
+<p>Define “the parent of the unbalanced node” (*) by cases:</p>
+
+<ol>
+  <li>The deleted key was at a leaf.</li>
+  <li>The deleted key was at a node with one child.</li>
+  <li>The deleted key is at a node with 2 children.</li>
+</ol>
+
+<p>Case 1 graphs (X is removed node; p is parent of removed node):</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   p
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     X (right)
+    </span>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Becomes:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   p
+  </span>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Graphs for case 2:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   p
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     X (right)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       ... (right)
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Becomes:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   p
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     ... (right)
+    </span>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Graphs for case 3:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   X
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     ...
+    </span>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     node
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       p (left)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         node (arrow to X)
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Or:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   X1
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     ...
+    </span>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     node
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       p (left)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         X2 (arrow to X1)
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           ... (right)
+          </span>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<hr />
+
+<p>Fact: After doing a BST removal in an AVL tree,
+there is at most 1 unbalanced node, and it is on the path from the parent of the deleted node to the root.</p>
+
+<p>(If the deleted node was the root, the “parent of the deleted node” does not exist–but also there can be no unbalanced node)</p>
+
+<p>Consider:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   root
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     ...
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       ...
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         continues on with no detail
+        </span>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         o (orange)
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           continues on with no detail
+          </span>
+         </li>
+         <li role="treeitem" tabindex="-1">
+          <span>
+           node
+          </span>
+          <ul role="group">
+           <li role="treeitem" tabindex="-1">
+            <span>
+             b (blue; left)
+            </span>
+            <ul role="group">
+             <li role="treeitem" tabindex="-1">
+              <span>
+               m (mauve)
+              </span>
+              <ul role="group">
+               <li role="treeitem" tabindex="-1">
+                <span>
+                 continues on with no detail (right)
+                </span>
+               </li>
+              </ul>
+             </li>
+             <li role="treeitem" tabindex="-1">
+              <span>
+               continues oN with no detail
+              </span>
+             </li>
+            </ul>
+           </li>
+          </ul>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       continues on with no detail
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     continues on with no detail
+    </span>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Becomes:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   root
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     ... (g; green)
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       ... (r; red)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         continues on with no detail
+        </span>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         o (orange)
+        </span>
+        <ul role="group">
+         <li role="treeitem" tabindex="-1">
+          <span>
+           continues on with no detail
+          </span>
+         </li>
+         <li role="treeitem" tabindex="-1">
+          <span>
+           node
+          </span>
+          <ul role="group">
+           <li role="treeitem" tabindex="-1">
+            <span>
+             b (blue; left)
+            </span>
+            <ul role="group">
+             <li role="treeitem" tabindex="-1">
+              <span>
+               continues on with no detail
+              </span>
+             </li>
+             <li role="treeitem" tabindex="-1">
+              <span>
+               continues oN with no detail
+              </span>
+             </li>
+            </ul>
+           </li>
+          </ul>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       continues on with no detail
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     continues on with no detail
+    </span>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Terms:</p>
+
+<ul>
+  <li>o, orange: Node with key to be deleted.</li>
+  <li>m, mauve: Deleted node</li>
+  <li>b, blue: Parent of deleted node</li>
+  <li>r, red: Unbalanced node</li>
+  <li>g, green: This node, for example, cannot be unbalanced.</li>
+</ul>
+
+<h2 id="an-avl-tree-removal-that-illustrates">An AVL tree removal that illustrates:</h2>
+
+<ol>
+  <li>Need to re-balance after removal</li>
+  <li>Re-balancing node u may reduce the height of a subtree, resulting in an ancestor of u being unbalanced.</li>
+</ol>
+
+<p>remove(14):</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   10 (h=3)
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     4
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       2
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       7
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         5 (left)
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     12
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       14 (removed; right)
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>left at 4:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   19
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     7
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       4 (left)
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         2
+        </span>
+       </li>
+       <li role="treeitem" tabindex="-1">
+        <span>
+         5
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     12
+    </span>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>right at 10:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   7
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     4
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       2
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       5
+      </span>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     10
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       12 (right)
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<p>Abstract version:</p>
+
+<!-- AUTO GENERATED FROM CUSTOM PYTHON CODE -->
+<ul role="tree">
+ <li role="treeitem" tabindex="-1">
+  <span>
+   node
+  </span>
+  <ul role="group">
+   <li role="treeitem" tabindex="-1">
+    <span>
+     node
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       ...
+      </span>
+     </li>
+     <li role="treeitem" tabindex="-1">
+      <span>
+       ...
+      </span>
+      <ul role="group">
+       <li role="treeitem" tabindex="-1">
+        <span>
+         5 (left)
+        </span>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li role="treeitem" tabindex="-1">
+    <span>
+     ...
+    </span>
+    <ul role="group">
+     <li role="treeitem" tabindex="-1">
+      <span>
+       14 (right; deleted)
+      </span>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END OF GENERATED CODE -->
+
+<h2 id="rebalance-for-deletion">Rebalance (for deletion):</h2>
+
+<ul>
+  <li>w &lt;- parent of deleted node, if it exists</li>
+  <li>for (each node <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><mi>w</mi><mo>⋯</mo><mtext>root</mtext></mrow><annotation encoding="application/x-tex">u = w\cdots \text{root}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">u</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord text"><span class="mord">root</span></span></span></span></span> on path from <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo>⋯</mo><mtext>root</mtext></mrow><annotation encoding="application/x-tex">w\cdots \text{root}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord text"><span class="mord">root</span></span></span></span></span>){
+    <ul>
+      <li>if u is unbalanced
+        <ul>
+          <li>Let T be the subtree rooted at u</li>
+          <li>rebalance T using suitable rotations*</li>
+          <li>if height of T did not get smaller, return</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>}</li>
+</ul>
+
+<p>* either a single or a double rotation, based on case diagrams similar to that used for insertion.</p>
+
+<p>Correctness of the algorithm involves two properties:</p>
+
+<ol>
+  <li>There is at most 1 unbalanced node after deletion.</li>
+  <li>Rebalancing w may make an <em>ancestor</em> of w unbalanced.</li>
+</ol>
+
+<h2 id="complexity-of-avl-tree-operations">Complexity of AVL tree operations</h2>
+
+<ul>
+  <li>Every AVL tree with n nodes has height <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>.</li>
+  <li>The worst case amount of work for main opperations is:
+    <ul>
+      <li>search: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>
+        <ul>
+          <li>one traversal from root to leaf: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li>
+        </ul>
+      </li>
+      <li>insert: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>
+        <ul>
+          <li>two traversals from root to leaf (down &amp; back up): <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li>
+          <li>two rotations: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></li>
+        </ul>
+      </li>
+      <li>remove: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>
+        <ul>
+          <li>two traversals from root to leaf (down &amp; back up): <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li>
+          <li>at most, two rotations at each node on that path: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo>×</mo><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1) \times O(\log n) = O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>All three major operations in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> time.</p>
+
+<h2 id="end">End</h2>
+
+      <footer>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>
