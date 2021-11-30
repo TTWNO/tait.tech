@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-css">
+  <link rel="stylesheet" href="/assets/css/transcription.css" id="trans-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/js/"></script>
+  
+  <link rel="stylesheet" href="/assets/css/katex.css" id="math-css">
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="assignment-3">Assignment 3</h1>
+
+<p>CMPT 295 – Fall 2021</p>
+
+<p>Objectives:</p>
+
+<ul>
+  <li>
+    <p>Memory addressing modes</p>
+  </li>
+  <li>
+    <p>Assembly instructions</p>
+  </li>
+  <li>
+    <p>Reading object code (machine level instruction) expressed in hexadecimal and
+understanding how these instructions are stored in memory</p>
+  </li>
+  <li>
+    <p>Writing a C program that corresponds to given assembly program</p>
+  </li>
+</ul>
+
+<p>Submission:</p>
+
+<ul>
+  <li>
+    <p>Submit your document called Assignment_3.pdf, which must include the number of the
+question you are answering (e.g., Question 1) followed by your answer, keeping the
+questions in their original numerical order. Formatting your assignment document this
+way makes it a lot easier to mark. 
+o Add your full name and student number at the top of the first page of your
+document.</p>
+  </li>
+  <li>
+    <p><strong>If you write your answers by hand (as opposed to using a computer application to
+write them)</strong>, when putting your assignment document together, do not take photos of
+your assignment sheets! Scan them instead! Better quality -&gt; easier to read -&gt; easier to
+mark!</p>
+  </li>
+</ul>
+
+<p>Due:</p>
+
+<ul>
+  <li>Friday Oct. 8 at 4pm on CourSys</li>
+  <li>Late assignments will receive a grade of 0, but they will be marked (if they are submitted
+before the solutions are posted on Monday) in order to provide feedback to the
+student.</li>
+</ul>
+
+<p>Marking scheme:</p>
+<ul>
+  <li>This assignment will be marked as follows:
+    <ul>
+      <li>Questions 1, 2 and 3 will be marked for correctness.</li>
+    </ul>
+  </li>
+  <li>The amount of marks for each question is indicated as part of the question.</li>
+  <li>A solution will be posted on Monday after the due date.</li>
+</ul>
+
+<hr />
+
+<h2 id="1-10-marks-memory-addressing-modes">1. [10 marks] Memory addressing modes</h2>
+
+<p>Assume the following values are stored at the indicated memory addresses and registers:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Memory Address</td>
+      <td>Value</td>
+    </tr>
+    <tr>
+      <td>0x230</td>
+      <td>0x23</td>
+    </tr>
+    <tr>
+      <td>0x234</td>
+      <td>0x00</td>
+    </tr>
+    <tr>
+      <td>0x235</td>
+      <td>0x01</td>
+    </tr>
+    <tr>
+      <td>0x23A</td>
+      <td>0xed</td>
+    </tr>
+    <tr>
+      <td>0x240</td>
+      <td>0xff</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Register</td>
+      <td>Value</td>
+    </tr>
+    <tr>
+      <td>%rdi</td>
+      <td>0x230</td>
+    </tr>
+    <tr>
+      <td>%rsi</td>
+      <td>0x234</td>
+    </tr>
+    <tr>
+      <td>%rcx</td>
+      <td>0x4</td>
+    </tr>
+    <tr>
+      <td>%rax</td>
+      <td>0x1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Imagine that the operands in the table below are the Src (source) operands for some
+unspecified assembly instructions (any instruction except lea*), fill in the following table
+with the appropriate answers.</p>
+
+<p>Note: We do not need to know what these assembly instructions are in order to fill the table.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Operand</td>
+      <td>Operand Value (expressed in hexadecimal)</td>
+      <td>Operand Form (Choices are: immediate, Register, or one of the 9 Memory Addressing Modes)</td>
+    </tr>
+    <tr>
+      <td>%rsi</td>
+      <td> </td>
+      <td>Register</td>
+    </tr>
+    <tr>
+      <td>(%rdi)</td>
+      <td> </td>
+      <td>Indirect memory addressing mode</td>
+    </tr>
+    <tr>
+      <td>$0x23A</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x240</td>
+      <td>0xff</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>10(%rdi)</td>
+      <td> </td>
+      <td>“Base + displacement” memory addressing mode</td>
+    </tr>
+    <tr>
+      <td>560(%rcx,%rax)</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>-550(, %rdi, 2)</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x6(%rdi, %rax, 4)</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Still using the first table listed above displaying the values stored at various memory
+addresses and registers, fill in the following table with three different Src (source) operands
+for some unspecified assembly instructions (any instruction except lea*). For each row,
+this operand must result in the operand Value listed and must satisfy the Operand Form
+listed.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Operand</td>
+      <td>Value</td>
+      <td>Operand Form (Choices are: Immediate, Register or one of the 9 Memory Addressing Modes)</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>0x00</td>
+      <td>Absolute memory addressing mode</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>0x00</td>
+      <td>Scaled indexed memory addressing mode</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>0x00</td>
+      <td>Indexed memory addressing mode</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="2-2-marks-machine-level-instructions-and-their-memory-location">2. [2 marks] Machine level instructions and their memory location</h2>
+
+<p>Consider a function called arith, defined in a file called arith.c and called from the
+main function found in the file called main.c.</p>
+
+<p>This function arith performs some arithmetic manipulation on its three parameters.</p>
+
+<p>Compiling main.c and arith.c files, we created an executable called ar, then we
+executed the command:</p>
+
+<pre class="terminal">
+objdump –d ar &gt; arith.objdump
+</pre>
+
+<p>We display the partial content of arith.objdump below. The file arith.objdump is
+the disassembled version of the executable file ar.
+Your task is to fill in its missing parts, which have been underlined:</p>
+
+<pre class="terminal">
+0000000000$400527 &lt;arith&gt;:
+400527:   48 8d 04 37       lea   (%rdi,%rsi,1),%rax
+______:   48 01 d0          add   %rdx,%rax
+40052e:   48 8d 0c 76       lea   (%rsi,%rsi,2),%rxc
+______:   48 c1 e1 04       shl   $0x4,%rcx
+400536:   48 8d 54 0f 04    lea   0x4(%rdi,%rcx,1),%rdx
+______:   48 0f af c2       imul  %rdx,%rax
+______:   c3                retq
+</pre>
+
+<h2 id="3-8-marks-c-program-versus-assembly-program">3. [8 marks] C program versus assembly program</h2>
+
+<p>Do the Homework Problem 3.58 at the end of Chapter 3. Make sure you satisfy the following requirements:</p>
+
+<ul>
+  <li>Your code must be commented and well spaced such that others (i.e., TA’s) can read
+your code and understand what each instruction does.</li>
+  <li>About comments:
+    <ul>
+      <li>Comment of Type 1: Here is an example of a useful comment: <code class="language-plaintext highlighter-rouge">cmpl  %edx, %r8d # loop while j &lt; N</code></li>
+      <li>Comment of Type 2: Here is an example of a not so useful comment: <code class="language-plaintext highlighter-rouge">cmpl  %edx, %r8d # compare %edx with %r8d</code></li>
+      <li>Do you see the difference? Make sure you write comments of Type 1.</li>
+    </ul>
+  </li>
+  <li>You cannot use the goto statement.</li>
+  <li>You must write your program using C (not C++) and your program must compile on our <em>target machine</em>.</li>
+</ul>
+
+<p>Once you have created your program and saved it in a file called decode2.c, generate its
+assembly code version using the optimization level “g” (–Og) and save it in a file called
+decode2.s.</p>
+
+<p>Include the content of both files decode2.c and decode2.s in your assignment</p>
+
+<p>Assignment_3.pdf document. Label them well.</p>
+
+<p>You do not have to electronically submit your files decode2.c and decode2.s on
+CourSys. However, your program must be functionally correct (i.e., it must compile,
+execute properly and solve this problem).</p>
+
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

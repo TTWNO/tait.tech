@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-css">
+  <link rel="stylesheet" href="/assets/css/transcription.css" id="trans-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/js/"></script>
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <p>CMPT 295
+Unit – Microprocessor Design &amp; Instruction Execution</p>
+
+<p>Lecture 29 – Sequential Logic Circuits and Sequential Execution</p>
+
+<p>1</p>
+
+<h2 id="carnegie-mellon">Carnegie Mellon</h2>
+
+<p>Last Lecture</p>
+
+<p>2</p>
+
+<p> Combinational logic circuits
+*Made of many logic gates
+*Multi-functional combinational logic circuits such as
+ALU have control input lines to indicate which
+function to perform
+*Combinational logic circuits do not store (remember)
+values
+ Sequential logic circuits
+*Made of combinational logic circuits, memory
+elements (e.g., clocked registers) and clock
+*Circuit that “remembers” values (state) and perform
+computations on these values</p>
+
+<h2 id="todays-menu">Today’s Menu</h2>
+<ul>
+  <li>Instruction Set Architecture (ISA)</li>
+  <li>
+    <p>Definition of ISA</p>
+  </li>
+  <li>Instruction Set design</li>
+  <li>Design principles</li>
+  <li>Look at an example of an instruction set: MIPS</li>
+  <li>Create our own</li>
+  <li>
+    <p>ISA evaluation</p>
+  </li>
+  <li>Implementation of a microprocessor (CPU) based on an ISA</li>
+  <li>Execution of machine instructions (datapath)</li>
+  <li>Intro to logic design + Combinational logic + Sequential logic circuit</li>
+  <li>Sequential execution of machine instructions</li>
+  <li>Pipelined execution of machine instructions + Hazards
+3</li>
+</ul>
+
+<h2 id="about-the-word-register">About the word register</h2>
+<ul>
+  <li>Warning: the word register can mean different things!
+    <ol>
+      <li>In hardware, a register is a hardware component
+directly connected to the rest of the circuit by its
+input and output lines (wires)
+*Called hardware register or clocked register</li>
+    </ol>
+  </li>
+</ul>
+
+<ol>
+  <li>In machine-level programming, a register is one of
+the addressable words in the CPU, i.e., in the register
+file (e.g., %rdi, %rax, etc…)
+*Called program register
+4</li>
+</ol>
+
+<p>*Implemented using hardware/clocked registers</p>
+
+<h2 id="memory-elements-and-clock-signals">Memory elements and Clock signals</h2>
+<ul>
+  <li>Memory element #1 -&gt; clocked registers a.k.a. hardware registers</li>
+  <li>On the microprocessor</li>
+  <li>A clocked register stores 1 bit (state)</li>
+  <li>Synchronized by system-wide clock</li>
+</ul>
+
+<p>clocked
+register</p>
+
+<ul>
+  <li>System-wide clock</li>
+  <li>A system-wide clock sends 0 1 0 1 0 1 0 1…</li>
+  <li>Clock period: 1 full cycle duration:</li>
+  <li>Clock frequency: 1/period</li>
+</ul>
+
+<p>CLOCK</p>
+
+<ul>
+  <li>How clocked registers work:</li>
+  <li>Output current state</li>
+  <li>Input next state</li>
+</ul>
+
+<p>5</p>
+
+<ul>
+  <li>Next state remembered only on rising edge of clock</li>
+</ul>
+
+<p>rising edge
+of clock</p>
+
+<h2 id="how-a-clocked-register-function">How a clocked register function!</h2>
+
+<p>Function Table</p>
+
+<p>Load D
+0
+1
+1</p>
+
+<p>Q(t + 1) -&gt; next state</p>
+
+<p>X
+0
+1</p>
+
+<p>Q(t) -&gt; current state
+0
+1</p>
+
+<p>Load 1) 0</p>
+
+<p>Load 1) 0
+clocked
+reg.</p>
+
+<p>clocked
+reg.</p>
+
+<p>1) 0</p>
+
+<p>6</p>
+
+<p>D</p>
+
+<p>1) Q(t)
+Q
+3) Q(t)</p>
+
+<p>Load 1) 1</p>
+
+<p>1) 1</p>
+
+<p>D</p>
+
+<p>1) Q(t)
+Q
+3) Q(t)</p>
+
+<p>Load 1) 1</p>
+
+<p>clocked
+reg.</p>
+
+<p>1) 0</p>
+
+<p>D</p>
+
+<p>1) Q(t)
+Q
+3) 0</p>
+
+<p>clocked
+reg.</p>
+
+<p>1) 1</p>
+
+<p>D</p>
+
+<p>Q</p>
+
+<p>1) Q(t)
+3) 1</p>
+
+<p>Clock</p>
+
+<p>Clock</p>
+
+<p>Clock</p>
+
+<p>Clock</p>
+
+<p>2) When the clock
+ticks, i.e., when
+edge of clock rises</p>
+
+<p>2) When the clock
+ticks, i.e., when
+edge of clock rises</p>
+
+<p>2) When the clock
+ticks, i.e., when
+edge of clock rises</p>
+
+<p>2) When the clock
+ticks, i.e., when
+edge of clock rises</p>
+
+<p>Row 1 of Function Table</p>
+
+<p>Row 1 of Function Table</p>
+
+<p>Row 2 of Function Table</p>
+
+<p>Row 3 of Function Table</p>
+
+<h2 id="d-flip-flop">D flip flop</h2>
+
+<p>Edge-triggered
+clock</p>
+
+<p>Load</p>
+
+<p>Timing Diagram</p>
+
+<p>clocked
+reg.</p>
+
+<p>If clock period, then clock frequency is</p>
+
+<p>Clock
+Load</p>
+
+<p>0</p>
+
+<p>1</p>
+
+<p>0</p>
+
+<p>1</p>
+
+<p>0</p>
+
+<p>1</p>
+
+<p>D
+1</p>
+
+<p>Q</p>
+
+<p>Clock</p>
+
+<p>0</p>
+
+<p>D
+Q
+tpd for register</p>
+
+<p>7</p>
+
+<p>Function Table
+Load
+0
+1
+1</p>
+
+<p>D
+X
+0
+1</p>
+
+<p>Q(t + 1)
+Q(t)
+0
+1</p>
+
+<h2 id="memory-elements-2---random">Memory elements #2 -&gt; Random</h2>
+<p>access memories</p>
+<ul>
+  <li>
+    <p>Made of several clocked registers, i.e., store multiple
+words of data</p>
+  </li>
+  <li>Random access (as opposed to sequential access)</li>
+  <li>
+    <p>Use an address to select which of the many memory words
+should be read or written</p>
+  </li>
+  <li>Examples:
+    <ol>
+      <li>RAM (see video)</li>
+      <li>Register file -&gt; register id used as address</li>
+    </ol>
+  </li>
+</ul>
+
+<p>*Program registers
+8</p>
+
+<p>*For example: x86-64 register file holds 16 registers</p>
+
+<h2 id="vala">valA</h2>
+
+<p>Register File</p>
+
+<p>srcA</p>
+
+<p>Read ports
+valB
+srcB</p>
+
+<p>A</p>
+
+<p>Register
+file</p>
+
+<p>valW</p>
+
+<p>W dstW</p>
+
+<p>Write port</p>
+
+<p>B</p>
+
+<ul>
+  <li>Stores multiple words</li>
+</ul>
+
+<p>Clock</p>
+
+<ul>
+  <li>Each word is the value of a program register</li>
+  <li>%rax, %rsp, etc.</li>
+  <li>
+    <p>Register ID serves as address to specify which word to read
+or write</p>
+  </li>
+  <li>Multiple ports</li>
+  <li>Can read and/or write multiple words in one clock cycle
+*Each port has separate address and data input/output
+9</li>
+</ul>
+
+<h2 id="register-file--how-it-works">Register file – how it works?</h2>
+<p>valA
+srcA</p>
+
+<p>output: value x
+input: register ID 2</p>
+
+<p>valB
+srcB</p>
+
+<p>A</p>
+
+<ul>
+  <li>Reading</li>
+</ul>
+
+<p>2 x</p>
+
+<ul>
+  <li>Combinational logic circuit – does not need clock</li>
+</ul>
+
+<p>Register
+file
+B</p>
+
+<ul>
+  <li>Output data generated based on input address
+only, after some propagation delay</li>
+</ul>
+
+<p>Clock</p>
+
+<p>2 x
+Register
+file</p>
+
+<p>valW</p>
+
+<p>W dstW</p>
+
+<p>input:
+value y
+register ID 2</p>
+
+<p>2 y</p>
+
+<p></p>
+
+<p>Rising
+clock</p>
+
+<p></p>
+
+<p>Register
+file</p>
+
+<p>valW</p>
+
+<p>W dstW</p>
+
+<p>input:
+value x
+register ID 2</p>
+
+<p>Clock</p>
+
+<p>Clock</p>
+
+<ul>
+  <li>Writing</li>
+  <li>
+    <p>Sequential logic circuit -&gt; clocked registers
+10</p>
+  </li>
+  <li>Remembers only when clock “ticks” (rising edge
+of clock)</li>
+</ul>
+
+<h2 id="put-together">Put together:</h2>
+<ul>
+  <li>Combinational logic circuits “deal” with an instruction</li>
+  <li>Memory elements hold results (state), i.e., “remember”</li>
+</ul>
+
+<p>memory
+element
+(clocked
+registers)</p>
+
+<p>Clock
+11</p>
+
+<p>Value can be
+used in next
+clock cycle</p>
+
+<p>Value written
+in a previous
+clock cycle</p>
+
+<p>input combinational output
+output
+logic circuit
+input
+current
+state</p>
+
+<p>next
+state</p>
+
+<p>Clock cycle</p>
+
+<p>memory
+element
+(clocked
+registers)</p>
+
+<p>output
+current state</p>
+
+<h2 id="sequential-execution">Sequential execution</h2>
+<ul>
+  <li>Now, imagine we have designed and implemented a
+microprocessor (its datapath):
+Called
+sequential
+execution
+because
+at every clock
+cycle, a new
+machine
+instruction
+is executed!
+12</li>
+</ul>
+
+<p>From textbook:</p>
+
+<p>input</p>
+
+<p>combinational
+logic circuit</p>
+
+<p>output
+input
+next
+state</p>
+
+<p>clock</p>
+
+<p>memory
+element
+(clocked
+registers)</p>
+
+<p>output
+current state</p>
+
+<h2 id="analysis-of-sequential-execution">Analysis of sequential execution</h2>
+<p>the time between two ticks of the clock</p>
+
+<ul>
+  <li>Clock cycle required to execute 1 instruction must exceed
+tpd of combinational logic circuit + tpd of clocked register
+execute 1 instruction</li>
+</ul>
+
+<p>memory
+element</p>
+
+<p>…</p>
+
+<p>(clocked
+registers)</p>
+
+<p>Clock</p>
+
+<p>13</p>
+
+<p>execute 1 instruction</p>
+
+<p>input</p>
+
+<p>combinational
+logic circuit</p>
+
+<p>Clock cycle</p>
+
+<p>-&gt; tpd + tpd is long clock cycle!</p>
+
+<p>output
+input
+next
+state</p>
+
+<p>memory
+element
+(clocked
+registers)</p>
+
+<p>output
+current state</p>
+
+<h2 id="analysis-of-sequential-execution-contd">Analysis of sequential execution (cont’d)</h2>
+<p>input</p>
+
+<p>combinational
+logic circuit</p>
+
+<p>output
+input
+next
+state</p>
+
+<p>memory
+element
+(clocked
+registers)</p>
+
+<p>output
+current state</p>
+
+<p>clock</p>
+
+<ul>
+  <li>Since the clock cycle is a factor in determining
+how fast the microprocessor executes machine
+instructions (i.e., execution speed)</li>
+  <li>
+    <p>Then a microprocessor with a long clock cycle is
+a slow microprocessor
+14</p>
+  </li>
+  <li>as it takes a long time to execute machine
+instructions, i.e., to execute a program</li>
+</ul>
+
+<h2 id="conclusion-sequential-execution">Conclusion: sequential execution</h2>
+<ul>
+  <li>
+    <p>Such microprocessor called single-cycle microprocessor</p>
+  </li>
+  <li>Execute each instruction in 1 clock cycle -&gt; CPI = 1</li>
+  <li>CPI =&gt; clock cycles per instruction
+*Def: the average number of clock cycles per instruction for a
+program or program fragment
+*inverse of instructions per cycle
+*one aspect of a processor’s performance</li>
+  <li>CPI of 1 is inefficient:</li>
+  <li>
+    <p>Within the same clock cycle, functional units (of datapath like ALU)
+cannot be used more than once
+*So we would need to duplicate them if they are needed more
+than once during the execution of an instruction
+15</p>
+  </li>
+  <li>Results in a long clock cycle and a low throughput
+*Def of throughput: Number of instructions executed per second</li>
+</ul>
+
+<h2 id="example-of-a-single-cycle-microprocessor">Example of a single-cycle microprocessor</h2>
+<p>(datapath)</p>
+
+<p>16
+https://ict.iitk.ac.in/wp-content/uploads/CS422-Computer-Architecture-ComputerOrganizationAndDesign5thEdition2014.pdf</p>
+
+<h2 id="analysis">Analysis:</h2>
+<p>input</p>
+
+<p>combinational
+logic circuit</p>
+
+<p>output
+input
+next
+state</p>
+
+<p>memory
+element
+(clocked
+registers)</p>
+
+<p>output
+current state</p>
+
+<p>clock</p>
+
+<ol>
+  <li>Latency (same as propagation delay):
+    <ul>
+      <li>Def: Time required to execute a single instruction</li>
+      <li>Example:</li>
+    </ul>
+  </li>
+  <li>(instruction) Throughput -&gt; speed of microprocessor:
+17</li>
+</ol>
+
+<ul>
+  <li>Def: Number of instructions executed per second - GIPS</li>
+  <li>Example:</li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+<ul>
+  <li>We put combinational logic circuits and sequential logic circuits together
+-&gt; datapath of a microprocessor</li>
+  <li>Various models of Microprocessor machine instruction execution:</li>
+</ul>
+
+<p>18</p>
+
+<ul>
+  <li>Model 1: Sequential execution of machine instructions
+*The microprocessor we have just constructed is a sequential
+execution of machine instructions type of microprocessor since it
+executes one machine instruction at a time and per clock cycle
+*Single-cycle microprocessor (CPI = 1)</li>
+  <li>In general, how to analyze various models of microprocessor instruction
+execution:
+    <ol>
+      <li>Latency (a.k.a. propagation delay): Time required to execute a single
+instruction</li>
+      <li>Throughput: Number of instructions executed per second</li>
+    </ol>
+  </li>
+  <li>Conclusion of analyzing sequential execution of machine instructions</li>
+  <li>Because this model requires a long clock cycle
+ Creates slow microprocessors with small throughput</li>
+</ul>
+
+<h2 id="next-lecture">Next Lecture</h2>
+<ul>
+  <li>Instruction Set Architecture (ISA)</li>
+  <li>
+    <p>Definition of ISA</p>
+  </li>
+  <li>Instruction Set design</li>
+  <li>Design principles</li>
+  <li>Look at an example of an instruction set: MIPS</li>
+  <li>Create our own</li>
+  <li>
+    <p>ISA evaluation</p>
+  </li>
+  <li>Implementation of a microprocessor (CPU) based on an ISA</li>
+  <li>Execution of machine instructions (datapath)</li>
+  <li>Intro to logic design + Combinational logic + Sequential logic circuit</li>
+  <li>Sequential execution of machine instructions</li>
+  <li>Pipelined execution of machine instructions + Hazards
+19</li>
+</ul>
+
+<p>##</p>
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

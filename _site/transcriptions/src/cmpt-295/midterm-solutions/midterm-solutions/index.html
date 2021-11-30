@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-css">
+  <link rel="stylesheet" href="/assets/css/transcription.css" id="trans-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/js/"></script>
+  
+  <link rel="stylesheet" href="/assets/css/katex.css" id="math-css">
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="solution">SOLUTION</h1>
+
+<ul>
+  <li>Simon Fraser University</li>
+  <li>Computing Science 295</li>
+  <li>Fall 2021</li>
+  <li>Friday Oct. 15 2021</li>
+  <li>Midterm Examination 1</li>
+  <li>Time: 45 minutes</li>
+</ul>
+
+<p>First Name: _________</p>
+
+<p>Last Name: _________</p>
+
+<p>Student ID: _________</p>
+
+<p>This examination has 11 pages.</p>
+
+<p>Read each question carefully before answering it.</p>
+
+<ul>
+  <li>No textbooks, cheat sheets, calculators, computers, cell phones or other materials may
+be used.</li>
+  <li>All assembly code must be x86-64 assembly code.</li>
+  <li>Hand in your scrap sheet(s) along with your examination paper. The scrap sheet(s) will
+not be marked.</li>
+  <li>The marks for each question are given in [ ]. Use this to manage your time:
+    <ul>
+      <li>One (1) mark corresponds to one (1) minute of work.</li>
+      <li>Do not spend more time on a question than the number of marks assigned to it.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Good luck!</p>
+
+<h2 id="part-1">Part 1</h2>
+
+<p>Each question is 2 marks – There are no part marks given!</p>
+
+<p>Answer the following multiple choice questions on the bubble sheet at the back of this
+examination paper.</p>
+
+<ol>
+  <li>Consider the following syntactically correct C code fragment:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>float aFloat = 3.1415;
+int sum = (int) aFloat + 0xFFFFFFFE;
+</code></pre></div>    </div>
+    <p>Which value does the variable sum contain when the above C code fragment has
+executed on our target machine?</p>
+    <ul>
+      <li>a. 1.1415</li>
+      <li>b. -1</li>
+      <li>c. 0x00000001 (CORRECT)</li>
+    </ul>
+    <ul>
+      <li>aFloat = 3.1415</li>
+      <li>0xFFFFFFFE = -2</li>
+      <li>(int) aFloat = 3</li>
+      <li>sum = 3 + (-2) = 1 or 0x00000001 (int in hex)
+      * d. 5
+      * e. None of the above</li>
+    </ul>
+  </li>
+  <li>Which step in the compilation process transforms our C code into assembly
+instructions?
+    <ul>
+      <li>a. The step called the preprocessor</li>
+      <li>b. The step called the compiler – See Lecture 8 Slide 7 (CORRECT)</li>
+      <li>c. The step called the assembler</li>
+      <li>d. The step called the linker</li>
+      <li>e. None of the above</li>
+    </ul>
+  </li>
+  <li>Consider the following syntactically correct C function:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char mystery( char someParam ) {
+  char result = 0;
+  if ( someParam &gt; 0 ) result = someParam;
+  else result = -someParam;
+  return result;
+}
+</code></pre></div>    </div>
+    <p>What will it return once it has executed on our target machine with the parameter
+someParam set to the value -128?</p>
+    <ul>
+      <li>a. 127</li>
+      <li>b. 128</li>
+      <li>c. -127</li>
+      <li><span id="a3">d. -128 (CORRECT)</span> <a href="#x3">Explaination</a></li>
+      <li>e. None of the above</li>
+    </ul>
+  </li>
+  <li>Consider the following syntactically correct C code fragment:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>short count = 0xACE;
+printf( "count = %hhi\n", (char) count );
+</code></pre></div>    </div>
+    <p>What is printed on the computer monitor screen when the above C code fragment
+has executed on our target machine?</p>
+    <ul>
+      <li><span id="a4">a. count = -50</span> (CORRECT) <a href="#x4">Explaination</a></li>
+      <li>b. count = 0xCE</li>
+      <li>c. count = 206</li>
+      <li>d. count = 0xACE</li>
+      <li>e. None of the above</li>
+    </ul>
+  </li>
+  <li>Consider the following syntactically correct C code fragment:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>short aShort = -2;
+char aChar = aShort;
+short sumS = 0xABBB + (short) aChar + 1;
+</code></pre></div>    </div>
+    <p>Which statement below is true about the above C code fragment once it has executed
+on our target machine, but has not yet exited the scope of the variables aShort,
+aChar and sumS?</p>
+    <ul>
+      <li>a. sumS contains the hex value 0xABBA</li>
+      <li>b. aChar == aShort</li>
+      <li>c. Statements a. and b. are true. (CORRECT) <a href="#x5">Explaination</a></li>
+      <li>d. Only the statement b. is true.</li>
+      <li>e. None of the above</li>
+    </ul>
+  </li>
+  <li>Consider the following C code fragment:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char char1 = 101;
+char char2 = _______ ;
+char sumOfChar = char1 + char2;
+</code></pre></div>    </div>
+    <p>Which value must be assigned to char2 in order for the sum of char1 and char2
+to create a positive overflow?</p>
+    <ul>
+      <li>a. No numbers would create a positive overflow when added to 101.</li>
+      <li>b. <span id="a6">42</span> (CORRECT) <a href="#x6">Explaination</a></li>
+      <li>c. 26</li>
+      <li>d. -230</li>
+      <li>e. None of the above</li>
+    </ul>
+  </li>
+  <li>Consider the following syntactically correct C code fragment:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsigned int x = 0xDECAF000;
+unsigned short y = 0xCAFE;
+if ( x &gt; y ) printf("Caf ");
+if ( x &lt; (signed short) y ) printf("Decaf ");
+if ( (unsigned char) x &gt; y ) printf("Latte ");
+</code></pre></div>    </div>
+    <p>What is printed on the computer monitor screen when the above C code fragment
+has executed on our target machine?</p>
+    <ul>
+      <li>a. Caf Decaf Latte</li>
+      <li>b. Caf Latte</li>
+      <li>c. Caf</li>
+      <li>d. Decaf</li>
+      <li>e. <span id="a7">None of the above</span> (CORRECT) <a href="#x7">Explaination</a></li>
+    </ul>
+  </li>
+  <li>Which range of values can be stored in the variable y declared in the C fragment
+code of Question 7 above?
+    <ul>
+      <li>a. [0 .. <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>16</mn></msup></mrow><annotation encoding="application/x-tex">2^{16}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">16</span></span></span></span></span></span></span></span></span></span></span></span>]</li>
+      <li>b. [-128 .. 127]</li>
+      <li>c. [0 .. <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>16</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{16}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">16</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>]</li>
+      <li>d. [0 .. <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>15</mn></msup><mtext>–</mtext><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{15} – 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">15</span></span></span></span></span></span></span></span></span><span class="mord">–1</span></span></span></span>]</li>
+      <li>e. <span id="a8">None of the above</span> (CORRECT) <a href="#x8">Explaination</a></li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="part-2">Part 2</h2>
+
+<p>The weight of each question is indicated in [ ] – Write your answer below each question unless instructed otherwise.</p>
+
+<h3 id="1">1</h3>
+
+<p>[Total marks: 15] Consider the following function mystery written in x86-64
+assembly code, where the parameter x is in the register %edi and the parameter y is
+in the register %esi:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.globl power # mystery is crossed out and replaced with power; line 1
+power: # x -&gt; %edi, y -&gt; %esi; mystery replaced with power; line 2
+  xorl %eax,%eax # line 3
+  movl $1,%r8d # line 4
+loop: # loop replaces .L3 # line 5
+  addl $1,%eax # line 6
+  imull %edi,%r8d # line 7
+  cmpl %eax,%esi # line 8
+  jne loop # loop replaces .L3; line 9
+  movl %r8d,%eax # line 10
+  ret # line 11
+</code></pre></div></div>
+
+<ul>
+  <li>a. [3 marks] If we call this function as follows: mystery( x, y ) where x = 2
+and y = 3, what value will it return?
+    <ul>
+      <li>Answer: 8</li>
+    </ul>
+  </li>
+  <li>b. [2 marks] Replace the label .L3 with a more descriptive label name. Do this
+replacement in the above code.
+    <ul>
+      <li>Possible answer: loop</li>
+    </ul>
+  </li>
+  <li>c. [2 marks] Rename this function with a more descriptive name. Do this renaming in
+the above code.
+    <ul>
+      <li>Possible answer: power or pow; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mi>y</mi></msup></mrow><annotation encoding="application/x-tex">x^y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span></span></span></span></span></span></span></span> -&gt; x is raised to the power y</li>
+    </ul>
+  </li>
+  <li>d. [2 marks] What is the data type of the parameters and the return value of this
+function? Express your answer using C data types.
+    <ul>
+      <li>Answer: int or unsigned int</li>
+    </ul>
+  </li>
+  <li>e. [2 marks] Replace Line 3 with another equivalent x86-64 instruction, i.e., an
+x86-64 instruction that will produce the same result, but is not a xor*
+instruction.
+    <ul>
+      <li>Answer: Line 3: xorl %eax,%eax</li>
+      <li>The purpose of this instruction is to “zero” the register %eax.</li>
+      <li>Possible replacement: Line 3: movl $0,%eax</li>
+    </ul>
+  </li>
+  <li>f. [2 marks] Replace Line 6 with another equivalent x86-64 instruction, i.e., an
+x86-64 instruction that will produce the same result, but is not an add*
+instruction.
+    <ul>
+      <li>Answer: Line 6: addl $1,%eax</li>
+      <li>The purpose of this instruction is to increment the value of the
+register %eax by 1.</li>
+      <li>Possible replacements:
+        <ul>
+          <li>Line 6: incl %eax</li>
+          <li>Line 6: leal 1(%eax),%eax</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>g. [2 marks] On Line 6 and Line 8, the register %eax is used for a different
+purpose than holding the return value. For what purpose is the register %eax used
+on those two lines?</li>
+  <li>Answer: On Line 6 and Line 8, the register %eax is used as a loop
+increment or a loop counter, expressing the number of times the loop
+executes. At every loop iteration, %eax is incremented by 1 (Line 6)
+then compare to y (Line 8). The loop terminates when %eax equals
+the value of y (the power to which we are raising x).</li>
+</ul>
+
+<h3 id="2">2</h3>
+
+<p>[Total marks: 14] Consider a floating point number encoding scheme based on the
+IEEE floating point format and defined as follows:</p>
+<ul>
+  <li>It uses 7 bits.</li>
+  <li>There is one sign bit s.</li>
+  <li>The exp can be any number in the range [0 .. 31].</li>
+</ul>
+
+<p>From the above, we gather:</p>
+
+<ul>
+  <li>the format is: s exp frac</li>
+  <li>exp is 5 bits (k = 5) and</li>
+  <li>frac is 1 bit1 (1 bit for s + 5 bits for exp + 1 for frac = 7 bits)</li>
+  <li>since this floating point number encoding scheme is based on the
+IEEE floating point format, the following equations hold:
+    <ul>
+      <li>V = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mi>s</mi></msup><mi>M</mi><msup><mn>2</mn><mi>E</mi></msup></mrow><annotation encoding="application/x-tex">(-1)^s M 2^E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0913309999999998em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span></span></span></span></span></span></span></span></li>
+      <li>E= exp – bias (for normalized numbers)</li>
+      <li>M = 1 + frac (for normalized numbers)</li>
+      <li>E= 1 – bias (for denormalized numbers)</li>
+      <li>M = frac (for denormalized numbers)</li>
+      <li>bias = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msup><mtext>–</mtext><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{k-1} – 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8491079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mord">–1</span></span></span></span> (for normalized and denormalized numbers)</li>
+    </ul>
+  </li>
+  <li>a. [2 marks] Compute the bias of this IEEE-like floating point number encoding
+scheme described above and show your work:
+    <ul>
+      <li>Answer: k = 5</li>
+      <li>bias = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msup><mtext>–</mtext><mn>1</mn><mo>=</mo><msup><mn>2</mn><mrow><mn>5</mn><mo>−</mo><mn>1</mn></mrow></msup><mtext>–</mtext><mn>1</mn><mo>=</mo><msup><mn>2</mn><mn>4</mn></msup><mtext>–</mtext><mn>1</mn><mo>=</mo><mn>16</mn><mtext>–</mtext><mn>1</mn><mo>=</mo><mn>15</mn></mrow><annotation encoding="application/x-tex">2^{k-1}–1 = 2^{5-1} – 1 = 2^4 – 1 = 16 – 1 = 15</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8491079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mord">–1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mord">–1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span><span class="mord">–1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">16–1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">15</span></span></span></span></li>
+    </ul>
+  </li>
+  <li>b. [7 marks] Encode the value 24.510 using this IEEE-like floating point number
+representation described in this question. Show all your work. Clearly show the
+resulting bit pattern and label its three sections s,exp,frac.
+    <ul>
+      <li>Step 1) 24.510 is a positive number so s = 0</li>
+      <li>Step 2) R2B(24.510)
+        <ul>
+          <li>=&gt; 24 – 16 (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">2^4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span></span></span></span>) = 8 and 0.5 - 0.5 (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2^{-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>) = 0</li>
+          <li>8-8 (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">2^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>) = 0</li>
+          <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>24.5</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{24.5}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">24.5</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> =&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>11000.1</mtext><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\text{11000.1}_{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">11000.1</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+        </ul>
+      </li>
+      <li>Step 3) normalize <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>11000.1</mtext><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\text{11000.1}_{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">11000.1</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> =&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>1.10001</mtext><mn>2</mn></msub><mo>×</mo><msup><mn>2</mn><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">\text{1.10001}_{2} \times 2^4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">1.10001</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span></span></span></span></li>
+      <li>Step 4) Using <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><msup><mtext>(-1)</mtext><mi>s</mi></msup><mi>M</mi><msup><mn>2</mn><mi>E</mi></msup></mrow><annotation encoding="application/x-tex">V = \text{(-1)}^s M 2^E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.0913309999999998em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord text"><span class="mord">(-1)</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.804292em;"><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span></span></span></span></span></span></span></span>
+        <ul>
+          <li>1) E= exp – bias =&gt; exp = E + bias
+            <ul>
+              <li>=&gt; exp = 410 + 1510 = 1910 since E = 410</li>
+              <li>=&gt; U2B(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>19</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{19}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">19</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>) = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>10011</mtext><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\text{10011}_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">10011</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> (k = 5)</li>
+            </ul>
+          </li>
+          <li>2) M = 1 + frac =&gt; frac = M - 1
+            <ul>
+              <li>=&gt; frac = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>1.10001</mtext><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\text{1.10001}_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">1.10001</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> – 1 =&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>0.10001</mtext><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\text{0.10001}_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">0.10001</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> since <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><msub><mtext>1.10001</mtext><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">M = \text{1.10001}_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">1.10001</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+              <li>=&gt; frac = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>10001</mtext><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\text{10001}_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">10001</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> (ignoring “0.”)
+but since frac only has 1 bit, 100012
+cannot be stored in frac, so we need to
+round frac <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>.10001</mtext><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\text{.10001}_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">.10001</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> =&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>.1</mtext><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\text{.1}_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">.1</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+              <li>=&gt; MSBit is the rounding position (in blue)</li>
+              <li>=&gt; since the value of the rest of the bits
+(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>0001</mtext><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\text{0001}_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">0001</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> = 0.03125 (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mo>−</mo><mn>5</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2^{-5}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></span>) - see table below) &lt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1/2</span></span></span></span>
+the worth of rounding position (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1/2</span></span></span></span> of 0.5 =
+0.25), then we round down which means we
+only discard the bits <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>0001</mtext><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\text{0001}_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">0001</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> from <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>.10001</mtext><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\text{.10001}_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">.10001</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>)</li>
+            </ul>
+          </li>
+          <li>Step 5)
+            <ul>
+              <li>Using the format: s exp frac
+the resulting bit pattern encoding <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>24.5</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{24.5}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">24.5</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>
+in the IEEE-like floating point number
+representation described in this question is: s=0 exp=10011 frac=1</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>c. [2 marks] Write the “range” (non-contiguous) of real numbers (excluding +/infinity and NAN) that can be encoded using this IEEE-like floating-point
+representation described in this question. Express this range using the bit patterns
+(not the actual real numbers).
+    <ul>
+      <li>Answer: “range” (non-contiguous) of real numbers (excluding +/- infinity and NAN) that can be encoded
+using
+IEEE-like floating-point
+representation
+described
+in
+this
+question
+(expressed using the bit patterns): <code class="language-plaintext highlighter-rouge">[ 1 11110 1 .. 0 11110 1 ]</code></li>
+    </ul>
+  </li>
+  <li>d. [3 marks] Can 6553610 be encoded as a normalized number in this IEEE-like
+floating point representation? Briefly explain why/why not.
+Hint: Use your range in the above question and the table below.
+    <ul>
+      <li>Answer:
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>65536</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{65536}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">65536</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> cannot be encoded as a normalized number
+in this IEEE-like floating point representation
+because expressed as <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><msup><mtext>(-1)</mtext><mi>s</mi></msup><mi>M</mi><msup><mn>2</mn><mi>E</mi></msup></mrow><annotation encoding="application/x-tex">V = \text{(-1)}^s M 2^E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.0913309999999998em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord text"><span class="mord">(-1)</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.804292em;"><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span></span></span></span></span></span></span></span>
+6553610 is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><msup><mtext>(-1)</mtext><mn>0</mn></msup><mn>1.0</mn><msup><mn>2</mn><mn>16</mn></msup><mo>=</mo><msup><mn>2</mn><mn>16</mn></msup></mrow><annotation encoding="application/x-tex">V = \text{(-1)}^0 1.0 2^{16} = 2^{16}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.204008em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord text"><span class="mord">(-1)</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.954008em;"><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span><span class="mord">1.0</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">16</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">16</span></span></span></span></span></span></span></span></span></span></span></span> (see table below)
+        <ul>
+          <li>E= exp – bias =&gt; exp = E + bias</li>
+          <li>exp = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>16</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{16}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">16</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> + <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>15</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{15}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">15</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>31</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{31}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">31</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> since E = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>16</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{16}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">16</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>
+and U2B(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>31</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{31}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">31</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>) = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>11111</mtext><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\text{11111}_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">11111</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>
+(k = 5) which is outside
+the range for exp as indicated in the range given
+as the answer to the above question:
+<code class="language-plaintext highlighter-rouge">[ 1 11110 1 .. 0 11110 1 ]</code></li>
+          <li>When <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>exp</mtext><mo>=</mo><msub><mtext>11111</mtext><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\text{exp} = \text{11111}_{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">exp</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">11111</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> for k = 5, it indicates overflow, i.e., one of the special cases.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Table Powers of 2:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Power of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>x</mi></msup></mrow><annotation encoding="application/x-tex">2^x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span></span></span></span></span></span></span></span></th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-10</td>
+      <td>1/1024 = 0.0009765625</td>
+    </tr>
+    <tr>
+      <td>-9</td>
+      <td>1/512 = 0.001953125</td>
+    </tr>
+    <tr>
+      <td>-8</td>
+      <td>1/256 = 0.00390625</td>
+    </tr>
+    <tr>
+      <td>-7</td>
+      <td>1/128 = 0.0078125</td>
+    </tr>
+    <tr>
+      <td>-6</td>
+      <td>1/64 = 0.015625</td>
+    </tr>
+    <tr>
+      <td>-5</td>
+      <td>1/32 = 0.03125</td>
+    </tr>
+    <tr>
+      <td>-4</td>
+      <td>1/16 = 0.0625</td>
+    </tr>
+    <tr>
+      <td>-3</td>
+      <td>1/8 = 0.125</td>
+    </tr>
+    <tr>
+      <td>-2</td>
+      <td>1/4 = 0.25</td>
+    </tr>
+    <tr>
+      <td>-1</td>
+      <td>1/2 = 0.5</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>64</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>128</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>256</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>512</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>1024</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>2048</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>4096</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>8192</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>16384</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>32768</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>65536</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table of x86-64 Jumps:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instruction</th>
+      <th>Condition</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jmp</code></td>
+      <td>always</td>
+      <td>Unconditional jump</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">je</code>/<code class="language-plaintext highlighter-rouge">jz</code></td>
+      <td>ZF</td>
+      <td>Jump if equal / zero</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jne</code>/<code class="language-plaintext highlighter-rouge">jnz</code></td>
+      <td>~ZF</td>
+      <td>Jump if not equal / not zero</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">js</code></td>
+      <td>SF</td>
+      <td>Jump if negative</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jns</code></td>
+      <td>~SF</td>
+      <td>Jump if nonnegative</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jo</code></td>
+      <td>OF</td>
+      <td>Jump if overflow</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jno</code></td>
+      <td>~OF</td>
+      <td>Jump if not overflow</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jq</code>/<code class="language-plaintext highlighter-rouge">jnle</code></td>
+      <td>~(SF ^ OF) &amp; ~ZF</td>
+      <td>Jump if greater (signed &gt;)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jge</code>/<code class="language-plaintext highlighter-rouge">jnl</code></td>
+      <td>~(SF ^ OF)</td>
+      <td>Jump if greater or equal (signed &gt;=)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jl</code>/<code class="language-plaintext highlighter-rouge">jnge</code></td>
+      <td>SF ^ OF</td>
+      <td>Jump if less (signed &lt;)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jle</code>/<code class="language-plaintext highlighter-rouge">jng</code></td>
+      <td>(SF ^ OF) | ZF</td>
+      <td>Jump if less or equal (signed &lt;=)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ja</code>/<code class="language-plaintext highlighter-rouge">jnbe</code></td>
+      <td>~CF &amp; ~ZF</td>
+      <td>JumP if greater (unsigned &gt;)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jae</code>/<code class="language-plaintext highlighter-rouge">jnb</code></td>
+      <td>~CF</td>
+      <td>Jump if greater or equal (unsigned &gt;=)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jb</code>/<code class="language-plaintext highlighter-rouge">jnae</code>/<code class="language-plaintext highlighter-rouge">jc</code></td>
+      <td>CF</td>
+      <td>Jump if less (unsigned &lt;)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jbe</code>/<code class="language-plaintext highlighter-rouge">jna</code>/<code class="language-plaintext highlighter-rouge">jnc</code></td>
+      <td>CF | ZF</td>
+      <td>Jump if less or equal (unsigned &lt;=)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table of x86-64 Registers</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>64-bit (quad)</th>
+      <th>32-bit (double)</th>
+      <th>16-bit (word)</th>
+      <th>8-bit (byte)</th>
+      <th>8-bit (byte)</th>
+      <th> </th>
+    </tr>
+    <tr>
+      <th>63..0</th>
+      <th>31..0</th>
+      <th>15..0</th>
+      <th>15..8</th>
+      <th>7..0</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>rax</td>
+      <td>eax</td>
+      <td>ax</td>
+      <td>ah</td>
+      <td>al</td>
+      <td>Return value</td>
+    </tr>
+    <tr>
+      <td>rbx</td>
+      <td>ebx</td>
+      <td>bx</td>
+      <td>bh</td>
+      <td>bl</td>
+      <td>Callee served</td>
+    </tr>
+    <tr>
+      <td>rcx</td>
+      <td>ecx</td>
+      <td>cx</td>
+      <td>ch</td>
+      <td>cl</td>
+      <td>4th arg</td>
+    </tr>
+    <tr>
+      <td>rdx</td>
+      <td>edx</td>
+      <td>dx</td>
+      <td>dh</td>
+      <td>dl</td>
+      <td>3rd arg</td>
+    </tr>
+    <tr>
+      <td>rsi</td>
+      <td>esi</td>
+      <td>si</td>
+      <td> </td>
+      <td>sil</td>
+      <td>2nd arg</td>
+    </tr>
+    <tr>
+      <td>rdi</td>
+      <td>edi</td>
+      <td>di</td>
+      <td> </td>
+      <td>dil</td>
+      <td>1st arg</td>
+    </tr>
+    <tr>
+      <td>rbp</td>
+      <td>ebp</td>
+      <td>bp</td>
+      <td> </td>
+      <td>bpl</td>
+      <td>Callee served</td>
+    </tr>
+    <tr>
+      <td>rsp</td>
+      <td>esp</td>
+      <td>sp</td>
+      <td> </td>
+      <td>spl</td>
+      <td>Stack position</td>
+    </tr>
+    <tr>
+      <td>r8</td>
+      <td>r8d</td>
+      <td>r8w</td>
+      <td> </td>
+      <td>r8b</td>
+      <td>5th arg</td>
+    </tr>
+    <tr>
+      <td>r9</td>
+      <td>r9d</td>
+      <td>r9w</td>
+      <td> </td>
+      <td>r9b</td>
+      <td>6th arg</td>
+    </tr>
+    <tr>
+      <td>r10</td>
+      <td>r10d</td>
+      <td>r10w</td>
+      <td> </td>
+      <td>r10b</td>
+      <td>Callee served</td>
+    </tr>
+    <tr>
+      <td>r11</td>
+      <td>r11d</td>
+      <td>r11w</td>
+      <td> </td>
+      <td>r11b</td>
+      <td>Callee served</td>
+    </tr>
+    <tr>
+      <td>r12</td>
+      <td>r12d</td>
+      <td>r12w</td>
+      <td> </td>
+      <td>r12b</td>
+      <td>Callee served</td>
+    </tr>
+    <tr>
+      <td>r13</td>
+      <td>r13d</td>
+      <td>r13w</td>
+      <td> </td>
+      <td>r13b</td>
+      <td>Callee served</td>
+    </tr>
+    <tr>
+      <td>r14</td>
+      <td>r14d</td>
+      <td>r14w</td>
+      <td> </td>
+      <td>r14b</td>
+      <td>Callee served</td>
+    </tr>
+    <tr>
+      <td>r15</td>
+      <td>r15d</td>
+      <td>r15w</td>
+      <td> </td>
+      <td>r15b</td>
+      <td>Callee served</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="explainations">Explainations:</h2>
+
+<h3 id="x3">3</h3>
+
+<p><a href="#a3">Back to answer</a></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char mystery( -128 ) {
+  char result = 0;
+  if ( -128 &gt; 0 ) result = someParam;
+  else result = -(-128);
+</code></pre></div></div>
+
+<p>So, it seems that result = 128
+What is the bit pattern of 128?
+Interpreting 128 as an unsigned char we get:
+B2U(10000000) -&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>7</mn></msup></mrow><annotation encoding="application/x-tex">2^7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">7</span></span></span></span></span></span></span></span></span></span></span> -&gt; 128
+but we cannot interpret 128 as a signed char
+because 128 is outside the range of signed char
+-&gt; [-128 .. 127], so the bit pattern 10000000
+interpreted as a signed char is -128
+Therefore even though it seems that
+result = 128 (10000000)
+It is actually the case that
+result = -128
+return result i.e., -128</p>
+
+<h4 id="extra">EXTRA</h4>
+
+<p>What is -128 as a bit pattern?</p>
+
+<p>-128 -&gt; T2B(X) -&gt; (~(U2B(|X|)))+1 and X = -128</p>
+<ul>
+  <li>See Lecture 3 Slide 11 Method 1</li>
+  <li>(~(U2B(|-128|)))+1</li>
+  <li>(~(U2B(128)))+1</li>
+  <li>(~(10000000))+1</li>
+  <li>-&gt; someParam is a char -&gt; w = 8 bits</li>
+  <li>(01111111) + 1 = 10000000</li>
+  <li>Check: B2T(10000000) -&gt; -27 -&gt; -128</li>
+  <li>-128 -&gt; T2B(X) -&gt; U2B(X + <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>w</mi></msup></mrow><annotation encoding="application/x-tex">2^w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02691em;">w</span></span></span></span></span></span></span></span></span></span></span>)</li>
+  <li>See Lecture 3 Slide 11 Method 2</li>
+  <li>U2B(-128 + 2w) -&gt; U2B(-128 + 28)</li>
+  <li>-&gt; U2B(-128 + 256)</li>
+  <li>-&gt; U2B(128) -&gt; 10000000</li>
+</ul>
+
+<h3 id="x4">4</h3>
+
+<p><a href="#a4">Back to answer</a></p>
+
+<ul>
+  <li>count = 0xACE = 0000 1010 1100 1110</li>
+  <li>(char) count = 0xCE = 1100 1110</li>
+  <li>hhi -&gt; signed char numerical output
+    <ul>
+      <li>-&gt; 1100 1110 = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>7</mn></msup></mrow><annotation encoding="application/x-tex">-2^7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">7</span></span></span></span></span></span></span></span></span></span></span> + <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>6</mn></msup></mrow><annotation encoding="application/x-tex">2^6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span></span></span></span></span></span></span></span> + <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">2^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span> + <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">2^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span> + <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>1</mn></msup></mrow><annotation encoding="application/x-tex">2^1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span> = -128 + 64 + 8 + 4 + 2 = -50</li>
+    </ul>
+  </li>
+  <li>See Lecture_4_Demo.c</li>
+</ul>
+
+<h3 id="x5">5</h3>
+
+<p><a href="#a5">Back to answer</a></p>
+
+<ul>
+  <li>aShort = -2 = 0xFFFE</li>
+  <li>aChar = aShort -&gt; aChar = -2 = 0xFE -&gt; 1111 1110</li>
+  <li>1111 1110 = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>7</mn></msup></mrow><annotation encoding="application/x-tex">-2^7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">7</span></span></span></span></span></span></span></span></span></span></span> + <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>6</mn></msup></mrow><annotation encoding="application/x-tex">2^6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span></span></span></span></span></span></span></span> + <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">2^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span> + <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">2^4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span></span></span></span> + <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">2^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span> + <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">2^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span> + <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>1</mn></msup></mrow><annotation encoding="application/x-tex">2^1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span> = -128 + 64 + 32 + 16 + 8 + 4 + 2 = -2</li>
+  <li>So, Statement a. =&gt; aChar (-2) == aShort (-2) is TRUE</li>
+  <li>(short) aChar = 0xFFFE -&gt; 1111 1111 1111 1110 = -2</li>
+  <li>(short) aChar + 1 = -2 + 1 = -1 -&gt; 0xFFFF</li>
+  <li>0xFFFF = 1111 1111 1111 1111</li>
+  <li>0xABBB (1010 1011 1011 1011) + 0xFFFF -&gt; 0xABBA</li>
+  <li>short sumS = 0xABBB + (short) aChar + 1;</li>
+  <li>So, Statement b. =&gt; sumS contains the hex value 0xABBA is TRUE</li>
+  <li>So, Statements a. and b. are true.</li>
+</ul>
+
+<h3 id="x6">6</h3>
+
+<p><a href="#a6">Back to answer</a></p>
+
+<ul>
+  <li>char1 = 101;</li>
+  <li>range of char -&gt; [-128 .. 127]</li>
+  <li>For char1 + char2 &gt; 127 i.e., create a positive overflow, char2 &gt; 127 – char1 (101) -&gt; char2 &gt; 26</li>
+  <li>So char2 = 42 satisfies the above condition</li>
+  <li>char1 (101) + char2 (42) = 143 &gt; 127</li>
+  <li>char1 (101) + char2 (26) = 127 -&gt; still within the range (on positive side of range)</li>
+  <li>char1 (101) + char2 (-203) = -102 -&gt; still within the range (on negative side of range)</li>
+</ul>
+
+<h3 id="x7">7</h3>
+
+<p><a href="#a7">Back to answer</a></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsigned int x = 0xDECAF000;
+unsigned short y = 0xCAFE;
+if ( x &gt; y ) printf("Caf ");
+</code></pre></div></div>
+
+<p>Promoting y to 32 bits as an unsigned i.e. padding with 0’s: 0xDECAF000 &gt; 0x0000CAFE without a calculator, we can see that these 32
+bits 0xDECAF000, interpreted as an unsigned
+value, will be &gt; than 0x0000CAFE, also
+interpreted as an unsigned value.
+So, Caf is printed on the computer monitor screen
+of target machine.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if ( x &lt; (signed short) y ) printf("Decaf ");
+</code></pre></div></div>
+
+<p>Casting y to 16 bits as a signed i.e. interpreting 0xCAFE as a signed value and promoting it to 32 bits still as a signed i.e.
+padding with 1’s: 0xFFFFCAFE
+0xDECAF000 &lt; 0xFFFFCAFE
+without a calculator, we can see that these 32
+bits 0xDECAF000, interpreted as a signed value,
+will represent a larger negative value than
+0xFFFFCAFE, also interpreted as a signed value
+Remember from previous questions that 0xFE =
+0xFFFE = 0xFFFFFFFE = -2
+So, Decaf is printed on the computer monitor
+screen of target machine.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if ( (unsigned char) x &gt; y ) printf("Latte ");
+</code></pre></div></div>
+
+<p>Casting x (0xDECAF000) to a char -&gt; 8 bits, we
+get 0x00 = 0 (unsigned value)
+promoting it to 16 bits still gives us 0
+0x0000 &gt; 0xCAFE
+without a calculator, we can see that this is not
+the case.
+So, Latte is NOT printed on the computer monitor
+screen of target machine.</p>
+
+<p>The answer (Caf Decaf) is not one of the options.</p>
+
+<h3 id="x8">8</h3>
+
+<p><a href="#a8">Return to answer</a></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsigned short y = 0xCAFE;
+</code></pre></div></div>
+
+<p>y is declared as an unsigned short -&gt; 16 bits
+so range of unsigned short is [0 .. 216 -1]
+which is not one of the options sbove.</p>
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

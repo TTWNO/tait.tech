@@ -65,6 +65,10 @@ Help my business and others start their own.
 * A client would allow local options like blocking LAN, kill-switch support, and the ability to change your VPN region based on latest list of servers.
 * The list of servers will be updated manually with `bt update`.
 
+I love this idea, but unfortunately, Canada has data retention laws that would stop me from protecting the privacy of anyone using a system delivered by me.
+Unless I incorporate in Switzerland or the Seychelles, this is not a viable option.
+Doing the above costs a fair amount in up-front investment that I am not willing to make at this point in time.
+
 ## 5. 3d printing of Google Maps/OpenStreetMaps data for the visually impaired.
 
 A larger project, to be sure, but one I think could be of interest.
@@ -90,3 +94,50 @@ Start with that. Wow what a daunting project!
 
 This is being worked on through the [touch-mapper](https://github.com/skarkkai/touch-mapper) project.
 They do not, however, have labels yet.
+
+## 6. 3D Printed Binary Trees
+
+A simple hub/connection system to connect nodes of a binary tree together to have a physical object for visually impaired computer science students to use for initial introduction into the subject of (binary) trees.
+
+## 6.5 Javascript Binary Trees
+
+Have a simple module for loading in an SVG of a tree, along with Javascript to make the diagram accessible by jumping left/right with the arrow keys and up to a parent with the up arrow.
+
+## 7. Lego/Pi-Powered Logic Gates
+
+Lego or 3d printed logic gates with physical switches for in and out.
+Again, sore of as an introductory tool for blind students learning computer science.
+
+## 8. More Tutorials/Materials
+
+Perhaps a broader selection of materials for computer science students with proper transcriptions for everything in this list:
+
+* UML diagrams
+* UML sequence diagrams
+* Gantt charts
+* Advanced math equations
+* Stacks, Queues and Linked Lists
+* Memory layout tables
+* Logic gate diagrams
+* Decision charts; I think I could add some macros on top of 
+* Timing diagrams (i.e., watching the state of various inputs and outputs over time [usually in relation to a clock cycle]); my current idea for this is a dynamic audiogram where you can listen to the clock + any other tracks at the same time to "see" the diagram
+* Circuit diagrams (not 100% relevant, but I have seen it in CS courses)
+* Database tables as HTML tables
+* Properly transcribed security content like buffer-overflows, underflows and similar things
+
+Although developing these is good, I think it is worthwhile to also create tools that make creation of these easier for both sighted and blind individuals.
+This will make it easier for course transcribers who are not tech-savy and will enable the blind student to create the diagrams and send them back to their teachers.
+Preferably have a "plain text" version which can be rendered as an SVG for use by visual learners, then make sure the SVG can be accessible with a Javascript hook.
+This would (in theory) make it possible for a teacher to create the graphic in the specialized tool for that kind of chart, put it in their slides/course info/textbook/whatever and have the student able to extract the SVG and paste it somewhere where a script could make it readable.
+Yes, the best case is the teacher cooperates 100%, but considering that is never the case, I figure making it easier to convert between the two is the best I can hope for.
+
+Some other things I would like to do, if I could find the time:
+
+* How to get started with Linux.
+* Text-based tutorials from start-to-finish with various frameworks: SpringBoot (Java), Django/Flask (Python), JavaEE.
+* Specific programming language instruction in all the basics: C/C++, Bash, Python, Javascript, HTML, Java. Perhaps in the future branch into Rust, Golang, Zig or Haskell.
+* Custom-made braille manuals for a set of affordable computer parts which can be purchased to assemble a computer from scratch, without sighted assistance (see [current status of accessible BIOSes](/2021/06/21/uefi-audio/)).
+
+This would all be licensed as CC-BY-NC-SA.
+I may drop the NC. As long as I have specified SA, then anyone (even for-profit companies) can use it as long as any changes are shared to the public as well.
+

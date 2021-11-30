@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" id="main-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../../../../../assets/js/index.html"></script>
+  
+  <link rel="stylesheet" href="../../../../../assets/css/katex.css" id="math-css">
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295-unit---machine-level-programming">CMPT 295: Unit - Machine-Level Programming</h1>
+
+<ul>
+  <li>Lecture 8 – Introduction</li>
+  <li>Compilation process: C -&gt; assembly code -&gt; machine level code</li>
+</ul>
+
+<h1 id="last-lecture">Last Lecture</h1>
+<ul>
+  <li>Most fractional decimal numbers cannot be exactly encoded using IEEE floating point representation -&gt; rounding</li>
+  <li>Denormalized values
+    <ul>
+      <li>Condition: exp = 0000…0</li>
+      <li>0 &lt;= denormalized values &lt; 1, equidistant because all have same 2E</li>
+    </ul>
+  </li>
+  <li>Special values
+    <ul>
+      <li>Condition: exp = 1111…1
+        <ul>
+          <li>Case 1: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>frac</mtext><mo>=</mo><mtext>000...0</mtext><mo>=</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">\text{frac} = \text{000...0} = \infty</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">frac</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">000...0</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord">∞</span></span></span></span></li>
+          <li>Case 2: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>frac</mtext><mo mathvariant="normal">≠</mo><mtext>000...0</mtext><mo>=</mo><mtext>NaN</mtext></mrow><annotation encoding="application/x-tex">\text{frac} \neq \text{000...0} = \text{NaN}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">frac</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">000...0</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">NaN</span></span></span></span></span></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Impact on C
+    <ul>
+      <li>Conversion/casting, rounding</li>
+      <li>Arithmetic operators:
+        <ul>
+          <li>Behaviour not the same as for real arithmetic =&gt; violates associativity</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="todays-menu">Today’s Menu</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation</li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX</li>
+  <li>Loops</li>
+  <li>Function call – Stack</li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point data &amp; operations</li>
+</ul>
+
+<h2 id="what-could-these-32-bits-represent">What could these 32 bits represent?</h2>
+
+<p>What kind of information could they encode?</p>
+
+<pre>
+00011000111011001000001101001000
+</pre>
+
+<p>Answer:</p>
+
+<ul>
+  <li>Aside from characters, integers or floating point numbers, etc…</li>
+  <li>Review: We saw that all modern computers, designed based on the von Neumann architecture, store their programs in memory
+    <ul>
+      <li>Data and instructions of our C program are in main memory together (but in different locations)</li>
+    </ul>
+  </li>
+  <li>So, these bits could represent code, for example:
+    <ul>
+      <li>Assembly code: <code class="language-plaintext highlighter-rouge">sub $0x18, %rsp</code></li>
+      <li>Machine code: <code class="language-plaintext highlighter-rouge">48 83 ec 18</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="c-program-in-memory">C program in memory?</h2>
+
+<p>We have just spent a few lectures looking at how our data
+can be represented as a series of 0’s and I’s, now …</p>
+
+<ol>
+  <li>Question: How does our C program end up being represented as a series of 0’s and 1’s (i.e., as machine code)?</li>
+  <li>Question: Then, how does our C program (once it is represented as a series of 0’s and 1’s) end up being stored in
+memory?</li>
+  <li>Question: Then, how does our C program (once it is represented as a series of 0’s and 1’s and it is stored in memory) end up being executed by the microprocessor (CPU)?</li>
+</ol>
+
+<h2 id="demo--c-program-sum_storec">Demo – C program: sum_store.c</h2>
+
+<ol>
+  <li>Question: How does our C program end up being represented as a series of 0’s and 1’s (i.e., as machine code)?</li>
+</ol>
+
+<p>Let’s answer these questions with a demo</p>
+
+<h2 id="turning-c-into-machine-code---gcc">Turning C into machine code - gcc</h2>
+
+<p>The Big Picture (transcriber’s note: each step depends on the last; this is implied in the diagram):</p>
+
+<ul>
+  <li>C program (.c) -&gt; sum_store.c
+    <ul>
+      <li>C Preprocessor: <code class="language-plaintext highlighter-rouge">gcc -E sum_store.c &gt; sum_store.i</code></li>
+    </ul>
+  </li>
+  <li>Pre-processed Source (.i) -&gt; sum_store.i
+    <ul>
+      <li>C Compiler
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">gcc -Og -S sum_store.i</code>, or</li>
+          <li><code class="language-plaintext highlighter-rouge">gcc -Og -S sum_store.c</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Assembly Program (.s) -&gt; sum_store.s
+    <ul>
+      <li>Assumbler: <code class="language-plaintext highlighter-rouge">gcc -g -c main.s sum_sotre.s</code></li>
+    </ul>
+  </li>
+  <li>Object (.o) -&gt; sum_store.o
+    <ul>
+      <li>Linker: <code class="language-plaintext highlighter-rouge">gcc -o ss main.o sum_store.o</code></li>
+    </ul>
+  </li>
+  <li>Executable -&gt; <code class="language-plaintext highlighter-rouge">ss</code>
+    <ul>
+      <li>Loader: <code class="language-plaintext highlighter-rouge">./ss 5 6</code>.</li>
+      <li>Disassemlber: <code class="language-plaintext highlighter-rouge">objdumb -d ss</code> (gdb/ddd debugger). This will write a disassembled object file which is the only one which is a mix between plain text and data.</li>
+    </ul>
+  </li>
+  <li>ISA - Instruction Set Architecture</li>
+  <li>Computer Executes It
+    <ul>
+      <li>CPU</li>
+      <li>Memory</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="snapshot-of-compiled-code">Snapshot of compiled code</h2>
+
+<ul>
+  <li>C code: <code class="language-plaintext highlighter-rouge">*dest = sum;</code>
+    <ul>
+      <li>Store sum in memory designated by pointer dest</li>
+    </ul>
+  </li>
+  <li>Assembly code: <code class="language-plaintext highlighter-rouge">movq %rax, (%rbx)</code>
+    <ul>
+      <li>Move an 8-byte value to memory
+        <ul>
+          <li>Quad words in x86-64 parlance</li>
+        </ul>
+      </li>
+      <li>Operands:
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">sum</code>: register <code class="language-plaintext highlighter-rouge">%rax</code></li>
+          <li><code class="language-plaintext highlighter-rouge">dest</code>: register <code class="language-plaintext highlighter-rouge">%rbx</code></li>
+          <li><code class="language-plaintext highlighter-rouge">*dest</code>: memory <code class="language-plaintext highlighter-rouge">M[%rbx]</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Machine code (1’s and 0’s): <code class="language-plaintext highlighter-rouge">0x40059e: 48 89 03</code>
+    <ul>
+      <li>3-byte instruction</li>
+      <li><code class="language-plaintext highlighter-rouge">48</code> stored at address <code class="language-plaintext highlighter-rouge">0x40059e</code></li>
+      <li><code class="language-plaintext highlighter-rouge">89</code> stored at address <code class="language-plaintext highlighter-rouge">0x40059f</code></li>
+      <li><code class="language-plaintext highlighter-rouge">03</code> stored at address <code class="language-plaintext highlighter-rouge">0x4005a0</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="fetch-execute-cycle">Fetch-Execute Cycle</h2>
+
+<p>Terms:</p>
+
+<dl>
+  <dt>PC - program counter</dt>
+  <dd>Defn: register containing address of instruction of ss that is currently executing</dd>
+  <dt>IR - instruction register</dt>
+  <dd>Defn: register containing copy of instruction of ss that is currently executing</dd>
+</dl>
+
+<p>Question: How does our C program (once it is represented as a series of 0’s and 1’s and it is stored in memory) end up being executed by the microprocessor (CPU)?</p>
+
+<p>Answer: The microprocessor executes the machine code version of our C program by executing the following simple loop:</p>
+
+<p>DO FOREVER:</p>
+
+<ul>
+  <li><strong>fetch</strong> next instruction from memory into CPU</li>
+  <li><strong>update</strong> the program counter</li>
+  <li><strong>decode</strong> the instruction</li>
+  <li><strong>execute</strong> the instruction</li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>Review: von Neumann architecture
+    <ul>
+      <li>Data and code are both stored in memory during program execution</li>
+    </ul>
+  </li>
+</ul>
+
+<ol>
+  <li>Question: How does our C program end up being represented as a series of 0’s and 1’s (i.e., as machine code)?
+    <ul>
+      <li>Compiler: C program -&gt; assembly code -&gt; machine level code</li>
+      <li>gcc: 1) C preprocessor, 2) C compiler, 3) assembler, 4) linker</li>
+    </ul>
+  </li>
+  <li>Question: How does our C program (once it is represented as a series of 0’s and 1’s) end up being stored in memory?
+    <ul>
+      <li>When C program is executed (e.g. from our demo: ./ss 5 6 )</li>
+    </ul>
+  </li>
+  <li>Question: How does our C program (once it is represented as a series of 0’s and 1’s and it is stored in memory) end up being executed by the microprocessor (CPU)?
+    <ul>
+      <li>CPU executes C program by looping through the fetch-execute cycle</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="next-lecture">Next Lecture</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + <code class="language-plaintext highlighter-rouge">cmov*</code></li>
+  <li>Loops</li>
+  <li>Function call – Stack</li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

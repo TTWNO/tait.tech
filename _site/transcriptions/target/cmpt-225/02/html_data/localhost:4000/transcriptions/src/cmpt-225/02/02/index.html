@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" id="main-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../../../../../assets/js/index.html"></script>
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="stacks--queues---1">Stacks &amp; Queues - 1</h1>
+
+<p>CMPT 225, Fall 2021, Lecture 2</p>
+
+<h2 id="stack">Stack</h2>
+
+<ul>
+  <li>ADT that stores a collection of objects/values</li>
+  <li>Insertions and removals follow last-in-first-out pattern</li>
+  <li>Fundamental Operations:
+    <ul>
+      <li>push: inserts an element on the “top”</li>
+      <li>pop: removes + returns the top element</li>
+    </ul>
+  </li>
+</ul>
+
+<p>e.g.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Stack index</td>
+      <td>Value</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>push a</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Stack index</td>
+      <td>Value</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>a</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>push b</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Stack index</td>
+      <td>Value</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>b</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>a</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>push c</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Stack index</td>
+      <td>Value</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>c</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>b</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>a</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>pop</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Stack index</td>
+      <td>Value</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>b</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>a</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>conventient optional operations
+    <ul>
+      <li>size: return # of elements on stack // encapsulation</li>
+      <li>empty: check for emptiness // better than “size=0?”</li>
+      <li>top: return top element, but don’t remove it // better than x = pop(); push(x) then use x</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="algorithm-applications">Algorithm Applications</h2>
+
+<ul>
+  <li>parasing/evaluation/transformation of expressions</li>
+  <li>speech recognition coding/decoding</li>
+  <li>shared network access control</li>
+  <li>programming languages &amp; execution
+    <ul>
+      <li>Postscript, Forth, the call stack</li>
+    </ul>
+  </li>
+  <li>things we do daily with computers</li>
+</ul>
+
+<h2 id="parenthasies-checking">Parenthasies Checking</h2>
+
+<p>Parenthasies: <code class="language-plaintext highlighter-rouge">(()(((()())()()(()))</code></p>
+
+<p>A diagram showing:
+For every left parenthasies, add one to a counter.
+For every right parthenthasies, remove one from the counter.
+If the counter is not zero by the end of the sequence, there are too many on one side of the parenthasies.</p>
+
+<p>Can be done by counting unmached left parenthasies:</p>
+
+<p>Successful example:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Character</td>
+      <td>Counter</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Yay!</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Failed example:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Character</td>
+      <td>Country</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>Oh no it’s not zero!</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Another fail:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Character</td>
+      <td>Counter</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>Negative 1 this time!</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Do this one yourself:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Character</td>
+      <td>Counter</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>But consider multiple grouping symbols: <code class="language-plaintext highlighter-rouge">(\{\{)</code>, <code class="language-plaintext highlighter-rouge">(\{)\{</code>, <code class="language-plaintext highlighter-rouge">(\{[( ... ]</code>.
+Counting is not enough.</p>
+
+<h2 id="parenthasies-checking-1">Parenthasies Checking</h2>
+
+<p>Diagram showing failure on the last character of this sequence: <code class="language-plaintext highlighter-rouge">(()((()()))()(())))</code></p>
+
+<p>Can be done by counting unmatched left parenthasies:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Character</td>
+      <td>Counter</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example 2:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Character</td>
+      <td>Counter</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example 3:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Character</td>
+      <td>Counter</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>-1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example 4:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Character</td>
+      <td>Counter</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>)</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <td>(</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>But consider multiple grouping symbols:</p>
+
+<ul>
+  <li>sequence <code class="language-plaintext highlighter-rouge">(\{\})</code> will and should work</li>
+  <li>sequence <code class="language-plaintext highlighter-rouge">(\{)\}</code> will work and should not</li>
+  <li>sequence <code class="language-plaintext highlighter-rouge">(\{[( ...</code> ???</li>
+</ul>
+
+<p>Counting is not enough.</p>
+
+<h2 id="stack-based-algorithm-for-checking-grouping-symbols">Stack-based Algorithm for Checking Grouping Symbols</h2>
+
+<p>Pseudo-code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I is an input stream of symbols.
+S is a new empty stack.
+
+while there are signals to read from I {
+  c is next symbol from I
+  if c is a left grouping signal {
+    push c on S
+  } else if c is a right grouping signal{
+    if s in empty { report error and stop }
+    d is pop S
+    if c and d do not match { report error and stop }
+  endif // if c is not a grouping symbol, ignore it
+end while
+
+if S is not empty { report error and exit }
+report ok
+</code></pre></div></div>
+
+<p>Diagram showing how each set of parenthasies are matched, innermost first torwards the outermost.</p>
+
+<h2 id="stack-partially-filled-array-implementation">Stack: Partially-Filled Array Implementation</h2>
+
+<p>Variables:</p>
+
+<ul>
+  <li>A - an array of stack elements</li>
+  <li>capacity - size of array</li>
+  <li>top - index in array of top stack element
+    <ul>
+      <li>-1 if stack is empty</li>
+    </ul>
+  </li>
+</ul>
+
+<p>A starts out as:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Index</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>…</td>
+      <td>capacity-1</td>
+    </tr>
+    <tr>
+      <td>Value</td>
+      <td>a</td>
+      <td>b</td>
+      <td>c</td>
+      <td>…</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>Capacity = &lt;size of A&gt;</li>
+  <li>top = 2</li>
+</ul>
+
+<p>push e</p>
+
+<p>A now equals</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Index</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>…</td>
+      <td>capacity-1</td>
+    </tr>
+    <tr>
+      <td>Value</td>
+      <td>a</td>
+      <td>b</td>
+      <td>c</td>
+      <td>d</td>
+      <td>e</td>
+      <td>…</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>capacity = &lt;size of A&gt;</li>
+  <li>top = 3</li>
+</ul>
+
+<h2 id="the-queue-adt">The Queue ADT</h2>
+
+<p>A container that stores a collection of items with insertion and removal in “first-in-first-out” order.</p>
+
+<p>Stack: a digram showing circled being placed on top of eachother, pushing circles into the tube, then popping them out from the same size (the top). Like a pringles can of elements.</p>
+
+<p>Queue: a diagram showing circles being unqueued in on the left and dequeued on the right. Like waiting in line for food.</p>
+
+<p>Basic operations:</p>
+<ul>
+  <li>enqueue: add an item to the back of a list</li>
+  <li>dequeue: remove &amp; return the item at the front of the list</li>
+</ul>
+
+<h2 id="example-palindrome-checking">Example: Palindrome Checking</h2>
+
+<p>Sequence <code class="language-plaintext highlighter-rouge">aba</code> should succeed.
+Sequence <code class="language-plaintext highlighter-rouge">aab</code> should not.</p>
+
+<p>In an array: a diagram showing the following pattern with the variable <code class="language-plaintext highlighter-rouge">i</code> set to the leftmost element and <code class="language-plaintext highlighter-rouge">j</code> set to the rightmost element.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Values</td>
+      <td>a</td>
+      <td>b</td>
+      <td>c</td>
+      <td>…</td>
+      <td>s</td>
+      <td>b</td>
+      <td>a</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>With a stack and queue:</p>
+<ol>
+  <li>read symbols, starting each in a stack and a queue</li>
+  <li>while the stack, queue are not empty:
+    <ul>
+      <li>pop and element from the stack + delete an element from the queue</li>
+      <li>if different -&gt; not a palindrome</li>
+    </ul>
+  </li>
+  <li>palindrome</li>
+</ol>
+
+<h2 id="queue-array-implementations">Queue: Array Implementations</h2>
+
+<p>Enqueue: a,b,c,d.
+Front is now a, last is now d.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Values</td>
+      <td>a</td>
+      <td>b</td>
+      <td>c</td>
+      <td>d</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Dequeue returns and deletes first element.
+Front is now b, last is now d.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Values</td>
+      <td>?</td>
+      <td>b</td>
+      <td>c</td>
+      <td>d</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Many enquques/dequeues later:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Values</td>
+      <td>s</td>
+      <td>…</td>
+      <td>m</td>
+      <td>n</td>
+      <td>o</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Front element is now <code class="language-plaintext highlighter-rouge">m</code>, last element is now s.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Values</td>
+      <td>?</td>
+      <td>t</td>
+      <td>u</td>
+      <td>v</td>
+      <td>w</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A similar slide is here, but I can’t see the differnece.</p>
+
+<p>Variables:</p>
+<ul>
+  <li>array A is array of size capacity</li>
+  <li>front is 0</li>
+  <li>back is 0</li>
+  <li>size is 0</li>
+  <li>capacity = &lt;size of array&gt;</li>
+</ul>
+
+<p>Pseudo-code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array A = array of size capacity // holds queue contents
+front = 0 // index in A of front element, if queue not empty
+back = 0 // index where next unqueued element will go
+size = 0 // number of elements in queue
+capacity = &lt;size of array&gt; // ???(can't read) queue size supported
+
+enqueue(x) { // adds x to the back of the queue
+  // requires size&lt;capacity&gt;
+  A[back] = x
+  size = size + 1
+  back = (back + 1) % capacity
+}
+
+dequeue() { // removes front element of queue and returns it
+  // required size &gt; 0
+  temp = A[front]
+  front = (front + 1) % capacity
+  size = size - 1
+  return temp
+}
+</code></pre></div></div>
+
+<p>Is <code class="language-plaintext highlighter-rouge">size == front - back</code>?</p>
+
+<p>Diagram showing only true if front and back haven’t been switched around due to wrapping around back to the beginning o the array.</p>
+
+<h2 id="circular-array-queue-example">“Circular Array” Queue Example</h2>
+
+<ul>
+  <li>size = 0</li>
+  <li>front = 0</li>
+  <li>back = 0</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Values</td>
+      <td>empty</td>
+      <td>empty</td>
+      <td>empty</td>
+      <td>empty</td>
+      <td>empty</td>
+      <td>empty</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>enqueue: a,b,c,d</p>
+
+<ul>
+  <li>front = 0</li>
+  <li>back = 4</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Values</td>
+      <td>a</td>
+      <td>b</td>
+      <td>c</td>
+      <td>d</td>
+      <td>empty</td>
+      <td>empty</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>dequque 3 times</p>
+
+<ul>
+  <li>front = 3</li>
+  <li>back = 4</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Values</td>
+      <td>empty</td>
+      <td>empty</td>
+      <td>empty</td>
+      <td>d</td>
+      <td>empty</td>
+      <td>empty</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>enqueue e,f,g,h</p>
+
+<ul>
+  <li>front = 3</li>
+  <li>back = 2</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Values</td>
+      <td>g</td>
+      <td>h</td>
+      <td>empty</td>
+      <td>d</td>
+      <td>e</td>
+      <td>f</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>unqueue j</p>
+
+<ul>
+  <li>size = 6</li>
+  <li>font = 3</li>
+  <li>back = 3</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Values</td>
+      <td>g</td>
+      <td>h</td>
+      <td>j</td>
+      <td>d</td>
+      <td>e</td>
+      <td>f</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>dequeue 3 times</p>
+
+<ul>
+  <li>back = 3</li>
+  <li>front = 0</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Values</td>
+      <td>g</td>
+      <td>h</td>
+      <td>j</td>
+      <td>empty</td>
+      <td>empty</td>
+      <td>empty</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>dequeue 3 times</p>
+
+<ul>
+  <li>back = 3</li>
+  <li>front = 3</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Values</td>
+      <td>empty</td>
+      <td>empty</td>
+      <td>empty</td>
+      <td>empty</td>
+      <td>empty</td>
+      <td>empty</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="end">End</h2>
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

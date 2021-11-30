@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-css">
+  <link rel="stylesheet" href="/assets/css/transcription.css" id="trans-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/js/"></script>
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295">CMPT 295</h1>
+
+<ul>
+  <li>Unit - Machine-Level Programming</li>
+  <li>Lecture 15
+    <ul>
+      <li>Assembly language</li>
+      <li>Program Control</li>
+      <li>Function Call and Stack</li>
+      <li>Passing Control – cont’d</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="happy-lunar-new-year">Happy Lunar New Year!</h2>
+
+<ul>
+  <li><span lang="zh">新年快乐 / 新年快樂</span> – Xīnnián kuàile</li>
+  <li><span lang="vi">Cung Chúc Tân Xuân</span></li>
+  <li>Chúc Mừng Năm Mới</li>
+  <li><span lang="ko">새해 복 많이 받으세요</span> – saehae bog manh-i bad-euseyo</li>
+  <li><span lang="zh">过年好 / 過年好</span> – Guò nián hǎo</li>
+</ul>
+
+<h2 id="homework">Homework</h2>
+
+<p>Memory Allocation Example</p>
+
+<p>Where does everything go?</p>
+
+<p>Code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include ... //shared libraries
+char hugeArray[1 &lt;&lt; 31]; /* 231 = 2GB */// data
+int global = 0; // data
+int useless(){ return 0; } // text
+int main ()
+{
+  void *ptr1, *ptr2; //stack
+  int local = 0; //stack
+  ptr1 = malloc(1 &lt;&lt; 28); /* 228 = 256 MB*/ //heap
+  ptr2 = malloc(1 &lt;&lt; 8); /* 28 = 256 B*///heap
+
+  /* Some print statements ... */
+}
+</code></pre></div></div>
+
+<p>Stack in list form:</p>
+
+<ul>
+  <li>Stack (down arrow)</li>
+  <li>…</li>
+  <li>Shared libraries</li>
+  <li>…</li>
+  <li>heap (up arrow)</li>
+  <li>data</li>
+  <li>Text</li>
+  <li>…</li>
+</ul>
+
+<h2 id="why-8">Why 8?</h2>
+
+<ul>
+  <li>pushq src
+    <ul>
+      <li>Fetch value of operand src</li>
+      <li>Decrement %rsp by 8</li>
+      <li>Write value at address given by %rsp</li>
+    </ul>
+  </li>
+  <li>popq dest
+    <ul>
+      <li>Read value at %rsp (address) and
+store it in operand dest (must be register)</li>
+      <li>Increment %rsp by 8</li>
+    </ul>
+  </li>
+</ul>
+
+<p>1) %rsp contains the memory address 0x0018</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Memory Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%rsp</td>
+      <td>0x0018</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>0x0010</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>0x0008</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>2) %rsp contains the memory address ____</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Memory Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>0x0018</td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td>0x0010</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>0x0008</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="last-lecture">Last Lecture</h2>
+
+<ul>
+  <li>Function call mechanisms: 1) passing control, 2) passing data, 3)
+managing local data on memory (stack)
+    <ul>
+      <li>Memory layout</li>
+      <li>Stack (local variables …)</li>
+      <li>Heap (dynamically allocated data)</li>
+      <li>Data (statically allocated data)</li>
+      <li>Text / Shared Libraries (program code)</li>
+    </ul>
+  </li>
+  <li>A “stack” is the right data structure for function call / return
+    <ul>
+      <li>If multstore calls mult2, then mult2 returns before multstore returns</li>
+    </ul>
+  </li>
+  <li>x86-64 stack register and instructions: stack pointer %rsp, push and pop</li>
+</ul>
+
+<p>(unless I’m missing something, this contains exactly the same slides as Lecture 14 here. Everything in the “example 1 steps X and Y” portion, read that for this section)</p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>Function call mechanisms: 1) passing control, 2) passing data, 3) managing
+local data on memory (stack)</li>
+  <li>Memory layout
+    <ul>
+      <li>Stack (local variables …)</li>
+      <li>Heap (dynamically allocated data)</li>
+      <li>Data (statically allocated data)</li>
+      <li>Text / Shared Libraries (program code)</li>
+    </ul>
+  </li>
+  <li>A “stack” is the right data structure for function call / return
+    <ul>
+      <li>If multstore calls mult2, then mult2 returns before multstore returns</li>
+    </ul>
+  </li>
+  <li>x86-64 stack register and instructions: stack pointer %rsp, push and pop</li>
+  <li>x86-64 function call instructions: call and ret</li>
+</ul>
+
+<h2 id="next-lecture">Next Lecture</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX</li>
+  <li>Loops</li>
+  <li>Function call – Stack – Recursion
+    <ul>
+      <li>Overview of Function Call</li>
+      <li>Memory Layout and Stack - x86-64 instructions and registers</li>
+      <li>Passing control</li>
+      <li>(highlighted) Passing data – Calling Conventions</li>
+      <li>Managing local data</li>
+      <li>Recursion</li>
+    </ul>
+  </li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

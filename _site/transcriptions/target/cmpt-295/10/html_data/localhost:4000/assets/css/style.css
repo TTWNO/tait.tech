@@ -1,0 +1,75 @@
+body { background-color: #222222; padding: 16px; font-family: -apple-system, helvetica, arial, sans-serif; font-size: 16px; color: #ffffff; line-height: 1.5em; overflow-wrap: break-word; }
+
+#wrapper { max-width: 800px; margin: auto; }
+
+#wrapper > header { text-align: center; }
+
+.clear-list { list-style-type: none; margin: 0; padding: 0; }
+
+.clear-list li { margin: 0; padding: 0; }
+
+.projects .namelink { font-weight: bold; }
+
+h1, h2, h3, h4, h5, h6 { line-height: 1em; }
+
+.center { text-align: center; }
+
+header { margin-bottom: 18px; }
+
+hr { border: none; border-bottom: 1px solid #999; }
+
+a { text-decoration: underline; color: #7ad; }
+
+a:visited { color: #ff3492; }
+
+a.nav-link, a.post-title-link { color: #ffffff; text-decoration: none; }
+
+.post-title { line-height: 1.5em; color: #ffffff; margin-bottom: 8px; }
+
+a.citation-link { text-decoration: none; }
+
+nav { text-align: center; padding: 1em 0px; }
+
+nav a { margin: 1em; color: #ffffff; font-weight: bold; font-style: none; }
+
+nav a:hover, a.post-title-link:hover { text-decoration: underline; }
+
+li { margin: .5em; }
+
+table, table tr, table td, table th { border: 1px solid #aaa; border-collapse: collapse; padding: 5px; font-weight: normal; }
+
+table th { font-weight: bold; }
+
+table { width: 75%; margin: auto; }
+
+img { display: block; width: 55%; margin-left: auto; margin-right: auto; }
+
+blockquote { font-style: italic; }
+
+address { font-style: normal; }
+
+@media screen and (max-width: 600px) { body { width: 90%; } nav { text-align: left; width: 100%; } nav a { display: block; text-align: left; padding-left: 0; margin-left: 0; } }
+
+.mono { font-family: monospace; }
+
+.bold { font-weight: bold; }
+
+figcaption { margin-top: 10px; font-style: italic; }
+
+footer { padding-top: 16px; margin-bottom: 100px; }
+
+.terminal, .file { padding: 10px; overflow-x: scroll; }
+
+.terminal { line-height: 1em; color: #00FF00; background-color: #000000; }
+
+.file { line-height: 1.2em; background-color: #444444; color: #ffffff; }
+
+.small-image { width: 100%; }
+
+.post-date { text-transform: uppercase; font-weight: bold; color: #ffffff; }
+
+.post-excerpt { margin-left: 24px; }
+
+.post-header { margin-bottom: 8px; }
+
+/*# sourceMappingURL=style.css.map */

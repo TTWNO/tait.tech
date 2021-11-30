@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" id="main-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../../../../../assets/js/index.html"></script>
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295-unit---machine-level-programming">CMPT 295: Unit - Machine-Level Programming</h1>
+
+<p>Lecture 19:</p>
+
+<ul>
+  <li>Assembly language</li>
+  <li>Program Control</li>
+  <li>Function Call and Stack</li>
+  <li>Managing Local Data</li>
+</ul>
+
+<h2 id="last-lecture">Last lecture</h2>
+
+<ul>
+  <li>Passing data mechanism
+    <ul>
+      <li>x86-64 function call convention:</li>
+    </ul>
+  </li>
+</ul>
+
+<p>First 6 arguments:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Register</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>argument 1</td>
+      <td>%rdi</td>
+    </tr>
+    <tr>
+      <td>argument 2</td>
+      <td>%rsi</td>
+    </tr>
+    <tr>
+      <td>argument 3</td>
+      <td>%rdx</td>
+    </tr>
+    <tr>
+      <td>argument 4</td>
+      <td>%rcx</td>
+    </tr>
+    <tr>
+      <td>argument 5</td>
+      <td>%r8</td>
+    </tr>
+    <tr>
+      <td>argument 6</td>
+      <td>%r9</td>
+    </tr>
+    <tr>
+      <td>return value</td>
+      <td>%rax</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Stack:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Register</td>
+      <td>Stack</td>
+      <td>Note</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>…</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>argument n</td>
+      <td>Stored onto the stack in reverse order</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>…</td>
+      <td>Stored onto the stack in reverse order</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>argument 8</td>
+      <td>Stored onto the stack in reverse order</td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td>argument 7</td>
+      <td>Stored onto the stack in reverse order</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="todays-menu">Today’s Menu</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX</li>
+  <li>Loops</li>
+  <li>(highlighted) Function call – Stack
+    <ul>
+      <li>Overview of Function Call</li>
+      <li>Memory Layout and Stack - x86-64 instructions and registers</li>
+      <li>Passing control</li>
+      <li>Passing data – Calling Conventions</li>
+      <li>(highlted) Managing local data</li>
+      <li>Recursion</li>
+    </ul>
+  </li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+<h2 id="to-recap-">To recap …</h2>
+
+<ul>
+  <li>Overview of Function Call mechanisms:
+    <ul>
+      <li>What happens when a function (caller) calls another function (callee)?
+        <ol>
+          <li>Control is passed …
+    * To the beginning of the code in callee function
+    * Back to where callee function was called in caller function</li>
+          <li>Data is passed … (last lecture)
+    * To callee function via function parameter(s)
+    * Back to caller function via return value</li>
+          <li>Memory is … (allocated a stack frame on the stack, but what can be stored on this stack frame?)
+    * Allocated when callee function starts executing
+    * Deallocated when callee function stops executing</li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="3-managing-local-data">3. Managing local data</h2>
+
+<ul>
+  <li>When writing assembly programs, what can we use when we need space for our local data?
+    <ul>
+      <li>We can use registers!
+        <ul>
+          <li>Yes! Registers are our first choice as they are the fastest storage location on a computer.</li>
+        </ul>
+      </li>
+      <li>OK! but, since registers are shared by all functions in x86-64 assembly language, we need to follow some convention, otherwise … :</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Assembly 1 (x86-64 function call convention):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>who:
+  ...
+  movq $15213, %rbx
+  call amI
+  addq %rbx, %rax
+  ...
+  ret
+</code></pre></div></div>
+
+<p>Assembly 2:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>amI:
+  ...
+  subq $18213, %rbx
+  ...
+  ret
+</code></pre></div></div>
+
+<p>Register Table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%rbx</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="3-managing-local-data---register-saving-convention--callee-saved-registers">3. Managing local data - “register saving” convention =&gt; callee saved registers</h2>
+
+<p>“register saving” conventions:</p>
+
+<ol>
+  <li>calle saved registers</li>
+</ol>
+
+<p>When we need space for our local data …</p>
+
+<ol>
+  <li>Registers
+    <ul>
+      <li>A function can utilise unused registers (only when needed)</li>
+      <li>Some registers are referred to as callee saved registers:</li>
+    </ul>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">%rbx</code>, <code class="language-plaintext highlighter-rouge">%rbp</code>, <code class="language-plaintext highlighter-rouge">%r12</code> to <code class="language-plaintext highlighter-rouge">%r15</code> (and <code class="language-plaintext highlighter-rouge">%ebx</code>, <code class="language-plaintext highlighter-rouge">%bx</code>, <code class="language-plaintext highlighter-rouge">%bl</code>, …)
+    * Callee saved registers means that …
+      * the callee function must preserve the values of these registers before using them,
+      * then restore their values before the control is returned (through the execution of ret instruction) to the caller function</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="3-managing-local-data---register-saving-convention--callee-saved-registers-1">3. Managing local data - “register saving” convention =&gt; callee saved registers</h2>
+
+<ul>
+  <li>How can callee preserve the values of these callee saved registers before using them?
+    <ul>
+      <li>Example of a scenario:
+        <ul>
+          <li>Caller uses <code class="language-plaintext highlighter-rouge">%r13</code></li>
+          <li>Caller calls callee</li>
+          <li>At the start of callee, callee <code class="language-plaintext highlighter-rouge">pushq %r13</code></li>
+          <li>Then callee uses %r13</li>
+          <li>Then before execution flow returns from callee to caller (via ret), callee popq %r13 (Note: If callee pushq more than 1 register, then callee popq them in reverse order)</li>
+          <li>The execution flow returns to caller which continues using %r13</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Callee saved registers:</p>
+
+<p>Upon return from
+callee, caller can
+always assume that
+these registers still
+contain the values
+caller stored in them
+before calling callee!</p>
+
+<h2 id="3-managing-local-data---register-saving-convention--caller-saved-registers">3. Managing local data - “register saving” convention =&gt; caller saved registers</h2>
+
+<p>Register saving conventions:</p>
+
+<ol>
+  <li>Callee saved registers</li>
+  <li>
+    <p>Caller saved registers</p>
+  </li>
+  <li>Registers (cont’d)
+    <ul>
+      <li>Some registers are referred to as caller saved registers:</li>
+    </ul>
+    <ul>
+      <li>%r10, %r11, %rax and all 6 registers used for passing data as arguments to callee (and %r10d, %r10w, %r10b, …)
+    * Caller saved registers means that …
+      * the caller function must preserve the values of these registers before …</li>
+      <li>setting up the callee‘s argument(s) into the appropriate “data passing as argument” register(s) and</li>
+      <li>calling the callee
+      * then once the control is returned to the caller, the caller must restore their values before using them.</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="managing-local-data---register-saving-convention--caller-saved-registers">Managing local data - “register saving” convention =&gt; caller saved registers</h2>
+
+<ul>
+  <li>How can caller preserve the values of these caller saved registers before using them?
+    <ul>
+      <li>Example of a scenario:
+        <ul>
+          <li>Caller uses %r10</li>
+          <li>Before calling callee, caller pushq %r10 then calls callee</li>
+          <li>Callee uses %r10</li>
+          <li>Then after the execution flow has returned from callee to caller (via ret), caller popq %r10 (If caller pushq more than 1 register, then caller popq them in reverse order)</li>
+          <li>Caller continues using %r10</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>caller saved registers:</p>
+
+<p>Callee can always
+assume that caller has
+saved the content of
+these registers, so it is
+“safe” for callee to
+use them!</p>
+
+<h2 id="x86-64-register-saving-convention">x86-64 “register saving” convention</h2>
+
+<h3 id="solution-1">Solution 1:</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>who:
+  ...
+  movq $15213, %rbx
+  call amI
+  addq %rbx, %rax
+  ...
+  ret
+
+amI:
+  subq $18213, %rbx
+  ret
+</code></pre></div></div>
+
+<h3 id="solution-2">Solution 2:</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>who:
+  ...
+  movq $15213, %r10
+
+  call amI
+
+  addq %r10, %rax
+  ...
+  ret
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>amI:
+  ...
+  subq $18213, %r10
+  ...
+  ret
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>base + displacement</th>
+      <th>Stack Variable</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Register Table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="3-managing-local-data--spilling">3. Managing local data =&gt; spilling</h2>
+
+<ul>
+  <li>When writing assembly programs, what can we use when we need space for our local data?
+    <ul>
+      <li>We can use stack! (If we run out of registers).</li>
+    </ul>
+  </li>
+  <li>
+    <p>2) Stack</p>
+
+    <ul>
+      <li>A function can use the stack to store the values of its local variables and for temporary spaceMust remember to clean-up the stack before returning to caller!</li>
+    </ul>
+  </li>
+  <li>Set-up and Clean-up code:
+    <ul>
+      <li>Example: <code class="language-plaintext highlighter-rouge">subq $16, %rsp</code> and <code class="language-plaintext highlighter-rouge">addq $16, %rsp</code></li>
+    </ul>
+  </li>
+  <li>To spill onto the stack:
+    <ul>
+      <li>Example: movq %rax, 56(%rsp)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Must remember to clean-up the stack before returning to caller.</p>
+
+<h2 id="local-variables-on-stack--example">Local variables on Stack – Example</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>long incr(long *p, long val)
+{
+  long x = *p;
+  long y = x + val;
+  *p = y;
+  return x;
+}
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>long call_incr() {
+  long v1 = 15213;
+  long v2 = incr(&amp;v1, 3000);
+  return v1+v2;
+}
+</code></pre></div></div>
+
+<p>Assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>call_incr:
+  subq $16, %rsp # highlighted
+  movq $15213, 8(%rsp) # highlighted
+  movl $3000, %esi
+  leaq 8(%rsp), %rdi
+  call incr
+  addq 8(%rsp), %rax
+  addq $16, %rsp
+  ret
+</code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Register</td>
+      <td>M[] Stack</td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>base + displacement</th>
+      <th>Stack Variable</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Register Table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="summary---x86-64-register-saving-convention">Summary - x86-64 “register saving” convention</h2>
+
+<h3 id="callee-saved-registers">callee saved registers:</h3>
+
+<ul>
+  <li>Callee must save &amp; restore before modifying</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Value</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%rbx</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%r12</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%r13</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%r14</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%r15</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rbp</td>
+      <td> </td>
+      <td>Parameters/arguments</td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td> </td>
+      <td>return value</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="caller-saved-registers">caller saved registers:</h3>
+
+<ul>
+  <li>Caller must save &amp; restore</li>
+  <li>Can be modified by callee</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Value</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%rax</td>
+      <td> </td>
+      <td>Return value</td>
+    </tr>
+    <tr>
+      <td>%rax</td>
+      <td> </td>
+      <td>Parameters/arguments</td>
+    </tr>
+    <tr>
+      <td>%rdi</td>
+      <td> </td>
+      <td>Parameters/arguments</td>
+    </tr>
+    <tr>
+      <td>%rsi</td>
+      <td> </td>
+      <td>Parameters/arguments</td>
+    </tr>
+    <tr>
+      <td>%rdx</td>
+      <td> </td>
+      <td>Parameters/arguments</td>
+    </tr>
+    <tr>
+      <td>%rcx</td>
+      <td> </td>
+      <td>Parameters/arguments</td>
+    </tr>
+    <tr>
+      <td>%r8</td>
+      <td> </td>
+      <td>Parameters/arguments</td>
+    </tr>
+    <tr>
+      <td>%r9</td>
+      <td> </td>
+      <td>Parameters/arguments</td>
+    </tr>
+    <tr>
+      <td>%r10</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%r11</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="summary---x86-64-conventions-and-stack-frame">Summary - x86-64 conventions and stack frame</h2>
+
+<ul>
+  <li>caller preserves caller saved registers (<a href="index.html#caller">arrow</a>)</li>
+  <li>caller passes arguments (<a href="index.html#args">arrow</a>)</li>
+  <li>caller calls callee (<a href="index.html#ret">arrow</a>)</li>
+  <li>callee preserves callee saved registers (<a href="index.html#callee">arrow</a>)</li>
+  <li>callee constructs local vars (get stack space) (<a href="http://localhost:4000/transcriptions/src/cmpt-295/19/19/$vars">arrow</a>)</li>
+  <li>callee performs function</li>
+  <li>callee recycles local vars (restore stack space)</li>
+  <li>callee restores callee saved registers</li>
+  <li>callee returns to caller</li>
+  <li>caller pops arguments</li>
+  <li>caller restores caller saved registers</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>M[] Stack</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>…</td>
+      <td>caller frame</td>
+    </tr>
+    <tr>
+      <td><span id="caller">caller saved regs</span></td>
+      <td>caller frame</td>
+    </tr>
+    <tr>
+      <td><span id="args">args 7 … n</span></td>
+      <td>caller frame</td>
+    </tr>
+    <tr>
+      <td><span id="ret">return address</span></td>
+      <td>caller frame</td>
+    </tr>
+    <tr>
+      <td><span id="callee">callee saved regs</span></td>
+      <td>callee frame</td>
+    </tr>
+    <tr>
+      <td><span id="vars">%rsp/Top/local vars</span></td>
+      <td>callee frame</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="next-lecture">Next lecture</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX</li>
+  <li>Loops</li>
+  <li>(highlighted) Function call – Stack
+    <ul>
+      <li>Overview of Function Call</li>
+      <li>Memory Layout and Stack - x86-64 instructions and registers</li>
+      <li>Passing control</li>
+      <li>Passing data – Calling Conventions</li>
+      <li>Managing local data</li>
+      <li>(highlighted) Recursion</li>
+    </ul>
+  </li>
+  <li>(highlighted) Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

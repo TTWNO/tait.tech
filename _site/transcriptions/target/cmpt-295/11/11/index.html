@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-css">
+  <link rel="stylesheet" href="/assets/css/transcription.css" id="trans-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/js/"></script>
+  
+  <link rel="stylesheet" href="/assets/css/katex.css" id="math-css">
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295">CMPT 295</h1>
+
+<ul>
+  <li>Unit - Machine-Level Programming</li>
+  <li>Lecture 11 – Assembly language basics: Practice and DEMO
+-&gt; leaq and arithmetic &amp; logical instructions and
+memory addressing modes</li>
+</ul>
+
+<h2 id="why-did-the-programmer-quit-their-job">Why did the programmer quit their job?</h2>
+
+<p>A never got arrays!</p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">leaq</code> - load effective address instruction</li>
+  <li>Using data as operand to an instruction:
+    <ul>
+      <li>Immediate (constant integral value)</li>
+      <li>Register (16 registers)</li>
+      <li>Memory (various memory addressing modes)
+        <ul>
+          <li>General Syntax: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Imm</mtext><mo stretchy="false">(</mo><msub><mi>r</mi><mi>b</mi></msub><mo separator="true">,</mo><msub><mi>r</mi><mi>i</mi></msub><mo separator="true">,</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{Imm}(r_{b}, r_{i}, s)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Imm</span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">b</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">s</span><span class="mclose">)</span></span></span></span></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Arithmetic &amp; logical operations
+    <ul>
+      <li>Arithmetic instructions: add*, sub*, imul* inc*, dec*, neg*, not*</li>
+      <li>Logical instructions: and*, or*, xor*</li>
+      <li>Shift instructions: sal*, sar*, shr*</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="todays-menu">Today’s Menu</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>(selected) Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>(selected) Operation leaq and Arithmetic &amp; logical operations (Annotation: practice and DEMO!)</li>
+  <li>Conditional Statement – Condition Code + cmov*</li>
+  <li>Loops</li>
+  <li>Function call – Stack</li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+<h2 id="demo">Demo</h2>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">gcc</code> uses <code class="language-plaintext highlighter-rouge">leaq</code> for addition -&gt; <code class="language-plaintext highlighter-rouge">sum_store.c</code></li>
+  <li>Writing our own assembly code (<code class="language-plaintext highlighter-rouge">arith.s</code>) using arithmetic
+instructions of x86-64 assembly language</li>
+  <li><code class="language-plaintext highlighter-rouge">makefile</code>
+    <ul>
+      <li>when we compile our own *.s files with *.c files</li>
+      <li>when we compile only *.c files</li>
+    </ul>
+  </li>
+  <li>How would <code class="language-plaintext highlighter-rouge">gcc</code> compile our <code class="language-plaintext highlighter-rouge">arith.c</code> into <code class="language-plaintext highlighter-rouge">arith.s</code>?</li>
+</ol>
+
+<h2 id="summary-1">Summary</h2>
+
+<ul>
+  <li>Demo
+    <ul>
+      <li>Observation: C compiler will figure out different instruction combinations to carry out the computations in our C code</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="next-lecture">Next lecture</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmov*</li>
+  <li>Loops</li>
+  <li>Function call – Stack</li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

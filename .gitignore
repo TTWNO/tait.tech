@@ -56,3 +56,6 @@ build-iPhoneSimulator/
 # .rubocop-https?--*
 
 .jekyll-cache
+
+# Seperate private repository for work
+/transcriptions/

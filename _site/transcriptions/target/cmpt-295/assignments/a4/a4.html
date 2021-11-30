@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="../../../../../../assets/css/style.css" id="main-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../../../../../../assets/js/index.html"></script>
+  
+  <link rel="stylesheet" href="../../../../../../assets/css/katex.css" id="math-css">
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="assignment-4">Assignment 4</h1>
+
+<p>CMPT 295 – Fall 2021</p>
+
+<h2 id="objectives">Objectives:</h2>
+
+<ul>
+  <li>Hand tracing assembly code</li>
+  <li>Translating assembly code into C code</li>
+  <li>Writing x86-64 assembly code</li>
+</ul>
+
+<hr />
+
+<h2 id="submission-assignment-4-is-a-little-unusual">Submission Assignment 4 is a little unusual</h2>
+
+<ul>
+  <li>Doing Assigment 4 will help you to prepare for Midterm 1 even though Assigment 4 is due after our Midterm 1.</li>
+  <li>On Friday, Oct. 15 by 4pm, submit the following 3 documents on CourSys:
+    <ul>
+      <li>Assignment_4.pdf which is to contain only your solution to Question 2. You do not have to submit your solution to Question 1. Do Question 1 as part of your studying for our Midterm 1.</li>
+      <li><code class="language-plaintext highlighter-rouge">main.c</code> and <code class="language-plaintext highlighter-rouge">calculator.s</code>, i.e., your solution to Question 3.</li>
+    </ul>
+  </li>
+  <li>Late assignments will receive a grade of 0, but they will be marked (if they are submitted before the solutions are posted on the Monday after the due date) in order to provide feedback to the student.</li>
+</ul>
+
+<hr />
+
+<h2 id="marking-scheme">Marking scheme:</h2>
+
+<p>This assignment will be marked as follows:</p>
+
+<ul>
+  <li>Question 1 is not marked. Do Question 1 as part of your studying for our Midterm 1.
+    <ul>
+      <li>A solution to Question 1 will be posted along with this Assignment 4.</li>
+    </ul>
+  </li>
+  <li>Questions 2 and 3 will be marked for correctness.
+    <ul>
+      <li>Solution to Question 2 and Question 3 will be posted on the Monday after the due date.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>The amount of marks for each question is indicated as part of the question.</p>
+
+<hr />
+
+<h3 id="1-0-marks-hand-tracing-assembly-code---do-question-1-as-part-of-your-studying-for-our-midterm-1">1) [0 marks] Hand tracing assembly code - Do Question 1 as part of your studying for our Midterm 1.</h3>
+
+<p>Consider the following code:</p>
+
+<p>C function abs(…):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int abs(int x){
+  if(x&lt;0){
+    x=-x;
+  }
+  return x;
+}
+</code></pre></div></div>
+
+<p>abs(…)version 1 (based on a non-optimized gcc version):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  .global abs
+abs:
+  movl %edi,%eax
+  cmpl $0,%eax
+  jgq endif
+  negl %eax
+endif:
+  ret
+</code></pre></div></div>
+
+<p>abs(…)version 2 (an optimized gcc version)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  .global abs
+abs:
+  movl %edi,%edx
+  movl %edi,%eax
+  sarl $31,%edx
+  xorl %edx,%eax
+  subl %edx,%eax
+  ret
+</code></pre></div></div>
+
+<p>The left column contains the C function abs(…), the middle column contains the assembly
+code version of the C function abs(…) we wrote in class (we shall call it “version 1”) and the
+right column contains the assembly code version of abs(…) the gcc compiler may produce
+when it assembles the C function abs(…) using level 2 optimization (“–O2”). We shall call it
+“version 2”.</p>
+
+<p>Notice how gcc assembles abs(…) without branching, i.e., without affecting the execution
+flow (without using the jump instructions). We shall see in our next Unit (Chapter 4 of our
+textbook) that branching is rather unpredictable and may cause problem in the execution
+pipeline of the microprocessor. For this reason, the assembly code version (version 1) of
+abs(…) which branches may run more slowly.</p>
+
+<p>In this question, you are asked to hand trace both versions of abs(…) using 2 test cases:</p>
+
+<ul>
+  <li>Test case 1: x = 7, expected result: 7</li>
+  <li>Test case 2: x = -7, expected result: 7</li>
+</ul>
+
+<p>and show the result of executing each instruction. In doing so, complete the tables below:</p>
+
+<p>Note:</p>
+
+<ul>
+  <li>The first table has been completed as an example. Feel free to use it as a model when you complete the other three tables.</li>
+  <li>Remember that <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mtext>–</mtext><mo stretchy="false">(</mo><mo>−</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mi>x</mi><mo>+</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x – (-y) = x + y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">x</span><span class="mord">–</span><span class="mopen">(</span><span class="mord">−</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>abs(…) version 1 Test case 1: x = 7 Expected result: 7</th>
+      <th>Result of executing instructions in the left column</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>movl %edi, %eax</td>
+      <td>Copy content of %edi (x = 7) into %eax, i.e., %edi &lt;- 00000000000000000000000000000111 &lt;- 29 0’s -&gt; %eax &lt;- 00000000000000000000000000000111 &lt;- 29 0’s</td>
+    </tr>
+    <tr>
+      <td>cmpl $0, %eax</td>
+      <td>3 outcomes: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mtext>–</mtext><mn>0</mn><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x – 0 &gt; 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">x</span><span class="mord">–0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mtext>–</mtext><mn>0</mn><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x – 0 &lt; 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">x</span><span class="mord">–0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mtext>–</mtext><mn>0</mn><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x – 0 = 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathnormal">x</span><span class="mord">–0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> Here since %eax contains 7, then the only possible (true) outcome is 7 – 0 &gt; 0, i.e., when the microprocessor evaluates 7 – 0, it obtains the result 7. This result (being greater than 0: 7 &gt; 0) sets the condition codes to “g” and therefore …</td>
+    </tr>
+    <tr>
+      <td>jge endif</td>
+      <td>… the jump instruction is executed</td>
+    </tr>
+    <tr>
+      <td>negl %eax</td>
+      <td>and this instruction is not executed</td>
+    </tr>
+    <tr>
+      <td>endif: ret</td>
+      <td>and this instruction is executed.</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>abs(…) version 1 Test case 2) x = -7 Expected result: 7</th>
+      <th>Result of executing instructions on the left column</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>movl %edi, %eax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>cmpl $0, %eax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>jge endif</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>negl %eax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>endif: ret</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>abs(…) version 2 Test case 1) x = 7 Expected result: 7</th>
+      <th>Result of executing instruction in the left column</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>movl %edi,%edx</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>movl %edi,%eax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>sarl $31,%edx</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>xorl %edx,%eax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>subl %edx,%eax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>ret</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>abs(…) version 2 Test case 2) x = - 7 Expected result: 7</th>
+      <th>Result of executing instruction in the left column</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>movl %edi,%edx</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>movl %edi,%eax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>sarl $31,%edx</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>xorl %edx,%eax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>subl %edx,%eax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>ret</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="2-8-marks-translating-assembly-code-into-c-code---read-the-entire-question-before-answering-it">2) [8 marks] Translating assembly code into C code - Read the entire question before answering it!</h3>
+
+<p>Consider the following assembly code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># long func(long x, int n)
+# x in %rdi, n in %esi, result in %rax
+func:
+  movl %esi,%ecx
+  movl $1,%edx
+  movl $0,%eax
+  jmp cond
+loop:
+  movq %rdi,%r8
+  andq %rdx,%r8
+  orq %r8,%rax
+  salq %cl,%rdx # shift left the value stored in %rdx by an amount related to the value in %cl*
+cond:
+  testq %rdx, %rdx # Value in %rdx is &gt;0, &lt;0, =0 ?
+  jne loop # jump if %rdx != 0; fall thru to ret if %rdx = 0
+ret
+</code></pre></div></div>
+
+<!-- *-->
+
+<p>Section 3.5.3 of our textbook explains how a shift instruction works when it has the
+register %cl as one of its operands. Check it out!</p>
+
+<p>The assembly code above was generated by compiling C code that had the following overall form:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>long func(long x, int n) {
+  long result=___;
+  long mask;
+
+  for (mask=___;mask ___;mask=___)
+    result|= ___;
+  return result;
+}
+</code></pre></div></div>
+
+<p>Your task is to fill in the missing parts of the C function func above to get a program
+equivalent (note: it may not be exactly the same) to the generated assembly code displayed
+above it. You will find it helpful to examine the assembly code before, during, and after the
+loop to form a consistent mapping between the registers and the C function variables.</p>
+
+<p>You may also find the following questions helpful in figuring out the assembly code. Note
+that you do not have to submit the answers to the five questions below as part fo
+Assignemnt 4 as these answers will be reflected in the C function you are asked to complete
+and submit.</p>
+
+<ol>
+  <li>(a) Which registers hold program values x, n, result, and mask?</li>
+  <li>(b) What is the initial value of result and of mask?</li>
+  <li>(c) What is the test condition for mask?</li>
+  <li>(d) How is mask updated?</li>
+  <li>(e) How is result updated?</li>
+</ol>
+
+<h3 id="3-12-marks-writing-x86-64-assembly-code">3) [12 marks] Writing x86-64 assembly code</h3>
+
+<p>Download <code class="language-plaintext highlighter-rouge">Assn4_Q3_Files.zip</code>, in which you will find a <code class="language-plaintext highlighter-rouge">makefile</code>, <code class="language-plaintext highlighter-rouge">main.c</code> and an
+incomplete <code class="language-plaintext highlighter-rouge">calculator.s</code>. The latter contains four functions implementing arithmetic
+and logical operations in assembly code.</p>
+
+<p>Your task is to complete the implementation of the three incomplete functions, namely,
+<code class="language-plaintext highlighter-rouge">plus</code>, <code class="language-plaintext highlighter-rouge">minus</code> and <code class="language-plaintext highlighter-rouge">mul</code>. In doing so, you must satisfy the requirements found in each of the
+functions of <code class="language-plaintext highlighter-rouge">calculator.s</code>. You must also satisfy the requirements below.</p>
+
+<p>You will also need to figure out what the function <code class="language-plaintext highlighter-rouge">XX</code> does and once you have done so, you
+will need to change its name to something more descriptive (in <code class="language-plaintext highlighter-rouge">main.c</code> and in
+<code class="language-plaintext highlighter-rouge">calculator.s</code>) and add its description in the indicated place in <code class="language-plaintext highlighter-rouge">calculator.s</code>.</p>
+
+<p>Requirements:</p>
+
+<ul>
+  <li>Your assembly program must follow the following standard:
+    <ul>
+      <li>Your code must be commented such that others (i.e., TA’s) can read your code and understand what each instruction does.</li>
+      <li>About comments:
+        <ul>
+          <li>Comment of Type 1: Here is an example of a useful comment: <code class="language-plaintext highlighter-rouge">cmpl %edx, %r8d # loop while j &lt; N</code></li>
+          <li>Comment of Type 2: Here is an example of a not so useful comment: <code class="language-plaintext highlighter-rouge">cmpl %edx, %r8d # compare %r8d to %edx</code></li>
+        </ul>
+      </li>
+      <li>Do you see the difference? Make sure you write comments of Type 1.</li>
+    </ul>
+  </li>
+  <li>Also, describe the algorithm you used to perform the multiplication in a comment at the top of mul function.</li>
+  <li>Your code must compile (using gcc) and execute on the target machine.</li>
+  <li>Each of your code files (<code class="language-plaintext highlighter-rouge">main.c</code> and <code class="language-plaintext highlighter-rouge">calculator.s</code>) must contain a header comment block including the filename, the purpose/description of your program, your name and the date.</li>
+  <li>For all of the four functions, the register %edi will contain the argument x and the register %esi will contain the argument y. The register %eax will carry the return value.</li>
+  <li>You may use registers <code class="language-plaintext highlighter-rouge">%rax</code>, <code class="language-plaintext highlighter-rouge">%rcx</code>, <code class="language-plaintext highlighter-rouge">%rdx</code>, <code class="language-plaintext highlighter-rouge">%rsi</code>, <code class="language-plaintext highlighter-rouge">%rdi</code>, <code class="language-plaintext highlighter-rouge">%r8</code>, <code class="language-plaintext highlighter-rouge">%r9</code>, <code class="language-plaintext highlighter-rouge">%r10</code> and <code class="language-plaintext highlighter-rouge">%r11</code> as temporary registers.</li>
+  <li>You must not modify the values of registers <code class="language-plaintext highlighter-rouge">%rbx</code>, <code class="language-plaintext highlighter-rouge">%rbp</code>, <code class="language-plaintext highlighter-rouge">%rsp</code>, <code class="language-plaintext highlighter-rouge">%r12</code>, <code class="language-plaintext highlighter-rouge">%r13</code>, <code class="language-plaintext highlighter-rouge">%r14</code> and <code class="language-plaintext highlighter-rouge">%r15</code>. We shall soon see why.</li>
+  <li>You cannot modify the given <code class="language-plaintext highlighter-rouge">makefile</code>.</li>
+</ul>
+
+<h2 id="hint-for-the-implementation-of-the-mul-function">Hint for the implementation of the mul function:</h2>
+
+<p>Long ago, computers were restricted in their arithmetic prowess and were only able to
+perform additions and subtractions. Multiplications and divisions needed to be implemented
+by the programmer using the arithmetic operations available.</p>
+
+<hr />
+
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

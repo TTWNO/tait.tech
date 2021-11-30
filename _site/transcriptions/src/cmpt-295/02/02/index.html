@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-css">
+  <link rel="stylesheet" href="/assets/css/transcription.css" id="trans-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/js/"></script>
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295">CMPT 295</h1>
+
+<p>Unit: Textbook Chapter 2 - Data Representation</p>
+
+<p>Lecture 2 - Representing data in memory</p>
+
+<p>Data = information = data, instructions (code, programs)</p>
+
+<h2 id="cal-volunteer-note-taker-position-1">CAL Volunteer Note-Taker Position [1]</h2>
+
+<ul>
+  <li>If you are taking lecture notes in CMPT 295 and your hand writing is you may be interested in applying for the following volunteer note-taker position:
+    <ul>
+      <li>The Centre for Accessible Learning (CAL) is looking for a CMPT 295 notetaker</li>
+      <li>CAL volunteer lecture note-takers are provided with a $100 credit applied to their student account in acknowledgment of their assistance</li>
+    </ul>
+  </li>
+  <li>Interested?</li>
+  <li>Please see the email CAL has sent us</li>
+  <li>Please feel free to call 778-782-3112 or email calexams@sfu.ca the Centre if
+you have any questions</li>
+</ul>
+
+<h2 id="last-lecture-2">Last Lecture [2]</h2>
+<ul>
+  <li>COVID Protocol</li>
+  <li>What is CMPT 295?
+    <ul>
+      <li>What shall we learn in CMPT 295?</li>
+      <li>What should we already know?</li>
+      <li>Which resources do we have to help us learn all this?</li>
+    </ul>
+  </li>
+  <li>Activity</li>
+  <li>Questions</li>
+</ul>
+
+<h2 id="feedback-on-lecture-1-activity-3">Feedback on Lecture 1 Activity [3]</h2>
+<ul>
+  <li>Thank you for participating in the Lecture 1 Activity!</li>
+  <li>Feedback now posted on our course web site</li>
+  <li>Check it out!</li>
+</ul>
+
+<h2 id="unit-objectives-4">Unit Objectives [4]</h2>
+
+<p>Chapter 2 of our textbook</p>
+
+<ul>
+  <li>Understand how a computer represents (encodes) data in (fixed-size) memory</li>
+  <li>Become aware of the impact this fixed size has on …
+    <ul>
+      <li>Range of values represented in memory</li>
+      <li>Results of arithmetic operations</li>
+    </ul>
+  </li>
+  <li>Become aware of …
+    <ul>
+      <li>How one data type is converted to another</li>
+      <li>And the impact this conversion has on the values</li>
+    </ul>
+  </li>
+  <li>Bottom Line: allow software developers to write more reliable code</li>
+</ul>
+
+<h2 id="todays-menu-5">Today’s Menu [5]</h2>
+<ul>
+  <li>Representing data in memory – Most of this is review
+    <ul>
+      <li>“Under the Hood” - Von Neumann architecture</li>
+      <li>Bits and bytes in memory
+        <ul>
+          <li>How to diagram memory -&gt; Used in this course and other references</li>
+          <li>How to represent series of bits -&gt; In binary, in hexadecimal (conversion)</li>
+          <li>What kind of information (data) do series of bits represent -&gt; Encoding scheme</li>
+          <li>Order of bytes in memory -&gt; Endian</li>
+        </ul>
+      </li>
+      <li>Bit manipulation – bitwise operations
+        <ul>
+          <li>Boolean algebra + Shifting</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Representing integral numbers in memory
+    <ul>
+      <li>Unsigned and signed</li>
+      <li>Converting, expanding and truncating</li>
+      <li>Arithmetic operations</li>
+    </ul>
+  </li>
+  <li>Representing real numbers in memory
+6
+    <ul>
+      <li>IEEE floating point representation</li>
+      <li>Floating point in C – casting, rounding, addition, …</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="under-the-hood-von-neumann-architecture-6">“Under the hood” Von Neumann architecture [6]</h2>
+
+<p>Architecture of most computers</p>
+
+<p>Its features:</p>
+<ul>
+  <li>CPU, memory,
+input and ouput, bus</li>
+  <li>
+    <p>(circled in red) Data and instructions
+(code/programs) both stored in memory</p>
+  </li>
+  <li>C programs (.c) – How our code and data are represented in memory</li>
+  <li>Assembly programs (.s) – How a compiler transforms our code into machine executable code in several steps</li>
+  <li>Object (.o) file an executable – How a compiler optimizes (or not) our code</li>
+  <li><em>Computer executes it – How a microprocessor is designed and how it executes our code</em></li>
+  <li>CPU, Memory – How memory is designed</li>
+</ul>
+
+<p>“Computer executes it” has a diagram attached.</p>
+
+<p>Two I/O devices are shown (represented by a cylindar), one on the left, one one the right.
+On the left is “input peripheral”, on the right is “output peripheral”.</p>
+
+<p>A red box surrounds the two central nodes (represented by squares), labeled “motherboard”.
+It contains two items inside it.
+On the left is the “Central Processing Unit (CPU)”, which executes instructions.
+On the right is “Memory”, which is “volatile” and stores data and instructions.</p>
+
+<p>An arrow points from the far left input peripheral to the CPU.
+A bi-directional arrow points between the CPU and memory.
+A final arrow points from memory to the output peripheral.</p>
+
+<h2 id="how-to-diagram-memory-7">How to diagram memory [7]</h2>
+<ul>
+  <li>Seen as a linear (contiguous) array of bytes</li>
+  <li>1 byte (8 bits) smallest addressable unit of memory
+    <ul>
+      <li>Each byte has a unique address</li>
+      <li>Byte-addressable memory</li>
+    </ul>
+  </li>
+  <li>Computer reads a word worth of bits at a time (=&gt; word size)</li>
+  <li>Questions:
+    <ol>
+      <li>If word size is 8, how many bytes are read at a time from memory?
+Answer: (annotated) 1 byte</li>
+      <li>If a computer can read 4 bytes at a time, its
+word size is (annotated) 32 bits.</li>
+    </ol>
+  </li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Address</td>
+      <td>M[]</td>
+    </tr>
+    <tr>
+      <td>size−1</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0008</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0007</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0006</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0005</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0004</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0003</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0002</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0001</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0000</td>
+      <td>1 byte</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="closer-look-at-memory-8">Closer look at memory [8]</h2>
+
+<p>Typically, in a diagram, we represent memory (memory content) as a series of memory “cells” (or bits) in which one of two possible values (‘0’ and ‘1’) is stored</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Address</td>
+      <td>M[]</td>
+    </tr>
+    <tr>
+      <td>size−1</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0008</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0007</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0006</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0005</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0004</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0003</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0002</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0001</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0000</td>
+      <td>01000000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">0x0000</code> is labled as “1 memory cell”</p>
+
+<h2 id="compressed-view-of-memory-9">Compressed view of memory [9]</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Address</td>
+      <td>M[]</td>
+    </tr>
+    <tr>
+      <td>size−1</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0008</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0007</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>0x0006</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>0x0005</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>0x0004</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>0x0003</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>0x0002</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>0x0001</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>0x0000</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Address</td>
+      <td>M[]</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>size−8</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0018</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0010 (annotation: why is this not `0x0016)</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0008</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0000</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Each cell, no matter which diagram is used, represents 1 byte, or 8 bits.
+<code class="language-plaintext highlighter-rouge">0x0000</code> to <code class="language-plaintext highlighter-rouge">0x0008</code> is eight bytes, or 64 bits.</p>
+
+<h2 id="why-can-only-two-possible-values-be-stored-in-a-memory-cell">Why can only two possible values be stored in a memory “cell”?</h2>
+
+<ul>
+  <li>As electronic machines, computers use two voltage levels
+    <ul>
+      <li>Transmitted on noisy wires -&gt; value of two voltage levels vary over a range</li>
+      <li>These ranges are abstracted using “0” and “1”</li>
+    </ul>
+  </li>
+</ul>
+
+<p>A diagram shows two horizontal green bars.
+Bar one has a minimum of 0.0V, and a maximum of 0.2V. “0”
+Bar two has a minimum of 0.9V, and a maximum of 1.1V. “1”
+A wiggly line jiggles around somewhat randomly within the confines of the lower “0” bar–moving to the right with time, it moves up, temporarily traversing the whitespace between the two bars before settling back down in its jiggly pattern within the “1” bar.
+It then reverses this step, through the whitespace back to the “0” bar where it started.</p>
+
+<ul>
+  <li>Back to the question Why can only two possible values be stored in a
+memory “cell”?
+    <ul>
+      <li>Because computers manipulate two-valued information</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="a-bit-of-history-11">A bit of history [11]</h2>
+
+<p>ENIAC: Electronic Numerical Integrator And Calculator</p>
+<ul>
+  <li>U. Penn by Eckert + Mauchly (1946)</li>
+  <li>Data: 20 × 10-digit regs + ~18,000 vacuum tubes</li>
+  <li>To code: manually set switches and plugged cables
+    <ul>
+      <li>Debugging was manual</li>
+      <li>No method to save program for later use</li>
+      <li>Separated code from the data</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Source: <a href="https://en.wikipedia.org/wiki/ENIAC#/media/File:ENIAC_Penn1.jpg">https://en.wikipedia.org/wiki/ENIAC#/media/File:ENIAC_Penn1.jpg</a></p>
+
+<h2 id="review-12--back-to-our-bits--how-to-represent-series-of-bits">Review [12] – Back to our bits – How to represent series of bits</h2>
+<ul>
+  <li>From binary numeral system</li>
+  <li>Base: 2</li>
+  <li>Bit values: 0 and 1</li>
+  <li>Possible bit patterns in a byte: 000000002 to 111111112</li>
+  <li>Drawback of manipulating binary numbers?
+    <ul>
+      <li>What number is this?
+        <ul>
+          <li>1001100 11001001 01000101 01001000<sub>2</sub></li>
+        </ul>
+      </li>
+      <li>Lengthy to write -&gt; not very compact</li>
+      <li>Difficult to read</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Annotation: “Error prone!” encompasses “lengthy to write” and “difficult to read”.</p>
+
+<h2 id="review--a-solution-hexadecimal-numbers">Review – A solution: hexadecimal numbers</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Decimal</td>
+      <td>Binary</td>
+      <td>Hexidecimal</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0001</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0010</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0011 (circled in annotation)</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0100</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>0101 (circled in annotation)</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>0110</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>0111</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>1000</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>1001</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>1010</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>1011</td>
+      <td>B</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>1100</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>1101 (circled in annotation)</td>
+      <td>D</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>1110</td>
+      <td>E</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>1111 (circled in annotation)</td>
+      <td>F</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>Base: 16</li>
+  <li>Values: 0, 1, 2, …, 9, A, B, C, D, E, F</li>
+  <li>Possible patterns in a byte: 0016 to FF16</li>
+  <li>Conversion binary -&gt; hex (hex is in annotation, binary numbers grouped by 4 by green lines)
+    <ul>
+      <li>e.g.: 0100(0x4) 1100(0xC) 1100(0xC) 1001(0x9) 0100(0x4) 0101(0x5) 0100(0x4) 1000(0xB)</li>
+      <li>annotation: conversion algorithm?</li>
+    </ul>
+  </li>
+  <li>Conversion hex -&gt; binary (binary in annotation, an arrow points off from each hex character to the binary sequence representing it)
+    <ul>
+      <li>e.g.: 3(0011) D(1101) 5(0101) F(1111) (in C: 0x3D5F)</li>
+      <li>annotation: conversion algorithm?</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="what-could-these-32-bits-represent--what-kind-of-information-could-they-encode">What could these 32 bits represent? – What kind of information could they encode?</h2>
+
+<p>01100010011010010111010001110011<sub>2</sub></p>
+
+<p>Answer:</p>
+<ul>
+  <li>Integer</li>
+  <li>string of cleartexts</li>
+  <li>colour</li>
+</ul>
+
+<h2 id="what-kind-of-information-data-do-series-of-bits-represent">What kind of information (data) do series of bits represent?</h2>
+
+<p>Encoding Scheme</p>
+
+<p>Bit pattern:
+<code class="language-plaintext highlighter-rouge">01100010 01101001
+01110100 01110011</code><sub>2</sub></p>
+
+<p>An arrow pointing to a box labeled “encoding schemes”:</p>
+
+<ul>
+  <li>ASCII character</li>
+  <li>Unsigned integer</li>
+  <li>Two’s complement (signed) integer</li>
+  <li>Floating point</li>
+  <li>Memory Address</li>
+  <li>Assembly language</li>
+  <li>RGB</li>
+  <li>MP3</li>
+  <li>…</li>
+</ul>
+
+<p>An arrow pointing to the following list:</p>
+
+<ul>
+  <li>Letters and symbols</li>
+  <li>Positive numbers</li>
+  <li>Negative numbers</li>
+  <li>Real numbers</li>
+  <li>C pointers</li>
+  <li>Machine-level instructions</li>
+  <li>Colour</li>
+  <li>Audio/Sound</li>
+  <li>…</li>
+</ul>
+
+<p>Definition: An encoding scheme is an interpretation (representation) of a series of bits</p>
+
+<p>Bottom line: Which encoding scheme is used to interpret a series of bits depends on the application currently executing (the “context”) not the computer</p>
+
+<h2 id="endian--order-of-bytes-in-memory">Endian – Order of bytes in memory</h2>
+<ul>
+  <li>It is straight forward to store a byte in memory
+    <ul>
+      <li>All we need is the byte (series of bits) and a memory address</li>
+      <li>For example, let’s store byte <code class="language-plaintext highlighter-rouge">01110011</code><sub>2</sub> at address <code class="language-plaintext highlighter-rouge">0x0000</code></li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Address</td>
+      <td>M[]</td>
+    </tr>
+    <tr>
+      <td>size−1</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0003</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0002</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0001</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0000</td>
+      <td>01110011<sub>2</sub></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="endian--order-of-bytes-in-memory-1">Endian – Order of bytes in memory</h2>
+
+<p>Question: But how do we store several bytes in memory?</p>
+<ul>
+  <li>For example, let’s store these 4 bytes starting at address 0x0000</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">01000010 01101001 01110100 01110011</code><sub>2</sub></p>
+
+<aside>Trick: (L)ittle-endian, (L)SB, (L)owest address number</aside>
+
+<p>Way 1: Little endian
+Address|M[]|Hex (filled out as annotation)
+size-1||
+…||
+0x0003|01000010|42
+0x0002|01101001|69
+0x0001|01110100|74
+0x0000|01110011|73</p>
+
+<p>Way 2: Big endian</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Address</td>
+      <td>M[]</td>
+      <td>Hex</td>
+    </tr>
+    <tr>
+      <td>size−1</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0003</td>
+      <td>01110011</td>
+      <td>73</td>
+    </tr>
+    <tr>
+      <td>0x0002</td>
+      <td>01110100</td>
+      <td>74</td>
+    </tr>
+    <tr>
+      <td>0x0001</td>
+      <td>01101001</td>
+      <td>69</td>
+    </tr>
+    <tr>
+      <td>0x0000</td>
+      <td>01000010</td>
+      <td>42</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="compressed-view-of-memory">Compressed view of memory:</h3>
+
+<p>Little-endian:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Address</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>size-8</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0008</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0000</td>
+      <td>73</td>
+      <td>74</td>
+      <td>69</td>
+      <td>42</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Big-endian:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Address</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0008</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0000</td>
+      <td>42</td>
+      <td>69</td>
+      <td>74</td>
+      <td>73</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="review-bit--bit-manipulation---boolean-algebra">Review Bit – Bit Manipulation - Boolean algebra</h2>
+
+<p>No matter what a series of bits represent, they can be manipulated using bit-level operations:</p>
+<ul>
+  <li>Boolean algebra</li>
+  <li>
+    <p>Shifting</p>
+  </li>
+  <li>Developed by George Boole in 19th Century
+    <ul>
+      <li>Algebraic representation of logic
+        <ul>
+          <li>Encode “True” as 1 and “False” as 0</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>AND -&gt; A&amp;B = 1 when both A=1 and B=1</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>&amp;</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>NOT -&gt; ~A = 1 when A=0</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>~</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>OR -&gt; A</td>
+      <td>B = 1 when either A=1 or B=1</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>|</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>XOR (Exclusive-Or) -&gt; A^B = 1 when either A=1 or B=1, but not both</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>^</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interesting-fact-about-boolean-algebra-and-digital-logic">Interesting fact about Boolean algebra and digital logic</h2>
+
+<ul>
+  <li>Claude Shannon – 1937 master’s thesis</li>
+  <li>Made connection between Boolean algebra and digital logic
+    <ul>
+      <li>Boolean algebra could be applied to design and analysis of digital
+systems (digital circuits)</li>
+    </ul>
+  </li>
+  <li>Example:</li>
+</ul>
+
+<p>Diagram of an AND gate.</p>
+
+<p>Two lines go into a black box.
+One is 1/high, one is 0/low.
+An output comes out the other side: 0/low.</p>
+
+<h2 id="review-annotation-hw2">Review (annotation: HW2)</h2>
+
+<p>Let’s try some Boolean algebra!</p>
+
+<ul>
+  <li>Operations applied bitwise -&gt; to each bit</li>
+  <li>Spot the error(s):</li>
+</ul>
+
+<pre>
+  01101001
+&amp; 01010101
+= 01000001
+</pre>
+
+<pre>
+  01101001
+| 01010101
+= 01111101
+</pre>
+
+<pre>
+  01101001
+^ 01010101
+= 00111100
+
+(notation on 2nd last bit of equals: error!)
+</pre>
+
+<pre>
+~ 01010101
+= 10101010
+</pre>
+
+<h2 id="useful-bit-manipulations">Useful bit manipulations</h2>
+<ul>
+  <li>Using a binary mask (or bit mask) as an operand
+    <ol>
+      <li>AND: Extracts particular bit(s) so we can test whether they are set. Example:</li>
+    </ol>
+  </li>
+</ul>
+<pre>
+  10110011 &lt;- some value x
+&amp; 00000001 &lt;- binary mask
+  00000001
+</pre>
+<p>The result tells us that the least significant bit (LSb) is set.</p>
+<ol>
+  <li>XOR: Toggle specific bits
+  Example: The result tells us that the least significant bit (LSb) of x is set</li>
+</ol>
+<pre>
+  10110011 &lt;- some value x
+^ 00011100 &lt;- binary mask
+= 10101111 We get a toggled version of the 3 original bits (of x) that
+</pre>
+<p>(red square around bits 4-6): “We get a toggled version of the three original bits (of x) that corresponds to the 3 set bits of the binary mask.”</p>
+<ul>
+  <li>Using two operands
+    <ol>
+      <li>OR: Merge all set bits of operands
+        <ul>
+          <li>Example:</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+<pre>
+  10110011 &lt;- some value x
+| 00011100 &lt;- some value y
+= 10111111
+</pre>
+<p>The result contains all the set bits of x and y.</p>
+
+<h2 id="bit-manipulation---shift-operations">Bit Manipulation - Shift operations</h2>
+
+<ul>
+  <li>LSb: least significant bit is the rightmost bit of a series of bits (or bit vector)</li>
+  <li>
+    <p>MSb: most significant bit is the leftmost bit of a series of bits (or bit vector)</p>
+  </li>
+  <li>Left Shift: x « y
+    <ul>
+      <li>Shift bit vector (a series of bits) <code class="language-plaintext highlighter-rouge">x</code> left <code class="language-plaintext highlighter-rouge">y</code> positions.
+        <ul>
+          <li>Effect:
+            <ul>
+              <li>Throw away y most significant bits (MSb) of x on left</li>
+              <li>Fill x with y 0’s on right</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Right Shift: x » y
+    <ul>
+      <li>Shift bit vector <code class="language-plaintext highlighter-rouge">x</code> right <code class="language-plaintext highlighter-rouge">y</code> positions</li>
+      <li>Effect:
+        <ul>
+          <li>Throw away y least significant bits (LSb) of x on right</li>
+        </ul>
+      </li>
+      <li>Logical shift: Fill x with y 0’s on left</li>
+      <li>Arithmetic shift: Fill x with y copies of x‘s sign bit on left</li>
+      <li>Sign bit: most significant bit (MSb) of x (before shifting occurred)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="bit-manipulation---shift-operations--lets-try-hw3">Bit Manipulation - Shift operations – Let’s try! (HW3)</h2>
+
+<ul>
+  <li>Left Shift: 10111001 « 4 = 10010000</li>
+  <li>
+    <p>Left Shift: 10111001 « 2 = 11100100</p>
+  </li>
+  <li>Right Shift (logical): 00111001 » 4 = 00000011</li>
+  <li>Right Shift (arithmatic): 10111001 » 4 = 11111011</li>
+  <li>Right Shift (logical/arithmatic): 10111001 » 2 = 00101110/11101110</li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>Von Neumann architecture
+    <ul>
+      <li>Architecture of most computers</li>
+      <li>Its components: CPU, memory, input and ouput, bus</li>
+      <li>One of its characteristics: Data and code (programs) both stored in memory</li>
+    </ul>
+  </li>
+  <li>A look at memory: defined byte-addressable memory, diagram of (compressed) memory
+    <ul>
+      <li>Word size (w): size of a series of bits (or bit vector) we manipulate, also size of machine words (see Section 2.1.2)</li>
+    </ul>
+  </li>
+  <li>A look at bits in memory
+    <ul>
+      <li>Why binary numeral system (0 and 1 -&gt; two values) is used to represent information in memory</li>
+      <li>Algorithm for converting binary to hexadecimal (hex)
+        <ol>
+          <li>Partition bit vector into groups of 4 bits, starting from right, i.e., least significant byte (LSB)
+            <ul>
+              <li>If most significant “byte” (MSB) does not have 8 bits, pad it: add 0’s to its left</li>
+            </ul>
+          </li>
+          <li>Translate each group of 4 bits into its hex value</li>
+        </ol>
+      </li>
+      <li>What do bits represent? Encoding scheme gives meaning to bits</li>
+      <li>Order of bytes in memory: little endian versus big endian</li>
+    </ul>
+  </li>
+  <li>Bit manipulation – regardless of what bit vectors represent
+    <ul>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>Boolean algebra: bitwise operations =&gt; AND (&amp;), OR (</td>
+              <td>), XOR (^), NOT (~)</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>Shift operations: left shift, right logical shift and right arithmetic shift
+        <ul>
+          <li>Logical shift: Fill x with y 0’s on left</li>
+          <li>Arithmetic shift: Fill x with y copies of x‘s sign bit on left</li>
+          <li>Sign bit: Most significant bit (MSb) before shifting occurred</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>NOTE: C logical operators and C bitwise (bit-level) operators behave differently! Watch out for &amp;&amp; versus &amp;,</td>
+      <td> </td>
+      <td>versus</td>
+      <td>, …</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="next-lecture">Next Lecture</h2>
+<ul>
+  <li>Representing data in memory – Most of this is review
+    <ul>
+      <li>“Under the Hood” - Von Neumann architecture</li>
+      <li>Bits and bytes in memory
+        <ul>
+          <li>How to diagram memory -&gt; Used in this course and other references</li>
+          <li>How to represent series of bits -&gt; In binary, in hexadecimal (conversion)</li>
+          <li>What kind of information (data) do series of bits represent -&gt; Encoding scheme</li>
+          <li>Order of bytes in memory -&gt; Endian</li>
+        </ul>
+      </li>
+      <li>Bit manipulation – bitwise operations
+        <ul>
+          <li>Boolean algebra + Shifting</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Representing integral numbers in memory
+    <ul>
+      <li>Unsigned and signed</li>
+      <li>Converting, expanding and truncating</li>
+      <li>Arithmetic operations</li>
+    </ul>
+  </li>
+  <li>Representing real numbers in memory
+    <ul>
+      <li>IEEE floating point representation</li>
+      <li>Floating point in C – casting, rounding, addition, …</li>
+    </ul>
+  </li>
+</ul>
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

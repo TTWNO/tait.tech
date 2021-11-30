@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" id="main-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../../../../../assets/js/index.html"></script>
+  
+  <link rel="stylesheet" href="../../../../../assets/css/katex.css" id="math-css">
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h2 id="cmpt-295---unit---machine-level-programming">CMPT 295 - Unit - Machine-Level Programming</h2>
+
+<p>Lecture 21:</p>
+
+<ul>
+  <li>Assembly language</li>
+  <li>Array</li>
+  <li>2D</li>
+</ul>
+
+<h2 id="last-lecture">Last lecture</h2>
+
+<ul>
+  <li>Recursion
+    <ul>
+      <li>Handled without special instruction
+        <ul>
+          <li>Stack frames</li>
+          <li>x86-64 Function call and Register saving conventions</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Manipulation of arrays – in x86-64
+    <ul>
+      <li>From x86-64’s perspective, an array is a contiguously allocated region of n * L bytes in memory where L = sizeof( T ) and T -&gt; data type of elements stored in array</li>
+    </ul>
+  </li>
+  <li>Compute memory address of each array element
+    <ul>
+      <li>
+        <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo><mo>=</mo><mi>A</mi><mo>+</mo><mi>i</mi><mo>∗</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">A[i] = A + i * L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mopen">[</span><span class="mord mathnormal">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span></span></span></span></span>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="todays-menu">Today’s Menu</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX</li>
+  <li>Loops</li>
+  <li>Function call – Stack
+    <ul>
+      <li>Overview of Function Call</li>
+      <li>Memory Layout and Stack - x86-64 instructions and registers</li>
+      <li>Passing control</li>
+      <li>Passing data – Calling Conventions</li>
+      <li>Managing local data</li>
+      <li>Recursion</li>
+    </ul>
+  </li>
+  <li>(highlighted) Array (cont’d)</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+<h2 id="2d-array">2D Array</h2>
+
+<p>Visual representation:</p>
+
+<ul>
+  <li>A[0][0] … A[0][C-1]</li>
+  <li>A[1][0] … A[1][C-1]</li>
+  <li>…</li>
+  <li>A[R-1][0] … A[R-1][C-1]</li>
+</ul>
+
+<p>T A[P][C]:</p>
+
+<ul>
+  <li>(in C) is a 2D array of data type T, R rows, C columns</li>
+  <li>(in x86-64) is a contiguously allocated region of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>×</mo><mi>C</mi><mo>×</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">R \times C \times L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span></span></span></span> bytes in memory where L = sizeof(T)</li>
+</ul>
+
+<p>Array layout in memory: Row-major ordering -&gt; Example using int A[R][C]:</p>
+
+<ul>
+  <li>A[0][0]</li>
+  <li>…</li>
+  <li>A[0][C-1]</li>
+  <li>A[1][0]</li>
+  <li>…</li>
+  <li>A[1][C-1]</li>
+  <li>…</li>
+  <li>A[R-1][0]</li>
+  <li>…</li>
+  <li>A[R-1][C-1]</li>
+</ul>
+
+<h2 id="accessing-a-row-of-2d-array">Accessing a row of 2D array</h2>
+
+<p>T A[R][C];</p>
+
+<ul>
+  <li>A[i] is an array of C elements (row i of array A)</li>
+  <li>Memory address of each row A[i]: A + (i * C * L)
+    <ul>
+      <li>where A is base memory address</li>
+    </ul>
+  </li>
+  <li>Can access other rows by incrementing A by i * C * L</li>
+  <li>Example using int A[R][C];</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cells</th>
+      <th>Row</th>
+      <th>Memory Arithmatic</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A[0][0]</td>
+      <td>A[0]</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>A[0]</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>A[0][C-1]</td>
+      <td>A[0]</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>A[1][0]</td>
+      <td>A[1]</td>
+      <td>A + (1*C*4)</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>A[1]</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>A[1][C-1]</td>
+      <td>A[1]</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>A[R-1][0]</td>
+      <td>A[R-1]</td>
+      <td>A + ((R-1)*C*4)</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>A[R-1]</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>A[R-1][C-1]</td>
+      <td>A[R-1]</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="accessing-an-element-of-2d-array">Accessing an element of 2D array</h2>
+
+<p>T A[R][C];</p>
+
+<ul>
+  <li>A[i][j] is element of type T, which requires L bytes</li>
+  <li>Memory address of each element A[i][j]:
+A + (i * C * L) + (j * L) = A + (i * C + j) * L</li>
+  <li>Example using int A[R][C];</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Element</th>
+      <th>Row</th>
+      <th>Pointer Arithmatic</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A[0][0]</td>
+      <td>A[0]</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>A[0]</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>A[0][C-1]</td>
+      <td>A[0]</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>A[i]</td>
+      <td>A+(i<em>C</em>4)</td>
+    </tr>
+    <tr>
+      <td>A[i][j]</td>
+      <td>A[i]</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>A[R-1][0]</td>
+      <td>A[R-1]</td>
+      <td>A+((R-1)<em>C</em>4)</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>A[R-1]</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>A[R-1][C-1]</td>
+      <td>A[R-1]</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="homework">Homework</h2>
+
+<p>Example: <code class="language-plaintext highlighter-rouge">int A[3][5];</code></p>
+
+<p>In memory:</p>
+
+<ul>
+  <li>0 (red)</li>
+  <li>1 (red)</li>
+  <li>2 (red)</li>
+  <li>3 (red)</li>
+  <li>4 (red)</li>
+  <li>5 (yellow)</li>
+  <li>6 (yellow)</li>
+  <li>7 (yellow)</li>
+  <li>8 (yellow)</li>
+  <li>9 (yellow)</li>
+  <li>10 (green)</li>
+  <li>11 (green)</li>
+  <li>12 (green)</li>
+  <li>13 (green)</li>
+  <li>14 (green)</li>
+  <li>15 (green)</li>
+</ul>
+
+<p>Let’s compute the memory address to access:</p>
+
+<ul>
+  <li>A[2]: ____</li>
+  <li>A[2][3]: ____</li>
+</ul>
+
+<h2 id="demo---accessing-an-element-of-2d-array">Demo - Accessing an element of 2D array</h2>
+
+<p>Code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define N 4
+
+char A[N][N] = {1,-2,3,-4,
+                -5,6,-7,8,
+                -1,2,-3,4,
+                5,-6,7,-8};
+
+char C[N][N];
+
+void main(){
+  printf("Original matrix: \n");
+  printMatrixByRow(A, N);
+  
+  printf("Copy: \n");
+  copy(A,C,N);
+  printMatrixByRow(C, N);
+
+  return;
+}
+
+// Print N elements in a row
+void printMatrixByRow(void *D, int n){
+  /* transcriber's note: code ends here */
+</code></pre></div></div>
+
+<p>Note: copy.s on our course web site</p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>Manipulation of 2D arrays – in x86-64
+    <ul>
+      <li>From x86-64’s perspective, a 2D array is a contiguously
+allocated region of R * C * L bytes in memory where
+L = sizeof( T ) and T -&gt; data type of elements stored
+in array</li>
+    </ul>
+  </li>
+  <li>2D Array layout in memory: Row-Major ordering</li>
+  <li>Memory address of each row A[i]: A + (i * C * L)</li>
+  <li>Memory address of each element A[i][j]:
+A + (i * C * L) + (j * L) =&gt; A + (i * C + j) * L</li>
+</ul>
+
+<h2 id="next-lecture">Next Lecture</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX</li>
+  <li>Loops</li>
+  <li>Function call – Stack
+    <ul>
+      <li>Overview of Function Call</li>
+      <li>Memory Layout and Stack - x86-64 instructions and registers</li>
+      <li>Passing control</li>
+      <li>Passing data – Calling Conventions</li>
+      <li>Managing local data</li>
+      <li>Recursion</li>
+    </ul>
+  </li>
+  <li>Array</li>
+  <li>(highlighted) Buffer Overflow</li>
+  <li>(highlighted) Floating-point operations</li>
+</ul>
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

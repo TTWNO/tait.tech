@@ -12,8 +12,6 @@ gem "kramdown-math-katex"
 gem "execjs"
 gem "duktape"
 gem "addressable", "~> 2.8"
-gem "ffi", "~> 1.15"
-gem "webrick", "~> 1.7"
 gem "ffi"
 
 group :jekyll_plugins do

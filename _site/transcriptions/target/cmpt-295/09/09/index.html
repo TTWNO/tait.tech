@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-css">
+  <link rel="stylesheet" href="/assets/css/transcription.css" id="trans-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/js/"></script>
+  
+  <link rel="stylesheet" href="/assets/css/katex.css" id="math-css">
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295-unit---machine-level-programming">CMPT 295: Unit - Machine-Level Programming</h1>
+
+<p>Lecture 9 – Assembly language basics: Data, move operation</p>
+
+<h2 id="last-lecture">Last Lecture</h2>
+
+<ul>
+  <li>Review: von Neumann architecture</li>
+  <li>Data and code are both stored in memory during program execution</li>
+</ul>
+
+<ol>
+  <li>Question: How does our C program end up being represented as a
+series of 0’s and 1’s (i.e., as machine code)?
+    <ul>
+      <li>Compiler: C program -&gt; assembly code -&gt; machine level code</li>
+      <li>gcc: 1) C preprocessor, 2) C compiler, 3) assembler, 4) linker</li>
+    </ul>
+  </li>
+  <li>Question: How does our C program (once it is represented as a series of
+0’s and 1’s) end up being stored in memory? Annotation: Loader
+    <ul>
+      <li>When C program is executed (e.g. from our demo: ./ss 5 6 )</li>
+    </ul>
+  </li>
+  <li>Question: How does our C program (once it is represented as a series of
+0’s and 1’s and it is stored in memory) end up being executed by the
+microprocessor (CPU)?
+    <ul>
+      <li>CPU executes C program by looping through the fetch-execute cycle</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="summary---turning-c-into-machine-level-code---gcc">Summary - Turning C into machine level code - gcc</h2>
+
+<p>The big picture:</p>
+
+<p>Annotation: Lab 1</p>
+
+<ul>
+  <li>C program (.c) -&gt; sum_store.c
+    <ul>
+      <li>C Preprocessor: <code class="language-plaintext highlighter-rouge">gcc -g sum_store.c &gt; sum_store.i</code> (Annotation: sum_store.c, sum_store.i are text)
+        <ul>
+          <li>Expands the header(s) found at the top of the C program by including their content into the C program.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Preprocessed source (.i) -&gt; sum_store.i
+    <ul>
+      <li>C Compiler: <code class="language-plaintext highlighter-rouge">gcc -Og -S sum_store.i</code> OR <code class="language-plaintext highlighter-rouge">gcc -Og -S sum_store.c</code>
+        <ul>
+          <li>Compiled the C program into an assembly lanaugage program.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Assembly program (.s) -&gt; sum_store.s
+    <ul>
+      <li>Assembler: <code class="language-plaintext highlighter-rouge">gcc -g -c main.s sum_stoore.s</code> (Annotation: main.s, sum_store.s are text)
+        <ul>
+          <li>Assembles the assembly language program into an object file (series of 0’s and 1’s) which is a combination of machine language instructions, data and info needed to place all of this properly into memory.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Object (.o) -&gt; sum_store.o
+    <ul>
+      <li>Linker: <code class="language-plaintext highlighter-rouge">gcc -o ss main.o sum_store.o</code> (Annotation: main.o, sum_store.o are binary)
+        <ul>
+          <li>Combines independently assembled machine language programs with library routines into an executable file.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Executable: ss
+    <ul>
+      <li>Loader: <code class="language-plaintext highlighter-rouge">./ss 5 6</code>
+        <ul>
+          <li>Loads machine code (from files) into proper memory locations for execution by CPU.</li>
+        </ul>
+      </li>
+      <li>(optional) Disassembler, gdb/ddd debugger: <code class="language-plaintext highlighter-rouge">objdump -d ss</code>
+        <ul>
+          <li>disassembled object file is text and binary</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Instruction Set Architecture (ISA)</li>
+  <li>Computer executes it.
+    <ul>
+      <li>CPU</li>
+      <li>Memory</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="todays-menu">Today’s Menu</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmov*</li>
+  <li>Loops</li>
+  <li>Function call – Stack</li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+<h2 id="programming-in-c-versus-in-x86-64-assembly-language">Programming in C versus in x86-64 assembly language</h2>
+
+<p>When programming in C, we can …</p>
+
+<ul>
+  <li>Store/retrieve data into/from memory, i.e. variables</li>
+  <li>Perform calculations on data
+    <ul>
+      <li>e.g., arithmetic, logic, shift</li>
+    </ul>
+  </li>
+  <li>Transfer control: decide what part of the program to execute
+next based on some condition
+    <ul>
+      <li>e.g., if-else, loop, function call</li>
+    </ul>
+  </li>
+</ul>
+
+<p>When programming in assembly language, we can do the
+same things, however …</p>
+
+<h2 id="programming-in-x86-64-assembly">Programming in x86-64 assembly</h2>
+
+<ul>
+  <li>… with assembly language (and machine code), parts of
+the microprocessor state are visible to assembly
+programmers that normally are hidden from C programmers</li>
+  <li>As assembly programmers, we now have access to …</li>
+</ul>
+
+<h3 id="testing-a-diagram-idea">Testing a diagram idea</h3>
+
+<p>Done with MathML:</p>
+
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>CPU</mtext><mo>=</mo><mo stretchy="false">[</mo><mtext>Registers</mtext><mo separator="true">,</mo><mtext>Condition Codes</mtext><mo separator="true">,</mo><mtext>PC</mtext><mo stretchy="false">]</mo><mspace linebreak="newline"></mspace><mtext>CPU</mtext><mover><mo stretchy="true">↔</mo><mpadded width="+0.6em" lspace="0.3em"><mrow><mi>D</mi><mi>a</mi><mi>t</mi><mi>a</mi></mrow></mpadded></mover><mrow></mrow><mtext>Memory</mtext><mspace linebreak="newline"></mspace><mtext>CPU</mtext><mover><mo stretchy="true">→</mo><mpadded width="+0.6em" lspace="0.3em"><mrow><mi>A</mi><mi>d</mi><mi>d</mi><mi>r</mi><mi>e</mi><mi>s</mi><mi>s</mi><mi>e</mi><mi>s</mi></mrow></mpadded></mover><mrow></mrow><mtext>Memory</mtext><mspace linebreak="newline"></mspace><mtext>CPU</mtext><mover><mo stretchy="true">←</mo><mpadded width="+0.6em" lspace="0.3em"><mrow><mi>i</mi><mi>n</mi><mi>s</mi><mi>t</mi><mi>r</mi><mi>u</mi><mi>c</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi>s</mi></mrow></mpadded></mover><mrow></mrow><mtext>Memory</mtext></mrow><annotation encoding="application/x-tex">
+\text{CPU} = [\text{Registers}, \text{Condition Codes}, \text{PC}] \\
+\text{CPU} \xleftrightarrow{Data}{} \text{Memory} \\
+\text{CPU} \xrightarrow{Addresses}{} \text{Memory} \\
+\text{CPU} \xleftarrow{instructions}{} \text{Memory}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">CPU</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord text"><span class="mord">Registers</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord text"><span class="mord">Condition Codes</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord text"><span class="mord">PC</span></span><span class="mclose">]</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1.1113309999999998em;vertical-align:-0.010999999999999899em;"></span><span class="mord text"><span class="mord">CPU</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel x-arrow"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.100331em;"><span style="top:-3.322em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight x-arrow-pad"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">a</span></span></span></span><span class="svg-align" style="top:-2.689em;"><span class="pstrut" style="height:2.7em;"></span><span class="stretchy" style="height:0.522em;min-width:1.75em;"><span class="halfarrow-left" style="height:0.522em;"><svg width="400em" height="0.522em" viewBox="0 0 400000 522" preserveAspectRatio="xMinYMin slice"><path d="M400000 241H110l3-3c68.7-52.7 113.7-120  135-202 4-14.7 6-23 6-25 0-7.3-7-11-21-11-8 0-13.2.8-15.5 2.5-2.3 1.7-4.2 5.8 -5.5 12.5-1.3 4.7-2.7 10.3-4 17-12 48.7-34.8 92-68.5 130S65.3 228.3 18 247 c-10 4-16 7.7-18 11 0 8.7 6 14.3 18 17 47.3 18.7 87.8 47 121.5 85S196 441.3 208  490c.7 2 1.3 5 2 9s1.2 6.7 1.5 8c.3 1.3 1 3.3 2 6s2.2 4.5 3.5 5.5c1.3 1 3.3  1.8 6 2.5s6 1 10 1c14 0 21-3.7 21-11 0-2-2-10.3-6-25-20-79.3-65-146.7-135-202  l-3-3h399890zM100 241v40h399900v-40z"></path></svg></span><span class="halfarrow-right" style="height:0.522em;"><svg width="400em" height="0.522em" viewBox="0 0 400000 522" preserveAspectRatio="xMaxYMin slice"><path d="M0 241v40h399891c-47.3 35.3-84 78-110 128 -16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20  11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7  39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85 -40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5 -12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67  151.7 139 205zm0 0v40h399900v-40z"></path></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.010999999999999899em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"></span><span class="mord text"><span class="mord">Memory</span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1.119108em;vertical-align:-0.01100000000000012em;"></span><span class="mord text"><span class="mord">CPU</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel x-arrow"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1081079999999999em;"><span style="top:-3.322em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight x-arrow-pad"><span class="mord mtight"><span class="mord mathdefault mtight">A</span><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">s</span></span></span></span><span class="svg-align" style="top:-2.689em;"><span class="pstrut" style="height:2.7em;"></span><span class="hide-tail" style="height:0.522em;min-width:1.469em;"><svg width="400em" height="0.522em" viewBox="0 0 400000 522" preserveAspectRatio="xMaxYMin slice"><path d="M0 241v40h399891c-47.3 35.3-84 78-110 128 -16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20  11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7  39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85 -40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5 -12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67  151.7 139 205zm0 0v40h399900v-40z"></path></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.01100000000000012em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"></span><span class="mord text"><span class="mord">Memory</span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1.0946639999999999em;vertical-align:-0.010999999999999899em;"></span><span class="mord text"><span class="mord">CPU</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel x-arrow"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.083664em;"><span style="top:-3.322em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight x-arrow-pad"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">u</span><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight">s</span></span></span></span><span class="svg-align" style="top:-2.689em;"><span class="pstrut" style="height:2.7em;"></span><span class="hide-tail" style="height:0.522em;min-width:1.469em;"><svg width="400em" height="0.522em" viewBox="0 0 400000 522" preserveAspectRatio="xMinYMin slice"><path d="M400000 241H110l3-3c68.7-52.7 113.7-120  135-202 4-14.7 6-23 6-25 0-7.3-7-11-21-11-8 0-13.2.8-15.5 2.5-2.3 1.7-4.2 5.8 -5.5 12.5-1.3 4.7-2.7 10.3-4 17-12 48.7-34.8 92-68.5 130S65.3 228.3 18 247 c-10 4-16 7.7-18 11 0 8.7 6 14.3 18 17 47.3 18.7 87.8 47 121.5 85S196 441.3 208  490c.7 2 1.3 5 2 9s1.2 6.7 1.5 8c.3 1.3 1 3.3 2 6s2.2 4.5 3.5 5.5c1.3 1 3.3  1.8 6 2.5s6 1 10 1c14 0 21-3.7 21-11 0-2-2-10.3-6-25-20-79.3-65-146.7-135-202  l-3-3h399890zM100 241v40h399900v-40z"></path></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.010999999999999899em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"></span><span class="mord text"><span class="mord">Memory</span></span></span></span></span></span></p>
+
+<p>Description: CPU contains registers, condition codes and PC.
+CPU has a right arrow pointing to memory labled “addresses”.
+Memory has a left arrow pointing to CPU labled “instructions”.
+CPU and Memory have a two sides arrow pointing to eachother with the label “data”.</p>
+
+<h2 id="hum--why-are-we-learning-assembly-language">Hum … Why are we learning assembly language?</h2>
+
+<p>(empty slide outside of title)</p>
+
+<h2 id="x86-64-assembly-language---data">x86-64 Assembly Language - Data</h2>
+
+<ul>
+  <li>Integral numbers not stored in variables but in registers
+    <ul>
+      <li>Distinction between different integer size: 1, 2, 4 and 8 bytes</li>
+    </ul>
+  </li>
+  <li>Addresses not stored in pointer variables but in registers
+    <ul>
+      <li>Size: 8 bytes</li>
+      <li>Treated as integral numbers</li>
+    </ul>
+  </li>
+  <li>Floating point numbers stored in different registers than integral values
+    <ul>
+      <li>Distinction between different floating point numbers: 4 and 8 bytes</li>
+    </ul>
+  </li>
+  <li>No aggregate types such as arrays or structures</li>
+</ul>
+
+<h2 id="x86-64-assembly-language--data">x86-64 Assembly Language – Data</h2>
+
+<p>Integer Registers</p>
+
+<ul>
+  <li>Storage locations in CPU -&gt; fastest storage</li>
+  <li>16 registers are used explicitly – must name them in assembly code (annotation: <code class="language-plaintext highlighter-rouge">%eax</code>)</li>
+  <li>Some registers are used implicitly
+    <ul>
+      <li>e.g., PC, FLAGS</li>
+    </ul>
+  </li>
+  <li>Each register is 64 bits in size, but we can refer to its:
+    <ul>
+      <li>first byte LSB (8 bits),</li>
+      <li>first 2 bytes (16 bits),</li>
+      <li>first 4 bytes (32 bits),</li>
+      <li>or to all of its 8 bytes (64 bits)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Integer Registers table (note, the blank first column of the “8-bit” column is intentional):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>64-bit (quad)</th>
+      <th>32-bit (double)</th>
+      <th>16-bit (word)</th>
+      <th>8-bit (byte)</th>
+      <th>8-bit (byte)</th>
+      <th>Transcriber’s Note</th>
+    </tr>
+    <tr>
+      <th>63..0</th>
+      <th>31..0</th>
+      <th>15..0</th>
+      <th> </th>
+      <th>7..0</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>rax</td>
+      <td>eax</td>
+      <td>ax</td>
+      <td> </td>
+      <td>al</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>rbx</td>
+      <td>ebx</td>
+      <td>bx</td>
+      <td> </td>
+      <td>bl</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>rcx</td>
+      <td>ecx</td>
+      <td>cx</td>
+      <td> </td>
+      <td>cl</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>rdx</td>
+      <td>edx</td>
+      <td>dx</td>
+      <td> </td>
+      <td>dl</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>rsi</td>
+      <td>esi</td>
+      <td>si</td>
+      <td> </td>
+      <td>sil</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>rdi</td>
+      <td>edi</td>
+      <td>di</td>
+      <td> </td>
+      <td>dil</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>rbp</td>
+      <td>ebp</td>
+      <td>bp</td>
+      <td> </td>
+      <td>bpl</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>rsp</td>
+      <td>esp</td>
+      <td>sp</td>
+      <td> </td>
+      <td>spl</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>All cells above are pink and all cells below are yellow. I don’t know why.</td>
+    </tr>
+    <tr>
+      <td>r8</td>
+      <td>r8d</td>
+      <td>r8w</td>
+      <td> </td>
+      <td>r8b</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>r9</td>
+      <td>r9d</td>
+      <td>r9w</td>
+      <td> </td>
+      <td>r9b</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>r10</td>
+      <td>r10d</td>
+      <td>r10w</td>
+      <td> </td>
+      <td>r10b</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>r11</td>
+      <td>r11d</td>
+      <td>r11w</td>
+      <td> </td>
+      <td>r11b</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>r12</td>
+      <td>r12d</td>
+      <td>r12w</td>
+      <td> </td>
+      <td>r12b</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>r13</td>
+      <td>r13d</td>
+      <td>r13w</td>
+      <td> </td>
+      <td>r13b</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>r14</td>
+      <td>r14d</td>
+      <td>r14w</td>
+      <td> </td>
+      <td>r14b</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>r15</td>
+      <td>r15d</td>
+      <td>r15w</td>
+      <td> </td>
+      <td>r15b</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="about-these-integer-registers">About these integer registers!</h2>
+
+<p>Transcriber’s note: 6 slides are compressed into this transcription.</p>
+
+<ul>
+  <li>MSb 63..LSb 0 (<code class="language-plaintext highlighter-rouge">%al</code>, <code class="language-plaintext highlighter-rouge">%dil</code>, <code class="language-plaintext highlighter-rouge">%rl2b</code>)</li>
+  <li>31..LSb 0 (<code class="language-plaintext highlighter-rouge">%ax</code>, <code class="language-plaintext highlighter-rouge">%di</code>, <code class="language-plaintext highlighter-rouge">%rl2w</code>)</li>
+  <li>15..LSb 0 (<code class="language-plaintext highlighter-rouge">%eax</code>, <code class="language-plaintext highlighter-rouge">%edi</code>, <code class="language-plaintext highlighter-rouge">%rl2d</code>)</li>
+  <li>7..LSb 0 (<code class="language-plaintext highlighter-rouge">%rax</code>, <code class="language-plaintext highlighter-rouge">%rdi</code>, <code class="language-plaintext highlighter-rouge">%rl2</code>)</li>
+</ul>
+
+<p>If I want 8 bits worth of data, then I can use register names such as <code class="language-plaintext highlighter-rouge">%al</code> or <code class="language-plaintext highlighter-rouge">%dil</code> or <code class="language-plaintext highlighter-rouge">%r12b</code></p>
+
+<p>If I want 16 bits worth of data, then I can use register names such as <code class="language-plaintext highlighter-rouge">%ax</code> or <code class="language-plaintext highlighter-rouge">%di</code> or <code class="language-plaintext highlighter-rouge">%r12w</code></p>
+
+<p>If I want 32 bits worth of data, then I can use register names such as <code class="language-plaintext highlighter-rouge">%eax</code> or <code class="language-plaintext highlighter-rouge">%edi</code> or <code class="language-plaintext highlighter-rouge">%r12d</code></p>
+
+<p>If I want 64 bits worth of data, then I can use register names such as <code class="language-plaintext highlighter-rouge">%rax</code> or <code class="language-plaintext highlighter-rouge">%rdi</code> or <code class="language-plaintext highlighter-rouge">%r12</code></p>
+
+<h2 id="remember-that-for-all-16-registers-">Remember that for all 16 registers …</h2>
+
+<p>Let’s use the
+register associated
+with the names
+%rax, %eax, %ax
+and %al
+as an example:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">%rax</code>, <code class="language-plaintext highlighter-rouge">%eax</code>, <code class="language-plaintext highlighter-rouge">%ax</code> and %al all refer to the same register</li>
+  <li>However…
+    <ul>
+      <li>Each refer to a different section of this register</li>
+      <li><code class="language-plaintext highlighter-rouge">%rax</code> refers to all 64 bits of this register</li>
+      <li><code class="language-plaintext highlighter-rouge">%eax</code> refers to only 32 bits of this register
+        <ul>
+          <li>the LS 32 bits of it -&gt; bit 0 to bit 31</li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">%ax</code> refers to only 16 bits of this register
+        <ul>
+          <li>the LS 16 bits of it -&gt; bit 0 to bit 15</li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">%al</code> refers to only 8 bits of this register
+        <ul>
+          <li>the LS 8 bits of it -&gt; bit 0 to bit 7</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="x86-64-assembly-language---instructions">x86-64 Assembly Language - Instructions</h2>
+
+<ul>
+  <li>“2 operand” assembly language</li>
+  <li>x86-64 functionally complete -&gt; i.e., it is “Turing complete”. There are 3 classes of instructions.
+    <ol>
+      <li>Memory reference =&gt; Data transfer instructions—Transfer data between memory and registers
+        <ul>
+          <li>Load data from memory into register</li>
+          <li>Store register data into memory</li>
+          <li>Move data from one register to another</li>
+        </ul>
+      </li>
+      <li>Arithmetic and logical =&gt; Data manipulation instructions—Perform calculations on register data
+        <ul>
+          <li>e.g., arithmetic, logic, shift</li>
+        </ul>
+      </li>
+      <li>Branch and jump =&gt; Program control instructions—Transfer control
+        <ul>
+          <li>Unconditional jumps to/from functions</li>
+          <li>Unconditional/conditional branches</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="move-data--mov">Move data – mov*</h2>
+
+<p>Size designators:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">...q</code> for long/64-bit</li>
+  <li><code class="language-plaintext highlighter-rouge">...l</code> for int/32-bit</li>
+  <li><code class="language-plaintext highlighter-rouge">...w</code> for short/16-bit</li>
+  <li><code class="language-plaintext highlighter-rouge">...b</code> for char/8-bit</li>
+</ul>
+
+<p>Annotation: Homework: <code class="language-plaintext highlighter-rouge">movl $0xFF4150AC, %eax</code> (both <code class="language-plaintext highlighter-rouge">$0x...</code> and <code class="language-plaintext highlighter-rouge">%eax</code> are 32 bits, notice the size designation: <code class="language-plaintext highlighter-rouge">l</code>)</p>
+
+<ol>
+  <li>Memory reference =&gt; Data transfer instructions</li>
+</ol>
+
+<ul>
+  <li>Transfer data between memory and registers</li>
+  <li>Syntax: <code class="language-plaintext highlighter-rouge">mov* Source, Destination</code>
+    <ul>
+      <li>Diagram: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>movq Source</mtext><mo>→</mo><mtext>Destination</mtext></mrow><annotation encoding="application/x-tex">\text{movq}\space\text{Source}\rightarrow\text{Destination}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">movq</span></span><span class="mspace"> </span><span class="mord text"><span class="mord">Source</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">Destination</span></span></span></span></span></li>
+    </ul>
+  </li>
+  <li>Example: <code class="language-plaintext highlighter-rouge">movq %rdi, %rax</code>
+    <ul>
+      <li>Diagram: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>movq %rdi</mtext><mo>→</mo><mtext>%rax</mtext></mrow><annotation encoding="application/x-tex">\text{movq}\space\text{\%rdi}\rightarrow\text{\%rax}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.94444em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">movq</span></span><span class="mspace"> </span><span class="mord text"><span class="mord">%rdi</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord text"><span class="mord">%rax</span></span></span></span></span></li>
+    </ul>
+  </li>
+  <li>Allowed moves:
+    <ul>
+      <li>From register to register (Move)</li>
+      <li>From memory to register (Load)</li>
+      <li>From register to memory (Store)</li>
+    </ul>
+  </li>
+  <li>Conditional move (cmov*)
+    <ul>
+      <li>Same as above, but based on result of comparison</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="demo--swap-function">Demo – Swap Function</h2>
+
+<ul>
+  <li>Problem: Let’s swap the contents of two variables</li>
+  <li>For now, we need to know that
+    <ul>
+      <li>Argument 1 of function swap(…) -&gt; saved in <code class="language-plaintext highlighter-rouge">%rdi</code></li>
+      <li>Argument 2 of function swap(…) -&gt; saved in <code class="language-plaintext highlighter-rouge">%rsi</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="demo--swap-function-1">Demo – Swap Function</h2>
+
+<p>C code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void swap(long *xp, long *yp)
+{
+  long L1 = *xp;
+  long L2 = *yp;
+  *xp = L2;
+  *yp = L1;
+  return;
+}
+</code></pre></div></div>
+
+<p>Annotation: Because <code class="language-plaintext highlighter-rouge">xp</code> and <code class="language-plaintext highlighter-rouge">yp</code> contain an address of 64-bits, <code class="language-plaintext highlighter-rouge">%rdi</code> &amp; <code class="language-plaintext highlighter-rouge">%rsi</code> are used to hold the value of <code class="language-plaintext highlighter-rouge">xp</code> and <code class="language-plaintext highlighter-rouge">yp</code>, respectively.</p>
+
+<p>Assembly code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wrap: # xp -&gt; %rdi, yp -&gt; %rsi
+  movq    (%rdi), %rax # L1 = *xp; parenthasies indicate "indirect"
+  movq    (%rsi), %rdx # L2 = *yp
+  movq    %rdx, (%rdi) # *xp = L2
+  movq    %rax, (%rsa) # *yp = L1
+  ret
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%rdi</td>
+      <td>0x0020</td>
+    </tr>
+    <tr>
+      <td>%rsi</td>
+      <td>0x0000</td>
+    </tr>
+    <tr>
+      <td>%rax</td>
+      <td>123</td>
+    </tr>
+    <tr>
+      <td>%rdx</td>
+      <td>456</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Remember this is a compressed view of memory.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0x0020</td>
+      <td>(deleted)123 (annotation, inserted)456</td>
+    </tr>
+    <tr>
+      <td>0x0018</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0010</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0008</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0000</td>
+      <td>(deleted)456 (annotation, inserted)123</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operand-combinations-for-mov">Operand Combinations for mov*</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Dest</th>
+      <th>Assembly (instruction (space) source, dest)</th>
+      <th>in C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Immediate</td>
+      <td>Register</td>
+      <td><code class="language-plaintext highlighter-rouge">movq $0x4,%rax</code></td>
+      <td><code class="language-plaintext highlighter-rouge">result=0x4;</code></td>
+    </tr>
+    <tr>
+      <td>Immediate</td>
+      <td>Memory</td>
+      <td><code class="language-plaintext highlighter-rouge">movq $-147,(%rax)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">*result=-147;</code></td>
+    </tr>
+    <tr>
+      <td>Register</td>
+      <td>Register</td>
+      <td><code class="language-plaintext highlighter-rouge">movq %rax,%rdx</code></td>
+      <td><code class="language-plaintext highlighter-rouge">var=result;</code></td>
+    </tr>
+    <tr>
+      <td>Register</td>
+      <td>Memory</td>
+      <td><code class="language-plaintext highlighter-rouge">movq %rax,(%rdx)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">*var1=result;</code></td>
+    </tr>
+    <tr>
+      <td>Memory</td>
+      <td>Register</td>
+      <td><code class="language-plaintext highlighter-rouge">movq (%rax),%rdx</code></td>
+      <td><code class="language-plaintext highlighter-rouge">var1=*result;</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Cannot do memory-memory transfer with a single mov* instruction</p>
+
+<h2 id="homework-2">Homework 2</h2>
+
+<ul>
+  <li>Since we cannot do memory-memory transfer with a single mov* instruction …
+    <ul>
+      <li>Can you write a little x86-64 assembly program that transfers
+data stored at address <code class="language-plaintext highlighter-rouge">0x0000</code> to address <code class="language-plaintext highlighter-rouge">0x0018</code>?</li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Registers</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%rdi</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rsi</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rax</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>%rdx</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0x0020</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0018</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0010</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0008</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x0000</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>As x86-64 assembly s/w dev., we now get to see more of the microprocessor
+(CPU) state: PC, registers, condition codes</li>
+  <li>x86-64 assembly language – Data
+    <ul>
+      <li>16 integer registers of 1, 2, 4 or 8 bytes + memory address of 8 bytes</li>
+      <li>Floating point registers of 4 or 8 bytes</li>
+      <li>No aggregate types such as arrays or structures</li>
+    </ul>
+  </li>
+  <li>x86-64 assembly language – Instructions
+    <ul>
+      <li>mov* instruction family
+        <ul>
+          <li>From register to register</li>
+          <li>From memory to register</li>
+          <li>From register to memory</li>
+        </ul>
+      </li>
+      <li>Memory addressing modes</li>
+      <li>Cannot do memory-memory transfer with a single mov* instruction</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="next-lecture">Next Lecture</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>(selected) Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmov*</li>
+  <li>Loops</li>
+  <li>Function call – Stack</li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

@@ -2,6 +2,7 @@ plugins:
   - jekyll-katex
   - jekyll-minifier
   - kramdown-math-katex
+  - jekyll-katex
 
 highlihger: rouge
 

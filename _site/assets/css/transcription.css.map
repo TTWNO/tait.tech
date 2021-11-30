@@ -1,0 +1,14 @@
+{
+	"version": 3,
+	"file": "transcription.css",
+	"sources": [
+		"transcription.scss",
+		"_sass/transcription.scss"
+	],
+	"sourcesContent": [
+		"@import \"transcription\"\n",
+		"table {\n  table-layout: fixed;\n}\n"
+	],
+	"names": [],
+	"mappings": "ACAA,AAAA,KAAK,CAAC,EACJ,YAAY,EAAE,KAAK,GACpB"
+}

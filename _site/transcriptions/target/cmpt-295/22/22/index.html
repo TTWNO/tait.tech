@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-css">
+  <link rel="stylesheet" href="/assets/css/transcription.css" id="trans-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/js/"></script>
+  
+  <link rel="stylesheet" href="/assets/css/katex.css" id="math-css">
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295---unit---machine-level-programming">CMPT 295 - Unit - Machine-Level Programming</h1>
+
+<p>Lecture 22:</p>
+
+<ul>
+  <li>Buffer Overflow + Floating-point data &amp; operations</li>
+</ul>
+
+<h2 id="last-lecture">Last lecture</h2>
+
+<ul>
+  <li>Manipulation of 2D arrays – in x86-64
+    <ul>
+      <li>From x86-64’s perspective, a 2D array is a contiguously
+allocated region of R * C * L bytes in memory where
+L = sizeof( T ) and T -&gt; data type of elements stored
+in array</li>
+      <li>2D Array layout in memory: Row-Major ordering</li>
+      <li>Memory address of each row A[i]: A + (i * C * L)</li>
+      <li>Memory address of each element A[i][j]: A + (i * C * L) + (j * L) =&gt; A + (i * C + j) * L</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="todays-menu">Today’s Menu</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX</li>
+  <li>Loops</li>
+  <li>Function call – Stack
+    <ul>
+      <li>Overview of Function Call</li>
+      <li>Memory Layout and Stack - x86-64 instructions and registers</li>
+      <li>Passing control</li>
+      <li>Passing data – Calling Conventions</li>
+      <li>Managing local data</li>
+      <li>Recursion</li>
+    </ul>
+  </li>
+  <li>Array</li>
+  <li>(highlighted) Buffer Overflow</li>
+  <li>(highlighted) Floating-point data &amp; operations</li>
+</ul>
+
+<h2 id="buffer-overflow">Buffer Overflow</h2>
+
+<h2 id="c-and-stack--so-far">C and Stack … so far</h2>
+
+<ul>
+  <li>C does not perform any bound checks on arrays</li>
+  <li>stored on the stack
+    <ul>
+      <li>Local variables in C programs</li>
+      <li>Callee and caller saved registers</li>
+      <li>Return addresses</li>
+    </ul>
+  </li>
+  <li>As we saw in Lab 2 and Lab 4, this may lead to trouble</li>
+</ul>
+
+<h2 id="what-kind-of-trouble---buffer-overflow-overrun">What kind of trouble? -&gt; buffer overflow (overrun)</h2>
+
+<ul>
+  <li>If function does not perform bound-check when writing to a local array …
+    <ul>
+      <li>Here is a an example of a bound-check: <code class="language-plaintext highlighter-rouge">if input size &lt;= array size
+write input into array</code> … then it may write more data that the allocated
+space (to array) can hold, hence overflowing the array -&gt; buffer overflow</li>
+    </ul>
+  </li>
+  <li>Effect: the function may end up writing over, i.e., %rsp corrupting, data kept on the stack such as:
+    <ul>
+      <li>Value of local variables and registers</li>
+      <li>Return address</li>
+    </ul>
+  </li>
+  <li>Stack smashing</li>
+</ul>
+
+<table>
+  <thead>
+    <th>M[]<br />Stack</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>...</td>
+    </tr>
+    <tr>
+      <td>return address</td>
+    </tr>
+    <tr>
+      <td>Unused stack space</td>
+    </tr>
+    <tr>
+      <td>local var</td>
+    </tr>
+    <tr>
+      <td>buf[ ]</td>
+    </tr>
+    <tr>
+      <td>%rsp -&gt; Top</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="demo-the-trouble---buffer-overflow">Demo the trouble -&gt; buffer overflow</h2>
+
+<p>(Transcriber’s note: no content on slide)</p>
+
+<h2 id="why-is-buffer-overflow-a-problem">Why is buffer overflow a problem</h2>
+
+<ul>
+  <li>Corrupted data</li>
+  <li>Corrupted return address
+    <ul>
+      <li>Which may lead to segmentation fault
+        <ul>
+          <li>How?</li>
+        </ul>
+      </li>
+      <li>Which also makes a system vulnerable to attacks
+        <ul>
+          <li>How?</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="code-injection-attack">Code injection attack</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void func1(){
+  func2();
+  // C statement
+     at return
+     address A
+  ...
+}
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int func2() {
+  char buf[64];
+  gets(buf);
+  ...
+  return ...;
+}
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>M[] Stack</th>
+      <th>Stack Frame/Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>…</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>func1 stack frame</td>
+    </tr>
+    <tr>
+      <td>return address</td>
+      <td>func1 stack frame</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>func2 stack frame</td>
+    </tr>
+    <tr>
+      <td>buf[64]</td>
+      <td>func2 stack frame</td>
+    </tr>
+    <tr>
+      <td>same buf[64] section labled B</td>
+      <td>func2 stack frame</td>
+    </tr>
+    <tr>
+      <td>same buf[64]</td>
+      <td>func2 stack frame</td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td>top</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>An “attacker” could overflow the
+buffer … array of char’s
+    <ul>
+      <li>… by inputting a string that contains byte representation of malicious executable code (exploit code) instead of legitimate characters</li>
+      <li>The string is written to array buf on stack and overwrites return address A with a return address that points to exploit code</li>
+      <li>When func2 executes ret instruction, it pops this erroneous return address onto PC (%rip) and jumps to exploit code</li>
+      <li>Microprocessor starts executing the exploit code at this location</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="how-to-protection-against-such-attack">How to protection against such attack</h2>
+
+<ol>
+  <li>Avoid creating overflow vulnerabilities in the code that we write by always checking bounds
+    <ul>
+      <li>For example, by calling library functions that limit string lengths</li>
+    </ul>
+    <ul>
+      <li>“Unsafe” : gets(), strcpy(), strcat(), sprintf(), …
+        <ul>
+          <li>These functions can generate a byte sequence without being given any indication of the size of the destination buffer (see next slide)
+    * “Safe”: fgets()</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="from-our-lab-4">From our Lab 4</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void proc1(char *s, int *a, int *b) {
+  int y;
+  int t;
+
+  t = *a;
+  v = proc2(*a, *b);
+
+  sprintf(s, "The result of proc2(%d,%d) is %d.", *a, *b, v);
+
+  *a = *b - 2;
+  *b = t;
+
+  return;
+</code></pre></div></div>
+
+<h2 id="suggestion-from-developerapplecom">Suggestion from developer.apple.com</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char destination[5];
+char * source = “LARGER”;
+</code></pre></div></div>
+
+<ol>
+  <li>`strcpy(destination, source);
+    <ul>
+      <li>
+        <table>
+          <thead>
+            <tr>
+              <th>Color</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>White</td>
+              <td>L</td>
+            </tr>
+            <tr>
+              <td>White</td>
+              <td>A</td>
+            </tr>
+            <tr>
+              <td>White</td>
+              <td>R</td>
+            </tr>
+            <tr>
+              <td>White</td>
+              <td>G</td>
+            </tr>
+            <tr>
+              <td>White</td>
+              <td>E</td>
+            </tr>
+            <tr>
+              <td>Brown</td>
+              <td>R</td>
+            </tr>
+            <tr>
+              <td>Brown</td>
+              <td>\0</td>
+            </tr>
+            <tr>
+              <td>Brown</td>
+              <td> </td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>Copies the string pointed
+to by source (including
+the null character) to the
+destination and returns it.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">strncpy(destination, source, sizeof(destination))</code>
+    <ul>
+      <li>
+        <table>
+          <thead>
+            <tr>
+              <th>Color</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>White</td>
+              <td>L</td>
+            </tr>
+            <tr>
+              <td>White</td>
+              <td>A</td>
+            </tr>
+            <tr>
+              <td>White</td>
+              <td>R</td>
+            </tr>
+            <tr>
+              <td>White</td>
+              <td>G</td>
+            </tr>
+            <tr>
+              <td>White</td>
+              <td>E</td>
+            </tr>
+            <tr>
+              <td>Brown</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>Brown</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>Brown</td>
+              <td> </td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>Copies up to
+sizeof(destination) -&gt; n
+characters from the
+string pointed to by
+source to destination. In
+a case where the length
+of source is less than n,
+the remainder of
+destination will be
+padded with null bytes.
+In a case where the
+length of source is
+greater than n, the
+destination will contain
+a truncated version of
+source.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">strlcpy(destination, source, sizeof(destination))</code>
+    <ul>
+      <li>
+        <table>
+          <thead>
+            <tr>
+              <th>Color</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>White</td>
+              <td>L</td>
+            </tr>
+            <tr>
+              <td>White</td>
+              <td>A</td>
+            </tr>
+            <tr>
+              <td>White</td>
+              <td>R</td>
+            </tr>
+            <tr>
+              <td>White</td>
+              <td>G</td>
+            </tr>
+            <tr>
+              <td>White</td>
+              <td>\0</td>
+            </tr>
+            <tr>
+              <td>Brown</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>Brown</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>Brown</td>
+              <td> </td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>Copies up to
+sizeof(destination) - 1
+-&gt; n - 1 characters
+from null-terminated
+source to destination,
+it then “null” terminates
+destination and returns
+the length of source.</li>
+    </ul>
+  </li>
+</ol>
+
+<p><a href="https://linux.die.net/man/3/strlcpy">https://linux.die.net/man/3/strlcpy</a></p>
+
+<h2 id="how-to-protection-against-such-attack-1">How to protection against such attack</h2>
+
+<p>2) Employ system-level protections -&gt; Randomized stack offsets</p>
+
+<ul>
+  <li>At start of program, system allocates
+random amount of space on stack</li>
+  <li>Effect: Shifts stack addresses (%rsp) for
+entire program
+    <ul>
+      <li>Shifts the memory address of all the stack
+frames allocated to program’s functions
+when they are called</li>
+    </ul>
+  </li>
+  <li>Hence, makes it difficult for hackers to
+predict start of each stack frame (hence
+where exploit code may have been
+inserted) since stack is repositioned each
+time program executes</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>M[]</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>(crossed off) %rsp</td>
+    </tr>
+    <tr>
+      <td>brown shaded box, no value</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>top</td>
+      <td>%rsp</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="how-to-protection-against-such-attack-2">How to protection against such attack</h2>
+
+<p>2) Employ system-level protections -&gt; Non-executable code segments</p>
+
+<ul>
+  <li>In the old days of x86, memory
+segments marked as either read-only
+or writeable (both implied readable)
+=&gt; 2 types of permissions
+    <ul>
+      <li>Could execute anything readable</li>
+    </ul>
+  </li>
+  <li>x86-64 has added an explicit
+executable permission</li>
+  <li>Stack segment now marked as nonexecutable
+M[] Stack|Note
+—|—
+…|
+|func1 stack frame
+“return address A” (crossed out) B|func1 stack frame
+padding (crossed out)|func2 stack frame
+exploit code|func2 stack frame
+B|func2 stack framme
+Top|%rsp</li>
+</ul>
+
+<p>Any attempt to execute the bottom “B” set of code, will fail.</p>
+
+<h2 id="how-to-protection-against-such-attack-3">How to protection against such attack</h2>
+
+<p>3) Compiler (like gcc) uses a stack canary value</p>
+
+<ul>
+  <li>History: Starting early 1900’s,
+canaries used in the coal mines to
+detect gas leaks</li>
+  <li>Push a randomized canary value
+between an array and return
+address on stack (remember our
+Lab 4)</li>
+  <li>Before executing a ret instruction,
+canary value is checked to see if it
+has been corrupted
+    <ul>
+      <li>If so, failure reported</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main: # main.c from our Lab 4
+  endbr64
+  pushq %rbp
+  ...
+  subq $64, %rsp
+  movq %fs:40, %rax
+  movq %rax, 56(%rsp)
+  ...
+  leaq 16(%rsp), %rbp
+  ...
+  movq 56(%rsp), %rax
+  xorq %fs:40, %rax
+  jne .L5
+  addq $64, %rsp
+  popq %rbp
+  ret
+.L5:
+  call __stack_chk_fail@PLT
+</code></pre></div></div>
+
+<h2 id="how-to-protection-against-such-attack-4">How to protection against such attack</h2>
+
+<p>3) Newest version of our gcc compiler
+(version 8 and up) uses Control-Flow
+Enforcement Technology (CET) <a href="#sfo">From stackoverflow</a></p>
+
+<ul>
+  <li>Instruction endbr64 (End Branch 64 bit) -&gt; Terminate Indirect Branch in 64 bit</li>
+  <li>Microprocessor tracks indirect branching
+and ensures that all indirect calls lead to
+(legal) functions starting with endbr64
+    <ul>
+      <li>If function does -&gt; microprocessor infers
+that function is safe to execute</li>
+      <li>If function does not -&gt; microprocessor
+infers that control flow may have been
+manipulated by some exploit code, i.e.,
+function is unsafe to execute and aborts!</li>
+    </ul>
+  </li>
+</ul>
+
+<div id="sfo">Source: <a href="https://stackoverflow.com/questions/56905811/what-does-the-endbr64-instruction-actually-do">https://stackoverflow.com/questions/56905811/what-does-the-endbr64-instruction-actually-do</a></div>
+
+<h2 id="brief-overview-of-floating-point-data-and-operations">Brief overview of floating-point data and operations</h2>
+
+<p>(Transcriber’s node: no content on slide)</p>
+
+<h2 id="background">Background</h2>
+
+<ul>
+  <li>Once upon a time in the ’90’s …
+    <ul>
+      <li>Use of computer graphics and image processing (multimedia)
+applications were on the rise
+        <ul>
+          <li>Microprocessors (i.e., machine instruction sets) designed to
+support such applications</li>
+          <li>Idea: speed up microprocessors by executing single
+instruction on multiple data -&gt; SIMD</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Since then, microprocessors and their machine instruction sets
+have evolved …
+    <ul>
+      <li>SSE (Streaming SIMD Extensions)</li>
+      <li>AVX (Advanced Vector EXtensions) -&gt; textbook</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="xmm-registers">XMM Registers</h2>
+
+<p>x86-64 registers and instructions seen so far are referred to as integer registers and integer instructions
+Now we introduce a new set of registers for floating point numbers:</p>
+
+<ul>
+  <li>16 in total, each 16-byte wide (128 bits), named: %xmm0, %xmm1, …, %xmm15</li>
+  <li>Scalar mode:
+    <ul>
+      <li>1 single-precision float (32 bits). Diagram of memory showing <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>32</mn><mn>128</mn></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{32}{128} = \frac{1}{4}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">128</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">32</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> utilization</li>
+      <li>1 double-precision double (64 bits) 63. Diagram of memory showing <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>64</mn><mn>128</mn></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{64}{128} = \frac{1}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">128</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">64</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> utilization</li>
+    </ul>
+  </li>
+  <li>Vector mode (packed data)
+    <ul>
+      <li>16 single-byte integers</li>
+      <li>8 16-bit integers</li>
+      <li>4 32-bit integers</li>
+      <li>4 single-precision float’s</li>
+      <li>2 double-precision double’s</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="scalar-versus-vector-simd-instructions">Scalar versus Vector (SIMD) instructions</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assembly Instruction</th>
+      <th>Operation Type</th>
+      <th>Percision</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">addss %xmm0,%xmm1</code></td>
+      <td>scalar</td>
+      <td>single</td>
+      <td>Add single precision at the last 32 bits of <code class="language-plaintext highlighter-rouge">%xmm0</code> to the last 32 bit of <code class="language-plaintext highlighter-rouge">%xmm1</code>. Save in the last 32-bits of <code class="language-plaintext highlighter-rouge">%xmm1</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">addps %xmm0,%xmm1</code></td>
+      <td>SMID (packed)</td>
+      <td>single</td>
+      <td>Add 4 sets of single percision numbers. Each 32 bit section of <code class="language-plaintext highlighter-rouge">%xmm0</code> is added to each 32 bit section of <code class="language-plaintext highlighter-rouge">%xmm1</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">addsd %xmm0,%xmm1</code></td>
+      <td>scalar</td>
+      <td>double</td>
+      <td>Add two double-precision numbers. Add the last 64 bits of <code class="language-plaintext highlighter-rouge">%xmm0</code> to the last 64 bits of <code class="language-plaintext highlighter-rouge">%xmm1</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">addpd %xmm0,%xmm1</code></td>
+      <td>SMID (packed)</td>
+      <td>double</td>
+      <td>Add a pair of double-precision numbers. Add each 64 bit sections of <code class="language-plaintext highlighter-rouge">%xmm0</code> to each 64 bit section of <code class="language-plaintext highlighter-rouge">%xmm1</code>. Store results in <code class="language-plaintext highlighter-rouge">%xmm1</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="data-movement-instructions">Data movement instructions</h2>
+
+<p>Assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>float_mov:
+# --------# float float_mov(float f1,
+#
+float *src,
+#
+float *dst) {
+# float f2 = *src;
+# *dst = f1;
+# return f2;
+# }
+# --------# f1 in %xmm0, src in %rdi, dst in %rsi
+movss (%rdi), %xmm1 # f2 = *src
+movss %xmm0, (%rsi) # *dst = f1
+movaps %xmm1, %xmm0
+# return value = f2
+ret
+</code></pre></div></div>
+
+<ul>
+  <li>The instructions we shall look at in this
+lecture are different than the ones
+presented in section 3.11 of our
+textbook – we shall focus on the scalar
+version of these instructions</li>
+  <li>movss – move single precision
+    <ul>
+      <li>Mem (32 bits) &lt;–&gt; %xmm</li>
+    </ul>
+  </li>
+  <li>movsd – move double precision
+    <ul>
+      <li>Mem (64 bits) &lt;–&gt; %xmm</li>
+    </ul>
+  </li>
+  <li>First 2 instructions of program: Memory
+referencing operands (i.e., memory
+addressing mode operands) specified
+in the same way as for the integer mov*
+instructions</li>
+  <li>movaps/movapd – move %xmm &lt;–&gt; %xmm
+    <ul>
+      <li>ap -&gt; aligned packed</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="function-call-and-register-saving-conventions">Function call and register saving conventions</h2>
+
+<ul>
+  <li>Function call convention
+    <ul>
+      <li>Integer (and pointer i.e., memory address) arguments passed in
+integer registers</li>
+      <li>Floating point values passed in XMM registers</li>
+      <li>Argument 1 to argument 8 passed in %xmm0, %xmm1, …, %xmm7</li>
+      <li>Result returned in %xmm0</li>
+    </ul>
+  </li>
+  <li>Register saving convention
+    <ul>
+      <li>All XMM registers caller-saved</li>
+      <li>Can use register <code class="language-plaintext highlighter-rouge">%xmm8</code> to <code class="language-plaintext highlighter-rouge">%xmm15</code> for managing local data</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="data-conversion-instructions">Data conversion instructions</h2>
+
+<p>Converting between data types: (“t” is for “truncate”)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>from</th>
+      <th>int</th>
+      <th>float</th>
+      <th>long</th>
+      <th>double</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>int</th>
+      <td>N/A</td>
+      <td><code>cvtsi2ss</code></td>
+      <td>N/A</td>
+      <td><code>cvtsi2sd</code></td>
+    </tr>
+    <tr>
+      <th>float</th>
+      <td><code>cvttss2si</code></td>
+      <td>N/A</td>
+      <td><code>cvttss2siq</code></td>
+      <td><code>cvtss2sd</code></td>
+    </tr>
+    <tr>
+      <th>long</th>
+      <td>N/A</td>
+      <td><code>cvtsi2ssq</code></td>
+      <td>N/A</td>
+      <td><code>cvtsi2sdq</code></td>
+    </tr>
+    <tr>
+      <th>double</th>
+      <td><code>cvtsi2sd</code></td>
+      <td><code>cvtsd2ss</code></td>
+      <td><code>cvttsd2siq</code></td>
+      <td>N/A</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="data-manipulation-instructions">Data manipulation instructions</h2>
+
+<p>Arithmetic</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">addss</code>/<code class="language-plaintext highlighter-rouge">addsd</code> - floating point add</li>
+  <li><code class="language-plaintext highlighter-rouge">subss</code>/<code class="language-plaintext highlighter-rouge">subsd</code> - … subtract</li>
+  <li><code class="language-plaintext highlighter-rouge">mulss</code>/<code class="language-plaintext highlighter-rouge">mulsd</code> - … mul</li>
+  <li><code class="language-plaintext highlighter-rouge">divss</code>/<code class="language-plaintext highlighter-rouge">divsd</code> - … div</li>
+</ul>
+
+<p>Logical</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">andps</code>/<code class="language-plaintext highlighter-rouge">andpd</code></li>
+  <li><code class="language-plaintext highlighter-rouge">orps/d</code></li>
+  <li><code class="language-plaintext highlighter-rouge">xorps/d</code></li>
+  <li><code class="language-plaintext highlighter-rouge">xorpd %xmm0, %xmm0</code>: effect <code class="language-plaintext highlighter-rouge">%xmm0 &lt;- 0</code></li>
+</ul>
+
+<p>Comparison: <code class="language-plaintext highlighter-rouge">ucomiss/d</code></p>
+
+<ul>
+  <li>Affects only condition codes: <code class="language-plaintext highlighter-rouge">CF</code>, <code class="language-plaintext highlighter-rouge">ZF</code>
+    <ul>
+      <li>use unsigned branches</li>
+    </ul>
+  </li>
+  <li>If NaN, set all of condition codes:
+<code class="language-plaintext highlighter-rouge">CF</code>, <code class="language-plaintext highlighter-rouge">ZF</code> and <code class="language-plaintext highlighter-rouge">PF</code>
+    <ul>
+      <li>Use <code class="language-plaintext highlighter-rouge">jp</code>/<code class="language-plaintext highlighter-rouge">jnp</code> to branch on <code class="language-plaintext highlighter-rouge">PF</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Others</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">maxss</code>/<code class="language-plaintext highlighter-rouge">maxsd</code> - … max
+    <ul>
+      <li>For example: <code class="language-plaintext highlighter-rouge">maxss %xmm3, %xmm5</code>
+Effect: <code class="language-plaintext highlighter-rouge">xmm5 &lt;- max(xmm5, xmm3)</code></li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">minss</code>/<code class="language-plaintext highlighter-rouge">minsd</code> - … min</li>
+  <li><code class="language-plaintext highlighter-rouge">sqrtss</code>/<code class="language-plaintext highlighter-rouge">sqrtsd</code> - … square root</li>
+</ul>
+
+<h2 id="example">Example</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fadd:
+# --------
+# float fadd(float x, float y){
+#   return x + y;
+# }
+# --------
+# x in %xmm0, y in %xmm1
+  addss
+  %xmm1, %xmm0
+  ret
+
+dadd:
+# --------
+# double dadd(double x, double y){
+#   return x + y;
+# }
+# --------
+# x in %xmm0, y in %xmm1
+  addsd
+  %xmm1, %xmm0
+  ret
+</code></pre></div></div>
+
+<h2 id="storing-data-in-various-segments-of-memory---optional">Storing Data in Various Segments of Memory - Optional</h2>
+
+<p>(Transcriber’s note: no content on slide)</p>
+
+<h2 id="storing-data-in-memory">Storing Data in Memory</h2>
+
+<p>This material is optional –&gt; It is for your learning pleasure!</p>
+
+<p>We already
+know about
+data on stack
+and on heap.</p>
+
+<ul>
+  <li>Data on stack memory (on stack frame of function)
+    <ul>
+      <li>Temporarily use and recycle</li>
+      <li>Lasts through life of function call</li>
+    </ul>
+  </li>
+  <li>Data on heap
+    <ul>
+      <li>Temporarily use and recycle</li>
+      <li>Lasts until memory is “free’ed”</li>
+    </ul>
+  </li>
+  <li>Data in fixed memory, i.e., Data segment. What does this type of data look like?
+    <ul>
+      <li>Statically allocated data
+        <ul>
+          <li>e.g., global variables, static variables, string constants</li>
+        </ul>
+      </li>
+      <li>Lasts while program executes</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="data-stored-in-data-segment">Data stored in Data Segment</h2>
+
+<p>This material is optional –&gt; It is for your learning pleasure!</p>
+
+<ul>
+  <li>Declared using a label &amp; a directive for size
+    <ul>
+      <li>label is a memory address</li>
+      <li>size: .byte (1), .word (2), .long (4), .quad (8)</li>
+      <li>initial value</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="example-1">Example 1:</h3>
+
+<p>C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>long x = 6;
+long y = 9;
+void main {
+  ...
+}
+</code></pre></div></div>
+
+<p>x86-64:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x: .quad 6 # 0x0000000000000006
+y: .quad 9 # 0x0000000000000009
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>label</th>
+      <th colspan="8">Stack</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>y</td>
+      <td>09 (LSB; remember little endian)</td>
+      <td>00</td>
+      <td>00</td>
+      <td>00</td>
+      <td>00</td>
+      <td>00</td>
+      <td>00</td>
+      <td>00</td>
+    </tr>
+    <tr>
+      <td>x</td>
+      <td>06 (LSB)</td>
+      <td>00</td>
+      <td>00</td>
+      <td>00</td>
+      <td>00</td>
+      <td>00</td>
+      <td>00</td>
+      <td>00</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="data-stored-in-data-segment-1">Data stored in Data Segment</h2>
+
+<p>This material is optional
+–&gt; It is for your
+learning pleasure!</p>
+
+<p>C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define N 6
+
+int A[N] = {12,34,56,78,-90,1};
+
+void main(){
+  printf("The total is %d.\n", sum_arrau(A,N));
+  return;
+}
+</code></pre></div></div>
+
+<p>Assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main:
+.LFB38:
+  .cfi_startproc
+  subq $0,%rsp
+  .cfi_def_cfa_offset 16
+  movl $6,%esi
+  movl $A,%edi
+  call sum_array
+  movl %.LC0,%esi
+  movl %eax,%eax
+  movl $1,%edi
+  xorl %eax,%eax
+  addq $8,%rsp
+  .cfi_def_cfa_offset 8
+  jmp __printf_chk
+...
+A:
+  .long 12 # or .long 12,34,56,78,-90,1
+  .long 34
+  .long 56
+  .long 78
+  .long -90
+  .long 1
+  .ident "GCC: (Ubuntu 7.3.0-21ubuntu1-16.04) 7.3.0"
+  .section .note.GNU-stack,"",@progbits
+</code></pre></div></div>
+
+<h2 id="data-stored-on-stack--example-1">Data stored on Stack – Example 1</h2>
+
+<p>This material is optional –&gt; It is for your learning pleasure!</p>
+
+<p>C:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void main(int argc, char* argv){
+  int A[] = {12,34,56,78,-90,1}; // 12 and 34 are highlighted.
+  printf("The total is %d.\n", sum_array(A,N));
+  return;
+}
+</code></pre></div></div>
+
+<p>Assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main:
+.LFB38:
+  .cfi_startproc
+  subq $40,%rsp
+  .cfi_def_cfa_offset 48
+  movl $6,%esi
+  movq %fs:40,%rax
+  movq %rax,24(%rsp)
+  xorl %eax,%eax
+  movabsq $146028888076,%rax # highloghted
+  movq %rsp,%rdi
+  movq %rax,(%rsp)
+  movabsq $335007449144,%rax # highlighted
+  movq %rax,8(%rsp)
+  movabsq $8589934502,%rax # highlighted
+  movq %rax,16(%rsp)
+  call sum_array
+  movl $.LC0,%esi
+  movl %eax,%edx
+  movl $1,%edi
+  xorl %eax,%eax
+  call __printf_chk
+  movq 24(%rsp), %rax
+  xorq %fs:40,%rax
+  jne .L5
+  addq $40,%rsp
+  .cfi_remember_state
+  .cfi_def_cfa_offset 8
+  ret
+</code></pre></div></div>
+
+<p>How does this large # end up representing 12 and 34:</p>
+
+<ul>
+  <li>Express $146028888076 in binary</li>
+  <li>Transform binary to hex =&gt; 0x000000220000000c</li>
+  <li>Read hex’s LSB (32 bits) (0000000c) as a decimal
+=&gt; 12</li>
+  <li>Read hex’s MSB (32 bits) (00000022) as a decimal
+=&gt; 34</li>
+  <li>Repeat for other 2 operands of movabsq
+instructions</li>
+</ul>
+
+<h2 id="summary---1">Summary - 1</h2>
+
+<ul>
+  <li>What is a buffer overflow
+    <ul>
+      <li>When function writes more data in array than array can hold on stack</li>
+      <li>Effect: data kept on the stack (value of other local variables and registers,
+return address) may be corrupted
+-&gt; Stack smashing</li>
+    </ul>
+  </li>
+  <li>Why buffer overflow spells trouble -&gt; it creates vulnerability
+    <ul>
+      <li>Allowing hacker attacks</li>
+    </ul>
+  </li>
+  <li>How to protect system against such attacks
+    <ol>
+      <li>Avoid creating overflow vulnerabilities in the code that we write
+        <ul>
+          <li>By always checking bounds and calling “safe” library functions that
+consider size of array</li>
+        </ul>
+      </li>
+      <li>Employ system-level protections
+        <ul>
+          <li>Randomized initial stack pointer and non-executable code segments</li>
+        </ul>
+      </li>
+      <li>Use compiler (like gcc) security features:
+        <ul>
+          <li>Stack “canary” value and endbr64 instruction</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="summary---2">Summary - 2</h2>
+
+<ul>
+  <li>Floating point data and operations
+    <ul>
+      <li>Data held and manipulated in XMM registers</li>
+      <li>Assembly language instructions similar to integer
+assembly language instructions we have seen so far</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="next-lecture">Next Lecture</h2>
+
+<p>Start a new unit …</p>
+<ul>
+  <li>Instruction Set Architecture (ISA)</li>
+</ul>
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

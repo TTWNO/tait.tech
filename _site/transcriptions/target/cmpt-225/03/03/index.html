@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-css">
+  <link rel="stylesheet" href="/assets/css/transcription.css" id="trans-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/js/"></script>
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="memory--pointers-1">Memory &amp; Pointers 1</h1>
+
+<p>CMPT-225, Fall 2021</p>
+
+<h2 id="computer-memory">Computer Memory</h2>
+
+<ul>
+  <li>A sequence of locations</li>
+  <li>Indexed by address: 0,1,2,…</li>
+  <li>Each location stores a data <em>byte</em></li>
+  <li>Processor can <em>read</em> or <em>write</em> the byte at each address.</li>
+  <li>Regions of memory are allocated to processes <em>as needed</em>, according to some scheme.</li>
+</ul>
+
+<p>Diagram displaying “Code + Data for running part of OS” at the start of memory, “Free memory” in the middle, and “Code + Data for running user processes” and the end.</p>
+
+<h2 id="variables--memory">Variables &amp; Memory</h2>
+
+<p>A variable is (roughly) and names &amp; tagged collection of bytes:</p>
+
+<p>Diagram showing:</p>
+<ul>
+  <li>“int x; x = 6” taking 4 bytes of memory,</li>
+  <li>“char c; c = ‘x’;” taking 1 byte of memory</li>
+  <li>
+    <p>“bool b; b = ‘true’;” taking 1 byte of memory</p>
+  </li>
+  <li>So, <em>at run time</em>, each variable has an <em>address</em> in memory.</li>
+  <li>In C, C++ we can:
+    <ul>
+      <li>access the address of a variable</li>
+      <li>access a variable or memory location by its address</li>
+      <li>declare variables by storing addresses (pointers).</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="addresses--pointers---by-example">Addresses &amp; Pointers - By Example</h2>
+
+<ul>
+  <li>“int i = 5;”
+    <ul>
+      <li>allocate space for an <em>int</em>,</li>
+      <li>name the space “i”,</li>
+      <li>store 5 there</li>
+    </ul>
+  </li>
+  <li>“int *p;”
+    <ul>
+      <li>allocate space for an address,</li>
+      <li>name it p,</li>
+      <li>record its type as “pointer to int”</li>
+    </ul>
+  </li>
+  <li>“p = ∧i;”
+    <ul>
+      <li>“&amp;i” is the address of “i”</li>
+      <li>store ∧i in p</li>
+      <li>so, p becomes a <em>pointer to i</em></li>
+    </ul>
+  </li>
+  <li>“cout « i;”
+    <ul>
+      <li>outputs the value stored in i, <em>5</em></li>
+    </ul>
+  </li>
+  <li>“cout « p;”
+    <ul>
+      <li>outputs the address of i: 0xbffffbbc</li>
+    </ul>
+  </li>
+  <li>“cout « *p;”
+    <ul>
+      <li>”*” <em>dereferences</em> p. That is, *p is the value <em>pointed to by p</em>. In this case <em>5</em></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Diagram of memory:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Address</td>
+      <td>Name</td>
+      <td>Value</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td><span id="point">254</span></td>
+      <td>i</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>923</td>
+      <td>p</td>
+      <td><a href="#point">254</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Second diagram of memory:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Address</td>
+      <td>Name</td>
+      <td>Value</td>
+      <td>Size</td>
+    </tr>
+    <tr>
+      <td>0x6fffbe</td>
+      <td>i</td>
+      <td>5</td>
+      <td>4 bytes</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>???</td>
+      <td>p</td>
+      <td>0x6fffbe</td>
+      <td>4 bytesa</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Slide showing program code: see pointers.c</p>
+
+<p>Slide showing output: see output.txt</p>
+
+<p>Slide showing same program with different highlights.</p>
+
+<p>Slide showing same output with different highlights.</p>
+
+<h2 id="end">End</h2>
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

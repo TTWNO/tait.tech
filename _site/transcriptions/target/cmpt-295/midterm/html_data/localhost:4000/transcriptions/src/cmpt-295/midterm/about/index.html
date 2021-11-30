@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" id="main-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../../../../../assets/js/index.html"></script>
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295--about-our-midterm-1">CMPT 295 – About our Midterm 1</h1>
+
+<h2 id="midterm-1">Midterm 1</h2>
+
+<ul>
+  <li>When: Friday, Oct. 15 9:30am – 10:20am</li>
+  <li>Where: same classroom</li>
+  <li>Duration: 45 minutes (+ 5 minutes to organize ourselves)</li>
+</ul>
+
+<h2 id="what-to-study">What to study?</h2>
+
+<p>Everything we covered up until (and including)
+our lecture on Friday, Oct. 8 is subject to
+examination</p>
+
+<ul>
+  <li>All material from Lecture 1 until and including Lecture 14 (partial
+lecture notes + annotated lecture notes + your own lecture
+notes + recorded lectures)</li>
+  <li>Labs 1 to 3, Assignments 1, 2, 3 and 4 (even though Assignment 4
+is due after our Midterm 1)</li>
+  <li>All demo code posted on our course web site</li>
+  <li>Textbook Readings + Practice Problems:
+    <ul>
+      <li>Chapter 2, Section 2.1 to 2.4 (skip 2.3.7) + Practice Problems 2.1 to 2.34, 2. 38 to 2.41, 2.44, 2.45, 2.47, 2.48, 2.50, 2.52, 2. 54</li>
+      <li>Chapter 3, Section 3.2 to 3.6 (skip 3.4.4 for now, skip 3.5.5 and 3.6.8) + Practice Problems 3.1 to 3.11, 3.13 to 3.16 B. (not A.), 3.18, 3.20,
+3.21 to 3.26, 3.28</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="format-of-midterm-1">Format of Midterm 1</h2>
+
+<ul>
+  <li>First section: questions that require short answers.  For example:
+    <ul>
+      <li>“Yes/no” or</li>
+      <li>“fill in the blank” or</li>
+      <li>a few words</li>
+      <li>etc…</li>
+    </ul>
+  </li>
+  <li>Second section: questions that require written answers. For example:
+    <ul>
+      <li>Calculating – we always show every step of our work</li>
+      <li>Writing/completing C or assembly code</li>
+      <li>Hand tracing code</li>
+      <li>Writing an answer (in English)</li>
+      <li>etc…</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="appendix">Appendix</h2>
+
+<p>As part of Midterm 1’s appendix, we will
+be given the following information:</p>
+
+<p>Table of x86-64 Jumps:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instruction</th>
+      <th>Condition</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jmp</code></td>
+      <td>always</td>
+      <td>Unconditional jump</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">je</code>/<code class="language-plaintext highlighter-rouge">jz</code></td>
+      <td>ZF</td>
+      <td>Jump if equal / zero</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jne</code>/<code class="language-plaintext highlighter-rouge">jnz</code></td>
+      <td>~ZF</td>
+      <td>Jump if not equal / not zero</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">js</code></td>
+      <td>SF</td>
+      <td>Jump if negative</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jns</code></td>
+      <td>~SF</td>
+      <td>Jump if nonnegative</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jo</code></td>
+      <td>OF</td>
+      <td>Jump if overflow</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jno</code></td>
+      <td>~OF</td>
+      <td>Jump if not overflow</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jq</code>/<code class="language-plaintext highlighter-rouge">jnle</code></td>
+      <td>~(SF ^ OF) &amp; ~ZF</td>
+      <td>Jump if greater (signed &gt;)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jge</code>/<code class="language-plaintext highlighter-rouge">jnl</code></td>
+      <td>~(SF ^ OF)</td>
+      <td>Jump if greater or equal (signed &gt;=)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jl</code>/<code class="language-plaintext highlighter-rouge">jnge</code></td>
+      <td>SF ^ OF</td>
+      <td>Jump if less (signed &lt;)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jle</code>/<code class="language-plaintext highlighter-rouge">jng</code></td>
+      <td>(SF ^ OF) | ZF</td>
+      <td>Jump if less or equal (signed &lt;=)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ja</code>/<code class="language-plaintext highlighter-rouge">jnbe</code></td>
+      <td>~CF &amp; ~ZF</td>
+      <td>JumP if greater (unsigned &gt;)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jae</code>/<code class="language-plaintext highlighter-rouge">jnb</code></td>
+      <td>~CF</td>
+      <td>Jump if greater or equal (unsigned &gt;=)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jb</code>/<code class="language-plaintext highlighter-rouge">jnae</code>/<code class="language-plaintext highlighter-rouge">jc</code></td>
+      <td>CF</td>
+      <td>Jump if less (unsigned &lt;)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jbe</code>/<code class="language-plaintext highlighter-rouge">jna</code>/<code class="language-plaintext highlighter-rouge">jnc</code></td>
+      <td>CF | ZF</td>
+      <td>Jump if less or equal (unsigned &lt;=)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table of x86-64 Registers</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>64-bit (quad)</th>
+      <th>32-bit (double)</th>
+      <th>16-bit (word)</th>
+      <th>8-bit (byte)</th>
+      <th>8-bit (byte)</th>
+      <th> </th>
+    </tr>
+    <tr>
+      <th>63..0</th>
+      <th>31..0</th>
+      <th>15..0</th>
+      <th>15..8</th>
+      <th>7..0</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>rax</td>
+      <td>eax</td>
+      <td>ax</td>
+      <td>ah</td>
+      <td>al</td>
+      <td>Return value</td>
+    </tr>
+    <tr>
+      <td>rbx</td>
+      <td>ebx</td>
+      <td>bx</td>
+      <td>bh</td>
+      <td>bl</td>
+      <td>Callee served</td>
+    </tr>
+    <tr>
+      <td>rcx</td>
+      <td>ecx</td>
+      <td>cx</td>
+      <td>ch</td>
+      <td>cl</td>
+      <td>4th arg</td>
+    </tr>
+    <tr>
+      <td>rdx</td>
+      <td>edx</td>
+      <td>dx</td>
+      <td>dh</td>
+      <td>dl</td>
+      <td>3rd arg</td>
+    </tr>
+    <tr>
+      <td>rsi</td>
+      <td>esi</td>
+      <td>si</td>
+      <td> </td>
+      <td>sil</td>
+      <td>2nd arg</td>
+    </tr>
+    <tr>
+      <td>rdi</td>
+      <td>edi</td>
+      <td>di</td>
+      <td> </td>
+      <td>dil</td>
+      <td>1st arg</td>
+    </tr>
+    <tr>
+      <td>rbp</td>
+      <td>ebp</td>
+      <td>bp</td>
+      <td> </td>
+      <td>bpl</td>
+      <td>Callee served</td>
+    </tr>
+    <tr>
+      <td>rsp</td>
+      <td>esp</td>
+      <td>sp</td>
+      <td> </td>
+      <td>spl</td>
+      <td>Stack position</td>
+    </tr>
+    <tr>
+      <td>r8</td>
+      <td>r8d</td>
+      <td>r8w</td>
+      <td> </td>
+      <td>r8b</td>
+      <td>5th arg</td>
+    </tr>
+    <tr>
+      <td>r9</td>
+      <td>r9d</td>
+      <td>r9w</td>
+      <td> </td>
+      <td>r9b</td>
+      <td>6th arg</td>
+    </tr>
+    <tr>
+      <td>r10</td>
+      <td>r10d</td>
+      <td>r10w</td>
+      <td> </td>
+      <td>r10b</td>
+      <td>Callee served</td>
+    </tr>
+    <tr>
+      <td>r11</td>
+      <td>r11d</td>
+      <td>r11w</td>
+      <td> </td>
+      <td>r11b</td>
+      <td>Callee served</td>
+    </tr>
+    <tr>
+      <td>r12</td>
+      <td>r12d</td>
+      <td>r12w</td>
+      <td> </td>
+      <td>r12b</td>
+      <td>Callee served</td>
+    </tr>
+    <tr>
+      <td>r13</td>
+      <td>r13d</td>
+      <td>r13w</td>
+      <td> </td>
+      <td>r13b</td>
+      <td>Callee served</td>
+    </tr>
+    <tr>
+      <td>r14</td>
+      <td>r14d</td>
+      <td>r14w</td>
+      <td> </td>
+      <td>r14b</td>
+      <td>Callee served</td>
+    </tr>
+    <tr>
+      <td>r15</td>
+      <td>r15d</td>
+      <td>r15w</td>
+      <td> </td>
+      <td>r15b</td>
+      <td>Callee served</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>and the powers of 2 from <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mo>−</mo><mn>10</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2^{-10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">10</span></span></span></span></span></span></span></span></span></span></span></span> to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>10</mn></msup></mrow><annotation encoding="application/x-tex">2^{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span></span></span></span></span></span></span></span> in decimal</p>
+
+<h2 id="exam-seating-arrangement">Exam Seating Arrangement</h2>
+
+<ul>
+  <li>S represents a student seated at a seat</li>
+  <li>X represents a vacant seat</li>
+</ul>
+
+<p>Front of classroom is the bottom of the table:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+      <td>X</td>
+      <td>S</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>EVERYTHING HERE (the front of the class) (included cell phones, computer and calculator)!
+Keep pens, pencils, eraser with you!</p>
+
+<h2 id="before-the-midterm">Before the midterm</h2>
+
+<ul>
+  <li>Once you have received your midterm, leave the midterm face up on your table</li>
+  <li>Read its instructions on its first page</li>
+  <li>Please, do not touch, leaf through, or write your name on the midterm
+    <ul>
+      <li>Why? Because it is unfair to all other students who have not yet received a midterm</li>
+    </ul>
+  </li>
+  <li>When all students have received a midterm, you will be instructed to start the midterm</li>
+</ul>
+
+<h2 id="during-the-midterm">During the midterm</h2>
+
+<p>If you have a question</p>
+
+<ol>
+  <li>Have a look at the instructions on Page 1 for an answer</li>
+  <li>If the answer to your question is not on Page 1,
+raise your hand and the instructor will attend to
+your question – the instructor is the only
+person answering questions (TAs will not be
+answering questions)</li>
+</ol>
+
+<h2 id="at-the-end-of-midterm">At the end of midterm</h2>
+
+<p>When you are told to: Please, stop writing!
+please, do stop writing and hand in our
+midterm as instructed</p>
+
+<p>Why? If you continue writing, it is unfair to all
+other students who have stopped writing</p>
+
+<h2 id="questions">Questions?</h2>
+
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

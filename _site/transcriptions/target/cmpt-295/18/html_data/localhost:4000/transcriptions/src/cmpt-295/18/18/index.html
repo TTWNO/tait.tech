@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" id="main-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../../../../../assets/js/index.html"></script>
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1 id="cmpt-295-unit---machine-level-programming">CMPT 295: Unit - Machine-Level Programming</h1>
+
+<p>Lecture 18:</p>
+
+<ul>
+  <li>Assembly language</li>
+  <li>Program Control</li>
+  <li>Function Call and Stack</li>
+  <li>Passing Data</li>
+</ul>
+
+<h2 id="last-lecture">Last Lecture</h2>
+
+<ul>
+  <li>Function call mechanisms: 1) passing control, 2) passing data, 3)
+managing local data on memory (stack)</li>
+  <li>Memory layout
+    <ul>
+      <li>Stack (local variables …)</li>
+      <li>Heap (dynamically allocated data)</li>
+      <li>Data (statically allocated data)</li>
+      <li>Text / Shared Libraries (program code)</li>
+    </ul>
+  </li>
+  <li>A “stack” is the right data structure for function call / return
+    <ul>
+      <li>If multstore calls mult2, then mult2 returns before multstore returns</li>
+    </ul>
+  </li>
+  <li>x86-64 stack register and instructions: stack pointer %rsp, push and pop</li>
+  <li>x86-64 function call instructions: call and ret</li>
+</ul>
+
+<h2 id="from-lecture-17--slide-14">From Lecture 17 – Slide 14</h2>
+
+<p>Why 8?</p>
+
+<ul>
+  <li>pushq src
+    <ul>
+      <li>Fetch value of operand src</li>
+      <li>Decrement %rsp by 8</li>
+      <li>Write value at address given by %rsp</li>
+    </ul>
+  </li>
+  <li>popq dest
+    <ul>
+      <li>Read value at %rsp (address) and
+store it in operand dest (must be register)</li>
+      <li>Increment %rsp by 8</li>
+    </ul>
+  </li>
+</ul>
+
+<p>1) %rsp contains the memory address 0x0018</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Memory Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%rsp</td>
+      <td>0x0018</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>0x0010</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>0x0008</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>2) %rsp contains the memory address 0x0010</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Memory Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>0x0018</td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td>0x0010</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>0x0008</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="todays-menu">Today’s Menu</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX</li>
+  <li>Loops</li>
+  <li>(highlighted) Function call – Stack
+    <ul>
+      <li>Overview of Function Call</li>
+      <li>Memory Layout and Stack - x86-64 instructions and registers</li>
+      <li>Passing control</li>
+      <li>(highlighted) Passing data – Calling Conventions</li>
+      <li>Managing local data</li>
+      <li>Recursion</li>
+    </ul>
+  </li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+<h2 id="2-passing-data-mechanism--using-stack-x86-64-function-call-convention">2. Passing data mechanism – using stack x86-64 function call convention</h2>
+
+<ol>
+  <li>Caller and callee functions must obey function call convention when
+passing data during function call
+    <ul>
+      <li>Caller:</li>
+    </ul>
+    <ul>
+      <li>Before calling the callee function, the caller must copy the callee’s arguments (1 to 6) into specific registers: If there is a …
+        <ul>
+          <li>1st argument -&gt; %rdi (or %edi, or %di or %dil)</li>
+          <li>2nd argument -&gt; %rsi (or %esi, or %si or %sil)</li>
+          <li>3rd argument -&gt; %rdx (or %edx, or %dx or %dl)</li>
+          <li>4th argument -&gt; %rcx (or %ecx, or %cx or %cl)</li>
+          <li>5th argument -&gt; %r8 (or %r8d, or %r8w or %r8b)</li>
+          <li>6th argument -&gt; %r9 (or %r9d, or %r9w or %r9b)
+    * Callee:</li>
+        </ul>
+      </li>
+      <li>Before returning to caller, callee must copy returned value into register %rax</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="passing-data-mechanism--example-of-passing-arguments-in-registers-and-returning-return-value">Passing data mechanism – Example of passing arguments in registers and returning return value</h2>
+
+<p>C code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>long plus(long x, long y){
+  return x+y;
+}
+
+void sum_store(long x, long y, long *dest)
+{
+  long sum = plus(x,y);
+  *dest = sum;
+}
+
+int main(int argc, char *argv[]) {
+  if (argc == 3) {
+    long x = atoi(argv[1]);
+    long y = atoi(argv[2]);
+    long result;
+    sum_store(x, y, &amp;result);
+    printf("%ld + %ld --&gt; %ld\n", x, y, result);
+  else printf("2 numbers required\n");
+  return 0;
+}
+</code></pre></div></div>
+
+<p>Assembly code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sum_store:
+.LFB40:
+  .cfi_startproc
+  endbr64
+  addq  %rsi,%rdi
+  movq %rdi,(%rdx)
+  ret
+main:
+  pushq %r13
+  pushq %r12
+  pushq %rbx
+  subq $16,%rsp
+  movq %fs:40,%rax
+  movq %rax,8(%rsp)
+  xorl %eax,%eax
+  cmpl $3,%edi # highlighted
+  je .L7 # highlighted
+  leaq .LC1(%rip), %rdi
+  call puts@PLT
+.L3:
+  movq 8(%rsp),%rax
+  xorq %fs:40,%rax
+  jne .L8
+  addq $16,%rsp
+  xorl %eax,%eax
+  popq %rbx
+  popq %r12
+  popq %r13
+  ret
+.L7:
+  movq 8(%rsi),%rdi
+  movq %rsi,%rbx
+  movl $10,%edx
+  xorl %esi,%esi
+  call strtol@PLT
+  movq 16(%rbx),%rdi
+  xorl %esi,%esi
+  movl $10,%edx
+  movslq %eax,%r12 # highlighted
+  call strtol@PLT
+  movq %rsp,%rdx # highlighted
+  movq %r12,%rdi # highlighted
+  movslq %eax,%r13 # highlighted
+  movq %r13,%rsi # highlighted
+  call sum_store@PLT # highlighted
+  movq (%rsp),%r8
+  movq %r13,%rcx
+  movq %r12,%rdx
+  leaq .LC0(%rip),%rsi
+  movl $1,%edi
+  xorl %eax,%eax
+  call __printf_chk@PLT
+  jmp .L3
+.L8:
+  call __stack_chk_fail@PLT
+</code></pre></div></div>
+
+<h2 id="what-if-the-callee-function-has-more-than-6-arguments">What if the callee function has more than 6 arguments?</h2>
+
+<ol>
+  <li>Caller and callee functions must obey function call convention when passing data during function call
+    <ul>
+      <li>Caller:</li>
+    </ul>
+    <ul>
+      <li>Before calling the callee function, the caller must copy the callee’s arguments (1 to 6) into specific registers: …</li>
+      <li>If a callee function has more than 6 arguments … then must push the rest of the arguments on the stack in reverse order
+      * Callee:</li>
+      <li>Before returning to caller, callee must copy returned value into register %rax</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="2-passing-data-mechanism--using-stack-x86-64-function-call-convention-1">2. Passing data mechanism – using stack x86-64 function call convention</h2>
+
+<p>2) When passing data that is a memory address (i.e., a
+pointer) during function call</p>
+
+<ul>
+  <li>Caller:
+    <ul>
+      <li>Must make use of the stack in order to create such memory address</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="passing-data-mechanism--examples-of-local-variables-arguments-and-pointers-on-the-stack">Passing data mechanism – Examples of local variables, arguments and pointers on the stack</h2>
+
+<p>C code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>long call_proc()
+{
+  long x1 = 1; //How to push x4 and &amp;x4 onto stack?
+  int x2 = 2;
+  short x3 = 3;
+  char x4 = 4;
+  proc(x1, &amp;x1, x2, &amp;x2,
+       x3, &amp;x3, x4, &amp;x4);
+  return (x1+x2)*(x3-x4);
+}
+</code></pre></div></div>
+
+<p>Assembly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>call_proc:
+  subq $40, %rsp
+  movq $1, 32(%rsp) # local variable
+  movl $2, 28(%rsp) # local variable
+  movw $3, 26(%rsp) # local variable
+  movb $4, 25(%rsp) # local variable
+  movq 32(%rsp), %rdi
+  movl 28(%rsp), %edx
+  leaq 25(%rsp), %rax
+  movq %rax, 8(%rsp)
+  movl $4, (%rsp)
+  leaq 32(%rsp), %rsi
+  leaq 28(%rsp), %rcx
+  leaq 26(%rsp), %r9
+  movl $3, %r8d
+  callq proc
+  ...
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>base + displacement</th>
+      <th>Stack Variable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Register Table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>Passing data mechanism
+    <ul>
+      <li>x86-64 function call convention:</li>
+    </ul>
+  </li>
+</ul>
+
+<p>First 6 arguments:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Register</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>argument 1</td>
+      <td>%rdi</td>
+    </tr>
+    <tr>
+      <td>argument 2</td>
+      <td>%rsi</td>
+    </tr>
+    <tr>
+      <td>argument 3</td>
+      <td>%rdx</td>
+    </tr>
+    <tr>
+      <td>argument 4</td>
+      <td>%rcx</td>
+    </tr>
+    <tr>
+      <td>argument 5</td>
+      <td>%r8</td>
+    </tr>
+    <tr>
+      <td>argument 6</td>
+      <td>%r9</td>
+    </tr>
+    <tr>
+      <td>return value</td>
+      <td>%rax</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Stack:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Register</td>
+      <td>Stack</td>
+      <td>Note</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>…</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>argument n</td>
+      <td>Stored onto the stack in reverse order</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>…</td>
+      <td>Stored onto the stack in reverse order</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>argument 8</td>
+      <td>Stored onto the stack in reverse order</td>
+    </tr>
+    <tr>
+      <td>%rsp</td>
+      <td>argument 7</td>
+      <td>Stored onto the stack in reverse order</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="next-lecture">Next Lecture</h2>
+
+<ul>
+  <li>Introduction
+    <ul>
+      <li>C program -&gt; assembly code -&gt; machine level code</li>
+    </ul>
+  </li>
+  <li>Assembly language basics: data, move operation
+    <ul>
+      <li>Memory addressing modes</li>
+    </ul>
+  </li>
+  <li>Operation leaq and Arithmetic &amp; logical operations</li>
+  <li>Conditional Statement – Condition Code + cmovX</li>
+  <li>Loops</li>
+  <li>(highlighted) Function call – Stack
+    <ul>
+      <li>Overview of Function Call</li>
+      <li>Memory Layout and Stack - x86-64 instructions and registers</li>
+      <li>Passing control</li>
+      <li>Passing data – Calling Conventions</li>
+      <li>(highlighted) Managing local data</li>
+      <li>(highlighted) Recursion</li>
+    </ul>
+  </li>
+  <li>Array</li>
+  <li>Buffer Overflow</li>
+  <li>Floating-point operations</li>
+</ul>
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

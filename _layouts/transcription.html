@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ page.title }} | tait.tech</title>
+  <link rel="stylesheet" href="/assets/css/style.css" id="main-css">
+  <link rel="stylesheet" href="/assets/css/transcription.css" id="trans-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/js/"></script>
+  {% if page.math %}
+  <link rel="stylesheet" href="/assets/css/katex.css" id="math-css">
+  {% endif %}
+  {% if page.code %}
+  <link rel="stylesheet" href="/assets/css/highlighting.css" id="code-css">
+  {% endif %}
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      {{ content }}
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>

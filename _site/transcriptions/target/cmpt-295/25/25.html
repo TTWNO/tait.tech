@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> | tait.tech</title>
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" id="main-css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../../../../../assets/js/index.html"></script>
+  
+  <link rel="stylesheet" href="../../../../../assets/css/katex.css" id="math-css">
+  
+  
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <p><img src="https://imgs.xkcd.com/comics/compiling.png" alt="Caption: THE #1 PROGRAMMER EXCUSE FOR LEGITIMATELY SLACKING OFF: 'MY CODE IS COMPILING.' Two stick figures standing on desk chairs fight eachother with lightsabers. From outside the open door, somebody yells 'HEY! GET BACK TO WORK!' One of the programers reponds: 'COMPILING!' The person from outside replies back 'OH. CARRY ON.'" /></p>
+
+<h1 id="cmpt-295---unit---instruction-set-architecture">CMPT 295 - Unit - Instruction Set Architecture</h1>
+
+<p>Lecture 25</p>
+<ul>
+  <li>ISA Design + Evaluation</li>
+</ul>
+
+<h2 id="last-lecture">Last Lecture</h2>
+
+<ul>
+  <li>Looked at an example of a RISC instruction set: MIPS
+    <ul>
+      <li>From its Instruction Set Architecture (ISA):
+        <ul>
+          <li>Registers</li>
+          <li>Memory model</li>
+          <li>(Sub)set of instructions
+            <ul>
+              <li>Assembly instructions</li>
+              <li>Machine instructions
+                <ul>
+                  <li>Format of R-format of a MIPS machine instruction
+                    <ul>
+                      <li>Size of its fields</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Format of assembly instruction not
+necessarily == format of machine instruction</p>
+
+<h2 id="from-last-lecture">From last lecture!</h2>
+
+<p>Example of an ISA: MIPS</p>
+
+<ul>
+  <li>Function call conventions
+    <ul>
+      <li>caller saved registers (4-15, 24, 25)</li>
+      <li>callee saved registers (16-23, 30, 31)</li>
+    </ul>
+  </li>
+  <li>Model of Computation
+    <ul>
+      <li>Sequential</li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register name</th>
+      <th>Number</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$zero</code></td>
+      <td>0</td>
+      <td>constant 0</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$at</code></td>
+      <td>1</td>
+      <td>reserved for assembler</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$v0</code></td>
+      <td>2</td>
+      <td>expression evaluation and results of a function</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$v1</code></td>
+      <td>3</td>
+      <td>expression evaluation and results of a function</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$a0</code></td>
+      <td>4</td>
+      <td>argument 1</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$a1</code></td>
+      <td>5</td>
+      <td>argument 2</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$a2</code></td>
+      <td>6</td>
+      <td>argument 3</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$a3</code></td>
+      <td>7</td>
+      <td>argument 4</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t0</code></td>
+      <td>8</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t1</code></td>
+      <td>9</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t2</code></td>
+      <td>10</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t3</code></td>
+      <td>11</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t5</code></td>
+      <td>12</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t6</code></td>
+      <td>13</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t7</code></td>
+      <td>14</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s0</code></td>
+      <td>15</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s1</code></td>
+      <td>16</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s2</code></td>
+      <td>17</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s3</code></td>
+      <td>18</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s4</code></td>
+      <td>19</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s5</code></td>
+      <td>20</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s6</code></td>
+      <td>21</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s7</code></td>
+      <td>22</td>
+      <td>saved temporary (preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t8</code></td>
+      <td>24</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$t9</code></td>
+      <td>25</td>
+      <td>temporary (not preserved across call)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$k0</code></td>
+      <td>26</td>
+      <td>reserved for OS kernel</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$k1</code></td>
+      <td>27</td>
+      <td>reserved for OS kernel</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$gp</code></td>
+      <td>28</td>
+      <td>pointer to global area</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$sp</code></td>
+      <td>29</td>
+      <td>stack pointer</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$fp</code></td>
+      <td>30</td>
+      <td>frame pointer</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$ra</code></td>
+      <td>31</td>
+      <td>return address (used by function call)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="from-last-lecture--mips---design-guidelines">From last lecture! – MIPS - Design guidelines</h2>
+
+<ul>
+  <li>3) In terms of machine instruction format:
+    <ol>
+      <li>Create as few of them as possible</li>
+      <li>Have them all of the same length and same format!</li>
+      <li>If we have different machine instruction formats, then position the fields that
+have the same purpose in the same location in the format
+        <ul>
+          <li>Can all MIPS machine instructions have the same length and same format?
+            <ul>
+              <li>For example: <code class="language-plaintext highlighter-rouge">lw $s1, 20($s2)</code>=&gt; opcode, rs, rt, rd, shamt, func?</li>
+              <li>When designing its corresponding machine instruction …
+                <ul>
+                  <li>Must specify source register using 5 bits -&gt; OK!</li>
+                  <li>Must specify destination register using 5 bits -&gt; OK!</li>
+                  <li>Must specify a constant using 5 bits -&gt; Hum…</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>Value of constant limited to [0..25-1]</li>
+          <li>Often use to access array elements
+so needs to be &gt; 25 = 32</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="from-last-lecture--mips-isa-designers-compromise">From last lecture! – MIPS ISA designers compromise</h2>
+
+<ul>
+  <li>Keep all machine instructions format the same length</li>
+  <li>Consequence -&gt; different formats for different kinds of MIPS
+instructions
+    <ul>
+      <li>R-format for register
+        <ul>
+          <li>
+            <table>
+              <thead>
+                <tr>
+                  <th>Label</th>
+                  <th>Size</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>opcode</td>
+                  <td>6 bits</td>
+                </tr>
+                <tr>
+                  <td>rs</td>
+                  <td>5 bits</td>
+                </tr>
+                <tr>
+                  <td>rt</td>
+                  <td>5 bits</td>
+                </tr>
+                <tr>
+                  <td>shamt</td>
+                  <td>5 bits</td>
+                </tr>
+                <tr>
+                  <td>func</td>
+                  <td>6 bits</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </li>
+      <li>I-format for immediate
+        <ul>
+          <li>
+            <table>
+              <thead>
+                <tr>
+                  <th>Label</th>
+                  <th>Size</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>opcode</td>
+                  <td>6 bits</td>
+                </tr>
+                <tr>
+                  <td>rs</td>
+                  <td>5 bits</td>
+                </tr>
+                <tr>
+                  <td>rt</td>
+                  <td>5 bits</td>
+                </tr>
+                <tr>
+                  <td>Address/immediate</td>
+                  <td>16 bits</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </li>
+      <li>J-format for jump
+        <ul>
+          <li>
+            <table>
+              <thead>
+                <tr>
+                  <th>Label</th>
+                  <th>Size</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>opcode</td>
+                  <td>6 bits</td>
+                </tr>
+                <tr>
+                  <td>Target address</td>
+                  <td>26 bits</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>opcode indicates the format of the instruction
+    <ul>
+      <li>This way, the hardware knows whether to treat the last half of the
+instruction as 3 fields (R-format) or as 1 field (I-format)</li>
+      <li>Also, position of fields with same purpose are in the same location
+in the 3 formats ☺</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="todays-menu">Today’s Menu</h2>
+
+<ul>
+  <li>Instruction Set Architecture (ISA)
+    <ul>
+      <li>Definition of ISA</li>
+    </ul>
+  </li>
+  <li>Instruction Set design
+    <ul>
+      <li>Design guidelines</li>
+      <li>Example of an instruction set: MIPS</li>
+      <li>Create our own instruction sets</li>
+      <li>ISA evaluation</li>
+    </ul>
+  </li>
+  <li>Implementation of a microprocessor (CPU) based on an ISA
+    <ul>
+      <li>Execution of machine instructions (datapath)</li>
+      <li>Intro to logic design + Combinational logic + Sequential logic circuit</li>
+      <li>Sequential execution of machine instructions</li>
+      <li>Pipelined execution of machine instructions + Hazards</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="lets-design-our-own-isa---x295m-1-of-2">Let’s design our own ISA - x295M (1 of 2)</h2>
+
+<ul>
+  <li>Registers and Memory model
+    <ul>
+      <li># of registers -&gt; 0 registers – model called “Memory Only” (except <code class="language-plaintext highlighter-rouge">$sp</code>)</li>
+      <li>Each memory address has -&gt; 32 bits (m = 32)</li>
+      <li>Word size -&gt; 32 bits</li>
+      <li>Byte-addressable memory
+so address resolution -&gt; n = 1 byte (8 bits)</li>
+      <li>Memory size -&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">2^{32} \times n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">32</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> -&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{32} \times 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">32</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> byte OR <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup><mo>×</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">2^{32} \times 8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">32</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span></span></span></span> bits</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="lets-design-our-own-isa---x295m-2-of-2">Let’s design our own ISA - x295M (2 of 2)</h2>
+
+<ul>
+  <li>(Sub)set of instructions</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>x295M assembly language instructions</th>
+      <th>Semantic (i.e., Meaning)</th>
+      <th>Corresponding x295M machine instructions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ADD a, b, c</code></td>
+      <td>M[c] = M[a] + M[b]</td>
+      <td>01 &lt;30 bits&gt; 00 &lt;30 bits&gt; 00 &lt;30 bits&gt;</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SUB a, b, c</code></td>
+      <td>M[c] = M[a] - M[b]</td>
+      <td>10 &lt;30 bits&gt; 00 &lt;30 bits&gt; 00 &lt;30 bits&gt;</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">MUL a, b, c</code></td>
+      <td>M[c] = M[a] * M[b]</td>
+      <td>11 &lt;30 bits&gt; 00 &lt;30 bits&gt; 00 &lt;30 bits&gt;</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>Memory addressing mode -&gt; Direct (absolute), base + displacement and indirect</li>
+  <li>Operand model -&gt; “3 Operand” model</li>
+  <li>Format of corresponding x295M machine instructions:
+    <ul>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>01</td>
+              <td>memory address of dest</td>
+              <td>word 1</td>
+            </tr>
+            <tr>
+              <td>00</td>
+              <td>memory address of src1</td>
+              <td>word 2</td>
+            </tr>
+            <tr>
+              <td>00</td>
+              <td>memory address of src2</td>
+              <td>word 3</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+    </ul>
+  </li>
+  <li>Size of opcode -&gt; 2 bits Size of operand -&gt; 30 bits</li>
+  <li>Length of 1 instruction -&gt; ___________ bits</li>
+</ul>
+
+<h2 id="note-about-the-machine-code-format">Note about the machine code format</h2>
+
+<ul>
+  <li>This ISA has two machine code formats:</li>
+</ul>
+
+<p>Format 1 (within a word):</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>opcode</td>
+      <td>memory address</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Format 2 (within a word):</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>X</td>
+      <td>memory address</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>About Design guideline:</p>
+
+<p>3) In terms of machine
+instruction format:</p>
+
+<ol>
+  <li>Create as few of them as
+possible -&gt; 2 formats</li>
+  <li>Have them all of the
+same length -&gt; 32 bits</li>
+  <li>Since we have two
+different machine
+instruction formats, fields
+with same purpose are
+positioned in the same
+location in the 2 formats -&gt;
+    <ul>
+      <li>operand field
+(purpose -&gt; memory
+address) positioned in
+the same location in
+the 2 formats</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="evaluation-of-our-isa-x295m-versus-mips">Evaluation of our ISA x295M versus MIPS</h2>
+
+<p>Sample C code: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mi>y</mi><mo stretchy="false">)</mo><mo>×</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">z = (x + y) \times (x - y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span></p>
+
+<ul>
+  <li>C code -&gt; Assembly code
+    <ul>
+      <li>ADD 0($sp), 4($sp), 12($sp)</li>
+      <li>SUB 0($sp), 4($sp), 16($sp)</li>
+      <li>MUL 12($sp), 16($sp), 8($sp)</li>
+    </ul>
+  </li>
+  <li>Meaning
+    <ul>
+      <li>M[$sp+12] = M[$sp+0] + M[$sp+4]</li>
+      <li>M[$sp+16] = M[$sp+0] – M[$sp+4]</li>
+      <li>M[$sp+8] = M[$sp+12] * M[$sp+16]</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="evaluation-of-our-isa-x295m-versus-mips-1">Evaluation of our ISA x295M versus MIPS</h2>
+
+<p>Sample C code: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mi>y</mi><mo stretchy="false">)</mo><mo>×</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">z = (x + y) \times (x - y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span></p>
+
+<p>Stack segment:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Memory</td>
+      <td>Stack Segment</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x7fffff00&lt;- $sp -&gt;</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Text Segment:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Memory</td>
+      <td>Text Segment</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>0x00400000 -&gt;</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Opcode</th>
+      <th>Encoding</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ADD</td>
+      <td>01</td>
+    </tr>
+    <tr>
+      <td>SUB</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>MUL</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>No op</td>
+      <td>00</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assembly code</th>
+      <th>Memory address/machine code pt. 1</th>
+      <th>Memory address/machine code pt. 2</th>
+      <th>Memory Address/machine code pt. 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ADD 0($sp),4($sp),12($sp)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0x00400000</code> / <code class="language-plaintext highlighter-rouge">01 0x7fffff0c</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0x00400004</code> / <code class="language-plaintext highlighter-rouge">00 0x7fffff00</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0x00400008</code> / <code class="language-plaintext highlighter-rouge">00 0x7fffff04</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SUB 0($sp),4($sp),16($sp)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0x0040000c</code> / <code class="language-plaintext highlighter-rouge">10 0x7fffff10</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0x00400010</code> / <code class="language-plaintext highlighter-rouge">00 0x7fffff00</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0x00400014</code> / <code class="language-plaintext highlighter-rouge">00 0x7fffff04</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">MUL 12($sp),16($sp),8($sp)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0x00400018</code> / <code class="language-plaintext highlighter-rouge">11 0x7fffff08</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0x0040001c</code> / <code class="language-plaintext highlighter-rouge">00 0x7fffff0c</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0x00400020</code> / <code class="language-plaintext highlighter-rouge">00 0x7fffff10</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="evaluation-of-our-isa-x295m-versus-mips-2">Evaluation of our ISA x295M versus MIPS</h2>
+
+<p>Sample C code: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mi>y</mi><mo stretchy="false">)</mo><mo>×</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">z = (x + y) \times (x - y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>C code -&gt; Assembly code</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">lw $s1,0($sp)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">$s1 = M[$sp + 0]</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">lw $s2,4($sp)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">$s2 = M[$sp + 4]</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">add $a3,$s1,$s2</code></td>
+      <td><code class="language-plaintext highlighter-rouge">$s3 = $s1 + $s2</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sub $s4,$s1,$s2</code></td>
+      <td><code class="language-plaintext highlighter-rouge">$s4 = $s1 - $s2</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mul $s5,$s3,$s4</code></td>
+      <td><code class="language-plaintext highlighter-rouge">$s5 = $s3 * $s4</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sw $s5,8($sp)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">M[$sp + 8] = $s5</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="evaluation-of-our-isa-x295m-versus-mips-3">Evaluation of our ISA x295M versus MIPS</h2>
+
+<p>Opcode table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Opcode + func</th>
+      <th>Encoding</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">lw</code></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>35</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{35}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">35</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sw</code></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>43</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{43}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">43</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">add</code></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>+</mo><msub><mtext>32</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">0 + \text{32}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">32</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sub</code></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>+</mo><msub><mtext>34</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">0 + \text{34}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">34</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mul</code></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>+</mo><msub><mtext>36</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">0 + \text{36}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">36</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!--_-->
+
+<p>Register table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Register</th>
+      <th>Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s1</code></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>17</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{17}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">17</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s2</code></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>18</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{18}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">18</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s3</code></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>19</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{19}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">19</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s4</code></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>20</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{20}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">20</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$s5</code></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>21</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{21}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">21</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$sp</code></td>
+      <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>29</mtext><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">\text{29}_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">29</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Sample C code: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mi>y</mi><mo stretchy="false">)</mo><mo>×</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">z = (x + y) \times (x - y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>I-format</th>
+      <th>src</th>
+      <th>dest</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>opcode 6 bits</td>
+      <td>rs 5 bits</td>
+      <td>rt 5 bits</td>
+      <td>Address/immediate 16 bits</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assembly code</th>
+      <th>Machine code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">lw $s1,0($sp)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">100011 11101 10001 0x0000</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">lw $s2,4($sp)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">100011 11101 10010 0x0004</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sw $s5,8($sp)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">101011 10101 11101 0x0008</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>R-format</th>
+      <th>src1</th>
+      <th>src2</th>
+      <th>dest</th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>opcode 6 bits</td>
+      <td>rs 5 bits</td>
+      <td>rt 5 bits</td>
+      <td>rd 5 bits</td>
+      <td>shamt 5 bits</td>
+      <td>func 6 bits</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assembly code</th>
+      <th>Machine code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">add $s3,$s1,$s2</code></td>
+      <td><code class="language-plaintext highlighter-rouge">000000 10001 10010 10011 00000 100000</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sub $s4,$s1,$s2</code></td>
+      <td><code class="language-plaintext highlighter-rouge">000000 10001 10010 10100 00000 100010</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mul $s5,$s3,$s4</code></td>
+      <td><code class="language-plaintext highlighter-rouge">000000 10011 10100 10101 00000 100100</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="evaluation-of-our-isa-x295m-versus-mips-4">Evaluation of our ISA x295M versus MIPS</h2>
+
+<p>Sample C code: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mi>y</mi><mo stretchy="false">)</mo><mo>×</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">z = (x + y) \times (x - y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span></p>
+
+<p>x295M in machine code:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Memory address of each instruction</th>
+      <th>at address</th>
+      <th>+1</th>
+      <th>+2</th>
+      <th>+3</th>
+      <th>+4</th>
+      <th>+5</th>
+      <th>+6</th>
+      <th>+7</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x00400000</code></td>
+      <td><code class="language-plaintext highlighter-rouge">01 11</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0000</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1100</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x00400004</code></td>
+      <td><code class="language-plaintext highlighter-rouge">00 11</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0000</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0000</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x00400008</code></td>
+      <td><code class="language-plaintext highlighter-rouge">00 11</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0000</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0100</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x0040000c</code></td>
+      <td><code class="language-plaintext highlighter-rouge">10 11</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0001</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0000</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x00400010</code></td>
+      <td><code class="language-plaintext highlighter-rouge">00 11</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0000</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0000</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x00400014</code></td>
+      <td><code class="language-plaintext highlighter-rouge">00 11</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0000</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0100</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x00400018</code></td>
+      <td><code class="language-plaintext highlighter-rouge">11 11</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0000</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1000</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x0040001c</code></td>
+      <td><code class="language-plaintext highlighter-rouge">00 11</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0000</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1100</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x00400020</code></td>
+      <td><code class="language-plaintext highlighter-rouge">00 11</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1111</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0001</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0000</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>MIPS in machine code:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Memory address of each instruction</th>
+      <th>Machine code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x00400000</code></td>
+      <td><code class="language-plaintext highlighter-rouge">100011 11101 10001 0000 0000 0000 0000</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x00400004</code></td>
+      <td><code class="language-plaintext highlighter-rouge">100011 11101 10010 0000 0000 0000 0100</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x00400008</code></td>
+      <td><code class="language-plaintext highlighter-rouge">000000 10001 10010 10011 00000 100000</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x0040000c</code></td>
+      <td><code class="language-plaintext highlighter-rouge">000000 10001 10010 10100 00000 100010</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x00400010</code></td>
+      <td><code class="language-plaintext highlighter-rouge">000000 10011 10100 10101 00000 100100</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x00400014</code></td>
+      <td><code class="language-plaintext highlighter-rouge">101011 10101 11101 0000 0000 0000 0008</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="which-criteria-shall-we-use-when-comparingevaluating-isas">Which criteria shall we use when comparing/evaluating ISAs?</h2>
+
+<ul>
+  <li>Whether or not the Instruction set (IS) design guidelines
+have been satisfied:
+    <ol>
+      <li>Each instruction of IS have an unambiguous binary encoding</li>
+      <li>IS is functionally complete -&gt; i.e., it is “Turing complete”</li>
+      <li>In terms of machine instruction format:
+        <ol>
+          <li>Create as few of them as possible</li>
+          <li>Have them all of the same length</li>
+          <li>If we have different machine instruction formats, then position
+the fields that have the same purpose in the same location in
+the format</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="which-criteria-shall-we-use-when-comparingevaluating-isas-1">Which criteria shall we use when comparing/evaluating ISAs?</h2>
+
+<ul>
+  <li>Program performance -&gt; usually measured using time
+    <ul>
+      <li>If an ISA design results in faster program execution then it is
+deemed “better”</li>
+    </ul>
+  </li>
+  <li>What can affect the time a program takes to execute?
+    <ul>
+      <li>Since accessing memory is slow (slower than accessing
+registers), the number of memory accesses a program does
+will affect its execution time</li>
+      <li>Therefore, possible criteria: number of memory accesses</li>
+      <li>The fewer memory accesses our program makes, the faster it
+executes, hence the “better” it is</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="why-is-memory-access-slow">Why is memory access slow!</h2>
+
+<ul>
+  <li>Memory access is the most time constraining aspect of
+program execution</li>
+  <li>Why? Because of transfer rate limitation of the bus between
+memory and CPU
+    <ul>
+      <li>Memory is “far away” from the CPU so it takes time to transfer
+instructions and data from memory to microprocessor</li>
+    </ul>
+  </li>
+  <li>This is known as the von Neumann bottleneck</li>
+  <li>From the above diagram, we can gather that register
+access is faster than memory access! Why?</li>
+</ul>
+
+<p>Diagram:</p>
+
+<p>A box labled CPU contains Registers, Condition Codes, PC. It is on the left.
+A box labled Memory is on the right.
+There is an arrow from CPU to Memory labled “Address Bus”.
+There is a double-sided arrow from CPU and Memory, labled “Data Bus”.
+Finally, there is an arrow from Memory to the CPU labled “Instruction Bus”.</p>
+
+<h2 id="how-is-the-von-neumann-bottleneck-created">How is the von Neumann Bottleneck created?</h2>
+
+<ul>
+  <li>It is created when memory is accessed</li>
+  <li>During fetch stage
+    <ul>
+      <li>An instruction is retrieved from memory</li>
+    </ul>
+  </li>
+  <li>During decode/execute stages
+    <ul>
+      <li>The value of operands may be read from memory</li>
+      <li>The result may be written to memory</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="evaluation-of-our-isa-x295m-versus-mips-5">Evaluation of our ISA x295M versus MIPS</h2>
+
+<ul>
+  <li>Sample C code: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mi>y</mi><mo stretchy="false">)</mo><mo>×</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">z = (x + y) \times (x - y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span></li>
+  <li>Let’s count the number of memory accesses:</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>x295M</th>
+      <th>fetch</th>
+      <th>decode/execute</th>
+      <th>MIPS</th>
+      <th>fetch</th>
+      <th>decode/execute</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ADD 0($sp), 4($sp), 12($sp)</code></td>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">lw $s1,0($sp)</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SUB 0($sp), 4($sp), 16($sp)</code></td>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">lw $s2,4($sp)</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">MUL 12($sp), 16($sp), 8($sp)</code></td>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">add $s3,$s1,$s2</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">sub $s4,$s1,$s2</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">mul $s5,$s3,$s4</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">sw $s5,8($sp)</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Total: _____</p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>ISA design
+    <ul>
+      <li>MIPS</li>
+      <li>Created our own x295M: “Memory only”</li>
+    </ul>
+  </li>
+  <li>ISA Evaluation
+    <ul>
+      <li>Examining the effect of the von Neumann bottleneck on the
+execution time of our program by counting number of
+memory accesses
+        <ul>
+          <li>The fewer memory accesses our program makes, the faster it
+executes, hence the “better” it is</li>
+        </ul>
+      </li>
+      <li>Improvements:
+        <ul>
+          <li>Decreasing effect of von Neumann bottleneck by reducing
+the number of memory accesses</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="next-lecture">Next Lecture</h2>
+
+<ul>
+  <li>Instruction Set Architecture (ISA)
+    <ul>
+      <li>Definition of ISA</li>
+    </ul>
+  </li>
+  <li>Instruction Set design
+    <ul>
+      <li>Design principles</li>
+      <li>Look at an example of an instruction set: MIPS</li>
+      <li>Create our own</li>
+      <li>ISA evaluation</li>
+    </ul>
+  </li>
+  <li>(highlighted) Implementation of a microprocessor (CPU) based on an ISA
+    <ul>
+      <li>(highlighted) Execution of machine instructions (datapath)</li>
+      <li>(highlighted) Intro to logic design + Combinational logic + Sequential logic circuit</li>
+      <li>Sequential execution of machine instructions</li>
+      <li>Pipelined execution of machine instructions + Hazards</li>
+    </ul>
+  </li>
+</ul>
+
+
+    </div>
+  </main>
+  <hr>
+  <footer>
+  </footer>
+</body>
+</html>
